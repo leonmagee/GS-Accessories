@@ -35,7 +35,24 @@ get_header(); ?>
 $args = array('post_type' => 'accessories');
 $accessories_query = new WP_Query($args);    
 while ( $accessories_query->have_posts() ) {
-  $accessories_query->the_post(); ?>
+  $accessories_query->the_post(); 
+  
+  
+  $features = get_field('accessory_features');
+  $additional_features = get_field('additional_features');
+  $add_features_array = array();
+  if ( $additional_features ) {
+      foreach( $additional_features as $feature ) {
+          $add_features_array[] = $feature['feature'];
+      }
+  $combined_features = array_merge($features, $add_features_array);
+  } else {
+     $combined_features = $features; 
+  }
+  
+  
+  
+  ?>
 
 <li class="orbit-slide">
   <figure class="orbit-figure">
@@ -54,7 +71,15 @@ while ( $accessories_query->have_posts() ) {
       <div class="slide-content-wrap">
       <h2><?php the_title(); ?></h2>
       <p><?php echo get_field('accessory_text'); ?></p>
-    <a href="<?php the_permalink(); ?>">View Product</a>
+      <div class="features-section">
+        <h4>Features</h4>
+        <ul>
+        <?php foreach( $combined_features as $feature ) { ?>
+            <li><?php echo $feature; ?></li>
+        <?php } ?>
+        </ul>
+      </div>
+      <a href="<?php the_permalink(); ?>">View Product</a>
       
       </div>
 

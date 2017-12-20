@@ -52,4 +52,19 @@
             padding: 0 15px;
         }
     }
+
+    // .features-section {
+    //     ul {
+    //         list-style-type: none;
+    //     }
+    // }
+    .features-section {
+        padding-bottom: 15px;
+        ul {
+            list-style-type: none;
+            li {
+                font-size: 20px;
+            }
+        }
+    }
 }
