@@ -1,0 +1,33 @@
+.accessories-archive {
+    .accessorie-archive-item {
+        background-color: #FFF;
+        margin: 20px 0;
+        border: 1px solid #EEE;
+        padding: 10px;
+        &:hover {
+            opacity: 0.8;
+        }
+        a {
+            color: #222;
+            &:hover {
+                color: #222;
+            }
+        }
+        .content-wrap {
+            h2 {
+                border-bottom: 4px double #DDD;
+            }
+            @media(min-width: $screen-sm) {
+                padding: 0 15px;
+            }
+        }
+
+        img {
+            border: 1px solid #EEE;
+            margin-bottom: 15px;
+            @media(min-width: $screen-sm) {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

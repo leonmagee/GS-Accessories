@@ -1,0 +1,45 @@
+header#masthead {
+  background-color: $base-white;
+  padding: 10px 0;
+  margin: 0;
+  .grid-x {
+    align-items: center;
+  }
+
+  .site-branding {
+    padding: 10px;
+    @media(min-width: $screen-sm) {
+      padding: 0;
+    }
+    img {
+      @media(min-width: $screen-sm) {
+      max-width: 350px;
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    @media(min-width: $screen-sm) {
+    justify-content: flex-end;
+    margin-top: 0;
+    }
+    li {
+      font-size: 17px;
+      border-left: 1px solid #EAEAEA;
+      text-transform: uppercase;
+      &:first-child {
+        border: none;
+      }
+      a {
+        color: #333;
+        &:hover {
+          color: $brand-primary-hover;
+        }
+      }
+    }
+  }
+
+}

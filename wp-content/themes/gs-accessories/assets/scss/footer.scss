@@ -1,0 +1,29 @@
+footer.site-footer {
+  background-color: #FFF;
+  color: $base-dark;
+  padding: 20px 0;
+  //font-family: sans-serif;
+  text-align: center;
+  font-size: 12px;
+  @media(min-width: $screen-sm) {
+    text-align: left;
+    font-size: 14px;
+  }
+  a {
+    color: $base-dark;
+    text-decoration: none;
+    &:hover {
+      color: $brand-primary-hover;
+    }
+  }
+
+  span {
+    margin: 0 5px;
+    color: #777;
+  }
+
+  // .site-info {
+  //   max-width: 1200px;
+  //   margin: 0 auto;
+  // }
+}

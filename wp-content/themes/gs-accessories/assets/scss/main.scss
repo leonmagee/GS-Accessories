@@ -1,0 +1,93 @@
+body.gs-accessories {
+
+  font-family: 'Avenir', sans-serif;
+  h1, h2, h3, h4, h5, a, p {
+
+  font-family: 'Avenir', sans-serif;
+  }
+
+  .main-grid-wrap {
+    min-height: 100vh;
+  }
+
+  &.home {
+    //background-image: url('../img/pexels-phone-map-opt.jpg');
+    //background-size: cover;
+  }
+  h1 {
+    font-weight: 500;
+  }
+
+  //background-color: $brand-primary;
+  //margin: 0;
+
+  .max-width-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .main-content-wrap {
+    flex: 1;
+    display: flex;
+    //min-height: 300px;
+  }
+
+  .entry-content {
+    padding: 0 15px;
+    @media( min-width: $screen-md) {
+      padding: 0;
+    }
+  }
+
+  // .body-inner-wrap {
+
+  //   // max-width: 1200px;
+  //   // margin: 0 auto;
+
+  //   .main-content-wrap {
+  //     //min-height: 300px;
+  //   }
+  // }
+
+  // div#page {
+  //   min-height: 100vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   div#content {
+  //     flex: 1;
+  //   }
+  // }
+
+  h1, h2, h3, h4, h5 {
+    
+    }
+    
+    a {
+      color: darken($brand-primary, 15%);
+      &:hover {
+        color: $brand-primary;
+      }
+    }
+
+
+}
+
+button.gs-button {
+  background-color: $brand-primary-hover;
+  color: #FFF;
+  text-shadow: 1px 1px rgba(0,0,0,0.05);
+  font-weight: 600;
+  padding: 5px 15px;
+  font-size: 20px;
+  border: 2px solid $brand-primary-hover;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    background-color: darken($brand-primary, 5%);
+  }
+}
+
+// .foundation-test-container {
+//   height: 500px;
+//   background: green;
+// }

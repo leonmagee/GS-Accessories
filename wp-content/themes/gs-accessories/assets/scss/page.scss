@@ -1,0 +1,28 @@
+body.gs-accessories {
+    .content-area#primary {
+        background: #FAFAFA;
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        width: 100%;
+        padding: 30px 10px 20px;
+
+        h1.entry-title {
+            margin: 0 0 15px 0;
+            //border-bottom: 2px solid lighen($brand-second, 5%);
+            border-bottom: 4px double #CCC;
+            padding-bottom: 3px;
+            line-height: 1em;
+            font-size: 27px;
+            text-transform: uppercase;
+            text-align: center;
+            @media( min-width: $screen-sm) {
+                font-size: 36px;
+                text-align: left;
+            }
+        }
+
+        .entry-content {
+            margin-top: 0;
+        }
+    }
+}
