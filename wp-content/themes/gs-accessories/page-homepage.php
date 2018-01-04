@@ -74,9 +74,15 @@ while ( $accessories_query->have_posts() ) {
       <div class="features-section">
         <h4>Features</h4>
         <ul>
-        <?php foreach( $combined_features as $feature ) { ?>
+        <?php 
+          $counter = 0;
+          foreach( $combined_features as $feature ) { 
+          if ( $counter < 3 ) { ?>
             <li><?php echo $feature; ?></li>
-        <?php } ?>
+          <?php 
+            $counter++; 
+          }
+        } ?>
         </ul>
       </div>
       <a href="<?php the_permalink(); ?>">View Product</a>
