@@ -47,9 +47,16 @@ get_header();?>
 
               <div class="slide-image-wrap">
                 <?php
-                if (has_post_thumbnail()) {
-		//the_post_thumbnail('medium');
-                  the_post_thumbnail();
+$image_gallery = get_field('image_gallery');
+if ( $image_gallery && $img_featured = array_shift($image_gallery)) {
+
+  //if ( has_post_thumbnail() ) {
+  //the_post_thumbnail(); ?>
+  
+      <a href="<?php the_permalink();?>">
+          <img src="<?php echo $img_featured['url']; ?>" />
+      </a> <?php
+
                 } else {?>
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
                 <?php }?>

@@ -38,7 +38,7 @@
                 <?php $image_gallery = get_field('image_gallery');
 
 
-                if ( $img_featured = array_shift($image_gallery)) {
+                if ( $image_gallery && $img_featured = array_shift($image_gallery)) {
 
                 //if ( has_post_thumbnail() ) {
                 //the_post_thumbnail(); ?>
@@ -53,7 +53,7 @@
                 <div class="thumbnail-wrap">
 
                      <?php //var_dump($image_gallery); 
-                    
+                   if ( $image_gallery ) {
                     foreach( $image_gallery as $image ) {
                         $image_url = $image['sizes']['thumbnail']; ?>
                         <div class="img-wrap">
@@ -61,7 +61,8 @@
                                 <img src="<?php echo $image_url; ?>" />
                             </a>
                         </div>
-                    <?php } ?>
+                    <?php } 
+                    } ?>
 
                 </div>
 

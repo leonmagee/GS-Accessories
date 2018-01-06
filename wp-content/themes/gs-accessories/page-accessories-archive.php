@@ -24,8 +24,13 @@ get_header(); ?>
                             <div class="grid-x">
                                 <div class="cell medium-3 large-2 image-wrap">
                                     <?php 
-                                    if ( has_post_thumbnail() ) {
-                                    the_post_thumbnail('medium');
+
+                                    $image_gallery = get_field('image_gallery');
+                                    if ( $image_gallery && $img_featured = array_shift($image_gallery)) { ?>
+                                        
+                                        <img src="<?php echo $img_featured['sizes']['medium']; ?>" />
+                                    <?php
+
                                     } else { ?>
                                         <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image-small.jpg" />
                                     <?php } ?>
