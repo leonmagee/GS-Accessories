@@ -23,12 +23,9 @@
 }
 
 .homepage-slider {
-    //width: 100%;
-    //width: 100%;
-    //height: 500px;
-    //background: red;
-    //background-color: #EEE;
-    //flex: 1 1 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .accessorie-slide {
         background-color: #F7F7F7;
@@ -36,6 +33,9 @@
         border-bottom: 1px solid #EEE;
         padding: 20px;
         display: flex;
+        flex: 1;
+        min-height: 100%;
+
         //justify-content: space-around;
         justify-content: center; 
 
@@ -66,5 +66,9 @@
                 font-size: 20px;
             }
         }
+    }
+
+    .accessory-text-wrap {
+        min-height: 225px;
     }
 }

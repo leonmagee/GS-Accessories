@@ -10,6 +10,7 @@
  /**
   * Add Files
   **/
+require_once('lib/helper-functions.php');
 require_once('lib/generate-custom-post-type.php');
 function mm_register_post_types() {
 	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
