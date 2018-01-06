@@ -35,12 +35,37 @@
         ?>
         <div class="grid-x">
             <div class="image-wrap cell large-5">
-                <?php 
-                if ( has_post_thumbnail() ) {
-                the_post_thumbnail();
-                } else { ?>
+                <?php $image_gallery = get_field('image_gallery');
+
+
+                if ( $img_featured = array_shift($image_gallery)) {
+
+                //if ( has_post_thumbnail() ) {
+                //the_post_thumbnail(); ?>
+                
+                    <a href="<?php echo $img_featured['url']; ?>" rel="lightbox">
+                        <img src="<?php echo $img_featured['url']; ?>" />
+                    </a>
+                <?php } else { ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
                 <?php } ?>
+
+                <div class="thumbnail-wrap">
+
+                     <?php //var_dump($image_gallery); 
+                    
+                    foreach( $image_gallery as $image ) {
+                        $image_url = $image['sizes']['thumbnail']; ?>
+                        <div class="img-wrap">
+                            <a href="<?php echo $image['url']; ?>" rel="lightbox">
+                                <img src="<?php echo $image_url; ?>" />
+                            </a>
+                        </div>
+                    <?php } ?>
+
+                </div>
+
+
             </div>
             <div class="cell large-7 description-features-wrap">
                 <div class="accessory-description">

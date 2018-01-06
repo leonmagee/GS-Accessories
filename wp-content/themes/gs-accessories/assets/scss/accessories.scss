@@ -37,6 +37,12 @@
         bottom: 10px;
         }
     }
+    .thumbnail-wrap {
+        display: flex;
+        .img-wrap {
+            flex: 1;
+        }
+    }
 }
 
 .features-section ul li {

@@ -32,7 +32,7 @@ get_header(); ?>
                                 </div>
                                 <div class="cell medium-9 large-10 content-wrap">
                                     <h2><?php the_title(); ?></h2>
-                                    <p><?php echo get_field('accessory_text'); ?></p>
+                                    <p><?php echo content_excerpt(get_field('accessory_text'),500); ?></p>
                                 </div>
                             </div>
                         </a>
