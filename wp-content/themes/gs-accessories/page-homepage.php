@@ -46,7 +46,9 @@ get_header();?>
             <div class="accessorie-slide">
 
 
+              <div class="max-width-wrap-slider">
               <div class="grid-x">
+                
 
                 <div class="slide-image-wrap cell large-5">
 
@@ -65,9 +67,9 @@ get_header();?>
                     <?php }?>
                   </div>
 
-                  
 
-                  <div class="slide-content-wrap cell large-5">
+
+                  <div class="slide-content-wrap cell large-7">
 
 
                     <h2><?php the_title();?></h2>
@@ -97,6 +99,7 @@ get_header();?>
                  </div>
                </div>
 
+             </div>
              </div>
            </figure>
          </li>

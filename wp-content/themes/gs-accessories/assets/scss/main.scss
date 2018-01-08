@@ -32,6 +32,11 @@ body.gs-accessories {
     margin: 0 auto;
   }
 
+  .max-width-wrap-slider {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   .main-content-wrap {
     flex: 1;
     display: flex;
@@ -76,6 +81,18 @@ body.gs-accessories {
     }
 
 
+}
+
+h2 {
+  font-size: 25px;
+  padding-top: 10px;
+  text-align: center;
+  border-bottom: 1px solid #DDD;
+  @media(min-width: $screen-sm) {
+    font-size: 35px;
+    border: none;
+    text-align: left;
+  }
 }
 
 button.gs-button {

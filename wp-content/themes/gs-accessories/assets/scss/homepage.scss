@@ -40,15 +40,15 @@
         justify-content: center; 
 
         .slide-image-wrap {
-            flex: 0 1 30%;
+            //flex: 0 1 30%;
             img {
-                max-width: 400px;
+                //max-width: 400px;
                 border: 1px solid #DDD;
             }
         }
 
         .slide-content-wrap {
-            flex: 0 1 40%;
+            //flex: 0 1 40%;
             padding: 0 15px;
         }
     }
