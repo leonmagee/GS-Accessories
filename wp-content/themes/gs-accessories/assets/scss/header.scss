@@ -34,7 +34,11 @@ header#masthead {
         border: none;
       }
       a {
+        font-size: 14px;
         color: #333;
+        @media(min-width: $screen-sm) {
+        font-size: 17px;
+        }
         &:hover {
           color: $brand-primary-hover;
         }

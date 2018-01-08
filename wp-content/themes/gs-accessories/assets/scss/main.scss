@@ -6,6 +6,12 @@ body.gs-accessories {
   font-family: 'Avenir', sans-serif;
   }
 
+  // hide lightbox caption
+  .tos-caption-0 {
+    //opacity: 0;
+    display: none;
+  }
+
   .main-grid-wrap {
     min-height: 100vh;
   }

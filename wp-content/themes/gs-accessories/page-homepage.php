@@ -45,71 +45,79 @@ get_header();?>
           <figure class="orbit-figure">
             <div class="accessorie-slide">
 
-              <div class="slide-image-wrap">
-                <?php
-$image_gallery = get_field('image_gallery');
-if ( $image_gallery && $img_featured = array_shift($image_gallery)) {
 
-  //if ( has_post_thumbnail() ) {
-  //the_post_thumbnail(); ?>
-  
-      <a href="<?php the_permalink();?>">
-          <img src="<?php echo $img_featured['url']; ?>" />
-      </a> <?php
+              <div class="grid-x">
 
-                } else {?>
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
-                <?php }?>
-              </div>
+                <div class="slide-image-wrap cell large-5">
 
-              <div class="slide-content-wrap">
-                <h2><?php the_title();?></h2>
+                  <?php
+                  $image_gallery = get_field('image_gallery');
+                  if ( $image_gallery && $img_featured = array_shift($image_gallery)) {
 
-                <div class="accessory-text-wrap">
-                  <p><?php echo content_excerpt(get_field('accessory_text'), 400); ?></p>
-                </div>
+                    ?>
+
+                    <a href="<?php the_permalink();?>">
+                      <img src="<?php echo $img_featured['url']; ?>" />
+                      </a> <?php
+
+                    } else {?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
+                    <?php }?>
+                  </div>
+
+                  
+
+                  <div class="slide-content-wrap cell large-5">
 
 
-                <div class="features-section">
-                  <h4>Features</h4>
-                  <ul>
-                    <?php
-                    $counter = 0;
-                    foreach ($combined_features as $feature) {
-                      if ($counter < 3) {
-                       ?>
-                       <li><?php echo $feature; ?></li>
-                       <?php
-                       $counter++;
-                     }
-                   }?>
-                 </ul>
+                    <h2><?php the_title();?></h2>
+
+                    <div class="accessory-text-wrap">
+                      <p><?php echo content_excerpt(get_field('accessory_text'), 400); ?></p>
+                    </div>
+
+
+                    <div class="features-section">
+                      <h4>Features</h4>
+                      <ul>
+                        <?php
+                        $counter = 0;
+                        foreach ($combined_features as $feature) {
+                          if ($counter < 3) {
+                           ?>
+                           <li><?php echo $feature; ?></li>
+                           <?php
+                           $counter++;
+                         }
+                       }?>
+                     </ul>
+                   </div>
+                   <a href="<?php the_permalink();?>">View Product</a>
+
+                 </div>
                </div>
-               <a href="<?php the_permalink();?>">View Product</a>
 
              </div>
+           </figure>
+         </li>
 
-           </div>
-         </figure>
-       </li>
+         <?php }?>
 
-       <?php }?>
+       </ul>
+     </div>
+     <nav class="orbit-bullets">
+      <?php
+      $counter = 0;
+      while ($accessories_query->have_posts()) {
+       $accessories_query->the_post();?>
+       <button <?php if ($counter == 0) {echo 'class="is-active"';}?> data-slide="<?php echo $counter; ?>"><span class="show-for-sr">Slide <?php echo ($counter + 1); ?> details.</span></button>
 
-     </ul>
-   </div>
-   <nav class="orbit-bullets">
-    <?php
-    $counter = 0;
-    while ($accessories_query->have_posts()) {
-     $accessories_query->the_post();?>
-     <button <?php if ($counter == 0) {echo 'class="is-active"';}?> data-slide="<?php echo $counter; ?>"><span class="show-for-sr">Slide <?php echo ($counter + 1); ?> details.</span></button>
+       <?php
+       $counter++;
+     }?>
 
-     <?php
-     $counter++;
-   }?>
-
- </nav>
-</div>
+   </nav>
+ </div>
 
 
 </div>
@@ -126,3 +134,10 @@ if ( $image_gallery && $img_featured = array_shift($image_gallery)) {
 
 <?php
 get_footer();
+
+
+
+
+
+
+
