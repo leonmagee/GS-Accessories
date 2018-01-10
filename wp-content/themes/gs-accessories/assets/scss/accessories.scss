@@ -25,11 +25,15 @@
         }
     }
     .image-wrap {
-        background-image: url('../img/reticular_tissue.png');
-        background-size: 25px 25px;
-        background-color: #FFF;
         img {
-            border: 1px solid #EEE;
+            border: 1px solid #FFF;
+        }
+        .img-wrap-bg {
+
+            background-image: url('../img/gplaypattern.png');
+            //background-size: 25px 25px; //reticular_tissue.png
+            background-size: 188px 178px; //gplaypattern.png
+            background-color: #FFF;
         }
     }
 

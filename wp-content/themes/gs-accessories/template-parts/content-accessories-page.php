@@ -42,10 +42,11 @@
 
                 //if ( has_post_thumbnail() ) {
                 //the_post_thumbnail(); ?>
-                
+                <div class="img-wrap-bg">
                     <a href="<?php echo $img_featured['url']; ?>" rel="lightbox">
                         <img src="<?php echo $img_featured['url']; ?>" />
                     </a>
+                </div> 
                 <?php } else { ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
                 <?php } ?>
@@ -56,7 +57,7 @@
                    if ( $image_gallery ) {
                     foreach( $image_gallery as $image ) {
                         $image_url = $image['sizes']['thumbnail']; ?>
-                        <div class="img-wrap">
+                        <div class="img-wrap img-wrap-bg">
                             <a href="<?php echo $image['url']; ?>" rel="lightbox">
                                 <img src="<?php echo $image_url; ?>" />
                             </a>
