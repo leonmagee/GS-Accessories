@@ -1,9 +1,10 @@
 .accessories-archive {
     .accessorie-archive-item {
         background-color: #FFF;
-        margin: 20px 0;
+        //margin: 20px 0;
         border: 1px solid #EEE;
-        padding: 10px;
+        //padding: 10px;
+        margin: 10px;
         &:hover {
             opacity: 0.8;
         }
@@ -13,21 +14,38 @@
                 color: #222;
             }
         }
-        .content-wrap {
+        // .content-wrap {
+        //     h2 {
+        //         border-bottom: 4px double #DDD;
+        //     }
+        //     @media(min-width: $screen-sm) {
+        //         padding: 0 15px;
+        //     }
+        // }
+
+        .archive-item-title {
             h2 {
-                border-bottom: 4px double #DDD;
-            }
-            @media(min-width: $screen-sm) {
-                padding: 0 15px;
+                color: #333;
+                font-size: 0.9em;
+                text-align: center;
+                border: none;
+                @media(min-width: $screen-sm) {
+                    font-size: 1.3em;
+                }
             }
         }
 
-        img {
-            border: 1px solid #EEE;
-            margin-bottom: 15px;
-            @media(min-width: $screen-sm) {
-                margin-bottom: 0;
-            }
+        .archive-item-img-bg {
+            @include img_bg; 
+ 
         }
+
+        // img {
+        //     border: 1px solid #EEE;
+        //     //margin-bottom: 15px;
+        //     @media(min-width: $screen-sm) {
+        //         margin-bottom: 0;
+        //     }
+        // }
     }
 }

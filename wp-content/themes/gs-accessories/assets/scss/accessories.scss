@@ -30,10 +30,12 @@
         }
         .img-wrap-bg {
 
-            background-image: url('../img/gplaypattern.png');
-            //background-size: 25px 25px; //reticular_tissue.png
-            background-size: 188px 178px; //gplaypattern.png
-            background-color: #FFF;
+            @include img_bg; 
+
+            // background-image: url('../img/gplaypattern.png');
+            // //background-size: 25px 25px; //reticular_tissue.png
+            // background-size: 188px 178px; //gplaypattern.png
+            // background-color: #FFF;
         }
     }
 
