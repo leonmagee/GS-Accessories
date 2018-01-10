@@ -12,13 +12,55 @@ get_header(); ?>
 <div id="primary" class="content-area">
   <div class="max-width-wrap accessories-archive">
    <main id="main" class="site-main">
-    <div class="grid-x">
+
+
+
+    <div id="filters" class="isotope-menu">
+
+          <div class="isotope-button-group">
+            
+           <a href="#" id="reset-search" class="button secondary" >All Products</a>
+
+            <?php $all_cats = get_categories(); //var_dump($all_cats); 
+
+            foreach( $all_cats as $cat ) { 
+
+              if ( $cat->name != 'Uncategorized' ) {
+              ?>
+
+           <a href="#" class="button secondary" data-filter=".<?php echo $cat->slug; ?>">
+                <?php echo $cat->name; ?></a>
+
+            <?php }
+
+            } ?>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="grid-x isotope-content isotope">
         <?php
         $args = array('post_type' => 'accessories');
         $accessories_query = new WP_Query($args);    
         while ( $accessories_query->have_posts() ) {
-            $accessories_query->the_post(); ?>
-            <div class="small-6 medium-4 cell">
+            $accessories_query->the_post(); 
+
+//var_dump($post->ID);
+            $cats = get_the_category();
+            //var_dump($cats);
+
+            $cat_string = '';
+            foreach( $cats as $cat ) {
+                $cat_string .= $cat->slug . ' ';
+            }
+
+            //var_dump($cat_string);
+
+            ?>
+            <div class="small-6 medium-3 cell isotope-item <?php echo $cat_string; ?>">
                 <a href="<?php the_permalink(); ?>">
                     <div class="accessorie-archive-item">
                         <div class="archive-item-img-bg">
