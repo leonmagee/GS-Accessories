@@ -19,7 +19,7 @@ get_header(); ?>
 
           <div class="isotope-button-group">
             
-           <a href="#" id="reset-search" class="button secondary" >All Products</a>
+           <a href="#" id="isotope-reset" class="button secondary active" >All Products</a>
 
             <?php $all_cats = get_categories(); //var_dump($all_cats); 
 
@@ -28,7 +28,7 @@ get_header(); ?>
               if ( $cat->name != 'Uncategorized' ) {
               ?>
 
-           <a href="#" class="button secondary" data-filter=".<?php echo $cat->slug; ?>">
+           <a href="#" class="button cat secondary" data-filter=".<?php echo $cat->slug; ?>">
                 <?php echo $cat->name; ?></a>
 
             <?php }

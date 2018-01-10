@@ -1,7 +1,27 @@
-.grid-item {
-    background: red;
-}
+.isotope-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    a.button {
+        flex: 0 1 46%;
+        margin: 2%;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 10px;
+        font-size: 10px;
 
+        @media(min-width: $screen-sm) {
+            flex: 1;
+            margin: 10px;
+            font-size: 15px;
+            line-height: 15px;
+        }
+
+        &.active {
+            background-color: $brand-second;
+        }
+    }
+}
 
 
 

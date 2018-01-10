@@ -10,14 +10,14 @@
  /**
   * Add Files
   **/
-require_once('lib/helper-functions.php');
-require_once('lib/generate-custom-post-type.php');
-function mm_register_post_types() {
-	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
-}
-add_action( 'init', 'mm_register_post_types' );
+ require_once('lib/helper-functions.php');
+ require_once('lib/generate-custom-post-type.php');
+ function mm_register_post_types() {
+ 	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
+ }
+ add_action( 'init', 'mm_register_post_types' );
 
-if ( ! function_exists( 'gs_accessories_setup' ) ) :
+ if ( ! function_exists( 'gs_accessories_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -184,39 +184,47 @@ function gs_accessories_custom_scripts() {
 	
 		// wp_enqueue_style( 'google-fonts-black-ops-one' );
 
-		wp_register_style( 'foundation-css', get_template_directory_uri() . '/vendor/foundation/css/foundation.min.css', '', '1.0.1' );
-		
-		wp_enqueue_style( 'foundation-css' );
+	wp_register_style( 'foundation-css', get_template_directory_uri() . '/vendor/foundation/css/foundation.min.css', '', '1.0.1' );
 
+	wp_enqueue_style( 'foundation-css' );
+
+		//wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
+
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.0.2', true );
+
+		//wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
+
+	wp_enqueue_script( 'custom-js');
+
+
+	wp_register_script( 'foundation-js', get_template_directory_uri() . '/vendor/foundation/js/vendor/foundation.min.js', '', '1.0.1' );
+
+	wp_register_script( 'foundation-init-js', get_template_directory_uri() . '/vendor/foundation/js/app.js', array('jquery','foundation-js'), '1.0.2', true );
+
+	wp_enqueue_script( 'foundation-init-js' );
+
+	
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.1' );
+	
+	wp_enqueue_style( 'gs-accessories-styles' );
+
+	if ( is_page('Products') ) {
 		wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
 
-		wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'isotope-js'), '1.0.2', true );
+		wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
 
-		wp_enqueue_script( 'custom-js');
-
-
-
-		wp_register_script( 'foundation-js', get_template_directory_uri() . '/vendor/foundation/js/vendor/foundation.min.js', '', '1.0.1' );
-		
-		wp_register_script( 'foundation-init-js', get_template_directory_uri() . '/vendor/foundation/js/app.js', array('jquery','foundation-js'), '1.0.2', true );
-		
-		wp_enqueue_script( 'foundation-init-js' );
-
-	
-		wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.1' );
-	
-		wp_enqueue_style( 'gs-accessories-styles' );
-	
+		wp_enqueue_script( 'isotope-custom-js');
 	}
-	
-	add_action( 'wp_enqueue_scripts', 'gs_accessories_custom_scripts' );
+}
+
+add_action( 'wp_enqueue_scripts', 'gs_accessories_custom_scripts' );
 
 
-	/**
+/**
  * Add ACF Theme Options Page
  */
-if ( function_exists( 'acf_add_options_page' ) ) {
-	
+	if ( function_exists( 'acf_add_options_page' ) ) {
+
 		acf_add_options_page( array(
 			'page_title' => 'Theme General Settings',
 			'menu_title' => 'Theme Settings',
