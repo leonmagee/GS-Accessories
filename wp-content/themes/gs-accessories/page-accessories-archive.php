@@ -60,7 +60,7 @@ get_header(); ?>
             //var_dump($cat_string);
 
             ?>
-            <div class="small-6 medium-3 cell isotope-item <?php echo $cat_string; ?>">
+            <div class="small-6 medium-4 large-3 cell isotope-item <?php echo $cat_string; ?>">
                 <a href="<?php the_permalink(); ?>">
                     <div class="accessorie-archive-item">
                         <div class="archive-item-img-bg">
