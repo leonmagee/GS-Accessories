@@ -41,9 +41,9 @@
 
     .order-button-wrap {
         @media( min-width: $screen-md) {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
         }
     }
     .thumbnail-wrap {
@@ -71,4 +71,27 @@
     border-style: double;
     border-color: #CCC;
     content: '';
+}
+
+.protections-wrap {
+    //padding: 15px 0;
+
+    .protection {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        svg {
+            max-width: 50px;
+            max-height: 50px;
+            path, rect {
+                fill: darken($brand-primary, 5%);
+            }
+        }
+        span {
+            margin-left: 5px;
+            font-size: 23px;
+            //font-weight: bold;
+            color: #222;
+        }
+    }
 }
