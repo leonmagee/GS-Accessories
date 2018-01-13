@@ -1,0 +1,78 @@
+.isotope-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    a.button {
+        flex: 0 1 46%;
+        margin: 2%;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 10px;
+        font-size: 10px;
+
+        @media(min-width: $screen-sm) {
+            flex: 1;
+            margin: 10px;
+            font-size: 13px;
+            line-height: 13px;
+        }
+
+        &.active {
+            background-color: $brand-second;
+        }
+    }
+}
+
+
+
+.accessories-archive {
+    .accessorie-archive-item {
+        background-color: #FFF;
+        //margin: 20px 0;
+        border: 1px solid #EEE;
+        //padding: 10px;
+        margin: 10px;
+        &:hover {
+            opacity: 0.8;
+        }
+        a {
+            color: #222;
+            &:hover {
+                color: #222;
+            }
+        }
+        // .content-wrap {
+        //     h2 {
+        //         border-bottom: 4px double #DDD;
+        //     }
+        //     @media(min-width: $screen-sm) {
+        //         padding: 0 15px;
+        //     }
+        // }
+
+        .archive-item-title {
+            h2 {
+                color: #333;
+                font-size: 0.9em;
+                text-align: center;
+                border: none;
+                @media(min-width: $screen-sm) {
+                    font-size: 1.3em;
+                }
+            }
+        }
+
+        .archive-item-img-bg {
+            @include img_bg; 
+ 
+        }
+
+        // img {
+        //     border: 1px solid #EEE;
+        //     //margin-bottom: 15px;
+        //     @media(min-width: $screen-sm) {
+        //         margin-bottom: 0;
+        //     }
+        // }
+    }
+}

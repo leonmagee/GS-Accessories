@@ -10,87 +10,47 @@
 get_header(); ?>
 
 <div id="primary" class="content-area">
+
   <div class="max-width-wrap accessories-archive">
+
    <main id="main" class="site-main">
 
+    <div class="cat_archive_wrap">
+        
+    <?php $custom_field_cats = get_field('categories','option'); 
+
+    //var_dump($custom_field_cats); 
 
 
-    <div id="filters" class="isotope-menu">
+    foreach( $custom_field_cats as $cat) { ?>
 
-          <div class="isotope-button-group">
-            
-           <a href="#" id="isotope-reset" class="button secondary active" >All Products</a>
+        <a href="<?php echo site_url() . '/products/' . $cat['url']; ?>">
 
-            <?php $all_cats = get_categories(); //var_dump($all_cats); 
+            <div class="cat_archive_item">
 
-            foreach( $all_cats as $cat ) { 
+                <?php //var_dump( $cat['image']['sizes']['cats_image']); ?>
 
-              if ( $cat->name != 'Uncategorized' ) {
-              ?>
+                <img src="<?php echo $cat['image']['sizes']['cats_image']; ?>" />
+                
+                <h3><?php echo $cat['title']; ?></h3>
 
-           <a href="#" class="button cat secondary" data-filter=".<?php echo $cat->slug; ?>">
-                <?php echo $cat->name; ?></a>
+            </div>
 
-            <?php }
+        </a>
 
-            } ?>
-
-        </div>
+    <?php } ?>
 
     </div>
 
 
 
-    <div class="grid-x isotope-content isotope">
-        <?php
-        $args = array('post_type' => 'accessories');
-        $accessories_query = new WP_Query($args);    
-        while ( $accessories_query->have_posts() ) {
-            $accessories_query->the_post(); 
 
-//var_dump($post->ID);
-            $cats = get_the_category();
-            //var_dump($cats);
 
-            $cat_string = '';
-            foreach( $cats as $cat ) {
-                $cat_string .= $cat->slug . ' ';
-            }
 
-            //var_dump($cat_string);
-
-            ?>
-            <div class="small-6 medium-4 large-3 cell isotope-item <?php echo $cat_string; ?>">
-                <a href="<?php the_permalink(); ?>">
-                    <div class="accessorie-archive-item">
-                        <div class="archive-item-img-bg">
-
-                            <?php 
-
-                            $image_gallery = get_field('image_gallery');
-                            if ( $image_gallery && $img_featured = array_shift($image_gallery)) { ?>
-
-                            <img src="<?php echo $img_featured['sizes']['medium']; ?>" />
-
-                            <?php
-
-                        } else { ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image-small.jpg" />
-                        <?php } ?>
-                    </div>
-
-                    <div class="archive-item-title">
-                        <h2><?php the_title(); ?></h2>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <?php } ?>
-    </div>
 </main><!-- #main -->
 </div>
 </div><!-- #primary -->
 
 <?php
-get_sidebar();
+//get_sidebar();
 get_footer();

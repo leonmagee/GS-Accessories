@@ -208,13 +208,13 @@ function gs_accessories_custom_scripts() {
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 
-	if ( is_page('Products') ) {
-		wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
+	// if ( is_page('Products') ) {
+	// 	wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
 
-		wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
+	// 	wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
 
-		wp_enqueue_script( 'isotope-custom-js');
-	}
+	// 	wp_enqueue_script( 'isotope-custom-js');
+	// }
 }
 
 add_action( 'wp_enqueue_scripts', 'gs_accessories_custom_scripts' );
@@ -223,17 +223,26 @@ add_action( 'wp_enqueue_scripts', 'gs_accessories_custom_scripts' );
 /**
  * Add ACF Theme Options Page
  */
-	if ( function_exists( 'acf_add_options_page' ) ) {
+if ( function_exists( 'acf_add_options_page' ) ) {
 
-		acf_add_options_page( array(
-			'page_title' => 'Theme General Settings',
-			'menu_title' => 'Theme Settings',
-			'menu_slug'  => 'theme-general-settings',
-			'capability' => 'edit_posts',
-			'redirect'   => false,
-			'icon_url'   => 'dashicons-admin-settings',
-			'position'   => 4
-		) );
-	}
+	acf_add_options_page( array(
+		'page_title' => 'Theme General Settings',
+		'menu_title' => 'Theme Settings',
+		'menu_slug'  => 'theme-general-settings',
+		'capability' => 'edit_posts',
+		'redirect'   => false,
+		'icon_url'   => 'dashicons-admin-settings',
+		'position'   => 4
+	) );
+}
+
+/**
+* Add Image Sizes
+*/
+function gs_accessories_image_sizes() {
+	add_image_size('cats_image', 500, 250, true);
+}
+
+add_action('init', 'gs_accessories_image_sizes');
 	
 	
