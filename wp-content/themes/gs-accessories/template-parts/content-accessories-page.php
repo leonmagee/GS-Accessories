@@ -10,6 +10,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
 	<header class="entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
@@ -18,6 +19,8 @@
         <?php
         
         $description = get_field('accessory_text');
+
+        $protections = get_field('accessory_protections');
 
         $features = get_field('accessory_features');
 
@@ -74,29 +77,53 @@
                         <h4>Description</h4>
                         <?php echo $description; ?>
                     </div>
+
+                    <?php if ( $protections ) { ?>
+
                     <div class="protections-wrap">
+
+                        <h4>Protections</h4>
+
+                        <?php foreach( $protections as $protection ) {
+
+                        if ( $protection == 'Overcharge Protection' ) { ?>
 
                         <div class="protection">
                             <?php get_template_part('assets/svg/over-charge-protection'); ?>
                             <span>Overcharge Protection</span>
                         </div>
+                        <?php }
+
+                        if ( $protection == 'Over-Voltage Protection' ) { ?>
 
                         <div class="protection">
                             <?php get_template_part('assets/svg/voltage-protection'); ?>
                             <span>Over-Voltage Protection</span>
                         </div>
+                        <?php }
+
+                        if ( $protection == 'Short Circuit Protection' ) { ?>
 
                         <div class="protection">
                             <?php get_template_part('assets/svg/short-circuit-protection'); ?>
                             <span>Short Circuit Protection</span>
                         </div>
+                        <?php }
+
+                        if ( $protection == 'Over-Current Protection' ) { ?>
 
                         <div class="protection">
                             <?php get_template_part('assets/svg/current-protection'); ?>
                             <span>Over-Current Protection</span>
                         </div>
+                        <?php }
+
+                        } ?>
 
                     </div>
+
+                    <?php } ?>
+
                     <div class="features-section">
                         <h4>Features</h4>
                         <ul>

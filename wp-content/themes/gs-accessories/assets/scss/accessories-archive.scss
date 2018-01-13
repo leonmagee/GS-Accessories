@@ -1,23 +1,31 @@
 .cat_archive_wrap {
 
-    display: flex;
-    flex-wrap: wrap;
-    //background: blue;
-    justify-content: space-around;
+    @media(min-width: $screen-sm) {
+        display: flex;
+        flex-wrap: wrap;
+        //background: blue;
+        //justify-content: space-around;
+    }
 
     .cat_archive_item {
 
         border: 1px solid #DDD;
-        flex: 1 1 46%;
-        margin: 2%;
-        margin-bottom: 10px;
+        margin: 15px 0;
+        text-align: center;
+        background-color: #FFF;
+
+        @media(min-width: $screen-sm) {
+            flex: 0 1 31%;
+            margin: 1%;
+            margin-bottom: 10px;
+        }
 
         img {
             //border: 1px solid #EEE;
-            border-bottom: 1px solid #333;
         }
 
         h3 {
+            border-top: 1px solid #333;
             color: #EEE;
             text-align: center;
             background: #444;

@@ -13,41 +13,39 @@ get_header(); ?>
 
   <div class="max-width-wrap accessories-archive">
 
-   <main id="main" class="site-main">
+     <main id="main" class="site-main">
 
-    <div class="cat_archive_wrap">
-        
-    <?php $custom_field_cats = get_field('categories','option'); 
+        <div class="cat_archive_wrap">
 
-    //var_dump($custom_field_cats); 
+            <?php $custom_field_cats = get_field('categories','option'); 
 
-
-    foreach( $custom_field_cats as $cat) { ?>
-
-        <a href="<?php echo site_url() . '/products/' . $cat['url']; ?>">
+            foreach( $custom_field_cats as $cat) { ?>
 
             <div class="cat_archive_item">
 
-                <?php //var_dump( $cat['image']['sizes']['cats_image']); ?>
+                <a href="<?php echo site_url() . '/products/' . $cat['url']; ?>">
 
-                <img src="<?php echo $cat['image']['sizes']['cats_image']; ?>" />
-                
-                <h3><?php echo $cat['title']; ?></h3>
+                    <?php //var_dump( $cat['image']['sizes']['cats_image']); ?>
+
+                    <img src="<?php echo $cat['image']['sizes']['cats_image']; ?>" />
+
+                    <h3><?php echo $cat['title']; ?></h3>
+
+                </a>
 
             </div>
 
-        </a>
 
-    <?php } ?>
+            <?php } ?>
 
-    </div>
-
+        </div>
 
 
 
 
 
-</main><!-- #main -->
+
+    </main><!-- #main -->
 </div>
 </div><!-- #primary -->
 

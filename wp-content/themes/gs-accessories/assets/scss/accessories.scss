@@ -6,13 +6,19 @@
         margin-bottom: 2px;
         font-size: 1.4em;
     }
+    h4 {
+        margin-top: 10px;
+        @media(min-width: $screen-sm) {
+            margin-top: 0;
+        }
+    }
     .description-features-wrap {
         @media(min-width: $screen-md) {
             padding: 0 30px;
         }
         .accessory-description {
             font-size: 16px;
-            padding-bottom: 15px;
+            padding-bottom: 20px;
         }
         .features-section {
             padding-bottom: 15px;
@@ -26,17 +32,17 @@
     }
     .image-wrap {
         img {
-            border: 1px solid #FFF;
+            border: 1px solid #EEE;
         }
-        .img-wrap-bg {
+        // .img-wrap-bg {
 
-            @include img_bg; 
+        //     @include img_bg; 
 
-            // background-image: url('../img/gplaypattern.png');
-            // //background-size: 25px 25px; //reticular_tissue.png
-            // background-size: 188px 178px; //gplaypattern.png
-            // background-color: #FFF;
-        }
+        //     // background-image: url('../img/gplaypattern.png');
+        //     // //background-size: 25px 25px; //reticular_tissue.png
+        //     // background-size: 188px 178px; //gplaypattern.png
+        //     // background-color: #FFF;
+        // }
     }
 
     .order-button-wrap {
@@ -75,21 +81,22 @@
 
 .protections-wrap {
     //padding: 15px 0;
+    padding-bottom: 15px;
 
     .protection {
         display: flex;
         align-items: center;
         padding: 10px 0;
         svg {
-            max-width: 50px;
-            max-height: 50px;
+            max-width: 40px;
+            max-height: 40px;
             path, rect {
                 fill: darken($brand-primary, 5%);
             }
         }
         span {
             margin-left: 5px;
-            font-size: 23px;
+            font-size: 20px;
             //font-weight: bold;
             color: #222;
         }
