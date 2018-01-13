@@ -46,8 +46,8 @@
                 //if ( has_post_thumbnail() ) {
                 //the_post_thumbnail(); ?>
                 <div class="img-wrap-bg">
-                    <a href="<?php echo $img_featured['url']; ?>" rel="lightbox">
-                        <img src="<?php echo $img_featured['url']; ?>" />
+                    <a href="<?php echo $img_featured['sizes']['large']; ?>" rel="lightbox">
+                        <img src="<?php echo $img_featured['sizes']['accessory_image']; ?>" />
                     </a>
                 </div> 
                 <?php } else { ?>
@@ -61,7 +61,7 @@
                         foreach( $image_gallery as $image ) {
                             $image_url = $image['sizes']['thumbnail']; ?>
                             <div class="img-wrap img-wrap-bg">
-                                <a href="<?php echo $image['url']; ?>" rel="lightbox">
+                                <a href="<?php echo $image['sizes']['large']; ?>" rel="lightbox">
                                     <img src="<?php echo $image_url; ?>" />
                                 </a>
                             </div>

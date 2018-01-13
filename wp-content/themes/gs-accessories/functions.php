@@ -241,6 +241,7 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 */
 function gs_accessories_image_sizes() {
 	add_image_size('cats_image', 500, 250, true);
+	add_image_size('accessory_image', 800, 800, true);
 }
 
 add_action('init', 'gs_accessories_image_sizes');
