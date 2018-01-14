@@ -1,51 +1,70 @@
 <?php
 /**
- * The template for displaying archive pages
+ * Template Name: Accessories Archive Isotope
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package GS_Accessories
  */
 
-get_header(); ?>
+get_header(); 
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+$current_cat = get_queried_object()->slug;
+?>
 
-		<?php
-		if ( have_posts() ) : ?>
+<div id="primary" class="content-area">
+  <div class="max-width-wrap accessories-archive">
+   <main id="main" class="site-main">
 
-			<header class="page-header">
-				<?php
-					the_archive_title( '<h1 class="page-title">', '</h1>' );
-					the_archive_description( '<div class="archive-description">', '</div>' );
-				?>
-			</header><!-- .page-header -->
+    <div class="grid-x isotope-content isotope">
+        <?php
+        $args = array('post_type' => 'accessories', 'category_name' => $current_cat);
+        $accessories_query = new WP_Query($args);    
+        while ( $accessories_query->have_posts() ) {
+            $accessories_query->the_post(); 
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+//var_dump($post->ID);
+            $cats = get_the_category();
+            //var_dump($cats);
 
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_format() );
+            $cat_string = '';
+            foreach( $cats as $cat ) {
+                $cat_string .= $cat->slug . ' ';
+            }
 
-			endwhile;
+            //var_dump($cat_string);
 
-			the_posts_navigation();
+            ?>
+            <div class="small-6 medium-4 large-3 cell isotope-item <?php echo $cat_string; ?>">
+                <a href="<?php the_permalink(); ?>">
+                    <div class="accessorie-archive-item">
+                        <div class="archive-item-img-bg">
 
-		else :
+                            <?php 
 
-			get_template_part( 'template-parts/content', 'none' );
+                            $image_gallery = get_field('image_gallery');
+                            if ( $image_gallery && $img_featured = array_shift($image_gallery)) { ?>
 
-		endif; ?>
+                            <img src="<?php echo $img_featured['sizes']['accessory_image']; ?>" />
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+                            <?php
+
+                        } else { ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image-small.jpg" />
+                        <?php } ?>
+                    </div>
+
+                    <div class="archive-item-title">
+                        <h2><?php the_title(); ?></h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <?php } ?>
+    </div>
+</main><!-- #main -->
+</div>
+</div><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();
