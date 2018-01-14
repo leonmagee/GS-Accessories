@@ -32,11 +32,19 @@
             }
             $combined_features = array_merge($features, $add_features_array);
         } else {
-         $combined_features = $features; 
-     }
+           $combined_features = $features; 
+       }
 
-     ?>
-     <div class="grid-x">
+       $colors = get_field('accessory_colors');
+
+       if ( $colors ) {
+        $border_class = 'border-class';
+       } else {
+        $border_class = '';
+       }
+
+       ?>
+       <div class="grid-x">
         <div class="image-wrap cell large-5">
             <?php $image_gallery = get_field('image_gallery');
 
@@ -86,51 +94,64 @@
 
                         <?php foreach( $protections as $protection ) {
 
-                        if ( $protection == 'Overcharge Protection' ) { ?>
+                            if ( $protection == 'Overcharge Protection' ) { ?>
 
-                        <div class="protection">
-                            <?php get_template_part('assets/svg/over-charge-protection'); ?>
-                            <span>Overcharge Protection</span>
-                        </div>
-                        <?php }
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/over-charge-protection'); ?>
+                                <span>Overcharge Protection</span>
+                            </div>
+                            <?php }
 
-                        if ( $protection == 'Over-Voltage Protection' ) { ?>
+                            if ( $protection == 'Over-Voltage Protection' ) { ?>
 
-                        <div class="protection">
-                            <?php get_template_part('assets/svg/voltage-protection'); ?>
-                            <span>Over-Voltage Protection</span>
-                        </div>
-                        <?php }
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/voltage-protection'); ?>
+                                <span>Over-Voltage Protection</span>
+                            </div>
+                            <?php }
 
-                        if ( $protection == 'Short Circuit Protection' ) { ?>
+                            if ( $protection == 'Short Circuit Protection' ) { ?>
 
-                        <div class="protection">
-                            <?php get_template_part('assets/svg/short-circuit-protection'); ?>
-                            <span>Short Circuit Protection</span>
-                        </div>
-                        <?php }
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/short-circuit-protection'); ?>
+                                <span>Short Circuit Protection</span>
+                            </div>
+                            <?php }
 
-                        if ( $protection == 'Over-Current Protection' ) { ?>
+                            if ( $protection == 'Over-Current Protection' ) { ?>
 
-                        <div class="protection">
-                            <?php get_template_part('assets/svg/current-protection'); ?>
-                            <span>Over-Current Protection</span>
-                        </div>
-                        <?php }
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/current-protection'); ?>
+                                <span>Over-Current Protection</span>
+                            </div>
+                            <?php }
 
                         } ?>
 
                     </div>
 
                     <?php } ?>
-
-                    <div class="features-section">
-                        <h4>Features</h4>
-                        <ul>
-                            <?php foreach( $combined_features as $feature ) { ?>
-                            <li><?php echo $feature; ?></li>
-                            <?php } ?>
-                        </ul>
+                    <div class="features-section-wrap">
+                        <?php if ( $combined_features ) { ?>
+                        <div class="features-section <?php echo $border_class; ?>">
+                            <h4>Features</h4>
+                            <ul>
+                                <?php foreach( $combined_features as $feature ) { ?>
+                                <li><?php echo $feature; ?></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <?php } ?>
+                        <?php if ( $colors ) { ?>
+                        <div class="features-section">
+                            <h4>Colors</h4>
+                            <ul>
+                                <?php foreach( $colors as $color ) { ?>
+                                <li><?php echo $color; ?></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <?php } ?>
                     </div>
                     <div class="order-button-wrap">
                         <button class="gs-button">Request Item</button>
