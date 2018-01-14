@@ -52,28 +52,22 @@
 
         .archive-item-title {
             h2 {
-                //color: #333;
                 font-size: 0.9em;
-                // text-align: center;
-                // border: none;
+                border-top: 1px solid darken( $brand-primary, 18%);
+                color: #EEE;
+                text-align: center;
+                background: darken($brand-primary, 15%);
+                margin: 0;
+                padding: 5px 15px;
+                font-weight: bold;
+                text-shadow: 1px 1px darken( $brand-primary, 18%);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
                 @media(min-width: $screen-sm) {
                     font-size: 1.3em;
                 }
-
-
-
-
-            border-top: 1px solid darken( $brand-primary, 18%);
-            color: #EEE;
-            text-align: center;
-            background: darken($brand-primary, 15%);
-            margin: 0;
-            padding: 5px 0;
-            //font-size: 20px;
-            font-weight: bold;
-            text-shadow: 1px 1px darken( $brand-primary, 18%);
-
-
             }
         }
 
