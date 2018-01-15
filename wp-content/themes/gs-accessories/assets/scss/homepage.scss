@@ -29,6 +29,7 @@
 
     .accessorie-slide {
         background-color: #F7F7F7;
+        @include img_bg;
         border-top: 1px solid #EEE;
         border-bottom: 1px solid #EEE;
         padding: 20px;
@@ -58,17 +59,29 @@
     //         list-style-type: none;
     //     }
     // }
+    .features-protections-wrap {
+        @media(min-width: $screen-sm) {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+
     .features-section {
         padding-bottom: 15px;
         ul {
             list-style-type: none;
             li {
                 font-size: 20px;
+                margin: 5px 0;
+                position: relative;
+                &:before {
+                    @include diamonds;
+                }
             }
         }
     }
 
     .accessory-text-wrap {
-        min-height: 225px;
+        //min-height: 225px;
     }
 }

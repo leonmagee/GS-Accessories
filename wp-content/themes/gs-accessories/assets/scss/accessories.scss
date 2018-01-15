@@ -87,6 +87,10 @@
                 font-size: 20px;
                 margin: 5px 0;
                 position: relative;
+
+                &:before {
+                    @include diamonds;
+                }
             }
         }
 
@@ -96,20 +100,9 @@
     //     margin: 5px 0;
     //     position: relative;
     // }
-    .features-section ul li:before {
-        -moz-transform:rotate(45deg);
-        -webkit-transform:rotate(45deg);
-        -o-transform:rotate(45deg);
-        -ms-transform:rotate(45deg);
-        width: 13px;
-        height: 13px;
-        left: -21px;
-        top: 9px;
-        position: absolute;
-        border-style: double;
-        border-color: #CCC;
-        content: '';
-    }
+    // .features-section ul li:before {
+    //     @include diamonds;
+    // }
 
 }
 

@@ -154,7 +154,7 @@
                         <?php } ?>
                     </div>
                     <div class="order-button-wrap">
-                        <button class="gs-button">Request Item</button>
+                        <a class="gs-button">Request Item</a>
                     </div>
                 </div>
             </div>
