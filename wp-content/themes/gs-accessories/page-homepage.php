@@ -59,6 +59,12 @@ get_header();
 
           $combined_features = $features;
         }
+
+        if ( $combined_features && $protections ) {
+          $flex_class = 'flex_class';
+        } else {
+          $flex_class = '';
+        }
         ?>
 
         <li class="orbit-slide">
@@ -99,7 +105,7 @@ get_header();
                         <p><?php echo content_excerpt(get_field('accessory_text', $accessory['accessory']->ID), 125); ?></p>
                       </div>
 
-                      <div class="features-protections-wrap">
+                      <div class="features-protections-wrap <?php echo $flex_class; ?>">
 
                         <?php if ( $combined_features ) { ?>
                         <div class="features-section">
