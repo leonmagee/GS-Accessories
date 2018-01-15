@@ -71,7 +71,8 @@
         ul {
             list-style-type: none;
             li {
-                font-size: 20px;
+                //font-size: 20px;
+                font-size: 17px;
                 margin: 5px 0;
                 position: relative;
                 &:before {
@@ -84,4 +85,27 @@
     .accessory-text-wrap {
         //min-height: 225px;
     }
+    .protections-wrap {
+    //padding: 15px 0;
+    //padding-bottom: 15px;
+
+    .protection {
+        // display: flex;
+        // align-items: center;
+        // padding: 5px 0;
+        svg {
+            max-width: 35px;
+            max-height: 35px;
+            // path, rect {
+            //     fill: darken($brand-primary, 5%);
+            // }
+        }
+        span {
+            //margin-left: 5px;
+            font-size: 18px;
+            //font-weight: bold;
+            //color: #222;
+        }
+    }
+}
 }
