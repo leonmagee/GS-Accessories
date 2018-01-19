@@ -1,0 +1,29 @@
+.cart-wrap {
+	.cart-item {
+		background-color: #a0d3e8;
+		border: 1px solid #74bfdd;
+		display: flex;
+		justify-content: space-around;
+		padding: 10px 5px;
+		margin: 15px 0;
+		text-transform: uppercase;
+		font-size: 18px;
+		color: #000;
+
+		span {
+			color: #444;
+			margin-right: 5px;
+		}
+
+		a {
+			background-color: darken(#a0d3e8, 10%);
+			border: 1px solid darken(#74bfdd, 10%);
+			padding: 3px 7px;
+			color: #000;
+			border-radius: 5px;
+			&:hover {
+				background-color: darken(#a0d3e8, 13%);
+			}
+		}
+	}
+}

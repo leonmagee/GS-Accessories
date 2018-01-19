@@ -95,7 +95,7 @@ h2 {
   }
 }
 
-a.gs-button {
+a.gs-button, button.gs-button {
   background-color: $brand-primary-hover;
   color: #FFF !important;
   text-shadow: 1px 1px rgba(0,0,0,0.05);
@@ -108,6 +108,10 @@ a.gs-button {
     cursor: pointer;
     background-color: darken($brand-primary, 8%);
   }
+}
+
+button.gs-button {
+  padding: 15px 15px;
 }
 
 // .foundation-test-container {

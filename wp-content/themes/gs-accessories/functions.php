@@ -17,6 +17,12 @@
  }
  add_action( 'init', 'mm_register_post_types' );
 
+ require_once('lib/shopping_cart.php');
+ require_once('lib/process-form-submission.php');
+
+ session_start();
+
+
  if ( ! function_exists( 'gs_accessories_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
