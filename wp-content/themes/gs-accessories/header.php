@@ -62,12 +62,23 @@
 					<li><a href="/about">About</a></li>
 					<li><a href="/contact">Contact</a></li>
 
-					<?php if ( ! MP_LOGGED_IN_ID ) { ?>
-						<li><a href="/contact">Log In</a></li>
+					<?php if ( ! LV_LOGGED_IN_ID ) { ?>
+
+					<li>
+                        <a data-open="login-modal">
+                            Log In
+                            <sep>/</sep>
+                            Sign Up
+                        </a>
+                    </li>
+
+
 					<?php } else { ?>
 
 					<li><a href="/place-your-order">Place Order</a></li>
 					<li><a href="/cart">Cart</a></li>
+					<li><a>Welcome <?php echo LV_LOGGED_IN_NAME; ?>!</a></li>
+					<li><a href="<?php echo wp_logout_url( site_url() ); ?>">Log Out</a></li>
 
 					<?php } ?>
 
@@ -88,6 +99,18 @@
 
 		</div>
 		</div>
+
+		<?php
+		/**
+		 *  Login Modal
+		 */
+		$log_in_modal = new mp_output_modal_login(
+			'login-modal',
+			'Log In',
+			true
+		);
+		$log_in_modal->output_modal();
+		?>
 
 	</header><!-- #masthead -->
 

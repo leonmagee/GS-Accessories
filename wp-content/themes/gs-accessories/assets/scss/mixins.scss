@@ -19,3 +19,11 @@
     border-color: darken($brand-primary, 5%);
     content: '';
 }
+
+@mixin form_text() {
+  color: #555;
+  // font-family: 'Open Sans';
+  // font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}

@@ -1,0 +1,64 @@
+.registration-form-wrapper { // used on agent profile page too?
+  background-color: #FAFAFA;
+  border: 1px solid #EEE;
+  padding: 10px 10px 30px;
+  margin: 15px 0;
+  .form-area-top {
+    display: flex;
+    //justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .form-area-middle {
+    //display: none;
+  }
+  .form-footer {
+
+  }
+
+  .registration-input-wrap {
+    //flex: 0 1 48%;
+    //margin: 1%;
+    width: 100%;
+    @media(min-width: $screen-sm) {
+      flex: 0 1 18%;
+      margin: 1%;
+    }
+    input {
+      border-radius: 0;
+      box-shadow: none;
+      font-size: 13px;
+      padding: 6px 10px;
+      height: auto;
+    }
+    span {
+      color: $brand-third;
+      margin-left: 3px;
+      font-size: 1.1em;
+    }
+  }
+
+  .submit-input {
+    @include form_text;
+    font-weight: 700;
+    padding: 7px 13px 8px;
+    border-radius: 0;
+    margin: 0 11px;
+    text-transform: uppercase;
+    border: none;
+    background-color: $brand-primary;
+    color: #FFF;
+    font-weight: 700;
+    font-size: 22px;
+    &:hover {
+      background-color: lighten($brand-primary, 5%);
+    }
+  }
+}
+
+.register-user-email-taken {
+  display: none;
+}
+
+.mp-required-fields {
+  display: none;
+}

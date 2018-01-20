@@ -19,6 +19,10 @@
 
  require_once('lib/shopping_cart.php');
  require_once('lib/process-form-submission.php');
+ require_once('lib/output-modal-login.php');
+ require_once('lib/lv-register-user.php');
+ require_once('lib/lv-send-email-misc.php');
+ require_once('lib/lv-ajax.php');
 
  session_start();
 
@@ -34,10 +38,11 @@ if ( is_user_logged_in() ) {
 	$first_name = get_user_meta($user_id, 'first_name', true);
 	$last_name = get_user_meta($user_id, 'last_name', true);
 	//var_dump($first_name . ' ' . $last_name);
-	define( 'MP_LOGGED_IN_ID', $user_id );
+	define('LV_LOGGED_IN_NAME', $first_name . ' ' . $last_name);
+	define( 'LV_LOGGED_IN_ID', $user_id );
 } else {
 	//var_dump('user not logged in');
-	define( 'MP_LOGGED_IN_ID', false );
+	define( 'LV_LOGGED_IN_ID', false );
 }
 
 
@@ -197,9 +202,9 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 function gs_accessories_custom_scripts() {
 	
-		// wp_register_style( 'font-awesome', get_template_directory_uri() . '/vendor/font-awesome/css/font-awesome.min.css', array() );
+		wp_register_style( 'font-awesome', get_template_directory_uri() . '/vendor/font-awesome/css/font-awesome.min.css', array() );
 	
-		// wp_enqueue_style( 'font-awesome' );
+		wp_enqueue_style( 'font-awesome' );
 	
 		// $google_font_black_ops_one = 'https://fonts.googleapis.com/css?family=Black+Ops+One';
 	
