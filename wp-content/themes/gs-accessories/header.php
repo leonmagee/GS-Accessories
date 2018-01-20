@@ -56,11 +56,31 @@
 
 			<nav id="site-navigation-custom" class="main-navigation-custom">
 
+				<ul id="first_name" class="menu">
+
+					<li><a href="/products">Products</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/contact">Contact</a></li>
+
+					<?php if ( ! MP_LOGGED_IN_ID ) { ?>
+						<li><a href="/contact">Log In</a></li>
+					<?php } else { ?>
+
+					<li><a href="/place-your-order">Place Order</a></li>
+					<li><a href="/cart">Cart</a></li>
+
+					<?php } ?>
+
+				</ul>
+
+
+
+
 				<?php
-					wp_nav_menu( array(
-						'theme_location' => 'menu-1',
-						'menu_id'        => 'primary-menu',
-					) );
+					// wp_nav_menu( array(
+					// 	'theme_location' => 'menu-1',
+					// 	'menu_id'        => 'primary-menu',
+					// ) );
 				?>
 			</nav><!-- #site-navigation -->
 

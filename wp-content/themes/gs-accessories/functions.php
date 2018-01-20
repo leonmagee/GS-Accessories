@@ -23,6 +23,25 @@
  session_start();
 
 
+
+/**
+ * Constants
+ * @todo move to different file
+ */
+if ( is_user_logged_in() ) {
+	$user    = wp_get_current_user(); // @todo search for this to replace with constant
+	$user_id = $user->ID;
+	$first_name = get_user_meta($user_id, 'first_name', true);
+	$last_name = get_user_meta($user_id, 'last_name', true);
+	//var_dump($first_name . ' ' . $last_name);
+	define( 'MP_LOGGED_IN_ID', $user_id );
+} else {
+	//var_dump('user not logged in');
+	define( 'MP_LOGGED_IN_ID', false );
+}
+
+
+
  if ( ! function_exists( 'gs_accessories_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.

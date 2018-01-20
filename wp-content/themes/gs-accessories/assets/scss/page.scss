@@ -21,6 +21,17 @@ body.gs-accessories {
             }
         }
 
+        &.about-page-content-bg {
+            background-image: url('../img/about-us.jpg');
+            background-size: cover;
+            color: #FFF;
+            text-shadow: 1px solid rgba(0,0,0,0.2);
+
+            h1.entry-title {
+                border-color: #EEE;
+            }
+        }
+
         .entry-content {
             margin-top: 0;
         }
