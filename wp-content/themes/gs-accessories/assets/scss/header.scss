@@ -38,17 +38,15 @@ header#masthead {
   }
 
   nav {
-    display: flex;
-    justify-content: center;
+    justify-content: left;
     margin-top: 15px;
-    background: red;
     background-color: #F7F7F7;
     border-top: 1px solid #DDD;
     border-bottom: 1px solid #DDD;
     &.menu-hidden {
       display: none;
       @media(min-width: $screen-md) {
-          display: block;
+          display: flex;
       }
     }
     ul {
