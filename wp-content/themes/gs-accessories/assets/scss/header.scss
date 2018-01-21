@@ -1,6 +1,6 @@
 header#masthead {
   background-color: $base-white;
-  padding: 10px 0;
+  //padding: 10px 0;
   margin: 0;
   .grid-x {
     align-items: center;
@@ -11,7 +11,7 @@ header#masthead {
     display: flex;
     justify-content: space-between;
     @media(min-width: $screen-md) {
-      padding: 0;
+      padding: 10px 0;
       display: block;
     }
     img {
@@ -39,7 +39,7 @@ header#masthead {
 
   nav {
     justify-content: left;
-    margin-top: 15px;
+    //margin-top: 15px;
     background-color: #F7F7F7;
     border-top: 1px solid #DDD;
     border-bottom: 1px solid #DDD;
@@ -51,10 +51,11 @@ header#masthead {
     }
     ul {
       width: 100%;
+      margin: 0;
     }
     @media(min-width: $screen-md) {
       justify-content: flex-end;
-      margin-top: 0;
+      //margin-top: 0;
       background-color: transparent;
       border: none;
       ul {
