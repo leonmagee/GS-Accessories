@@ -8,12 +8,31 @@ header#masthead {
 
   .site-branding {
     padding: 10px;
-    @media(min-width: $screen-sm) {
+    display: flex;
+    justify-content: space-between;
+    @media(min-width: $screen-md) {
       padding: 0;
+      display: block;
     }
     img {
       @media(min-width: $screen-sm) {
       max-width: 350px;
+      }
+    }
+    .menu-toggle {
+      font-size: 30px;
+      color: darken( $brand-primary, 10%);
+      color: #555;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 20px;
+      padding-top: 3px;
+      &:hover {
+        cursor: pointer;
+      }
+      @media(min-width: $screen-md) {
+        display: none;
       }
     }
   }
@@ -22,22 +41,46 @@ header#masthead {
     display: flex;
     justify-content: center;
     margin-top: 15px;
-    @media(min-width: $screen-sm) {
-    justify-content: flex-end;
-    margin-top: 0;
+    background: red;
+    background-color: #F7F7F7;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    &.menu-hidden {
+      display: none;
+      @media(min-width: $screen-md) {
+          display: block;
+      }
+    }
+    ul {
+      width: 100%;
+    }
+    @media(min-width: $screen-md) {
+      justify-content: flex-end;
+      margin-top: 0;
+      background-color: transparent;
+      border: none;
+      ul {
+        width: auto;
+      }
     }
     li {
-      font-size: 17px;
-      border-left: 1px solid #EAEAEA;
+      width: 100%;
       text-transform: uppercase;
+      @media(min-width: $screen-md) {
+        border-left: 1px solid #EAEAEA;
+        width: auto;
+      }
+
       &:first-child {
         border: none;
       }
       a {
-        font-size: 14px;
         color: #333;
         @media(min-width: $screen-sm) {
         font-size: 17px;
+        @media(min-width: $screen-sm) {
+          font-size: 14px;
+        }
         }
         &:hover {
           color: $brand-primary-hover;

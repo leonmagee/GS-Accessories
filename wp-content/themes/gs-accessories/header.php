@@ -30,7 +30,7 @@
 
 		<div class="grid-x">
 
-			<div class="cell medium-6">
+			<div class="cell large-4">
 
 				<div class="site-branding">
 
@@ -48,13 +48,17 @@
 						</h1>
 					<?php } ?>
 
+					<div class="menu-toggle">
+						<i class="fa fa-bars" aria-hidden="true"></i>
+					</div>
+
 				</div><!-- .site-branding -->
 
 			</div>
 
-			<div class="cell medium-6">
+			<div class="cell large-8">
 
-			<nav id="site-navigation-custom" class="main-navigation-custom">
+			<nav id="site-navigation-custom" class="main-navigation-custom menu-hidden">
 
 				<ul id="first_name" class="menu">
 

@@ -1,17 +1,22 @@
 jQuery(function ($) {
 
-    console.log('custom.js is loading');
+    //console.log('custom.js is loading');
 
+    $('.menu-toggle').click(function() {
+        $('nav.main-navigation-custom').toggleClass('menu-hidden');
+    });
+
+
+    /**
+    * Change Product Colors
+    */
     $('#product_select_field').change(function() {
-    	console.log($(this).val());
+    	//console.log($(this).val());
 
     	var selected_slug = $(this).val();
     	$('.color-select').hide();
     	$('.color-select.' + selected_slug).show();
     });
-
-
-
 
     /**
      * Process ajax register new user
