@@ -28,13 +28,27 @@ get_header();
         $cart_data = unserialize($_SESSION['shopping_cart']);
         //var_dump($cart_data);
         foreach( $cart_data as $item ) {
+
+        $page_object = get_page_by_path($item['product'], OBJECT, 'accessories');
+        $post_id = $page_object->ID;
+        $post_image = get_field('image_gallery', $post_id);
+        if ( $post_image ) {
+          $img_url = $post_image[0]['sizes']['thumbnail'];
+        } else {
+          // create new placeholder image
+          $img_url = '';
+        }
+
           ?>
 
           <div class="cart-item">
-            <div class="cart-property"><span>Product:</span><?php echo $item['product']; ?></div>
-            <div class="cart-property"><span>Quantity:</span><?php echo $item['quantity']; ?></div>
-            <div class="cart-property"><span>Color:</span><?php echo $item['color']; ?></div>
-            <div class="cart-property"><a href="#">Remove</a></div>
+            <div class="cart-property thumb">
+              <img src="<?php echo $img_url; ?>" />
+            </div>
+            <div class="cart-property product"><span>Product:</span><?php echo str_replace('-', ' ', $item['product']); ?></div>
+            <div class="cart-property quantity"><span>Quantity:</span><?php echo $item['quantity']; ?></div>
+            <div class="cart-property color"><span>Color:</span><?php echo $item['color']; ?></div>
+            <div class="cart-property remove"><a href="#">Remove</a></div>
           </div>
 
           <?php } }?>

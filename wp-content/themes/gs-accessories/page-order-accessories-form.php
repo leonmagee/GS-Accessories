@@ -6,8 +6,7 @@
  *
  * @package GS_Accessories
  */
-get_header();
-?>
+get_header(); ?>
 
 <div id="primary" class="content-area">
 
