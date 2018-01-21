@@ -18,41 +18,36 @@ get_header();
     <h2>Cart</h2>
 
 
-  <div class='cart-wrap'>
+    <div class='cart-wrap'>
 
-    <?php
+      <?php
 
-    var_dump(unserialize($_SESSION['shopping_cart']));
+      var_dump(unserialize($_SESSION['shopping_cart']));
 
-    if ( $_SESSION['shopping_cart']) {
-    $cart_data = unserialize($_SESSION['shopping_cart']);
-    //var_dump($cart_data);
-    foreach( $cart_data as $item ) {
-    ?>
+      if ( $_SESSION['shopping_cart']) {
+        $cart_data = unserialize($_SESSION['shopping_cart']);
+        //var_dump($cart_data);
+        foreach( $cart_data as $item ) {
+          ?>
 
-      <div class="cart-item">
-        <div class="cart-property"><span>Product:</span><?php echo $item['product']; ?></div>
-        <div class="cart-property"><span>Quantity:</span><?php echo $item['quantity']; ?></div>
-        <div class="cart-property"><span>Color:</span><?php echo $item['color']; ?></div>
-        <div class="cart-property"><a href="#">Remove</a></div>
-      </div>
+          <div class="cart-item">
+            <div class="cart-property"><span>Product:</span><?php echo $item['product']; ?></div>
+            <div class="cart-property"><span>Quantity:</span><?php echo $item['quantity']; ?></div>
+            <div class="cart-property"><span>Color:</span><?php echo $item['color']; ?></div>
+            <div class="cart-property"><a href="#">Remove</a></div>
+          </div>
 
-    <?php } }?>
+          <?php } }?>
 
-  </div>
-
-
+        </div>
 
 
+      </main><!-- #main -->
+    </div>
+  </div><!-- #primary -->
 
-
-
-    </main><!-- #main -->
-  </div>
-</div><!-- #primary -->
-
-<?php
-get_footer();
+  <?php
+  get_footer();
 
 
 

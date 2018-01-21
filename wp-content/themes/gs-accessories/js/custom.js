@@ -14,6 +14,7 @@ jQuery(function ($) {
     	//console.log($(this).val());
 
     	var selected_slug = $(this).val();
+        console.log(selected_slug);
     	$('.color-select').hide();
     	$('.color-select.' + selected_slug).show();
     });

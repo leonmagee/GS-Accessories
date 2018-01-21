@@ -6,9 +6,7 @@
  *
  * @package GS_Accessories
  */
-//die('xxx');
 get_header();
-
 ?>
 
 <div id="primary" class="content-area">
@@ -20,41 +18,45 @@ get_header();
     <h2>Order Accessories</h2>
 
 
-  <div class='cart-preview'>
-<?php
-// added items here...
+    <div class='cart-preview'>
+      <?php
+        // just have a message saying added to cart here...
+      ?>
 
-//http://localhost:1115/place-your-order/?product=wall-charger&quantity=1k&colors-lightning-usb-cable=Black&colors-wall-charger=Black&colors-google-pixel-case=Gold#
-
-// add a cart array as a transient, which then will have a key referencing the logged in user... and then 
-?>
-
-  </div>
-
-
-
+    </div>
 
     <form class="order-form" method="POST" action="#">
 
       <div class="form-inner-wrap">
 
-      <div class="input-wrap">
-        <label>Choose Product</label>
-        <input type="hidden" name="product-order-form" />
-        <select name="product" id="product_select_field">
+        <div class="input-wrap">
+          <label>Choose Product</label>
+          <input type="hidden" name="product-order-form" />
+          <select name="product" id="product_select_field">
 
-          <?php
+            <?php
 
 
-          $args = array('post_type' => 'accessories', 'order' => 'ASC');
-          $accessories_query = new WP_Query($args);
-          while ($accessories_query->have_posts()) {
+            $args = array('post_type' => 'accessories', 'order' => 'ASC');
+            $accessories_query = new WP_Query($args);
+            $colors_array = array();
+            while ($accessories_query->have_posts()) {
 
-            $accessories_query->the_post();
+              $accessories_query->the_post();
 
-            global $post;
+              global $post;
 
-            $product_slug = $post->post_name; ?>
+              $product_slug = $post->post_name; 
+
+              $colors = get_field('accessory_colors'); 
+
+              if ( $colors ) {
+               $colors_array[$product_slug] =  $colors;
+             } else {
+              $colors_array[$product_slug] =  false;
+            }
+
+            ?>
 
             <option value="<?php echo $product_slug; ?>"><?php the_title(); ?></option>
             <?php } ?>
@@ -79,18 +81,9 @@ get_header();
 
        $counter = 1;
 
-       while ($accessories_query->have_posts()) {
+       foreach ( $colors_array as $product_slug => $color_item ) {
 
-        global $post;
-
-        $product_slug = $post->post_name;
-
-        $accessories_query->the_post();
-
-        $colors = get_field('accessory_colors'); 
-
-
-        if ( $colors ) {
+         if ( $color_item ) {
           ?>
 
           <div class="input-wrap color-select color-select-<?php echo $counter; ?> <?php echo $product_slug; ?>">
@@ -99,9 +92,9 @@ get_header();
 
             <select name="colors-<?php echo $product_slug; ?>">
 
-              <?php foreach ( $colors as $color ) { ?>
+              <?php foreach ( $color_item as $color ) { ?>
 
-                <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
+              <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
 
               <?php } ?>
 
@@ -123,39 +116,20 @@ get_header();
           $counter++;
         } ?>
 
-        </div>
-       
-        <div class="button-wrap">
+      </div>
 
-          <button class="gs-button" type="submit">Add Product</button> 
-          
-        </div> 
+      <div class="button-wrap">
 
+        <button class="gs-button" type="submit">Add Product</button> 
 
-      </form>
+      </div> 
 
+    </form>
 
-
-
-
-    </main><!-- #main -->
-  </div>
+  </main><!-- #main -->
+</div>
 </div><!-- #primary -->
 
 <?php
+
 get_footer();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
