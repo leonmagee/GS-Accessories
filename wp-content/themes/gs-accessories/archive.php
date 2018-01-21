@@ -10,11 +10,13 @@
 get_header(); 
 
 $current_cat = get_queried_object()->slug;
+$cat_title = ucwords(str_replace('-', ' ', $current_cat));
 ?>
 
 <div id="primary" class="content-area">
   <div class="max-width-wrap accessories-archive">
    <main id="main" class="site-main">
+    <h1 class="entry-title"><?php echo $cat_title; ?></h1>
 
     <div class="grid-x isotope-content isotope">
         <?php

@@ -1,0 +1,30 @@
+#login-modal {
+	h2 {
+		font-weight: bold;
+		font-size: 28px;
+		padding-bottom: 5px;
+		a {
+			color: darken( $brand-primary, 10%);
+			&:hover {
+				color: $brand-primary;
+			}
+		}
+	}
+
+	input.input {
+		padding-left: 10px;
+	}
+
+	input#wp-submit {
+		background-color: darken( $brand-primary, 10%);
+		font-size: 17px;
+		border: none;
+		color: #FFF;
+		text-shadow: 1px solid rgba(0,0,0,0.1);
+		text-transform: uppercase;
+		font-weight: bold;
+		&:hover {
+			background-color: $brand-primary;
+		}
+	}
+}

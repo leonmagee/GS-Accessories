@@ -22,89 +22,105 @@
 
 <body <?php body_class('gs-accessories'); ?>>
 	<div class="grid-y main-grid-wrap">
-	<!-- <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'gs-accessories' ); ?></a> -->
+		<!-- <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'gs-accessories' ); ?></a> -->
 
-	<header id="masthead" class="site-header cell">
+		<header id="masthead" class="site-header cell">
 
-	 <div class="max-width-wrap">
 
-		<div class="grid-x">
+			<?php if ( LV_LOGGED_IN_ID ) { ?>
 
-			<div class="cell large-4">
+			<div class="logged-in-bar">
+				<div class="max-width-wrap">
 
-				<div class="site-branding">
-
-				<?php if ( $img_url = get_field('site_logo', 'option') ) { ?>
-
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<img src="<?php echo $img_url; ?>" />
-					</a>
-
-					<?php } else { ?>
-						<h1 class="site-title">
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-								<?php bloginfo( 'title' ); ?>
-							</a>
-						</h1>
-					<?php } ?>
-
-					<div class="menu-toggle">
-						<i class="fa fa-bars" aria-hidden="true"></i>
+					<div class="item">
+						Welcome <?php echo LV_LOGGED_IN_NAME; ?>!
 					</div>
-
-				</div><!-- .site-branding -->
-
+					<div class="item">
+						<a href="<?php echo wp_logout_url( site_url() ); ?>">Log Out</a>
+					</div>
+				</div>
 			</div>
 
-			<div class="cell large-8">
-
-			<nav id="site-navigation-custom" class="main-navigation-custom menu-hidden">
-
-				<ul id="first_name" class="menu">
-
-					<li><a href="/products">Products</a></li>
-					<li><a href="/about">About</a></li>
-					<li><a href="/contact">Contact</a></li>
-
-					<?php if ( ! LV_LOGGED_IN_ID ) { ?>
-
-					<li>
-                        <a data-open="login-modal">
-                            Log In
-                            <sep>/</sep>
-                            Sign Up
-                        </a>
-                    </li>
+			<?php } ?>
 
 
-					<?php } else { ?>
+			<div class="max-width-wrap">
 
-					<li><a href="/place-your-order">Place Order</a></li>
-					<li><a href="/cart">Cart</a></li>
-					<li><a>Welcome <?php echo LV_LOGGED_IN_NAME; ?>!</a></li>
-					<li><a href="<?php echo wp_logout_url( site_url() ); ?>">Log Out</a></li>
+				<div class="grid-x">
 
-					<?php } ?>
+					<div class="cell large-4">
 
-				</ul>
+						<div class="site-branding">
+
+							<?php if ( $img_url = get_field('site_logo', 'option') ) { ?>
+
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+								<img src="<?php echo $img_url; ?>" />
+							</a>
+
+							<?php } else { ?>
+							<h1 class="site-title">
+								<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+									<?php bloginfo( 'title' ); ?>
+								</a>
+							</h1>
+							<?php } ?>
+
+							<div class="menu-toggle">
+								<i class="fa fa-bars" aria-hidden="true"></i>
+							</div>
+
+						</div><!-- .site-branding -->
+
+					</div>
+
+					<div class="cell large-8">
+
+						<nav id="site-navigation-custom" class="main-navigation-custom menu-hidden">
+
+							<ul id="first_name" class="menu">
+
+								<li><a href="/products">Products</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/contact">Contact</a></li>
+
+								<?php if ( ! LV_LOGGED_IN_ID ) { ?>
+
+								<li>
+									<a data-open="login-modal">
+										Log In
+										<sep>/</sep>
+										Sign Up
+									</a>
+								</li>
+
+
+								<?php } else { ?>
+
+								<li><a href="/place-your-order">Place Order</a></li>
+								<li><a href="/cart">Cart</a></li>
+
+								<?php } ?>
+
+							</ul>
 
 
 
 
-				<?php
+							<?php
 					// wp_nav_menu( array(
 					// 	'theme_location' => 'menu-1',
 					// 	'menu_id'        => 'primary-menu',
 					// ) );
-				?>
-			</nav><!-- #site-navigation -->
+							?>
+						</nav><!-- #site-navigation -->
 
+					</div>
+
+				</div>
 			</div>
 
-		</div>
-		</div>
-
-		<?php
+			<?php
 		/**
 		 *  Login Modal
 		 */

@@ -16,7 +16,7 @@ header#masthead {
     }
     img {
       @media(min-width: $screen-sm) {
-      max-width: 350px;
+        max-width: 350px;
       }
     }
     .menu-toggle {
@@ -46,7 +46,7 @@ header#masthead {
     &.menu-hidden {
       display: none;
       @media(min-width: $screen-md) {
-          display: flex;
+        display: flex;
       }
     }
     ul {
@@ -76,16 +76,51 @@ header#masthead {
       a {
         color: #333;
         @media(min-width: $screen-sm) {
-        font-size: 17px;
-        @media(min-width: $screen-sm) {
-          font-size: 14px;
-        }
+          font-size: 17px;
+          @media(min-width: $screen-sm) {
+            font-size: 14px;
+          }
         }
         &:hover {
           color: $brand-primary-hover;
         }
       }
     }
+  }
+
+  .logged-in-bar {
+    background-color: darken( $brand-primary, 5%);
+    padding: 10px 5px;
+
+    .max-width-wrap {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+
+      @media(min-width: $screen-sm) {
+          justify-content: flex-end;
+          font-size: 15px;
+      }
+
+      .item {
+        margin: 0 10px;
+        color: #FFF;
+        text-shadow: 1px 1px rgba(0,0,0,0.1);
+        text-transform: uppercase;
+        font-weight: bold;
+
+        a {
+        color: #FFF;
+        //text-shadow: 1px 1px rgba(0,0,0,0.1);
+        &:hover {
+          color: $brand-second;
+          text-shadow: none;
+        }
+      }
+      }
+
+    }
+
   }
 
 }
