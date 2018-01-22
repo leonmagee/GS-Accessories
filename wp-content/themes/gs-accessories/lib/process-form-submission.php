@@ -108,32 +108,58 @@ if ( isset($_POST['place-cart-order'])) {
 
 	// get user email address
 	$user = wp_get_current_user(); 
-	var_dump($user->data->user_email);
+	$user_email = $user->data->user_email;
+	//var_dump($user->data->user_email);
 
 	// get admin email address
 	$admin_email = get_option('admin_email');
-	var_dump($admin_email);
+	//var_dump($admin_email);
+	$first_name = get_user_meta($user->data->ID, 'first_name', true);
+	$last_name = get_user_meta($user->data->ID, 'last_name', true);
 
-	die('working so far');
+	// var_dump($user->data->user_nicename);
+	// var_dump($first_name . ' ' . $last_name);
+	if ( $first_name && $last_name ) {
+		$user_name = $first_name . ' ' . $last_name;
+	} else {
+		$user_name = $user->data->user_nicename;
+	}
+	//die();
+
+	//die('working so far');
+
+	//$cart_data = unserialize($_SESSION['shopping_cart']);
+
+	$email_body = '';
+
+	foreach( $shopping_cart_array as $id => $data ) {
+		$product = strtoupper(str_replace('-', ' ' , $data['product']));
+		$email_body .= '<div>Product ID: ' . $id . ' - Product: ' . $product . ' - Quantity: ' . $data['quantity'] . ' - Color: ' . $data['color'] . '</div>';
+	}
+
+	// send email to admin
+	$admin_intro = '<div>Order placed by ' . $user_name . ' - Email: ' . $user_email . '</div>';
+	$to = $admin_email; // get admin email here
+	$subject = 'GS Accessories Order';
+	$body = $admin_intro . $email_body;
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+
+	wp_mail( $to, $subject, $body, $headers );
 
 
-	// send email to logged in user email and admin email (site admin?)
-$to = 'leonmagee33@gmail.com'; // get admin email here
-$subject = 'GS Accessories Order';
-$body = 'Order Details Here';
-$headers = array('Content-Type: text/html; charset=UTF-8');
- 
-wp_mail( $to, $subject, $body, $headers );
+	// send email to user
+	$user_intro = '<div>Thank you for choosing GS Accessories. Your order:</div>';
+	$to = $user_email; // get admin email here
+	$subject = 'GS Accessories Order';
+	$body = $user_intro . $email_body;
+	$headers = array('Content-Type: text/html; charset=UTF-8');
 
-
-
-
-
+	wp_mail( $to, $subject, $body, $headers );
 
 	// clear out cart of items (empty Session)
 	$_SESSION['shopping_cart'] = '';
 
-	// redirect to order placed page, or else
+	// redirect to order placed page
 	wp_redirect('/order-placed');
 	exit;
 }

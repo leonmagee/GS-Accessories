@@ -26,7 +26,22 @@ get_header();
 
       <?php
 
-      //var_dump(unserialize($_SESSION['shopping_cart']));
+      // var_dump(unserialize($_SESSION['shopping_cart']));
+
+      // $cart_data = unserialize($_SESSION['shopping_cart']);
+
+      // $email_body = '';
+
+      // foreach( $cart_data as $id => $data ) {
+      //   $product = strtoupper(str_replace('-', ' ' , $data['product']));
+      //   $email_body .= '<div>Product ID: ' . $id . ' Product: ' . $product . ' Quantity: ' . $data['quantity'] . ' Color: ' . $data['color'] . '</div>';
+      // }
+
+      // var_dump($email_body);
+
+
+
+
 
       if ( $_SESSION['shopping_cart']) {
         $cart_data = unserialize($_SESSION['shopping_cart']);
