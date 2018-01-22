@@ -1,9 +1,9 @@
 <?php
 
-
+/**
+* Add item to cart
+*/
 if ( isset($_POST['product-order-form'])) {
-
-
 
 	$product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_SPECIAL_CHARS);
 	$quantity = filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -16,18 +16,21 @@ if ( isset($_POST['product-order-form'])) {
 		$color = false;
 	}
 
+	$page_object = get_page_by_path($product, OBJECT, 'accessories');
+	$post_id = $page_object->ID;
+
 	//die($product . ' - ' . $quantity . ' - ' . $color);
 
-    $ShopingCart = new shopping_cart();
+	$ShopingCart = new shopping_cart();
 
     //$Basket->do_actions(); 
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
-    $ShopingCart->add_data(time(), $product, $quantity, $color);
+	$ShopingCart->add_data(time(), $product, $quantity, $color);
     //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
     // $ShopingCart->add_data('USB Charger', 1000, 'white');
     //var_dump($ShopingCart);
-    
+
 	session_start();
 
 	if ( $_SESSION['shopping_cart'] ) {
@@ -38,22 +41,98 @@ if ( isset($_POST['product-order-form'])) {
 		$current_data = array();
 	}
 
-	$current_data[] = $ShopingCart->cart_data;
+	$current_data[$post_id] = $ShopingCart->cart_data;
 
-	// var_dump( $ShopingCart->cart_data);
- //    var_dump($_SESSION);
- //    die('die');
-	/**
-	* I need to do an array merge here - the sessoin
-	*/
-    $_SESSION['shopping_cart'] = serialize($current_data);
+	$_SESSION['shopping_cart'] = serialize($current_data);
 
-    var_dump( $ShopingCart);
-    var_dump($_SESSION);
-    die('die');
+	var_dump( $ShopingCart);
+	var_dump($_SESSION);
+	die('die');
 
 
 
+}
+
+/**
+* Remove Cart Item from Session
+*/
+if ( isset($_POST['remove-cart-accessory'])) {
+
+	$post_id = filter_input(INPUT_POST, 'remove-cart-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
+	session_start();
+
+	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
+
+	unset($shopping_cart_array[$post_id]);
+
+	$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
+}
+
+
+/**
+* Update Cart Item in Session
+*/
+if ( isset($_POST['update-cart-accessory'])) {
+
+
+	$post_id = filter_input(INPUT_POST, 'update-cart-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
+
+	$quantity = filter_input(INPUT_POST, 'accessory-quantity', FILTER_SANITIZE_SPECIAL_CHARS);
+
+	$color = filter_input(INPUT_POST, 'accessory-color', FILTER_SANITIZE_SPECIAL_CHARS);
+
+	session_start();
+
+	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
+
+	$item_array = $shopping_cart_array[$post_id];
+
+	$item_array['quantity'] = $quantity;
+
+	$item_array['color'] = $color;
+
+	$shopping_cart_array[$post_id] = $item_array;
+
+	$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
+}
+
+
+if ( isset($_POST['place-cart-order'])) {
+
+	session_start();
+
+	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
+
+	// get user email address
+	$user = wp_get_current_user(); 
+	var_dump($user->data->user_email);
+
+	// get admin email address
+	$admin_email = get_option('admin_email');
+	var_dump($admin_email);
+
+	die('working so far');
+
+
+	// send email to logged in user email and admin email (site admin?)
+$to = 'leonmagee33@gmail.com'; // get admin email here
+$subject = 'GS Accessories Order';
+$body = 'Order Details Here';
+$headers = array('Content-Type: text/html; charset=UTF-8');
+ 
+wp_mail( $to, $subject, $body, $headers );
+
+
+
+
+
+
+	// clear out cart of items (empty Session)
+	$_SESSION['shopping_cart'] = '';
+
+	// redirect to order placed page, or else
+	wp_redirect('/order-placed');
+	exit;
 }
 
 
@@ -93,7 +172,7 @@ if ( isset($_POST['product-order-form'])) {
 //     // $ShopingCart->add_data('USB Charger', 1000, 'white');
 //     //var_dump($ShopingCart);
 
-    
+
 // 	session_start();
 //     $_SESSION['shopping_cart'] = serialize($ShopingCart->cart_data);
 // 	//var_dump($_SESSION);
