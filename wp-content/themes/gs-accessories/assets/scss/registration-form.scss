@@ -5,7 +5,6 @@
   margin: 15px 0;
   .form-area-top {
     display: flex;
-    //justify-content: space-between;
     flex-wrap: wrap;
   }
   .form-area-middle {
@@ -16,10 +15,10 @@
   }
 
   .registration-input-wrap {
-    //flex: 0 1 48%;
-    //margin: 1%;
     width: 100%;
-    @media(min-width: $screen-sm) {
+    flex: 0 1 46%;
+    margin: 2%;
+    @media(min-width: $screen-md) {
       flex: 0 1 18%;
       margin: 1%;
     }
