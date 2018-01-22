@@ -45,9 +45,12 @@ if ( isset($_POST['product-order-form'])) {
 
 	$_SESSION['shopping_cart'] = serialize($current_data);
 
-	var_dump( $ShopingCart);
-	var_dump($_SESSION);
-	die('die');
+	wp_redirect('/cart');
+	exit;
+
+	// var_dump( $ShopingCart);
+	// var_dump($_SESSION);
+	// die('die');
 
 
 

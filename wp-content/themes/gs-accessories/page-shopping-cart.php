@@ -26,7 +26,7 @@ get_header();
 
       <?php
 
-      var_dump(unserialize($_SESSION['shopping_cart']));
+      //var_dump(unserialize($_SESSION['shopping_cart']));
 
       if ( $_SESSION['shopping_cart']) {
         $cart_data = unserialize($_SESSION['shopping_cart']);

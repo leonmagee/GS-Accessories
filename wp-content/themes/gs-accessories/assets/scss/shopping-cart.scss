@@ -4,20 +4,30 @@
 		border: 1px solid #74bfdd;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-around;
-		align-items: center;
+		// justify-content: space-around;
+		// align-items: center;
 		padding: 10px 15px;
 		margin: 15px 0;
 		text-transform: uppercase;
 		font-size: 13px;
 		color: #000;
 
+		@media(min-width: $screen-md) {
+			//display: flex;
+			justify-content: space-around;
+			align-items: center;
+			//flex-wrap: wrap;
+		}
+
 		form.details-form {
-			flex: 1 1 44%;
+			flex: 1 1 100%;
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
 			flex-wrap: wrap;
+			@media(min-width: $screen-md) {
+				flex: 1 1 44%;
+			}
 
 			select {
 				height: auto;
@@ -27,13 +37,22 @@
 
 		.cart-property {
 			//background: red;
+			padding: 10px 5px;
 
-			display: flex;
-			//justify-content: space-around;
-			align-items: center;
+			// display: flex;
+			// align-items: center;
+			@media(min-width: $screen-md) {
+				padding: 0;
+				display: flex;
+				align-items: center;
+			}
 
 			&.thumb {
-				flex: 1 1 10%;
+				flex: 1 1 100%;
+				@media(min-width: $screen-md) {
+					flex: 1 1 10%;
+
+				}
 
 				img {
 					width: 80px;
@@ -43,9 +62,12 @@
 			}
 
 			&.product {
-				flex: 1 1 35%;
+				//flex: 1 1 35%;
 				//overflow: hidden;
 				//white-space: nowrap;
+				@media(min-width: $screen-md) {
+					flex: 1 1 35%;
+				}
 
 				a {
 
@@ -57,23 +79,35 @@
 			}
 
 			&.quantity {
-				flex: 1 1 40%;
+				flex: 1 1 50%;
+				@media(min-width: $screen-md) {
+					flex: 1 1 40%;
+				}
 			}
 
 			&.color {
-				flex: 1 1 40%;
+				flex: 1 1 50%;
+				@media(min-width: $screen-md) {
+					flex: 1 1 40%;
+				}
 			}
 
 			&.update {
-				flex: 1 1 20%;
-				display: flex;
-				justify-content: flex-end;
+				@media(min-width: $screen-md) {
+					flex: 1 1 20%;
+					display: flex;
+					justify-content: flex-end;
+				}
 			}
 
 			&.remove {
-				flex: 1 1 11%;
-				display: flex;
-				justify-content: flex-end;
+				width: 100%;
+				text-align: center;
+				@media(min-width: $screen-md) {
+					flex: 1 1 11%;
+					display: flex;
+					justify-content: flex-end;
+				}
 			}
 		}
 
