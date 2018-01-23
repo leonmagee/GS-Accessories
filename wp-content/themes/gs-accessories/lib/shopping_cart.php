@@ -8,10 +8,9 @@ class shopping_cart {
 		//die('shopping cart instantiated');
 	}
 
-	public function add_data($id, $product_name, $quantity, $color = false) {
+	public function add_data($product_name, $quantity, $color = false) {
 
 		$this->cart_data = array(
-			'id' => $id,
 			'product' => $product_name,
 			'quantity' => $quantity,
 			'color' => $color

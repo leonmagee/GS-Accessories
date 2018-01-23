@@ -53,9 +53,11 @@ get_header();
           * @todo remove this - it will be moved to process function
           * @todo and then key will reference post ID?
           */
+          $product_id_exp = explode('-', $product_id);
+          $product_id_actual = $product_id_exp[0];
         // $page_object = get_page_by_path($item['product'], OBJECT, 'accessories');
         // $post_id = $page_object->ID;
-        $post_image = get_field('image_gallery', $product_id);
+        $post_image = get_field('image_gallery', $product_id_actual);
         if ( $post_image ) {
           $img_url = $post_image[0]['sizes']['thumbnail'];
         } else {
@@ -66,7 +68,7 @@ get_header();
         //$quantity_array = array('1000','2000','3000','4000','5000');
         $quantity_array = array('1000','2000','3000','4000','5000');
 
-        $colors = get_field('accessory_colors', $product_id );
+        $colors = get_field('accessory_colors', $product_id_actual );
         //var_dump($colors);
 
           ?>

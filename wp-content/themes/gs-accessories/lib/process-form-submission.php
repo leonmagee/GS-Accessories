@@ -18,6 +18,8 @@ if ( isset($_POST['product-order-form'])) {
 
 	$page_object = get_page_by_path($product, OBJECT, 'accessories');
 	$post_id = $page_object->ID;
+	$time = time();
+	$array_key = $post_id . '-' . $time;
 
 	//die($product . ' - ' . $quantity . ' - ' . $color);
 
@@ -26,7 +28,7 @@ if ( isset($_POST['product-order-form'])) {
     //$Basket->do_actions(); 
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
-	$ShopingCart->add_data(time(), $product, $quantity, $color);
+	$ShopingCart->add_data($product, $quantity, $color);
     //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
     // $ShopingCart->add_data('USB Charger', 1000, 'white');
     //var_dump($ShopingCart);
@@ -41,7 +43,7 @@ if ( isset($_POST['product-order-form'])) {
 		$current_data = array();
 	}
 
-	$current_data[$post_id] = $ShopingCart->cart_data;
+	$current_data[$array_key] = $ShopingCart->cart_data;
 
 	$_SESSION['shopping_cart'] = serialize($current_data);
 
@@ -72,7 +74,7 @@ if ( isset($_POST['remove-cart-accessory'])) {
 
 		$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
 	} else {
-		
+
 		$_SESSION['shopping_cart'] = '';
 	}
 
