@@ -37,19 +37,19 @@
   }
 
   .submit-input {
-    @include form_text;
-    font-weight: 700;
-    padding: 7px 13px 8px;
-    border-radius: 0;
+    // @include form_text;
+    // font-weight: 700;
+    padding: 7px 13px;
+    border-radius: 5px;
     margin: 0 11px;
     text-transform: uppercase;
     border: none;
-    background-color: $brand-primary;
+    background-color: darken($brand-primary, 10%);
     color: #FFF;
-    font-weight: 700;
+    font-weight: bold;
     font-size: 22px;
     &:hover {
-      background-color: lighten($brand-primary, 5%);
+      background-color: darken($brand-primary, 5%);
     }
   }
 }
