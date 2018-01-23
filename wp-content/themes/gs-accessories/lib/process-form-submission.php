@@ -68,7 +68,14 @@ if ( isset($_POST['remove-cart-accessory'])) {
 
 	unset($shopping_cart_array[$post_id]);
 
-	$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
+	if ( $shopping_cart_array ) {
+
+		$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
+	} else {
+		
+		$_SESSION['shopping_cart'] = '';
+	}
+
 }
 
 

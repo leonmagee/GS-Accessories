@@ -6,6 +6,9 @@
  *
  * @package GS_Accessories
  */
+
+restricted_page();
+
 get_header();
 
 // reset session
@@ -26,7 +29,7 @@ get_header();
 
       <?php
 
-      // var_dump(unserialize($_SESSION['shopping_cart']));
+      //var_dump(unserialize($_SESSION['shopping_cart']));
 
       // $cart_data = unserialize($_SESSION['shopping_cart']);
 
@@ -41,9 +44,7 @@ get_header();
 
 
 
-
-
-      if ( $_SESSION['shopping_cart']) {
+      if ( $_SESSION['shopping_cart'] ) {
         $cart_data = unserialize($_SESSION['shopping_cart']);
         //var_dump($cart_data);
         foreach( $cart_data as $product_id => $item ) { // $id => $item

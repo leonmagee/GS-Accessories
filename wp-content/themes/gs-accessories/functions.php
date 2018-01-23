@@ -45,6 +45,20 @@ if ( is_user_logged_in() ) {
 	define( 'LV_LOGGED_IN_ID', false );
 }
 
+function restricted_page() {
+	if ( ! is_user_logged_in() ) {
+		wp_redirect('/');
+		exit;
+	}
+}
+
+function unrestricted_page() {
+	if ( is_user_logged_in() ) {
+		wp_redirect('/');
+		exit;
+	}
+}
+
 
 
  if ( ! function_exists( 'gs_accessories_setup' ) ) :

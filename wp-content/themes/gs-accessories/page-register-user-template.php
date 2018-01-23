@@ -3,10 +3,8 @@
  * Template Name: Register User
  * @package GS_Accessories
  */
-if ( is_user_logged_in() ) {
-	wp_redirect( site_url() . '/' );
-	exit;
-}
+unrestricted_page();
+
 get_template_part( 'template-parts/spinner' );
 get_header(); ?>
     <div id="primary" class="content-area">

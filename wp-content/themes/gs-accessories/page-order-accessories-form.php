@@ -6,6 +6,9 @@
  *
  * @package GS_Accessories
  */
+
+restricted_page();
+
 get_header(); ?>
 
 <div id="primary" class="content-area">
@@ -15,14 +18,6 @@ get_header(); ?>
    <main id="main" class="site-main">
 
     <h2>Order Accessories</h2>
-
-
-    <div class='cart-preview'>
-      <?php
-        // just have a message saying added to cart here...
-      ?>
-
-    </div>
 
     <form class="order-form" method="POST" action="#">
 
