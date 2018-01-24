@@ -289,5 +289,21 @@ function gs_accessories_image_sizes() {
 }
 
 add_action('init', 'gs_accessories_image_sizes');
+
+
+
+/**
+ * Redirect non admin users to front page
+ */
+
+add_action( 'admin_init', 'non_admin_users_redirect' );
+
+function non_admin_users_redirect() {
+
+	if ( ! current_user_can( 'level_5' ) ) {
+
+		wp_redirect( site_url() );
+	}
+}
 	
 	
