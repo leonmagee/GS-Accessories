@@ -1,0 +1,115 @@
+.homepage-outer-wrap {
+    flex: 1;
+  }
+
+.homepage-wrap {
+    // background: rgb(21, 127, 219);
+    // flex: 1;
+    // height: auto;
+    //display: flex;
+    // flex: 1;
+    // align-items: center;
+    // justify-content: center;
+    // display: flex;
+    // h1 {
+    //     color: $base-white;
+    //     padding: 10px;
+    //     font-size: 60px;
+    //     margin: 0;
+    //     text-shadow: 1px 1px rgba(0,0,0,0.2);
+    // }
+
+
+}
+
+.homepage-slider {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        font-size: 30px;
+    }
+
+    .accessorie-slide {
+        background-color: #F7F7F7;
+        @include img_bg;
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        padding: 20px;
+        display: flex;
+        flex: 1;
+        min-height: 100%;
+
+        //justify-content: space-around;
+        justify-content: center; 
+
+        .slide-image-wrap {
+            //flex: 0 1 30%;
+            img {
+                //max-width: 400px;
+                border: 1px solid #DDD;
+            }
+        }
+
+        .slide-content-wrap {
+            //flex: 0 1 40%;
+            padding: 0 15px;
+        }
+    }
+
+    // .features-section {
+    //     ul {
+    //         list-style-type: none;
+    //     }
+    // }
+    .features-protections-wrap.flex_class {
+        @media(min-width: $screen-sm) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .features-section {
+        padding-bottom: 15px;
+        ul {
+            list-style-type: none;
+            li {
+                //font-size: 20px;
+                font-size: 16px;
+                margin: 5px 0;
+                position: relative;
+                &:before {
+                    @include diamonds;
+                }
+            }
+        }
+    }
+
+    .accessory-text-wrap {
+        //min-height: 225px;
+    }
+    .protections-wrap {
+    //padding: 15px 0;
+    //padding-bottom: 15px;
+
+    .protection {
+        // display: flex;
+        // align-items: center;
+        // padding: 5px 0;
+        svg {
+            max-width: 34px;
+            max-height: 34px;
+            // path, rect {
+            //     fill: darken($brand-primary, 5%);
+            // }
+        }
+        span {
+            //margin-left: 5px;
+            font-size: 17px;
+            //font-weight: bold;
+            //color: #222;
+        }
+    }
+}
+}
