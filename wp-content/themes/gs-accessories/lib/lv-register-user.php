@@ -62,13 +62,13 @@ class lv_register_user {
 		}
 
 		$user_email_text = get_field( 'new_account_email_text', 'option' );
-		$send_user_email = new lv_send_email_misc( $this->email, $email_name, 'MarketPier User Registration', $user_email_text );
+		$send_user_email = new lv_send_email_misc( $this->email, $email_name, 'GS Accessories User Registration', $user_email_text );
 		$send_user_email->send_email();
 
 
 		$admin_email_text = 'New user registered: ' . $email_name . ' - ' . $this->company . ' - ' . $this->phone_number;
 		$admin_email      = get_bloginfo( 'admin_email' );
-		$send_admin_email = new lv_send_email_misc( $admin_email, 'MarketPier Admin', 'MarketPier User Registration', $admin_email_text );
+		$send_admin_email = new lv_send_email_misc( $admin_email, 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
 		$send_admin_email->send_email();
 	}
 

@@ -23,11 +23,11 @@ class lv_send_email_misc {
 	 */
 	public function send_email() {
 
-		$website_url = 'https://marketpier.com';
+		$website_url = site_url();
 
 		$message_body = '<div style="padding-left: 10px; padding-right: 10px;">
 
-		<h2 style="color: #00A3E4">MarketPier</h2>
+		<h2 style="color: #00A3E4">GS Accessories</h2>
 		<div style="margin: 5px 0">' . $this->recipient_name . ',</div>
 		<div style="margin: 5px 0">' . $this->email_text . '</div>
 		<div>
