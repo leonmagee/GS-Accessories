@@ -17,6 +17,10 @@
 
 	<div class="entry-content single-accessory">
         <?php
+
+        $wholesale_price = get_field('wholesale_price');
+
+        $dealer_price = get_field('dealer_price');
         
         $description = get_field('accessory_text');
 
@@ -32,19 +36,19 @@
             }
             $combined_features = array_merge($features, $add_features_array);
         } else {
-           $combined_features = $features; 
-       }
+         $combined_features = $features; 
+     }
 
-       $colors = get_field('accessory_colors');
+     $colors = get_field('accessory_colors');
 
-       if ( $colors ) {
+     if ( $colors ) {
         $border_class = 'border-class';
-       } else {
+    } else {
         $border_class = '';
-       }
+    }
 
-       ?>
-       <div class="grid-x">
+    ?>
+    <div class="grid-x">
         <div class="image-wrap cell large-5">
             <?php $image_gallery = get_field('image_gallery');
 
@@ -81,6 +85,35 @@
 
                 </div>
                 <div class="cell large-7 description-features-wrap">
+
+                    <?php if (is_user_logged_in() && $wholesale_price && $dealer_price ) { 
+                            if ( current_user_can('edit_post')) { 
+                                $price_name = 'Wholesale';
+                                $price_value = number_format($wholesale_price, 2);
+
+                            } else {
+                                $price_name = 'Dealer';
+                                $price_value = number_format($dealer_price, 2);
+                            }
+
+                        ?>
+                    
+                    <div class="price-wrap-outer">
+
+                    <h4><?php echo $price_name; ?> Price</h4>
+
+                        <div class="price-wrap">
+
+                            $<?php echo $price_value; ?>
+                            
+                        </div>
+                        <div class="price-description">
+                            Per 1,000 Units
+                        </div>
+                        
+                    </div>
+                    <?php } ?>
+
                     <div class="accessory-description">
                         <h4>Description</h4>
                         <?php echo $description; ?>

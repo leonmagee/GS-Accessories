@@ -43,7 +43,8 @@ class lv_register_user {
 			'ID'         => $this->user_id,
 			'first_name' => $this->first_name,
 			'last_name'  => $this->last_name,
-			'role'       => 'agent'
+			//'role'       => 'agent'
+			'role'       => 'subscriber'
 		) );
 
 		update_user_meta( $this->user_id, 'phone_number', $this->phone_number );

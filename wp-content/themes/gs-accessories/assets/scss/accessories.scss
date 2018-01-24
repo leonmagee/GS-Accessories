@@ -64,6 +64,23 @@
             flex: 1;
         }
     }
+
+    .price-wrap-outer {
+
+        padding-bottom: 13px;
+
+        .price-wrap {
+            color: darken( $brand-primary, 12% );
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 25px;
+        }
+
+        .price-description {
+            color: #888;
+            font-size: 17px;
+        }
+    }
 }
 
 .features-section-wrap {
