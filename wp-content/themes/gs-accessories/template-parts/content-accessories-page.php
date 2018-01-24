@@ -87,7 +87,7 @@
                 <div class="cell large-7 description-features-wrap">
 
                     <?php if (is_user_logged_in() && $wholesale_price && $dealer_price ) { 
-                            if ( current_user_can('edit_post')) { 
+                            if ( current_user_can('edit_posts')) {
                                 $price_name = 'Wholesale';
                                 $price_value = number_format($wholesale_price, 2);
 
@@ -105,7 +105,7 @@
                         <div class="price-wrap">
 
                             $<?php echo $price_value; ?>
-                            
+
                         </div>
                         <div class="price-description">
                             Per 1,000 Units
