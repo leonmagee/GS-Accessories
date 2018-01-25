@@ -18,6 +18,8 @@
 			<div class="site-info">
 				Copyright <a href="https://mygswireless.com" target="_blank">GS Wireless</a> <?php echo date('Y'); ?>
 				<span class="sep"> | </span>
+				<i class="fa fa-lock" aria-hidden="true"></i> Secured with SSL 
+				<span class="sep"> | </span>
 				Site by <a href="https://levon.io" target="_blank">Levon.io</a>
 			</div><!-- .site-info -->
 		</div>
