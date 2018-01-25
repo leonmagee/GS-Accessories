@@ -20,7 +20,7 @@
 
         $wholesale_price = get_field('wholesale_price');
 
-        $dealer_price = get_field('dealer_price');
+        $retail_price = get_field('retail_price');
         
         $description = get_field('accessory_text');
 
@@ -86,14 +86,14 @@
                 </div>
                 <div class="cell large-7 description-features-wrap">
 
-                    <?php if (is_user_logged_in() && $wholesale_price && $dealer_price ) { 
+                    <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
                             if ( current_user_can('edit_posts')) {
-                                $price_name = 'Wholesale';
+                                $price_name = 'Wholesaler';
                                 $price_value = number_format($wholesale_price, 2);
 
                             } else {
-                                $price_name = 'Dealer';
-                                $price_value = number_format($dealer_price, 2);
+                                $price_name = 'Retailer';
+                                $price_value = number_format($retail_price, 2);
                             }
 
                         ?>
@@ -108,7 +108,7 @@
 
                         </div>
                         <div class="price-description">
-                            Per 1,000 Units
+                            Per Unit
                         </div>
                         
                     </div>
