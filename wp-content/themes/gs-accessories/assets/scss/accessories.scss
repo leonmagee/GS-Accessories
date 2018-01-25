@@ -1,17 +1,27 @@
-.single-accessory {
-    position: relative;
-    padding: 20px 0;
-    color: #000;
-
-    h3, h4 {
-        margin-bottom: 2px;
-        font-size: 1.4em;
+.single-accessories {
+    h1.entry-title {
+        margin: 0 0 15px 0;
+            font-weight: bold;
+            text-transform: none !important;
+        }
     }
-    h4 {
-        margin-top: 10px;
-        font-weight: bold;
-        color: #444;
-        font-size: 20px;
+
+    .single-accessory {
+        position: relative;
+        padding: 20px 0;
+        color: #000;
+
+
+
+        h3, h4 {
+            margin-bottom: 2px;
+            font-size: 1.4em;
+        }
+        h4 {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #444;
+            font-size: 20px;
         //color: #444;
         @media(min-width: $screen-sm) {
             margin-top: 0;
@@ -90,11 +100,11 @@
 
     .features-section {
         &.border-class {
-        @media(min-width: $screen-sm) {
-            padding-right: 25px;
-            border-right: 1px solid #EEE;
-            margin-right: 25px;
-        }
+            @media(min-width: $screen-sm) {
+                padding-right: 25px;
+                border-right: 1px solid #EEE;
+                margin-right: 25px;
+            }
 
         }
         padding-bottom: 15px;
