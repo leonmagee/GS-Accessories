@@ -143,7 +143,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 	foreach( $shopping_cart_array as $id => $data ) {
 		$product = strtoupper(str_replace('-', ' ' , $data['product']));
-		$email_body .= '<div>Product ID: ' . $id . ' - Product: ' . $product . ' - Quantity: ' . $data['quantity'] . ' - Color: ' . $data['color'] . '</div>';
+		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $data['quantity'] . ' - Color: ' . $data['color'] . '</div>';
 	}
 
 	// send email to admin
@@ -155,12 +155,37 @@ if ( isset($_POST['place-cart-order'])) {
 
 	wp_mail( $to, $subject, $body, $headers );
 
+	$payment_instructions = '<div>
+	<div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below. If you are located in San Diego and request order pick up or drop off, you still have to submit your order on line first NO EXCEPTIONS.</div>
+	<div>
+	<br />
+	<div><strong>Option #1 (PayPal Payment)</strong></div>
+	<div>
+	Remit payment through PayPal to Sales@mygsaccessories.com and choose send to (family or friends) to avoid extra fee otherwise 3% charge will be applied to your total invoice.</div>
+	</div>
+	<div>
+	<br />
+	<div><strong>Option #2 (Bank Wire, Check Or Cash Deposit)</strong><div>
+	<div>Cash deposit can be made at any US Bank, check or other form of deposit including money order could take more than 72H to clear. We required a copy of the deposit slip, branch phone number and teller name to confirm deposit type.</div>
+	</div>
+	<div>
+	<br />
+	<div>Wire Transfer Information:</div>
+	<div>Bank Name: U.S. Bank</div>
+	<div>Account Holder: Golden State Wireless Inc.</div>
+	<div>Account Number: 153497481058</div>
+	<div>Routing Number: 122235821</div>
+	<div>U.S. Bank SWIFT code: USBKUS44IMT (for international use)</div>
+	</div>
+	<br />
+	<div><strong>Order Details</strong><div>';
+
 
 	// send email to user
-	$user_intro = '<div>Thank you for choosing GS Accessories. Your order:</div>';
+	//$user_intro = '<div>Thank you for choosing GS Accessories. Your order:</div>';
 	$to = $user_email; // get admin email here
 	$subject = 'GS Accessories Order';
-	$body = $user_intro . $email_body;
+	$body = $payment_instructions . $email_body;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
 	wp_mail( $to, $subject, $body, $headers );

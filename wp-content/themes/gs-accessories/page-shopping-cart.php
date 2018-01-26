@@ -65,6 +65,22 @@ get_header();
           $img_url = get_template_directory_uri() . "/assets/img/placeholder-image-small.jpg";
         }
 
+        if ( current_user_can('edit_posts')) {
+            $acf_price = get_field('wholesale_price', $product_id_actual);
+        } else {
+            $acf_price = get_field('retail_price', $product_id_actual);
+        }
+
+        if ( $acf_price ) {
+          $price = $acf_price * $item['quantity'];
+          $price_value = '$' . number_format($price, 2);
+        } else {
+          $price_value = 'N/A';
+        }
+
+
+
+
         //$quantity_array = array('1000','2000','3000','4000','5000');
         $quantity_array = array('1000','2000','3000','4000','5000');
 
@@ -82,6 +98,10 @@ get_header();
               <a href="/accessories/<?php echo $item['product']; ?>">
                 <?php echo str_replace('-', ' ', $item['product']); ?>
               </a>
+            </div>
+
+            <div class="cart-property price">
+              <?php echo $price_value; ?>
             </div>
 
             <form class="details-form" method="post" action="#">
