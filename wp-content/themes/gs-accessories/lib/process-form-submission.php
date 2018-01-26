@@ -141,10 +141,37 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$email_body = '';
 
+	$total_cost = 0;
+
 	foreach( $shopping_cart_array as $id => $data ) {
 		$product = strtoupper(str_replace('-', ' ' , $data['product']));
-		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $data['quantity'] . ' - Color: ' . $data['color'] . '</div>';
+		$product_id_exp = explode('-', $id);
+        $product_id_actual = $product_id_exp[0];
+
+
+        if ( current_user_can('edit_posts')) {
+            $acf_price = get_field('wholesale_price', $product_id_actual);
+        } else {
+            $acf_price = get_field('retail_price', $product_id_actual);
+        }
+
+        if ( $acf_price ) {
+          $price = $acf_price * $data['quantity'];
+          $acf_price_per = '$' . number_format($acf_price, 2);
+          $price_value = '$' . number_format($price, 2);
+          $total_cost = $price + $total_cost;
+        } else {
+          //$acf_price = false;
+          $price_value = 'N/A';
+        }
+
+
+		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $data['quantity'] . ' - Color: ' . $data['color'] . ' - Unit Cost: ' . $acf_price_per . ' - Total Cost: ' . $price_value . '</div>';
 	}
+
+	$total_cost_final = '$' . number_format( $total_cost, 2 );
+
+	$email_body = $email_body . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 
 	// send email to admin
 	$admin_intro = '<div>Order placed by ' . $user_name . ' - Email: ' . $user_email . '</div>';
