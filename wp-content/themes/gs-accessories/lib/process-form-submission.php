@@ -62,21 +62,24 @@ if ( isset($_POST['add-one-accessory'])) {
 
 	$product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_SPECIAL_CHARS);
 
-	// $page_object = get_page_by_path($product, OBJECT, 'accessories');
-	// $post_id = $page_object->ID;
-
 	$post_id = filter_input(INPUT_POST, 'add-one-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
 	$time = time();
 	$array_key = $post_id . '-' . $time;
 
-	//die($product . ' - ' . $quantity . ' - ' . $color);
+	$colors = get_field('accessory_colors', $post_id);
+
+	if ( $colors ) {
+		$color = $colors[0];
+	} else {
+		$color = false;
+	}
 
 	$ShopingCart = new shopping_cart();
 
     //$Basket->do_actions(); 
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
-	$ShopingCart->add_data($product, 1000);
+	$ShopingCart->add_data($product, 1000, $color);
     //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
     // $ShopingCart->add_data('USB Charger', 1000, 'white');
     //var_dump($ShopingCart);
