@@ -6,7 +6,6 @@
  *
  * @package GS_Accessories
  */
-
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -187,7 +186,12 @@
                         <?php } ?>
                     </div>
                     <div class="order-button-wrap">
-                        <a class="gs-button">Request Item</a>
+                        <form method="POST" action="#">
+                            <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
+                            <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
+
+                            <button type="submit" class="gs-button">Add To Cart</button>
+                        </form>
                     </div>
                 </div>
             </div>

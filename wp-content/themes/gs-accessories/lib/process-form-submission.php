@@ -53,9 +53,54 @@ if ( isset($_POST['product-order-form'])) {
 	// var_dump( $ShopingCart);
 	// var_dump($_SESSION);
 	// die('die');
+}
 
+/**
+* Add item to cart from single product page
+*/
+if ( isset($_POST['add-one-accessory'])) {
 
+	$product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_SPECIAL_CHARS);
 
+	// $page_object = get_page_by_path($product, OBJECT, 'accessories');
+	// $post_id = $page_object->ID;
+
+	$post_id = filter_input(INPUT_POST, 'add-one-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
+	$time = time();
+	$array_key = $post_id . '-' . $time;
+
+	//die($product . ' - ' . $quantity . ' - ' . $color);
+
+	$ShopingCart = new shopping_cart();
+
+    //$Basket->do_actions(); 
+    // my own hooks to allow me to add housekeeping code without messing with my core code
+
+	$ShopingCart->add_data($product, 1000);
+    //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
+    // $ShopingCart->add_data('USB Charger', 1000, 'white');
+    //var_dump($ShopingCart);
+
+	session_start();
+
+	if ( $_SESSION['shopping_cart'] ) {
+
+		$current_data = unserialize($_SESSION['shopping_cart']);
+		
+	} else {
+		$current_data = array();
+	}
+
+	$current_data[$array_key] = $ShopingCart->cart_data;
+
+	$_SESSION['shopping_cart'] = serialize($current_data);
+
+	wp_redirect('/cart');
+	exit;
+
+	// var_dump( $ShopingCart);
+	// var_dump($_SESSION);
+	// die('die');
 }
 
 /**
