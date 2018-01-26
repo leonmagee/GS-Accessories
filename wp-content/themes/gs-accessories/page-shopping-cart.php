@@ -47,6 +47,7 @@ get_header();
       if ( $_SESSION['shopping_cart'] ) {
         $cart_data = unserialize($_SESSION['shopping_cart']);
         //var_dump($cart_data);
+        $total_cost = 0;
         foreach( $cart_data as $product_id => $item ) { // $id => $item
 
           /**
@@ -77,6 +78,7 @@ get_header();
           $price = $acf_price * $item['quantity'];
           $acf_price_per = '$' . number_format($acf_price, 2);
           $price_value = '$' . number_format($price, 2);
+          $total_cost = $price + $total_cost;
         } else {
           $acf_price = false;
           $price_value = 'N/A';
@@ -172,6 +174,10 @@ get_header();
           </div>
 
           <?php } ?>
+
+          <div class="cart-total">
+            Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
+          </div>
 
 
         <form method="post" action="#">

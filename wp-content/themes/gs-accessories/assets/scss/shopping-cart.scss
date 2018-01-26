@@ -87,6 +87,7 @@
 				//white-space: nowrap;
 				@media(min-width: $screen-md) {
 					flex: 1 1 25%;
+					padding-right: 5px;
 				}
 
 				a {
@@ -147,6 +148,15 @@
 				color: #000;
 				cursor: pointer;
 			}
+		}
+	}
+	.cart-total {
+		font-size: 23px;
+		padding: 5px 0 15px;
+		color: #888;
+		span {
+			color: darken( $brand-primary, 15%);
+			font-weight: bold;
 		}
 	}
 }
