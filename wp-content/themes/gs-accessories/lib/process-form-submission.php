@@ -156,7 +156,7 @@ if ( isset($_POST['place-cart-order'])) {
 	wp_mail( $to, $subject, $body, $headers );
 
 	$payment_instructions = '<div>
-	<div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below. If you are located in San Diego and request order pick up or drop off, you still have to submit your order on line first NO EXCEPTIONS.</div>
+	<div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below.</div>
 	<div>
 	<br />
 	<div><strong>Option #1 (PayPal Payment)</strong></div>
