@@ -22,7 +22,11 @@ get_header();
 
    <main id="main" class="site-main">
 
-    <h2>Cart</h2>
+    <h1 class="entry-title">Cart</h1>
+
+    <div class="add-more-items-wrap">
+      <a href="/place-your-order">Add More Accessories</a>
+    </div>
 
 
     <div class='cart-wrap'>
