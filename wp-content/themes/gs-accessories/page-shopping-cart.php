@@ -65,6 +65,8 @@ get_header();
           $img_url = get_template_directory_uri() . "/assets/img/placeholder-image-small.jpg";
         }
 
+
+
         if ( current_user_can('edit_posts')) {
             $acf_price = get_field('wholesale_price', $product_id_actual);
         } else {
@@ -73,19 +75,16 @@ get_header();
 
         if ( $acf_price ) {
           $price = $acf_price * $item['quantity'];
+          $acf_price_per = '$' . number_format($acf_price, 2);
           $price_value = '$' . number_format($price, 2);
         } else {
+          $acf_price = false;
           $price_value = 'N/A';
         }
 
-
-
-
-        //$quantity_array = array('1000','2000','3000','4000','5000');
         $quantity_array = array('1000','2000','3000','4000','5000');
 
         $colors = get_field('accessory_colors', $product_id_actual );
-        //var_dump($colors);
 
           ?>
 
@@ -101,7 +100,11 @@ get_header();
             </div>
 
             <div class="cart-property price">
-              <?php echo $price_value; ?>
+              <label>Total Cost</label>
+              <div class="price-line"><?php echo $price_value; ?></div>
+              <?php if ( $acf_price ) { ?>
+              <div class="details"><strong><?php echo $acf_price_per; ?></strong> per unit</div>
+              <?php } ?>
             </div>
 
             <form class="details-form" method="post" action="#">
