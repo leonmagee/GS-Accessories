@@ -95,7 +95,7 @@ get_header();
               <img src="<?php echo $img_url; ?>" />
             </div>
 
-            <div class="cart-property product"><span>Product:</span>
+            <div class="cart-property product"><label>Product</label>
               <a href="/accessories/<?php echo $item['product']; ?>">
                 <?php echo str_replace('-', ' ', $item['product']); ?>
               </a>
@@ -180,6 +180,23 @@ get_header();
           </div>
 
 
+          <div class="min-amount-wrap">
+
+          <?php
+            if ( current_user_can('edit_posts')) {
+                $min_amount = 3000;
+            } else {
+                $min_amount = 300;
+            }
+          ?>
+
+            You must spend at least $<?php echo number_format($min_amount, 2); ?> to process order. 
+
+          </div>
+
+
+        <?php if ($total_cost >= $min_amount) { ?>
+
         <form method="post" action="#">
           
           <input type="hidden" name="place-cart-order" />
@@ -187,6 +204,12 @@ get_header();
           <button type="submit" class="submit-order-button">Place Your Order</button>
 
         </form>
+
+        <?php } else { ?>
+  
+          <button class="submit-order-button disabled">Place Your Order</button>
+
+        <?php } ?>
 
         <?php } else {?>
           

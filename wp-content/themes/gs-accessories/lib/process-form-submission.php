@@ -165,8 +165,10 @@ if ( isset($_POST['place-cart-order'])) {
           $price_value = 'N/A';
         }
 
+        $quantity_fmt = number_format($data['quantity']);
 
-		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $data['quantity'] . ' - Color: ' . $data['color'] . ' - Unit Cost: ' . $acf_price_per . ' - Total Cost: ' . $price_value . '</div>';
+
+		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $quantity_fmt . ' - Color: ' . $data['color'] . ' - Unit Cost: ' . $acf_price_per . ' - Total Cost: ' . $price_value . '</div>';
 	}
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
