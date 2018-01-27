@@ -173,6 +173,48 @@
                                 <span>Fail-Safe Protection</span>
                             </div>
                             <?php }
+
+
+
+
+
+
+                            if ( $protection == 'Anti-Scratch Protection' ) { ?>
+
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/anti-scratch-protection'); ?>
+                                <span>Anti-Scratch Protection</span>
+                            </div>
+                            <?php }
+
+
+                            if ( $protection == 'Full 360 Protection' ) { ?>
+
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/360-protection'); ?>
+                                <span>Full 360° Protection</span>
+                            </div>
+                            <?php }
+
+
+                            if ( $protection == 'Anti-Shock Protection' ) { ?>
+
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/anti-shock-protection'); ?>
+                                <span>Anti-Shock Protection</span>
+                            </div>
+                            <?php }
+
+
+                            if ( $protection == 'Shock-Absorption Protection' ) { ?>
+
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/absorb-protection'); ?>
+                                <span>Shock-Absorption Protection</span>
+                            </div>
+                            <?php }
+
+
                         } ?>
 
                     </div>
