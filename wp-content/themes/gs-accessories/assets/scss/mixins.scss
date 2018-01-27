@@ -20,6 +20,22 @@
     content: '';
 }
 
+@mixin circles {
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    border-radius: 80px;
+    width: 13px;
+    height: 13px;
+    left: -21px;
+    top: 9px;
+    position: absolute;
+    border-style: double;
+    border-color: darken($brand-primary, 5%);
+    content: '';
+}
+
 @mixin form_text() {
   color: #555;
   // font-family: 'Open Sans';

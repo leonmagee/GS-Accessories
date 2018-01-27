@@ -1,25 +1,25 @@
 .single-accessories {
     h1.entry-title {
         margin: 0 0 15px 0;
-            font-weight: bold;
-            text-transform: none !important;
-        }
+        font-weight: bold;
+        text-transform: none !important;
     }
+}
 
-    .single-accessory {
-        position: relative;
-        padding: 20px 0;
-        color: #000;
+.single-accessory {
+    position: relative;
+    padding: 20px 0;
+    color: #000;
 
-        h3, h4 {
-            margin-bottom: 2px;
-            font-size: 1.4em;
-        }
-        h4 {
-            margin-top: 10px;
-            font-weight: bold;
-            color: #444;
-            font-size: 20px;
+    h3, h4 {
+        margin-bottom: 2px;
+        font-size: 1.4em;
+    }
+    h4 {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #444;
+        font-size: 20px;
         @media(min-width: $screen-sm) {
             margin-top: 0;
         }
@@ -114,6 +114,17 @@
 
                 &:before {
                     @include diamonds;
+                }
+            }
+        }
+
+        &.colors {
+            ul {
+                li {
+
+                    &:before {
+                        @include circles;
+                    }
                 }
             }
         }

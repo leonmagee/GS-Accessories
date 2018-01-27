@@ -191,7 +191,7 @@
                         <?php } ?>
                         <?php if ( LV_LOGGED_IN_ID ) { ?>
                         <?php if ( $colors ) { ?>
-                        <div class="features-section">
+                        <div class="features-section colors">
                             <h4>Colors</h4>
                             <ul>
                                 <?php foreach( $colors as $color ) { ?>
