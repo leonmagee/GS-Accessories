@@ -174,6 +174,7 @@
                             </ul>
                         </div>
                         <?php } ?>
+                        <?php if ( LV_LOGGED_IN_ID ) { ?>
                         <?php if ( $colors ) { ?>
                         <div class="features-section">
                             <h4>Colors</h4>
@@ -184,7 +185,9 @@
                             </ul>
                         </div>
                         <?php } ?>
+                        <?php } ?>
                     </div>
+                    <?php if ( LV_LOGGED_IN_ID ) { ?>
                     <div class="order-button-wrap">
                         <form method="POST" action="#">
                             <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
@@ -193,6 +196,7 @@
                             <button type="submit" class="gs-button">Add To Cart</button>
                         </form>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
 
