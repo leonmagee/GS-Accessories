@@ -158,6 +158,21 @@
                             </div>
                             <?php }
 
+                            if ( $protection == 'Over-Heat Protection' ) { ?>
+
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/over-heat-protection'); ?>
+                                <span>Overheating Protection</span>
+                            </div>
+                            <?php }
+
+                            if ( $protection == 'Fail-Safe Protection' ) { ?>
+
+                            <div class="protection">
+                                <?php get_template_part('assets/svg/fail-safe-protection'); ?>
+                                <span>Fail-Safe Protection</span>
+                            </div>
+                            <?php }
                         } ?>
 
                     </div>
