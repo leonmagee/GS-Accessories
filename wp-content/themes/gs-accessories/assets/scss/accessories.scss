@@ -90,44 +90,67 @@
     }
 }
 
-.features-section-wrap {
-    @media(min-width: $screen-sm) {
-        display: flex;
-    }
+//.features-section-wrap {
+    // @media(min-width: $screen-sm) {
+    //     display: flex;
+    // }
 
     .features-section {
-        &.border-class {
-            @media(min-width: $screen-sm) {
-                padding-right: 25px;
-                border-right: 1px solid #EEE;
-                margin-right: 25px;
-            }
+        // &.border-class {
+        //     @media(min-width: $screen-sm) {
+        //         padding-right: 25px;
+        //         border-right: 1px solid #EEE;
+        //         margin-right: 25px;
+        //     }
 
-        }
+        // }
         padding-bottom: 15px;
+        svg {
+            max-width: 20px;
+            max-height: 20px;
+            margin-right: 5px;
+            path, rect, polygon, circle {
+                stroke: darken($brand-primary, 10%);
+            }
+        }
         ul {
             list-style-type: none;
+            margin-left: 5px;
             li {
                 font-size: 20px;
                 margin: 5px 0;
                 position: relative;
+                display: flex;
+                align-items: center;
 
-                &:before {
-                    @include diamonds;
-                }
+
+                // &:before {
+                //     //@include diamonds;
+                // }
             }
         }
 
-        &.colors {
-            ul {
-                li {
+        // &.colors {
+        //     ul {
+        //         li {
 
-                    &:before {
-                        @include circles;
-                    }
-                }
-            }
-        }
+        //             &:before {
+        //                 @include circles;
+        //             }
+        //         }
+        //     }
+        // }
+
+        // &.benefits {
+        //     ul {
+        //         li {
+
+        //             &:before {
+        //                 @include stars;
+        //             }
+        //         }
+        //     }
+        // }
 
     }
 
@@ -139,21 +162,22 @@
     //     @include diamonds;
     // }
 
-}
+//}
 
 
 
 .protections-wrap {
     //padding: 15px 0;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 
     .protection {
         display: flex;
         align-items: center;
         padding: 5px 0;
+        margin-left: 5px;
         svg {
-            max-width: 40px;
-            max-height: 40px;
+            max-width: 38px;
+            max-height: 38px;
             path, rect, polygon {
                 fill: darken($brand-primary, 5%);
             }
