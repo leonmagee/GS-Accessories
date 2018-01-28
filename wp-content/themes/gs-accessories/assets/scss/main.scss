@@ -102,7 +102,7 @@ h2 {
   }
 }
 
-a.gs-button, button.gs-button {
+a.gs-button, button.gs-button, button.wpforms-submit {
   background-color: $brand-primary-hover;
   color: #FFF !important;
   text-shadow: 1px 1px rgba(0,0,0,0.05);
@@ -114,6 +114,16 @@ a.gs-button, button.gs-button {
   &:hover {
     cursor: pointer;
     background-color: darken($brand-primary, 8%);
+  }
+}
+
+button.wpforms-submit {
+  background-color: $brand-primary-hover !important;
+  border: none !important;
+  border-radius: 5px !important;
+  &:hover {
+    cursor: pointer;
+    background-color: darken($brand-primary, 8%) !important;
   }
 }
 

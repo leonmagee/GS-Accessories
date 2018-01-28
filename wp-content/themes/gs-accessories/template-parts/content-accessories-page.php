@@ -174,11 +174,6 @@
                             </div>
                             <?php }
 
-
-
-
-
-
                             if ( $protection == 'Anti-Scratch Protection' ) { ?>
 
                             <div class="protection">
@@ -205,7 +200,6 @@
                             </div>
                             <?php }
 
-
                             if ( $protection == 'Shock-Absorption Protection' ) { ?>
 
                             <div class="protection">
@@ -213,11 +207,21 @@
                                 <span>Shock-Absorption Protection</span>
                             </div>
                             <?php }
-
-
                         } ?>
 
                     </div>
+<div class="features-section-wrap">
+                    <div class="benefits features-section">
+                        <ul>
+                            <li>HQ Professional Packages</li>
+                            <li>USA Supplier</li>
+                            <li>Fiscal Stock</li>
+                            <li>Low Prices</li>
+                            <li>Quality Guaranteed</li>
+                            <li>Fast Shipping</li>
+                        </ul>
+                    </div>
+                </div>
 
                     <?php } ?>
                     <div class="features-section-wrap">

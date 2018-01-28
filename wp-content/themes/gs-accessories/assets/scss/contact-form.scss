@@ -1,0 +1,61 @@
+body.gs-accessories {
+
+	.form-wrap {
+
+		div.wpforms-container-full {
+
+			.wpforms-form {
+
+				.name-field, .email-field, .comments-field {
+
+					&:before {
+						//content: "\f2be";
+						font-family: FontAwesome;
+						color: darken( $brand-primary, 15%);
+						float: left;
+						font-size: 25px;
+						line-height: 22px;
+						margin-right: 8px;
+						margin-bottom: 9px;
+						// margin-right: 5px;
+						// margin-bottom: 20px;
+					}
+
+				}
+
+				.name-field {
+					&:before {
+						content: "\f2be";
+					}
+				}
+
+				.email-field {
+					&:before {
+						content: "\f003";
+						//content: "\f0e0";
+					}
+				}
+
+				.comments-field {
+					&:before {
+						content: "\f27b";
+					}
+				}
+
+				label.wpforms-field-label {
+					//display: inline-block;
+					// margin: 0;
+					// padding: 0;
+					line-height: 22px !important;
+					//margin-bottom: 0 !important;
+				}
+
+			}
+
+
+
+		}
+	}
+
+}
+
