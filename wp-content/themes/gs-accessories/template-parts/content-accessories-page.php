@@ -35,12 +35,12 @@
             }
             $combined_features = array_merge($features, $add_features_array);
         } else {
-           $combined_features = $features; 
-       }
+         $combined_features = $features; 
+     }
 
-       $colors = get_field('accessory_colors');
+     $colors = get_field('accessory_colors');
 
-       if ( $colors ) {
+     if ( $colors ) {
         $border_class = 'border-class';
     } else {
         $border_class = '';
@@ -122,12 +122,6 @@
                             <h4>Description</h4>
                             <?php echo $description; ?>
                         </div>
-
-
-
-
-
-
 
                         <?php if ( $protections ) { ?>
 
@@ -226,6 +220,23 @@
 
 
 
+                        <?php if ( $combined_features ) { ?>
+                        <div class="features-section-wrap cell medium-6">
+                            <div class="features-section <?php echo $border_class; ?>">
+                                <h4>Features</h4>
+                                <ul>
+                                    <?php foreach( $combined_features as $feature ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-square'); ?>
+                                        <?php echo $feature; ?>
+                                        
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <?php } ?>
 
 
                         <div class="features-section-wrap cell medium-6">
@@ -249,31 +260,9 @@
 
 
 
-
-
-                            <?php if ( $combined_features ) { ?>
-                            <div class="features-section-wrap cell medium-6">
-                            <div class="features-section <?php echo $border_class; ?>">
-                                <h4>Features</h4>
-                                <ul>
-                                    <?php foreach( $combined_features as $feature ) { ?>
-                                    <li>
-                                        <?php get_template_part('assets/svg/icon-square'); ?>
-                                        <?php echo $feature; ?>
-                                        
-                                    </li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
-                            </div>
-
-                            <?php } ?>
-
-
-
-                            <?php if ( LV_LOGGED_IN_ID ) { ?>
-                            <?php if ( $colors ) { ?>
-                            <div class="features-section-wrap cell medium-6">
+                        <?php if ( LV_LOGGED_IN_ID ) { ?>
+                        <?php if ( $colors ) { ?>
+                        <div class="features-section-wrap cell medium-6">
                             <div class="features-section colors">
                                 <h4>Colors</h4>
                                 <ul>
@@ -286,30 +275,30 @@
                                 </ul>
                             </div>
                         </div>
-                            <?php } ?>
-                            <?php } ?>
-
-
-
-                        </div><!-- description features wrap -->
-
-
-
-
-
-                        <?php if ( LV_LOGGED_IN_ID ) { ?>
-                        <div class="order-button-wrap">
-                            <form method="POST" action="#">
-                                <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
-                                <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
-
-                                <button type="submit" class="gs-button">Add To Cart</button>
-                            </form>
-                        </div>
                         <?php } ?>
+                        <?php } ?>
+
+
+
+                    </div><!-- description features wrap -->
+
+
+
+
+
+                    <?php if ( LV_LOGGED_IN_ID ) { ?>
+                    <div class="order-button-wrap">
+                        <form method="POST" action="#">
+                            <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
+                            <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
+
+                            <button type="submit" class="gs-button">Add To Cart</button>
+                        </form>
                     </div>
+                    <?php } ?>
                 </div>
+            </div>
 
-            </div><!-- .entry-content -->
+        </div><!-- .entry-content -->
 
-        </article><!-- #post-->
+    </article><!-- #post-->
