@@ -40,7 +40,7 @@ $regular_inputs = array(
 				$input_name  = strtolower( str_replace( ' ', '_', $input_title ) );
 				?>
                 <div class="registration-input-wrap">
-                    <label><?php echo $input_title; ?><?php echo $req; ?></label>
+                    <label class="<?php echo $input_name; ?>"><?php echo $input_title; ?><?php echo $req; ?></label>
                     <input type="text" name="<?php echo $input_name; ?>"  class="<?php echo $input_name; ?>"/>
                 </div>
 			<?php } ?>

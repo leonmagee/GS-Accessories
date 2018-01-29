@@ -70,3 +70,71 @@
 .mp-required-fields {
   display: none;
 }
+
+
+body.gs-accessories {
+
+      .registration-input-wrap {
+
+        label {
+          font-size: 16px;
+            &:before {
+            font-family: FontAwesome;
+            color: darken( $brand-primary, 15%);
+            float: left;
+            font-size: 20px;
+            line-height: 30px;
+            margin-right: 7px;
+            margin-bottom: 2px;
+            font-weight: normal;
+          }
+        }
+
+        label.first_name, label.last_name {
+
+          &:before {
+            content: "\f2be";
+          }
+        }
+  
+        label.company_name {
+          &:before {
+            //content: "\f0f7";
+            content: "\f0c0";
+          }
+        }
+
+        label.email_address {
+          &:before {
+            content: "\f003";
+          }
+        }
+
+        label.username {
+          &:before {
+            content: "\f2bd";
+          }
+        }
+
+        label.phone_number {
+          &:before {
+            content: "\f095";
+          }
+        }
+
+        label.password {
+          &:before {
+            content: "\f023";
+          }
+        }
+
+        label.tin_ein_or_ssn {
+         &:before {
+           content: "\f2c3";
+         }
+        }
+
+      }
+
+}
+
