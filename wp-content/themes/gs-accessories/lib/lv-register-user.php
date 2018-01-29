@@ -16,6 +16,7 @@ class lv_register_user {
 	public $phone_number;
 	public $company;
 	public $user_id;
+	public $tin_ein_ssn;
 
 	public function __construct(
 		$username,
@@ -24,7 +25,8 @@ class lv_register_user {
 		$email,
 		$password,
 		$phone_number,
-		$company
+		$company,
+		$tin_ein_ssn
 	) {
 		$this->username     = $username;
 		$this->email        = $email;
@@ -33,6 +35,7 @@ class lv_register_user {
 		$this->last_name    = $last_name;
 		$this->phone_number = $phone_number;
 		$this->company      = $company;
+		$this->tin_ein_ssn  = $tin_ein_ssn;
 	}
 
 	private function register_user() {
@@ -49,8 +52,12 @@ class lv_register_user {
 
 		update_user_meta( $this->user_id, 'phone_number', $this->phone_number );
 		update_user_meta( $this->user_id, 'company', $this->company );
+		update_user_meta( $this->user_id, 'tin_ein_or_ssn', $this->tin_ein_ssn );
+
+
+		//update_field('tin_ein_or_ssn', $this->tin_ein_ssn, $this->user_id);
 		/**
-		 * Here we send email to Dan Haas and to the user - for Dan the email he gets will just include the basic info.
+		 * Here we send email to the admin and to the user
 		 */
 		$email_name = '';
 		if ( isset( $this->first_name ) && isset( $this->last_name ) ) {

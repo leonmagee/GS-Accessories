@@ -13,7 +13,8 @@ $regular_inputs = array(
 	//array( 'Email Repeat', 1 ),
 	array( 'Password', 1 ),
 	//array( 'Password Repeat', 1 ),
-	array( 'Phone Number', 1 )
+	array( 'Phone Number', 1 ),
+	array( 'TIN, EIN or SSN #', 1),
 );
 //$social_media_inputs_inputs = array(
 //	'Facebook',
@@ -35,6 +36,7 @@ $regular_inputs = array(
 					$req = '';
 				}
 				$input_title = $input[0];
+				$input_title  = str_replace( array(',', ' #'), '', $input_title );
 				$input_name  = strtolower( str_replace( ' ', '_', $input_title ) );
 				?>
                 <div class="registration-input-wrap">

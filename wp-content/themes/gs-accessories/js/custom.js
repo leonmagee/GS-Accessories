@@ -34,6 +34,7 @@ jQuery(function ($) {
         var phone_number = $(".registration-input-wrap input.phone_number").val();
         //var agency_name = $(".registration-input-wrap input.agency_name").val();
         var company = $(".registration-input-wrap input.company_name").val();
+        var tin_ein_or_ssn = $(".registration-input-wrap input.tin_ein_or_ssn").val();
 
         if (username && password && email_address && first_name && last_name) {
 
@@ -49,6 +50,7 @@ jQuery(function ($) {
             formdata.append("phone_number", phone_number);
             //formdata.append("agency_name", agency_name);
             formdata.append("company", company);
+            formdata.append("tin_ein_or_ssn", tin_ein_or_ssn);
 
             formdata.append("action", "lv_register_user");
 

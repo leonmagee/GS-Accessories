@@ -27,6 +27,13 @@
  session_start();
 
 
+/**
+* test user meta
+*/
+
+//add_user_meta( $user_id, $meta_key, $meta_value, $unique ); 
+add_user_meta(8, 'tin_ein_or_ssn', 'testingzzz');
+
 
 /**
  * Constants
@@ -35,6 +42,7 @@
 if ( is_user_logged_in() ) {
 	$user    = wp_get_current_user(); // @todo search for this to replace with constant
 	$user_id = $user->ID;
+	//var_dump($user_id);
 	$first_name = get_user_meta($user_id, 'first_name', true);
 	$last_name = get_user_meta($user_id, 'last_name', true);
 	//var_dump($first_name . ' ' . $last_name);

@@ -5,7 +5,7 @@
   // margin: 15px 0;
   .gs-button {
     padding: 10px 15px;
-    margin-left: 5px;
+    margin-left: 8px;
   }
   .form-area-top {
 
@@ -21,12 +21,12 @@
 
   .registration-input-wrap {
     width: 100%;
-    flex: 0 1 46%;
-    margin: 2%;
-    @media(min-width: $screen-md) {
-      flex: 0 1 31%;
-      margin: 1%;
-    }
+    flex: 0 1 48%;
+    margin: 1%;
+    // @media(min-width: $screen-md) {
+    //   flex: 0 1 31%;
+    //   margin: 1%;
+    // }
     label {
       font-weight: bold;
     }

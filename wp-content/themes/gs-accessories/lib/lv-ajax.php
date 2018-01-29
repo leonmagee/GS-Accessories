@@ -105,6 +105,7 @@ function lv_register_user() {
 			//$agency_name   = filter_input( INPUT_POST, 'agency_name', FILTER_SANITIZE_SPECIAL_CHARS );
 			$company      = filter_input( INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS );
 			$phone_number = filter_input( INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS );
+			$tin_ein_or_ssn = filter_input( INPUT_POST, 'tin_ein_or_ssn', FILTER_SANITIZE_SPECIAL_CHARS );
 
 			// @todo get other inputs
 
@@ -119,7 +120,8 @@ function lv_register_user() {
 					$email_address,
 					$password,
 					$phone_number,
-					$company );
+					$company,
+					$tin_ein_or_ssn );
 				$new_user->process_registration_form();
 				//wp_die( 'response' );
 			}

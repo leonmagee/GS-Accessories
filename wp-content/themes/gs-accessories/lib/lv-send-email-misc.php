@@ -27,12 +27,12 @@ class lv_send_email_misc {
 
 		$message_body = '<div style="padding-left: 10px; padding-right: 10px;">
 
-		<h2 style="color: #00A3E4">GS Accessories</h2>
+		<h2 style="color: #2FB49D">GS Accessories</h2>
 		<div style="margin: 5px 0">' . $this->recipient_name . ',</div>
 		<div style="margin: 5px 0">' . $this->email_text . '</div>
 		<div>
 			<div style="margin-top: 30px; margin-bottom: 15px;">
-				<a style="text-decoration: none; font-size: 13px; background-color: #27A2DB; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; margin-right: 15px;" href="' . $website_url . '">VISIT WEBSITE</a>
+				<a style="text-decoration: none; font-size: 13px; background-color: #2FB49D; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; margin-right: 15px;" href="' . $website_url . '">VISIT WEBSITE</a>
 			</div>
 		</div>
 	</div>';
