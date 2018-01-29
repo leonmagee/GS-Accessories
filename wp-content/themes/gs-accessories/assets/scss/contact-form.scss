@@ -6,10 +6,9 @@ body.gs-accessories {
 
 			.wpforms-form {
 
-				.name-field, .email-field, .comments-field {
+				.name-field, .email-field, .comments-field, .company-field, .tin-ein-ssn-field {
 
 					&:before {
-						//content: "\f2be";
 						font-family: FontAwesome;
 						color: darken( $brand-primary, 15%);
 						float: left;
@@ -17,22 +16,44 @@ body.gs-accessories {
 						line-height: 22px;
 						margin-right: 8px;
 						margin-bottom: 9px;
-						// margin-right: 5px;
-						// margin-bottom: 20px;
 					}
 
 				}
 
 				.name-field {
+
+					@media(min-width: $screen-sm) {
+						width: 48%;
+						float: left;
+						clear: none;
+					}
+
 					&:before {
 						content: "\f2be";
+					}
+				}
+	
+				.company-field {
+					@media(min-width: $screen-sm) {
+						width: 48%;
+						float: right;
+						clear: none;
+						margin-right: 1px;
+					}
+					&:before {
+						content: "\f0f7";
 					}
 				}
 
 				.email-field {
 					&:before {
 						content: "\f003";
-						//content: "\f0e0";
+					}
+				}
+
+				.tin-ein-ssn-field {
+					&:before {
+						content: "\f2bc";
 					}
 				}
 
@@ -43,19 +64,11 @@ body.gs-accessories {
 				}
 
 				label.wpforms-field-label {
-					//display: inline-block;
-					// margin: 0;
-					// padding: 0;
 					line-height: 22px !important;
-					//margin-bottom: 0 !important;
 				}
 
 			}
-
-
-
 		}
 	}
-
 }
 
