@@ -7,13 +7,13 @@
 $regular_inputs = array(
 	array( 'First Name', 1 ),
 	array( 'Last Name', 1 ),
+	array( 'Company Name', 1 ),
 	array( 'Username', 1 ),
 	array( 'Email Address', 1 ),
 	//array( 'Email Repeat', 1 ),
 	array( 'Password', 1 ),
 	//array( 'Password Repeat', 1 ),
-	array( 'Phone Number', 0 ),
-	array( 'Company Name', 0 )
+	array( 'Phone Number', 1 )
 );
 //$social_media_inputs_inputs = array(
 //	'Facebook',
@@ -25,7 +25,7 @@ $regular_inputs = array(
 //	'Instagram'
 //);
 ?>
-<div class="registration-form-wrapper">
+<div class="registration-form-wrapper form-wrap">
     <form method="post" name="registration-form">
         <div class="form-area-top">
 			<?php foreach ( $regular_inputs as $input ) {
@@ -43,6 +43,6 @@ $regular_inputs = array(
                 </div>
 			<?php } ?>
         </div>
-        <input type="submit" class="submit-input" id="register-new-user-submit"/>
+        <button type="submit" class="gs-button" id="register-new-user-submit">Submit</button>
     </form>
 </div>

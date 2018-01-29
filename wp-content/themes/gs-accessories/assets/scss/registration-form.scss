@@ -1,9 +1,14 @@
 .registration-form-wrapper { // used on agent profile page too?
-  background-color: #FAFAFA;
-  border: 1px solid #EEE;
-  padding: 10px 10px 30px;
-  margin: 15px 0;
+  // background-color: #FAFAFA;
+  // border: 1px solid #EEE;
+  // padding: 10px 10px 30px;
+  // margin: 15px 0;
+  .gs-button {
+    padding: 10px 15px;
+    margin-left: 5px;
+  }
   .form-area-top {
+
     display: flex;
     flex-wrap: wrap;
   }
@@ -19,8 +24,11 @@
     flex: 0 1 46%;
     margin: 2%;
     @media(min-width: $screen-md) {
-      flex: 0 1 18%;
+      flex: 0 1 31%;
       margin: 1%;
+    }
+    label {
+      font-weight: bold;
     }
     input {
       border-radius: 0;
@@ -30,28 +38,29 @@
       height: auto;
     }
     span {
-      color: $brand-third;
+      //color: $brand-third;
+      color: #FF0000;
       margin-left: 3px;
       font-size: 1.1em;
     }
   }
 
-  .submit-input {
-    // @include form_text;
-    // font-weight: 700;
-    padding: 7px 13px;
-    border-radius: 5px;
-    margin: 0 11px;
-    text-transform: uppercase;
-    border: none;
-    background-color: darken($brand-primary, 10%);
-    color: #FFF;
-    font-weight: bold;
-    font-size: 22px;
-    &:hover {
-      background-color: darken($brand-primary, 5%);
-    }
-  }
+  // .submit-input {
+  //   // @include form_text;
+  //   // font-weight: 700;
+  //   padding: 7px 13px;
+  //   border-radius: 5px;
+  //   margin: 0 11px;
+  //   text-transform: uppercase;
+  //   border: none;
+  //   background-color: darken($brand-primary, 10%);
+  //   color: #FFF;
+  //   font-weight: bold;
+  //   font-size: 22px;
+  //   &:hover {
+  //     background-color: darken($brand-primary, 5%);
+  //   }
+  // }
 }
 
 .register-user-email-taken {
