@@ -206,5 +206,18 @@
         .colors-wrap {
             order: 4;
         }
+
+        }
+
+        &.no-protections {
+        
+        @media(min-width: $screen-sm) {
+            .features-wrap {
+                order: 2;
+            }
+            .benefits-wrap {
+                order: 3;
+            }
+        }
     }
 }

@@ -52,10 +52,7 @@
             <?php $image_gallery = get_field('image_gallery');
 
 
-            if ( $image_gallery && $img_featured = array_shift($image_gallery)) {
-
-                //if ( has_post_thumbnail() ) {
-                //the_post_thumbnail(); ?>
+            if ( $image_gallery && $img_featured = array_shift($image_gallery)) { ?>
                 <div class="img-wrap-bg">
                     <a href="<?php echo $img_featured['sizes']['large']; ?>" rel="lightbox">
                         <img src="<?php echo $img_featured['sizes']['accessory_image']; ?>" />
@@ -84,11 +81,13 @@
 
                 </div>
 
+                <?php if ( ! $protections ) { //var_dump($protections);
+                    $protection_class = 'no-protections';
+                } else {
+                    $protection_class = '';
+                } ?>
 
-
-
-
-                <div class="cell large-7 description-features-wrap grid-x">
+                <div class="cell large-7 description-features-wrap grid-x <?php echo $protection_class; ?>">
 
                     <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
                         if ( current_user_can('edit_posts')) {
