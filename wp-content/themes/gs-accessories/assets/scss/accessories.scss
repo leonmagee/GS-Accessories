@@ -191,3 +191,20 @@
         }
     }
 }
+
+.description-features-wrap  {
+    @media(min-width: $screen-sm) {
+        .protections-wrap {
+            order: 1;
+        }
+        .features-wrap {
+            order: 3;
+        }
+        .benefits-wrap {
+            order: 2;
+        }
+        .colors-wrap {
+            order: 4;
+        }
+    }
+}

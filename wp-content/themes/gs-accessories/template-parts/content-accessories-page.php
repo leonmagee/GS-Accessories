@@ -221,7 +221,7 @@
 
 
                         <?php if ( $combined_features ) { ?>
-                        <div class="features-section-wrap cell medium-6">
+                        <div class="features-section-wrap features-wrap cell medium-6">
                             <div class="features-section <?php echo $border_class; ?>">
                                 <h4>Features</h4>
                                 <ul>
@@ -239,7 +239,7 @@
                         <?php } ?>
 
 
-                        <div class="features-section-wrap cell medium-6">
+                        <div class="features-section-wrap benefits-wrap cell medium-6">
                             <div class="benefits features-section">
                                 <h4>Benefits</h4>
 
@@ -262,7 +262,7 @@
 
                         <?php if ( LV_LOGGED_IN_ID ) { ?>
                         <?php if ( $colors ) { ?>
-                        <div class="features-section-wrap cell medium-6">
+                        <div class="features-section-wrap colors-wrap cell medium-6">
                             <div class="features-section colors">
                                 <h4>Colors</h4>
                                 <ul>
