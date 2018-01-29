@@ -73,7 +73,7 @@ class lv_register_user {
 		$send_user_email->send_email();
 
 
-		$admin_email_text = 'New user registered: ' . $email_name . ' - ' . $this->company . ' - ' . $this->phone_number;
+		$admin_email_text = 'New user registered: ' . $email_name . ' - ' . $this->company . ' - ' . $this->phone_number . ' - TIN, EIN, or SSN #: ' . $this->tin_ein_ssn;
 		$admin_email      = get_bloginfo( 'admin_email' );
 		$send_admin_email = new lv_send_email_misc( $admin_email, 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
 		$send_admin_email->send_email();
