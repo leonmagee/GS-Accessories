@@ -62,13 +62,16 @@ get_header(); ?>
         <div class="input-wrap">
 
          <label>Choose Quantity</label>
-         <select name="quantity">
+
+          <input name="quantity" type="number" placeholder="Max 10,000" />
+
+<!--     <select name="quantity">
            <option value="1000">1,000 units</option>
            <option value="2000">2,000 units</option>
            <option value="3000">3,000 units</option>
            <option value="4000">4,000 units</option>
            <option value="5000">5,000 units</option>
-         </select>
+         </select> -->
        </div>
 
        <?php 

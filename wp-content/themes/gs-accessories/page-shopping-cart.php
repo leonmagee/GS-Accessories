@@ -88,7 +88,7 @@ get_header();
           $price_value = 'N/A';
         }
 
-        $quantity_array = array('1000','2000','3000','4000','5000');
+        //$quantity_array = array('1000','2000','3000','4000','5000');
 
         $colors = get_field('accessory_colors', $product_id_actual );
 
@@ -119,19 +119,9 @@ get_header();
 
 
               <?php //echo $item['quantity']; ?>
-              
-               <select name="accessory-quantity">
-                <?php foreach( $quantity_array as $quantity_item ) { 
-                    if ( $quantity_item == $item['quantity'] ) {
-                      $selected = 'selected="selected"';
-                    } else {
-                      $selected = '';
-                    }
-                  ?>
-                 <option <?php echo $selected; ?> value="<?php echo $quantity_item; ?>"><?php echo number_format(intval($quantity_item)); ?></option>
-                 <?php } ?>
-               </select>
 
+              <input name="accessory-quantity" type="number" placeholder="<?php echo $item['quantity']; ?>" />
+              
             </div>
 
             <div class="cart-property color">

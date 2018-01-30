@@ -13,9 +13,6 @@ form.order-form {
 
 			flex: 1;
 			padding: 10px 15px;
-			// display: flex;
-			// flex-direction: column;
-			// justify-content: center;
 
 			label {
 				font-weight: bold;
@@ -23,6 +20,23 @@ form.order-form {
 			}	
 			select {
 				margin: 0;
+			}
+			input {
+				padding-left: 7px;
+				color: #333;
+			}
+
+			::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+			  color: #AAA;
+			}
+			::-moz-placeholder { /* Firefox 19+ */
+			  color: #AAA;
+			}
+			:-ms-input-placeholder { /* IE 10+ */
+			  color: #AAA;
+			}
+			:-moz-placeholder { /* Firefox 18- */
+			  color: #AAA;
 			}
 		}
 

@@ -73,11 +73,10 @@
                                     <img src="<?php echo $image_url; ?>" />
                                 </a>
                             </div>
-                            <?php } 
+                            <?php }
                         } ?>
 
                     </div>
-
 
                 </div>
 
@@ -217,8 +216,6 @@
 
                         <?php } ?>
 
-
-
                         <?php if ( $combined_features ) { ?>
                         <div class="features-section-wrap features-wrap cell medium-6">
                             <div class="features-section <?php echo $border_class; ?>">
@@ -243,7 +240,7 @@
                                 <h4>Benefits</h4>
 
                                 <ul>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>HQ Professional Packages</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Professional HQ Packaging</li>
                                     <li><?php get_template_part('assets/svg/icon-star'); ?>USA Supplier</li>
                                     <li><?php get_template_part('assets/svg/icon-star'); ?>Fiscal Stock</li>
                                     <li><?php get_template_part('assets/svg/icon-star'); ?>Low Prices</li>
@@ -252,12 +249,6 @@
                                 </ul>
                             </div>
                         </div>
-
-
-
-
-
-
 
                         <?php if ( LV_LOGGED_IN_ID ) { ?>
                         <?php if ( $colors ) { ?>
@@ -277,13 +268,7 @@
                         <?php } ?>
                         <?php } ?>
 
-
-
                     </div><!-- description features wrap -->
-
-
-
-
 
                     <?php if ( LV_LOGGED_IN_ID ) { ?>
                     <div class="order-button-wrap">
