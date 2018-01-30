@@ -16,43 +16,46 @@ if ( isset($_POST['product-order-form'])) {
 		$color = false;
 	}
 
-	$page_object = get_page_by_path($product, OBJECT, 'accessories');
-	$post_id = $page_object->ID;
-	$time = time();
-	$array_key = $post_id . '-' . $time;
+	if ( $quantity ) {
+
+		$page_object = get_page_by_path($product, OBJECT, 'accessories');
+		$post_id = $page_object->ID;
+		$time = time();
+		$array_key = $post_id . '-' . $time;
 
 	//die($product . ' - ' . $quantity . ' - ' . $color);
 
-	$ShopingCart = new shopping_cart();
+		$ShopingCart = new shopping_cart();
 
     //$Basket->do_actions(); 
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
-	$ShopingCart->add_data($product, $quantity, $color);
+		$ShopingCart->add_data($product, $quantity, $color);
     //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
     // $ShopingCart->add_data('USB Charger', 1000, 'white');
     //var_dump($ShopingCart);
 
-	session_start();
+		session_start();
 
-	if ( $_SESSION['shopping_cart'] ) {
+		if ( $_SESSION['shopping_cart'] ) {
 
-		$current_data = unserialize($_SESSION['shopping_cart']);
-		
+			$current_data = unserialize($_SESSION['shopping_cart']);
+
+		} else {
+			$current_data = array();
+		}
+
+		$current_data[$array_key] = $ShopingCart->cart_data;
+
+		$_SESSION['shopping_cart'] = serialize($current_data);
+
+		wp_redirect('/cart');
+		exit;
+
 	} else {
-		$current_data = array();
+		wp_redirect('/place-your-order?required=quantity');
+		exit;
 	}
-
-	$current_data[$array_key] = $ShopingCart->cart_data;
-
-	$_SESSION['shopping_cart'] = serialize($current_data);
-
-	wp_redirect('/cart');
-	exit;
-
-	// var_dump( $ShopingCart);
-	// var_dump($_SESSION);
-	// die('die');
 }
 
 /**
@@ -194,26 +197,26 @@ if ( isset($_POST['place-cart-order'])) {
 	foreach( $shopping_cart_array as $id => $data ) {
 		$product = strtoupper(str_replace('-', ' ' , $data['product']));
 		$product_id_exp = explode('-', $id);
-        $product_id_actual = $product_id_exp[0];
+		$product_id_actual = $product_id_exp[0];
 
 
-        if ( current_user_can('edit_posts')) {
-            $acf_price = get_field('wholesale_price', $product_id_actual);
-        } else {
-            $acf_price = get_field('retail_price', $product_id_actual);
-        }
+		if ( current_user_can('edit_posts')) {
+			$acf_price = get_field('wholesale_price', $product_id_actual);
+		} else {
+			$acf_price = get_field('retail_price', $product_id_actual);
+		}
 
-        if ( $acf_price ) {
-          $price = $acf_price * $data['quantity'];
-          $acf_price_per = '$' . number_format($acf_price, 2);
-          $price_value = '$' . number_format($price, 2);
-          $total_cost = $price + $total_cost;
-        } else {
+		if ( $acf_price ) {
+			$price = $acf_price * $data['quantity'];
+			$acf_price_per = '$' . number_format($acf_price, 2);
+			$price_value = '$' . number_format($price, 2);
+			$total_cost = $price + $total_cost;
+		} else {
           //$acf_price = false;
-          $price_value = 'N/A';
-        }
+			$price_value = 'N/A';
+		}
 
-        $quantity_fmt = number_format($data['quantity']);
+		$quantity_fmt = number_format($data['quantity']);
 
 
 		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $quantity_fmt . ' - Color: ' . $data['color'] . ' - Unit Cost: ' . $acf_price_per . ' - Total Cost: ' . $price_value . '</div>';

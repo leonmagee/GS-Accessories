@@ -17,6 +17,10 @@ form.order-form {
 			label {
 				font-weight: bold;
 				margin-bottom: 8px;
+				span {
+					color: #FF0000;
+					margin-left: 5px;
+				}
 			}	
 			select {
 				margin: 0;
@@ -47,6 +51,7 @@ form.order-form {
 			}
 		}
 	}
+
 	.button-wrap {
   		padding: 15px;
   		text-align: center;
@@ -58,5 +63,9 @@ form.order-form {
 		font-size: 14px;
 		display: block;
 	}
+}
+.quantity-required {
+	font-weight: bold;
+	color: #333;
 }
 

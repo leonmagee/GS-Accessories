@@ -7,6 +7,16 @@
  * @package GS_Accessories
  */
 
+if ( isset( $_GET['required'])) {
+  if ($_GET['required'] == 'quantity' ) {
+    $required_warning = true;
+  } else {
+    $required_warning = false;
+  }
+} else {
+  $required_warning = false;
+}
+
 restricted_page();
 
 get_header(); ?>
@@ -19,12 +29,18 @@ get_header(); ?>
 
     <h2>Order Accessories</h2>
 
+    <?php if ( $required_warning ) { ?>
+    <div class="quantity-required callout alert">
+      A Quantity is Required
+    </div>
+    <?php } ?>
+
     <form class="order-form" method="POST" action="#">
 
       <div class="form-inner-wrap">
 
         <div class="input-wrap">
-          <label>Choose Product</label>
+          <label>Choose Product<span>*</span></label>
           <input type="hidden" name="product-order-form" />
           <select name="product" id="product_select_field">
 
@@ -61,9 +77,9 @@ get_header(); ?>
 
         <div class="input-wrap">
 
-         <label>Choose Quantity</label>
+         <label>Enter Quantity<span>*</span></label>
 
-          <input name="quantity" type="number" placeholder="Max 10,000" />
+         <input name="quantity" type="number" placeholder="Max 10,000" />
 
 <!--     <select name="quantity">
            <option value="1000">1,000 units</option>
