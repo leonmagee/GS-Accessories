@@ -117,10 +117,7 @@ get_header();
 
             <div class="cart-property quantity"><span>Quantity:</span>
 
-
-              <?php //echo $item['quantity']; ?>
-
-              <input name="accessory-quantity" type="number" placeholder="<?php echo $item['quantity']; ?>" />
+              <input name="accessory-quantity" type="number" value="<?php echo $item['quantity']; ?>" />
               
             </div>
 
