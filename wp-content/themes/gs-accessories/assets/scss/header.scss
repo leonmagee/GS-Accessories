@@ -11,7 +11,7 @@ header#masthead {
     display: flex;
     justify-content: space-between;
     @media(min-width: $screen-md) {
-      padding: 10px 0;
+      //padding: 10px 0;
       display: block;
     }
     img {
