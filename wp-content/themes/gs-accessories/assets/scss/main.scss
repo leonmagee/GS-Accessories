@@ -14,6 +14,7 @@ body.gs-accessories {
 
   .main-grid-wrap {
     min-height: 100vh;
+    //height: 100vh;
   }
 
   &.home {
@@ -33,6 +34,7 @@ body.gs-accessories {
   */
   .max-width-wrap {
     max-width: 1200px;
+    padding: 0 10px;
     margin: 0 auto;
     @media(min-width: $screen-xlg) {
       max-width: 1500px;
