@@ -250,7 +250,6 @@
                             </div>
                         </div>
 
-                        <?php if ( LV_LOGGED_IN_ID ) { ?>
                         <?php if ( $colors ) { ?>
                         <div class="features-section-wrap colors-wrap cell medium-6">
                             <div class="features-section colors">
@@ -265,7 +264,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <?php } ?>
                         <?php } ?>
 
                     </div><!-- description features wrap -->
