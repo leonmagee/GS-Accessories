@@ -82,7 +82,7 @@ if ( isset($_POST['add-one-accessory'])) {
     //$Basket->do_actions(); 
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
-	$ShopingCart->add_data($product, 1000, $color);
+	$ShopingCart->add_data($product, 1, $color);
     //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
     // $ShopingCart->add_data('USB Charger', 1000, 'white');
     //var_dump($ShopingCart);
