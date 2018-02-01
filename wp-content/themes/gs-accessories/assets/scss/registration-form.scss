@@ -27,9 +27,15 @@
     //   flex: 0 1 31%;
     //   margin: 1%;
     // }
-    label {
-      font-weight: bold;
-    }
+    // label {
+    //   font-weight: bold;
+    //   font-size: 8px;
+    //   color: blue;
+    //   @media(min-width: $screen-sm) {
+    //     font-size: 16px;
+    //     color: red;
+    //   }
+    // }
     input {
       border-radius: 0;
       box-shadow: none;
@@ -77,16 +83,25 @@ body.gs-accessories {
       .registration-input-wrap {
 
         label {
-          font-size: 16px;
+          font-size: 13px;
+          font-weight: bold;
+          @media(min-width: $screen-sm) {
+            font-size: 16px;
+          }
             &:before {
             font-family: FontAwesome;
             color: darken( $brand-primary, 15%);
             float: left;
-            font-size: 20px;
-            line-height: 30px;
-            margin-right: 7px;
+            font-size: 18px;
+            line-height: 24px;
+            margin-right: 5px;
             margin-bottom: 2px;
             font-weight: normal;
+            @media(min-width: $screen-sm) {
+              font-size: 20px;
+              line-height: 30px;
+              margin-right: 7px;
+            }
           }
         }
 
