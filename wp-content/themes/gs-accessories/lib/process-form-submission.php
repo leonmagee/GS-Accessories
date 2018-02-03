@@ -219,7 +219,7 @@ if ( isset($_POST['place-cart-order'])) {
 		$quantity_fmt = number_format($data['quantity']);
 
 
-		$email_body .= '<div>Product: ' . $product . ' - Quantity: ' . $quantity_fmt . ' - Color: ' . $data['color'] . ' - Unit Cost: ' . $acf_price_per . ' - Total Cost: ' . $price_value . '</div>';
+		$email_body .= '<div>Product: <strong>' . $product . '</strong><br />Quantity: <strong>' . $quantity_fmt . '</strong><br />Color: <strong>' . $data['color'] . '</strong><br />Unit Cost: <strong>' . $acf_price_per . '</strong><br />Total Cost: <strong>' . $price_value . '</strong></div><br />';
 	}
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
@@ -227,7 +227,7 @@ if ( isset($_POST['place-cart-order'])) {
 	$email_body = $email_body . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 
 	// send email to admin
-	$admin_intro = '<div>Order placed by ' . $user_name . ' - Email: ' . $user_email . '</div>';
+	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Email: <strong>' . $user_email . '</strong></div><br />';
 	$to = $admin_email; // get admin email here
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;
@@ -258,7 +258,7 @@ if ( isset($_POST['place-cart-order'])) {
 	<div>U.S. Bank SWIFT code: USBKUS44IMT (for international use)</div>
 	</div>
 	<br />
-	<div><strong>Order Details</strong><div>';
+	<div><strong>Order Details</strong><div><br />';
 
 
 	// send email to user
