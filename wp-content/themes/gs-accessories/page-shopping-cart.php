@@ -72,7 +72,7 @@ get_header();
 
 
 
-        if ( current_user_can('edit_posts')) {
+        if ( current_user_can('delete_published_posts')) {
             $acf_price = get_field('wholesale_price', $product_id_actual);
         } else {
             $acf_price = get_field('retail_price', $product_id_actual);
@@ -174,7 +174,7 @@ get_header();
           <div class="min-amount-wrap">
 
           <?php
-            if ( current_user_can('edit_posts')) {
+            if ( current_user_can('delete_published_posts')) {
                 $min_amount = 3000;
             } else {
                 $min_amount = 300;

@@ -89,7 +89,7 @@
                 <div class="cell large-7 description-features-wrap grid-x <?php echo $protection_class; ?>">
 
                     <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
-                        if ( current_user_can('edit_posts')) {
+                        if ( current_user_can('delete_published_posts')) {
                             $price_name = 'Wholesaler';
                             $price_value = number_format($wholesale_price, 2);
 
@@ -268,7 +268,7 @@
 
                     </div><!-- description features wrap -->
 
-                    <?php if ( LV_LOGGED_IN_ID ) { ?>
+                    <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { ?>
                     <div class="order-button-wrap">
                         <form method="POST" action="#">
                             <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />

@@ -95,12 +95,14 @@
 								</li>
 
 
-								<?php } else { ?>
+								<?php } else { 
+
+									if( current_user_can('edit_posts')) { ?>
 
 								<li><a href="/place-your-order">Add to Order</a></li>
 								<li><a href="/cart">Cart</a></li>
 
-								<?php } ?>
+								<?php } }?>
 
 							</ul>
 
