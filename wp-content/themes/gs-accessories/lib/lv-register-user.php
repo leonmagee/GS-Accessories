@@ -54,8 +54,6 @@ class lv_register_user {
 		update_user_meta( $this->user_id, 'company', $this->company );
 		update_user_meta( $this->user_id, 'tin_ein_or_ssn', $this->tin_ein_ssn );
 
-
-		//update_field('tin_ein_or_ssn', $this->tin_ein_ssn, $this->user_id);
 		/**
 		 * Here we send email to the admin and to the user
 		 */
@@ -73,7 +71,7 @@ class lv_register_user {
 		$send_user_email->send_email();
 
 
-		$admin_email_text = 'New user registered: ' . $email_name . ' - ' . $this->company . ' - ' . $this->phone_number . ' - TIN, EIN, or SSN #: ' . $this->tin_ein_ssn;
+		$admin_email_text = '<strong>New User Registered</strong><br /><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
 		$admin_email      = get_bloginfo( 'admin_email' );
 		$send_admin_email = new lv_send_email_misc( $admin_email, 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
 		$send_admin_email->send_email();
