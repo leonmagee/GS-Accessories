@@ -328,5 +328,51 @@ function remove_admin_bar() {
 //   show_admin_bar(false);
 // }
 }
+
+/**
+* Change User Role Names
+*/
+// function wps_change_role_name() {
+// 	die('working');
+// global $wp_roles;
+// var_dump($wp_roles);
+// if ( ! isset( $wp_roles ) )
+// 	$wp_roles = new WP_Roles();
+// 	$wp_roles->roles[‘contributor’][‘name’] = ‘Owner’;
+// 	$wp_roles->role_names[‘contributor’] = ‘Owner’;
+// }
+// add_action(‘init’, ‘wps_change_role_name’);
+
+
+function change_wp_role_names() {
+	global $wp_roles;
+	//if ( ! isset( $wp_roles ) ) {
+		$wp_roles = new WP_Roles();
+		$wp_roles->roles['subscriber']['name'] = 'New Signup';
+		$wp_roles->role_names['subscriber'] = 'New Signup';
+		$wp_roles->roles['contributor']['name'] = 'Retailer';
+		$wp_roles->role_names['contributor'] = 'Retailer';
+		$wp_roles->roles['author']['name'] = 'Wholesaler';
+		$wp_roles->role_names['author'] = 'Wholesaler';
+	//}
+}
+
+
+add_action('init', 'change_wp_role_names');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
