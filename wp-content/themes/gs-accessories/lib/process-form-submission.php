@@ -199,7 +199,6 @@ if ( isset($_POST['place-cart-order'])) {
 		$product_id_exp = explode('-', $id);
 		$product_id_actual = $product_id_exp[0];
 
-
 		if ( current_user_can('delete_published_posts')) {
 			$acf_price = get_field('wholesale_price', $product_id_actual);
 		} else {
