@@ -107,6 +107,8 @@ function lv_register_user() {
 			$phone_number = filter_input( INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS );
 			$tin_ein_or_ssn = filter_input( INPUT_POST, 'tin_ein_or_ssn', FILTER_SANITIZE_SPECIAL_CHARS );
 
+			$address = filter_input( INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS );
+
 			// @todo get other inputs
 
 			if ( email_exists( $email_address ) ) {
@@ -121,7 +123,8 @@ function lv_register_user() {
 					$password,
 					$phone_number,
 					$company,
-					$tin_ein_or_ssn );
+					$tin_ein_or_ssn,
+					$address );
 				$new_user->process_registration_form();
 				//wp_die( 'response' );
 			}

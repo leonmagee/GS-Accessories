@@ -176,6 +176,8 @@ if ( isset($_POST['place-cart-order'])) {
 	//var_dump($admin_email);
 	$first_name = get_user_meta($user->data->ID, 'first_name', true);
 	$last_name = get_user_meta($user->data->ID, 'last_name', true);
+	$company_name = get_user_meta($user->data->ID, 'company', true);
+	$address = get_user_meta($user->data->ID, 'address', true);
 
 	// var_dump($user->data->user_nicename);
 	// var_dump($first_name . ' ' . $last_name);
@@ -226,7 +228,7 @@ if ( isset($_POST['place-cart-order'])) {
 	$email_body = $email_body . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 
 	// send email to admin
-	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Email: <strong>' . $user_email . '</strong></div><br />';
+	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br />Email: <strong>' . $user_email . '</strong></div><br />';
 	$to = $admin_email; // get admin email here
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;

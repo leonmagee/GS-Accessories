@@ -17,6 +17,7 @@ class lv_register_user {
 	public $company;
 	public $user_id;
 	public $tin_ein_ssn;
+	public $address;
 
 	public function __construct(
 		$username,
@@ -26,7 +27,8 @@ class lv_register_user {
 		$password,
 		$phone_number,
 		$company,
-		$tin_ein_ssn
+		$tin_ein_ssn,
+		$address
 	) {
 		$this->username     = $username;
 		$this->email        = $email;
@@ -36,6 +38,7 @@ class lv_register_user {
 		$this->phone_number = $phone_number;
 		$this->company      = $company;
 		$this->tin_ein_ssn  = $tin_ein_ssn;
+		$this->address 		= $address;
 	}
 
 	private function register_user() {
@@ -53,6 +56,7 @@ class lv_register_user {
 		update_user_meta( $this->user_id, 'phone_number', $this->phone_number );
 		update_user_meta( $this->user_id, 'company', $this->company );
 		update_user_meta( $this->user_id, 'tin_ein_or_ssn', $this->tin_ein_ssn );
+		update_user_meta( $this->user_id, 'address', $this->address );
 
 		/**
 		 * Here we send email to the admin and to the user
@@ -71,7 +75,7 @@ class lv_register_user {
 		$send_user_email->send_email();
 
 
-		$admin_email_text = '<strong>New User Registered</strong><br /><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
+		$admin_email_text = '<strong>New User Registered</strong><br /><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Address: <strong>' . $this->address . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
 		$admin_email      = get_bloginfo( 'admin_email' );
 		$send_admin_email = new lv_send_email_misc( $admin_email, 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
 		$send_admin_email->send_email();

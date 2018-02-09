@@ -49,6 +49,14 @@
       margin-left: 3px;
       font-size: 1.1em;
     }
+
+    &.textarea {
+          flex: 0 1 98%;
+
+          textarea {
+            min-height: 80px;
+          }
+    }
   }
 
   // .submit-input {
@@ -146,6 +154,12 @@ body.gs-accessories {
         label.tin_ein_or_ssn {
          &:before {
            content: "\f2c3";
+         }
+        }
+
+        label.address {
+         &:before {
+           content: "\f041";
          }
         }
 
