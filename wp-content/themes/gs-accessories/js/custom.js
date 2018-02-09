@@ -35,7 +35,10 @@ jQuery(function ($) {
         //var agency_name = $(".registration-input-wrap input.agency_name").val();
         var company = $(".registration-input-wrap input.company_name").val();
         var tin_ein_or_ssn = $(".registration-input-wrap input.tin_ein_or_ssn").val();
-        var address = $(".registration-input-wrap textarea.address").val();
+        var address = $(".registration-input-wrap input.address").val();
+        var city = $(".registration-input-wrap input.city").val();
+        var state = $(".registration-input-wrap input.state").val();
+        var zip = $(".registration-input-wrap input.zip").val();
 
         if (username && password && email_address && first_name && last_name) {
 
@@ -53,6 +56,9 @@ jQuery(function ($) {
             formdata.append("company", company);
             formdata.append("tin_ein_or_ssn", tin_ein_or_ssn);
             formdata.append("address", address);
+            formdata.append("city", city);
+            formdata.append("state", state);
+            formdata.append("zip", zip);
 
             formdata.append("action", "lv_register_user");
 

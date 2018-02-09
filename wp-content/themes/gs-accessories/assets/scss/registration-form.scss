@@ -42,6 +42,7 @@
       font-size: 13px;
       padding: 6px 10px;
       height: auto;
+      margin-bottom: 5px;
     }
     span {
       //color: $brand-third;
@@ -162,6 +163,25 @@ body.gs-accessories {
            content: "\f041";
          }
         }
+
+        label.city {
+         &:before {
+            content: "\f276";
+         }
+        }
+
+        label.state {
+         &:before {
+            content: "\f278";
+         }
+        }
+
+        label.zip {
+         &:before {
+           content: "\f0ac";
+         }
+        }
+
 
       }
 

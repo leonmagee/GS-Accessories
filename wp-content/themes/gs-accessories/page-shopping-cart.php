@@ -175,7 +175,7 @@ get_header();
 
           <?php
             if ( current_user_can('delete_published_posts')) {
-                $min_amount = 3000;
+                $min_amount = 1000;
             } else {
                 $min_amount = 300;
             }

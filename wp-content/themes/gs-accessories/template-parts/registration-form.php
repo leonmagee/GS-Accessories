@@ -15,7 +15,10 @@ $regular_inputs = array(
 	//array( 'Password Repeat', 1 ),
 	array( 'Phone Number', 1, 'text' ),
 	array( 'TIN, EIN or SSN #', 1, 'text'),
-	array('Address', 1, 'textarea')
+	array('Address', 1, 'text'),
+	array('City', 1, 'text'),
+	array('State', 1, 'text'),
+	array('Zip', 1, 'text')
 );
 //$social_media_inputs_inputs = array(
 //	'Facebook',

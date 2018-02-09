@@ -108,6 +108,9 @@ function lv_register_user() {
 			$tin_ein_or_ssn = filter_input( INPUT_POST, 'tin_ein_or_ssn', FILTER_SANITIZE_SPECIAL_CHARS );
 
 			$address = filter_input( INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS );
+			$city = filter_input( INPUT_POST, 'city', FILTER_SANITIZE_SPECIAL_CHARS );
+			$state = filter_input( INPUT_POST, 'state', FILTER_SANITIZE_SPECIAL_CHARS );
+			$zip = filter_input( INPUT_POST, 'zip', FILTER_SANITIZE_SPECIAL_CHARS );
 
 			// @todo get other inputs
 
@@ -124,7 +127,10 @@ function lv_register_user() {
 					$phone_number,
 					$company,
 					$tin_ein_or_ssn,
-					$address );
+					$address,
+					$city,
+					$state,
+					$zip );
 				$new_user->process_registration_form();
 				//wp_die( 'response' );
 			}

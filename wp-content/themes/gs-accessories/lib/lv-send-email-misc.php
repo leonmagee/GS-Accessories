@@ -28,6 +28,7 @@ class lv_send_email_misc {
 		$message_body = '<div style="padding-left: 10px; padding-right: 10px;">
 		<div style="margin: 5px 0">' . $this->recipient_name . ',</div>
 		<div style="margin: 5px 0">' . $this->email_text . '</div>
+		<br />
 		<div>
 		<a style="text-decoration: none; font-size: 13px; background-color: #2fb49d; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; margin-right: 15px;" href="' . $website_url . '">GS Accessories</a>
 		</div>
