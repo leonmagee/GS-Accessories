@@ -179,9 +179,13 @@ get_header();
             } else {
                 $min_amount = 300;
             }
+
+            if ( ! $require_text = get_field('require_text', 'option') ) {
+                $require_text = 'MOQ Requirement';
+            }
           ?>
 
-            You must spend at least $<?php echo number_format($min_amount, 2); ?> to process order. 
+            <?php echo $require_text; ?> $<?php echo number_format($min_amount, 2); ?>
 
           </div>
 
