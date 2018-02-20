@@ -245,7 +245,7 @@ if ( isset($_POST['place-cart-order'])) {
 	<br />
 	<div><strong>Option #1 (PayPal Payment)</strong></div>
 	<div>
-	Remit payment through PayPal to Sales@mygsaccessories.com and choose send to (family or friends) to avoid extra fee otherwise 3% charge will be applied to your total invoice.</div>
+	Remit payment through PayPal to ' . $admin_email . ' and choose send to (family or friends) to avoid extra fee otherwise 3% charge will be applied to your total invoice.</div>
 	</div>
 	<div>
 	<br />
