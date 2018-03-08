@@ -40,7 +40,7 @@ jQuery(function ($) {
         var state = $(".registration-input-wrap input.state").val();
         var zip = $(".registration-input-wrap input.zip").val();
 
-        if (username && password && email_address && first_name && last_name && phone_number && company && tin_ein_or_ssn && address && city && stage && zip) {
+        if (username && password && email_address && first_name && last_name && phone_number && company && tin_ein_or_ssn && address && city && state && zip) {
 
             var formdata = new FormData();
 
