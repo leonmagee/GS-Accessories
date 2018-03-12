@@ -21,6 +21,9 @@ get_header(); ?>
                 <div class="register-user-email-taken callout alert">
                     That email address is already taken! <a href="#">Login</a> - <a href="#">ForgotYour Password</a>
                 </div>
+                <div class="register-user-email-invalid callout alert">
+                    Please enter a valid email address <a href="#">Login</a> - <a href="#">ForgotYour Password</a>
+                </div>
 				<?php get_template_part( 'template-parts/registration-form' ); ?>
             </div>
         </main><!-- #main -->

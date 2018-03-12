@@ -74,6 +74,8 @@ jQuery(function ($) {
                     $('.uploads-spinner').hide();
                     if (data === 'email_already_taken') {
                         $('.register-user-email-taken').show();
+                    } else if (data === 'invalid_email_address')  {
+                        $('.register-user-email-invalid').show();
                     } else {
                         $('.mp-update-success').show();
                     }

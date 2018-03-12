@@ -116,6 +116,8 @@ function lv_register_user() {
 
 			if ( email_exists( $email_address ) ) {
 				wp_die( 'email_already_taken' );
+			} elseif (!filter_var($email_address, FILTER_VALIDATE_EMAIL)) {
+				wp_die( 'invalid_email_address' );
 			} else {
 				require_once( 'lv-register-user.php' );
 				$new_user = new lv_register_user(
