@@ -93,6 +93,9 @@ class mp_output_modal_login {
                 </section>
 
 
+                 <a href="<?php echo wp_lostpassword_url(); ?>">Lost Password?</a>
+
+
             </div>
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>

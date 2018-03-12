@@ -89,7 +89,7 @@ class lv_register_user {
 
 		$admin_email_text = '<strong>New User Registered</strong><br /><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Address: <strong>' . $this->address . '</strong><br /><strong>' . $this->city . ', ' . $this->state . ' ' . $this->zip . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
 		$admin_email      = get_bloginfo( 'admin_email' );
-		$send_admin_email = new lv_send_email_misc( array($admin_email, 'leonmagee33@gmail.com', 'kareem@mygswireless.com'), 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
+		$send_admin_email = new lv_send_email_misc( array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com'), 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
 		$send_admin_email->send_email();
 	}
 
