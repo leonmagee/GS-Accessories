@@ -221,3 +221,10 @@
         }
     }
 }
+
+.single-product-callout-success {
+    padding-top: 15px;
+    @media(min-width: $screen-md) {
+        padding-top: 0;
+    }
+}

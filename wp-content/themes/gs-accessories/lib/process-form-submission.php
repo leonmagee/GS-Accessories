@@ -49,7 +49,7 @@ if ( isset($_POST['product-order-form'])) {
 
 		$_SESSION['shopping_cart'] = serialize($current_data);
 
-		wp_redirect('/cart');
+		wp_redirect('/place-your-order?success=true');
 		exit;
 
 	} else {
@@ -79,13 +79,7 @@ if ( isset($_POST['add-one-accessory'])) {
 
 	$ShopingCart = new shopping_cart();
 
-    //$Basket->do_actions(); 
-    // my own hooks to allow me to add housekeeping code without messing with my core code
-
 	$ShopingCart->add_data($product, 1, $color);
-    //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
-    // $ShopingCart->add_data('USB Charger', 1000, 'white');
-    //var_dump($ShopingCart);
 
 	session_start();
 
@@ -101,12 +95,11 @@ if ( isset($_POST['add-one-accessory'])) {
 
 	$_SESSION['shopping_cart'] = serialize($current_data);
 
-	wp_redirect('/cart');
-	exit;
+	$redirect_url = '/' . $product . '?added-to-cart=true';
 
-	// var_dump( $ShopingCart);
-	// var_dump($_SESSION);
-	// die('die');
+	wp_redirect($redirect_url);
+
+	exit;
 }
 
 /**

@@ -6,6 +6,17 @@
  *
  * @package GS_Accessories
  */
+
+if ( isset( $_GET['added-to-cart'])) {
+  if ($_GET['added-to-cart'] == 'true' ) {
+    $success_notice = true;
+  } else {
+    $success_notice = false;
+  }
+} else {
+  $success_notice = false;
+}
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -87,6 +98,15 @@
                 } ?>
 
                 <div class="cell large-7 description-features-wrap grid-x <?php echo $protection_class; ?>">
+
+                    <?php if ( $success_notice ) { ?>
+                        <div class="cell medium-12 single-product-callout-success">
+                            <div class="callout success">
+                                Product Added to Cart. <a href="/cart">View Cart</a>.
+                            </div>
+                        </div>
+
+                    <?php } ?>
 
                     <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
                        if ( current_user_can('edit_posts') ) {

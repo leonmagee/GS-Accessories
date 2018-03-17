@@ -17,6 +17,16 @@ if ( isset( $_GET['required'])) {
   $required_warning = false;
 }
 
+if ( isset( $_GET['success'])) {
+  if ($_GET['success'] == 'true' ) {
+    $success_notice = true;
+  } else {
+    $success_notice = false;
+  }
+} else {
+  $success_notice = false;
+}
+
 restricted_page();
 
 get_header(); ?>
@@ -32,6 +42,12 @@ get_header(); ?>
     <?php if ( $required_warning ) { ?>
     <div class="quantity-required callout alert">
       A Quantity is Required
+    </div>
+    <?php } ?>
+
+      <?php if ( $success_notice ) { ?>
+    <div class="added-to-cart callout success">
+      Successfully added to cart. <a href="/cart">View Cart</a>.
     </div>
     <?php } ?>
 
@@ -138,6 +154,12 @@ get_header(); ?>
       </div> 
 
     </form>
+
+    <div class="view-cart-wrap">
+
+      <a class="gs-button" href="/cart">View Cart</a> 
+
+    </div>
 
   </main><!-- #main -->
 </div>
