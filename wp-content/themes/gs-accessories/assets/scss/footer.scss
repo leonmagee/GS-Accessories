@@ -9,17 +9,22 @@ footer.site-footer {
     text-align: left;
     font-size: 14px;
   }
+
+  i {
+    color: #555;
+    // &.fa {
+    //   font-size: 2em;
+    // }
+  }
   a {
     color: $base-dark;
     text-decoration: none;
-    &:hover {
+    &:hover, &:hover i {
       color: $brand-primary-hover;
     }
   }
 
-  i {
-    color: #555;
-  }
+
 
   span {
     margin: 0 5px;
