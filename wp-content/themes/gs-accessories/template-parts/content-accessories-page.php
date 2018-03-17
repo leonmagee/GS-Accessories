@@ -246,7 +246,7 @@
                                     <li><?php get_template_part('assets/svg/icon-star'); ?>Fiscal Stock</li>
                                     <li><?php get_template_part('assets/svg/icon-star'); ?>Low Prices</li>
                                     <li><?php get_template_part('assets/svg/icon-star'); ?>Quality Guaranteed</li>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Fast Shipping</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Fast and FREE Shipping</li>
                                 </ul>
                             </div>
                         </div>
