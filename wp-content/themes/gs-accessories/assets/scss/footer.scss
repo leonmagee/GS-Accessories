@@ -12,9 +12,9 @@ footer.site-footer {
 
   i {
     color: #555;
-    // &.fa {
-    //   font-size: 2em;
-    // }
+      &.fa-facebook-square {
+        color: #3D5A96;
+      }
   }
   a {
     color: $base-dark;
