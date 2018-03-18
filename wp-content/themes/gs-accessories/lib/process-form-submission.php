@@ -152,10 +152,14 @@ if ( isset($_POST['update-cart-accessory'])) {
 	$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
 }
 
-
+/**
+* Place Cart Order
+*/
 if ( isset($_POST['place-cart-order'])) {
 
 	session_start();
+
+	$comments = filter_input(INPUT_POST, 'customer-comments', FILTER_SANITIZE_SPECIAL_CHARS);
 
 	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
 
@@ -187,6 +191,8 @@ if ( isset($_POST['place-cart-order'])) {
 	//die('working so far');
 
 	//$cart_data = unserialize($_SESSION['shopping_cart']);
+
+	//$email_body = '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />';
 
 	$email_body = '';
 
@@ -221,11 +227,13 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
 
-	$email_body = $email_body . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />' . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 
 	// send email to admin
 	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong></div><br />';
-	$to = array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com'); // get admin email here
+	$to = array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com');
+	//$to = array($admin_email, 'leonmagee@hotmail.com'); // @todo
+
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;
 	$headers = array('Content-Type: text/html; charset=UTF-8');

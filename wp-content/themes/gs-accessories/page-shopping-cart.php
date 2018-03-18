@@ -193,6 +193,9 @@ get_header();
         <?php if ($total_cost >= $min_amount) { ?>
 
         <form method="post" action="#">
+
+          <label>Add Comments</label>
+          <textarea name="customer-comments"></textarea>
           
           <input type="hidden" name="place-cart-order" />
 
