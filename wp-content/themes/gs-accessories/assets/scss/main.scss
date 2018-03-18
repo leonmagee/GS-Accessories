@@ -15,6 +15,14 @@ body.gs-accessories {
   .main-grid-wrap {
     min-height: 100vh;
     //height: 100vh;
+
+    &.grid-y {
+      display: block;
+
+      @media(min-width: $screen-md) {
+        display: flex;
+      }
+    }
   }
 
   &.home {
