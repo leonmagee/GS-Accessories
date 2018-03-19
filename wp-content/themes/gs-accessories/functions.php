@@ -14,6 +14,7 @@
  require_once('lib/generate-custom-post-type.php');
  function mm_register_post_types() {
  	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
+ 	md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
  }
  add_action( 'init', 'mm_register_post_types' );
 

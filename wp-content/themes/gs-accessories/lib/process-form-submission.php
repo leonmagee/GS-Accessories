@@ -171,13 +171,14 @@ if ( isset($_POST['place-cart-order'])) {
 	// get admin email address
 	$admin_email = get_option('admin_email');
 	//var_dump($admin_email);
-	$first_name = get_user_meta($user->data->ID, 'first_name', true);
-	$last_name = get_user_meta($user->data->ID, 'last_name', true);
-	$company_name = get_user_meta($user->data->ID, 'company', true);
-	$address = get_user_meta($user->data->ID, 'address', true);
-	$city = get_user_meta($user->data->ID, 'city', true);
-	$state = get_user_meta($user->data->ID, 'state', true);
-	$zip = get_user_meta($user->data->ID, 'zip', true);
+	$user_id = $user->data->ID;
+	$first_name = get_user_meta($user_id, 'first_name', true);
+	$last_name = get_user_meta($user_id, 'last_name', true);
+	$company_name = get_user_meta($user_id, 'company', true);
+	$address = get_user_meta($user_id, 'address', true);
+	$city = get_user_meta($user_id, 'city', true);
+	$state = get_user_meta($user_id, 'state', true);
+	$zip = get_user_meta($user_id, 'zip', true);
 
 	// var_dump($user->data->user_nicename);
 	// var_dump($first_name . ' ' . $last_name);
@@ -276,6 +277,48 @@ if ( isset($_POST['place-cart-order'])) {
 
 	// clear out cart of items (empty Session)
 	$_SESSION['shopping_cart'] = '';
+
+
+	/**
+	* Create Post to record order
+	*/
+
+	$order_title = $user_name . ' - ' . date("F j, Y, g:i a");
+
+	$args = array(
+		'post_title' => $order_title,
+		'post_type' => 'orders',
+		'post_status' => 'publish'
+	);
+
+	$new_order_id = wp_insert_post($args);
+
+	update_field('comments', $comments, $new_order_id);
+
+	foreach( $shopping_cart_array as $data ) {
+
+		$product = strtoupper(str_replace('-', ' ' , $data['product']));
+		$quantity = $data['quantity'];
+		$color = $data['color'];
+
+		$row = array(
+			'product_name'	=> $product,
+			'product_quantity'	=> $quantity,
+			'product_color'	=> $color
+		);
+
+		add_row('product_entries', $row, $new_order_id);
+
+
+	}
+
+
+
+
+
+	var_dump($new_order_id);
+	die('new post working?');
+
 
 	// redirect to order placed page
 	wp_redirect('/order-placed');
