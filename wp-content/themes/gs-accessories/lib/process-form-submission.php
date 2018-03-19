@@ -232,8 +232,8 @@ if ( isset($_POST['place-cart-order'])) {
 
 	// send email to admin
 	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong></div><br />';
-	$to = array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com');
-	//$to = array($admin_email, 'leonmagee@hotmail.com'); // @todo
+	//$to = array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com');
+	$to = array($admin_email, 'leonmagee@hotmail.com'); // @todo
 
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;
@@ -283,7 +283,7 @@ if ( isset($_POST['place-cart-order'])) {
 	* Create Post to record order
 	*/
 
-	$order_title = $user_name . ' - ' . date("F j, Y, g:i a");
+	$order_title = $user_name . ' - ID: ' . $user_id . ' - ' . date("F j, Y, g:i a");
 
 	$args = array(
 		'post_title' => $order_title,
@@ -294,17 +294,43 @@ if ( isset($_POST['place-cart-order'])) {
 	$new_order_id = wp_insert_post($args);
 
 	update_field('comments', $comments, $new_order_id);
+	update_field('total_charge', $total_cost_final, $new_order_id);
 
-	foreach( $shopping_cart_array as $data ) {
+
+	foreach( $shopping_cart_array as $id => $data ) {
+
+		$product_id_exp = explode('-', $id);
+		$product_id_actual = $product_id_exp[0];
 
 		$product = strtoupper(str_replace('-', ' ' , $data['product']));
 		$quantity = $data['quantity'];
 		$color = $data['color'];
 
+		if ( current_user_can('delete_published_posts')) {
+			$acf_price = get_field('wholesale_price', $product_id_actual);
+		} else {
+			$acf_price = get_field('retail_price', $product_id_actual);
+		}
+
+		if ( $acf_price ) {
+			$price = $acf_price * $data['quantity'];
+			$acf_price_per = '$' . number_format($acf_price, 2);
+			$price_value = '$' . number_format($price, 2);
+			//$total_cost = $price + $total_cost;
+		} else {
+          //$acf_price = false;
+			$acf_price_per = '';
+			$price_value = '';
+		}
+
+
+
 		$row = array(
 			'product_name'	=> $product,
 			'product_quantity'	=> $quantity,
-			'product_color'	=> $color
+			'product_color'	=> $color,
+			'unit_cost' => $acf_price_per,
+			'cost_total' => $price_value
 		);
 
 		add_row('product_entries', $row, $new_order_id);
