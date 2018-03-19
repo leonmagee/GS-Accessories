@@ -313,11 +313,8 @@ if ( isset($_POST['place-cart-order'])) {
 	}
 
 
-
-
-
-	var_dump($new_order_id);
-	die('new post working?');
+	// var_dump($new_order_id);
+	// die('new post working?');
 
 
 	// redirect to order placed page
