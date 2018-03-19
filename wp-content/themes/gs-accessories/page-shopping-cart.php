@@ -194,7 +194,7 @@ get_header();
 
         <form method="post" action="#">
 
-          <label>Add Comments</label>
+          <label class='add-comment-label'>Add Comment</label>
           <textarea name="customer-comments"></textarea>
           
           <input type="hidden" name="place-cart-order" />
