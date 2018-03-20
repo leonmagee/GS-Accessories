@@ -91,4 +91,31 @@ jQuery(function ($) {
     });
 
 
+    /**
+    * Close video modal and stop video
+    */
+    function stop_video() {
+
+        $('.homepage-video-wrapper').addClass('hide-video');
+
+        $('.homepage-video-wrapper iframe').each(function(index) {
+            $(this).attr('src', $(this).attr('src'));
+            return false;
+        });
+    }
+
+
+    $('.homepage-video-wrapper .close-icon').click(function() {
+
+        stop_video();
+    });
+
+    $(document).click(function(event) {
+
+        if (!$(event.target).closest(".homepage-video-wrapper-inner").length) {
+
+            stop_video();
+      }
+    });
+
 });
