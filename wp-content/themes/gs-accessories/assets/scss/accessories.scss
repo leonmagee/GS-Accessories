@@ -60,6 +60,18 @@
     }
 
     .order-button-wrap {
+        background-color: #FAFAFA;
+        padding: 15px;
+        border: 1px solid #DDD;
+        border-radius: 5px;
+        text-align: center;
+        .input-item {
+            //background: blue;
+            text-align: left;
+            label {
+                font-weight: bold;
+            }
+        }
         @media( min-width: $screen-md) {
             position: absolute;
             right: 10px;

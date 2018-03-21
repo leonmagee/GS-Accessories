@@ -66,20 +66,32 @@ if ( isset($_POST['add-one-accessory'])) {
 	$product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_SPECIAL_CHARS);
 
 	$post_id = filter_input(INPUT_POST, 'add-one-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+	$quantity = filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_SPECIAL_CHARS);
+
+	// if ( $product ) {
+	// 	$color = filter_input(INPUT_POST, 'colors-' . $product, FILTER_SANITIZE_SPECIAL_CHARS);
+	// }
+
+	$color = filter_input(INPUT_POST, 'color-select', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+
 	$time = time();
 	$array_key = $post_id . '-' . $time;
 
-	$colors = get_field('accessory_colors', $post_id);
+	// $colors = get_field('accessory_colors', $post_id);
 
-	if ( $colors ) {
-		$color = $colors[0];
-	} else {
-		$color = false;
-	}
+	// if ( $colors ) {
+	// 	$color = $colors[0];
+	// } else {
+	// 	$color = false;
+	// }
 
 	$ShopingCart = new shopping_cart();
 
-	$ShopingCart->add_data($product, 1, $color);
+	$ShopingCart->add_data($product, $quantity, $color);
 
 	session_start();
 

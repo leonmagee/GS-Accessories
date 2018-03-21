@@ -289,13 +289,48 @@ if ( isset( $_GET['added-to-cart'])) {
 
                     </div><!-- description features wrap -->
 
-                    <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { ?>
+                    <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
+
+                    $colors = get_field('accessory_colors'); 
+
+                        ?>
                     <div class="order-button-wrap">
+
                         <form method="POST" action="#">
+
                             <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
+
                             <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
 
-                            <button type="submit" class="gs-button">Add To Cart</button>
+                            <div class="input-item">
+
+                                <label>Quantity</label>
+
+                                <input name="quantity" type="number" placeholder="Max 10,000" />
+                                
+                            </div>
+
+                            <?php if ( $colors ) { ?>
+                            <div class="input-item">
+
+                            <label>Color</label>
+
+                                <select name="color-select">
+
+                                  <?php foreach ( $colors as $color ) { ?>
+
+                                  <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
+
+                                  <?php } ?>
+
+                                </select>
+
+                            </div>
+
+                          <?php } else { $colors = false; }?>
+
+                        <button type="submit" class="gs-button">Add To Cart</button>
+
                         </form>
                     </div>
                     <?php } ?>
