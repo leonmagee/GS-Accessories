@@ -70,6 +70,7 @@
             text-align: left;
             label {
                 font-weight: bold;
+                padding-left: 3px;
             }
         }
         @media( min-width: $screen-md) {
