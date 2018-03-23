@@ -7,6 +7,8 @@
  * @package GS_Accessories
  */
 
+
+
 date_default_timezone_set('America/Los_Angeles');
 
  /**
@@ -28,7 +30,6 @@ date_default_timezone_set('America/Los_Angeles');
  require_once('lib/lv-ajax.php');
 
  session_start();
-
 
 /**
 * test user meta

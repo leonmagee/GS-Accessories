@@ -11,6 +11,9 @@ get_header();
 
 $current_cat = get_queried_object()->slug;
 $cat_title = ucwords(str_replace('-', ' ', $current_cat));
+
+$_SESSION['shopping_page'] = $current_cat;
+
 ?>
 
 <div id="primary" class="content-area">

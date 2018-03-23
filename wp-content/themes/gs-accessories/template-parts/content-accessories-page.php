@@ -7,6 +7,12 @@
  * @package GS_Accessories
  */
 
+if ( $current_url = $_SESSION['shopping_page'] ) {
+    $continue_url = '/products/' . $current_url;
+} else {
+    $continue_url = '/products';
+}
+
 if ( isset( $_GET['added-to-cart'])) {
   if ($_GET['added-to-cart'] == 'true' ) {
     $success_notice = true;
@@ -102,7 +108,7 @@ if ( isset( $_GET['added-to-cart'])) {
                     <?php if ( $success_notice ) { ?>
                         <div class="cell medium-12 single-product-callout-success">
                             <div class="callout success">
-                                Product Added to Cart. <a href="/cart">View Cart</a>.
+                                Product Added to Cart. <a href="/cart">View Cart</a> or <a href="<?php echo $continue_url; ?>">Continue Shopping</a>.
                             </div>
                         </div>
 
@@ -136,6 +142,10 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         </div>
                         <?php } } ?>
+
+                        <div class="continue-shopping-wrapper">
+                           <a class="gs-button" href="<?php echo $continue_url; ?>">Continue Shopping</a> 
+                        </div>
 
                         <div class="accessory-description">
                             <h4>Description</h4>

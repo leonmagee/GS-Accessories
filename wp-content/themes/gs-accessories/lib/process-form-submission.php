@@ -70,6 +70,10 @@ if ( isset($_POST['add-one-accessory'])) {
 
 	$quantity = filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_SPECIAL_CHARS);
 
+	if ( ! $quantity ) {
+		$quantity = 1;
+	}
+
 	// if ( $product ) {
 	// 	$color = filter_input(INPUT_POST, 'colors-' . $product, FILTER_SANITIZE_SPECIAL_CHARS);
 	// }
