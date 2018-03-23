@@ -114,6 +114,12 @@ if ( isset( $_GET['added-to-cart'])) {
 
                     <?php } ?>
 
+                    <div class="grid-x price-description-add-to-cart-wrap">
+
+                    <div class="cell large-8">
+
+
+
                     <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
                        if ( current_user_can('edit_posts') ) {
                         if ( current_user_can('delete_published_posts')) {
@@ -127,10 +133,6 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         ?>
 
-
-                    <div class="grid-x price-description-add-to-cart-wrap">
-
-                        <div class="cell large-8">
 
                         <div class="price-wrap-outer">
 
@@ -151,6 +153,8 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         </div>
                         <?php } } ?>
+
+
 
                         <div class="accessory-description">
                             <h4>Description</h4>
