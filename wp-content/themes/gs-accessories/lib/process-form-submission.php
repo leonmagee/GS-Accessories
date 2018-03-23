@@ -257,30 +257,32 @@ if ( isset($_POST['place-cart-order'])) {
 
 	wp_mail( $to, $subject, $body, $headers );
 
-	$payment_instructions = '<div>
-	<div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below.</div>
-	<div>
-	<br />
-	<div><strong>Option #1 (PayPal Payment)</strong></div>
-	<div>
-	Remit payment through PayPal to ' . $admin_email . ' and choose send to (family or friends) to avoid extra fee otherwise 3% charge will be applied to your total invoice.</div>
-	</div>
-	<div>
-	<br />
-	<div><strong>Option #2 (Bank Wire, Check Or Cash Deposit)</strong><div>
-	<div>Cash deposit can be made at any US Bank, check or other form of deposit including money order could take more than 72H to clear. We required a copy of the deposit slip, branch phone number and teller name to confirm deposit type.</div>
-	</div>
-	<div>
-	<br />
-	<div>Wire Transfer Information:</div>
-	<div>Bank Name: U.S. Bank</div>
-	<div>Account Holder: Golden State Wireless Inc.</div>
-	<div>Account Number: 153497481058</div>
-	<div>Routing Number: 122235821</div>
-	<div>U.S. Bank SWIFT code: USBKUS44IMT (for international use)</div>
-	</div>
-	<br />
-	<div><strong>Order Details</strong><div><br />';
+	$payment_instructions = get_field('paypal_instructions', 'option');
+
+	// $payment_instructions = '<div>
+	// <div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below.</div>
+	// <div>
+	// <br />
+	// <div><strong>Option #1 (PayPal Payment)</strong></div>
+	// <div>
+	// Remit payment through PayPal to ' . $admin_email . ' and choose send to (family or friends) to avoid extra fee otherwise 3% charge will be applied to your total invoice.</div>
+	// </div>
+	// <div>
+	// <br />
+	// <div><strong>Option #2 (Bank Wire, Check Or Cash Deposit)</strong><div>
+	// <div>Cash deposit can be made at any US Bank, check or other form of deposit including money order could take more than 72H to clear. We required a copy of the deposit slip, branch phone number and teller name to confirm deposit type.</div>
+	// </div>
+	// <div>
+	// <br />
+	// <div>Wire Transfer Information:</div>
+	// <div>Bank Name: U.S. Bank</div>
+	// <div>Account Holder: Golden State Wireless Inc.</div>
+	// <div>Account Number: 153497481058</div>
+	// <div>Routing Number: 122235821</div>
+	// <div>U.S. Bank SWIFT code: USBKUS44IMT (for international use)</div>
+	// </div>
+	// <br />
+	// <div><strong>Order Details</strong><div><br />';
 
 
 	// send email to user
