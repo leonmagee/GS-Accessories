@@ -127,6 +127,11 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         ?>
 
+
+                    <div class="grid-x price-description-add-to-cart-wrap">
+
+                        <div class="cell large-8">
+
                         <div class="price-wrap-outer">
 
                             <h4><?php echo $price_name; ?> Price</h4>
@@ -140,17 +145,80 @@ if ( isset( $_GET['added-to-cart'])) {
                                 Per Unit
                             </div>
 
+                            <div class="continue-shopping-wrapper">
+                               <a class="gs-button" href="<?php echo $continue_url; ?>">Continue Shopping</a> 
+                            </div>
+
                         </div>
                         <?php } } ?>
-
-                        <div class="continue-shopping-wrapper">
-                           <a class="gs-button" href="<?php echo $continue_url; ?>">Continue Shopping</a> 
-                        </div>
 
                         <div class="accessory-description">
                             <h4>Description</h4>
                             <?php echo $description; ?>
                         </div>
+
+                    </div>
+
+                    <div class="cell large-4">
+                        
+
+                    <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
+
+                    $colors = get_field('accessory_colors'); 
+
+                        ?>
+                    <div class="order-button-wrap">
+
+                        <form method="POST" action="#">
+
+                            <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
+
+                            <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
+
+                            <div class="input-item">
+
+                                <label>Quantity</label>
+
+                                <input name="quantity" type="number" placeholder="Max 10,000" />
+                                
+                            </div>
+
+                            <?php if ( $colors ) { ?>
+                            <div class="input-item">
+
+                            <label>Color</label>
+
+                                <select name="color-select">
+
+                                  <?php foreach ( $colors as $color ) { ?>
+
+                                  <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
+
+                                  <?php } ?>
+
+                                </select>
+
+                            </div>
+
+                          <?php } else { $colors = false; }?>
+
+                        <button type="submit" class="gs-button">Add To Cart</button>
+
+                        </form>
+                    </div>
+                    <?php } ?>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
 
                         <?php if ( $protections ) { ?>
 
@@ -299,51 +367,12 @@ if ( isset( $_GET['added-to-cart'])) {
 
                     </div><!-- description features wrap -->
 
-                    <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
 
-                    $colors = get_field('accessory_colors'); 
 
-                        ?>
-                    <div class="order-button-wrap">
 
-                        <form method="POST" action="#">
 
-                            <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
 
-                            <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
 
-                            <div class="input-item">
-
-                                <label>Quantity</label>
-
-                                <input name="quantity" type="number" placeholder="Max 10,000" />
-                                
-                            </div>
-
-                            <?php if ( $colors ) { ?>
-                            <div class="input-item">
-
-                            <label>Color</label>
-
-                                <select name="color-select">
-
-                                  <?php foreach ( $colors as $color ) { ?>
-
-                                  <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
-
-                                  <?php } ?>
-
-                                </select>
-
-                            </div>
-
-                          <?php } else { $colors = false; }?>
-
-                        <button type="submit" class="gs-button">Add To Cart</button>
-
-                        </form>
-                    </div>
-                    <?php } ?>
                 </div>
             </div>
 

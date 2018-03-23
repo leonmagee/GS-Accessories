@@ -32,6 +32,10 @@
             width: 100%;
             font-size: 16px;
             padding-bottom: 20px;
+            @media(min-width: $screen-lg) {
+               padding-right: 10px; 
+            }
+
         }
         // .features-section {
         //     padding-bottom: 15px;
@@ -71,13 +75,15 @@
             label {
                 font-weight: bold;
                 padding-left: 3px;
+                font-size: 16px;
             }
         }
-        @media( min-width: $screen-md) {
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-        }
+        // @media( min-width: $screen-md) {
+        //     position: absolute;
+        //     right: 10px;
+        //     //bottom: 10px;
+        //     top: 10px;
+        // }
     }
     .thumbnail-wrap {
         display: flex;
@@ -243,7 +249,9 @@
 }
 
 .continue-shopping-wrapper {
-    margin: 25px 0 10px 50px;
+    padding: 15px 0 15px;
+}
 
-
+.price-description-add-to-cart-wrap {
+    padding-bottom: 25px;
 }
