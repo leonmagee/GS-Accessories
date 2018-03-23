@@ -271,7 +271,7 @@ if ( isset( $_GET['added-to-cart'])) {
                             </div>
                         </div>
 
-                        <?php if ( $colors ) { ?>
+                        <?php if ( $colors && ( ! $colors ) ) { //hide colors for now ?>
                         <div class="features-section-wrap colors-wrap cell medium-6">
                             <div class="features-section colors">
                                 <h4>Colors</h4>
