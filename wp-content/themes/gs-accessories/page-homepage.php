@@ -62,7 +62,11 @@ get_header(); ?>
     <span class="close-icon">&times;</span>
     <?php 
   //$embed_code = wp_oembed_get( 'https://youtu.be/cADAedU1_Eo?modestbranding=1' ); 
-    $embed_code = wp_oembed_get( 'https://www.youtube.com/watch?v=cADAedU1_Eo&feature=youtu.be&showinfo=0&modestbranding=1' ); 
+    //$embed_code = wp_oembed_get( 'https://www.youtube.com/watch?v=cADAedU1_Eo&feature=youtu.be&showinfo=0&modestbranding=1' ); 
+
+    $embed_code = wp_oembed_get( 'https://www.youtube.com/watch?v=kLv_t6L6OVU&feature=youtu.be&showinfo=0&modestbranding=1' ); 
+    //$embed_code = wp_oembed_get( 'https://youtu.be/kLv_t6L6OVU&feature=youtu.be&showinfo=0&modestbranding=1' ); 
+
     echo $embed_code; 
     ?>
   </div>
