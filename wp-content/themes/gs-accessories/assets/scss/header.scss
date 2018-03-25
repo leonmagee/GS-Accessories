@@ -52,6 +52,8 @@ header#masthead {
     ul {
       width: 100%;
       margin: 0;
+      display: flex;
+      align-items: center;
     }
     @media(min-width: $screen-md) {
       justify-content: flex-end;
@@ -83,6 +85,9 @@ header#masthead {
         }
         &:hover {
           color: $brand-primary-hover;
+        }
+        i {
+          font-size: 20px;
         }
       }
     }
