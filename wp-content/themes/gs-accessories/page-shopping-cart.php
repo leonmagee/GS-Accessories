@@ -206,12 +206,19 @@ get_header();
 
         <?php if ($total_cost >= $min_amount) { ?>
 
+
+
         <form method="post" action="#">
 
           <label class='add-comment-label'>Add Comment</label>
           <textarea name="customer-comments"></textarea>
           
           <input type="hidden" name="place-cart-order" />
+
+          <ul class="payment-features-list">
+            <li>FREE SHIPPING</li>
+            <li>NO PayPal FEES</li>
+          </ul>
 
           <div class="button-wrap">
             <button type="submit" class="submit-order-button">Pickup / Drop-off</button>
@@ -248,7 +255,8 @@ get_header();
   <input type="hidden" name="currency_code" value="USD">
 
   <!-- Display the payment button. -->
-  <button type="submit" class="submit-order-button">Checkout with PayPal</button>
+  
+  <button class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
 
 <!--   <img alt="" border="0" width="1" height="1"
   src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" > -->

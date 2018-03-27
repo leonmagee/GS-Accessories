@@ -239,3 +239,21 @@ label.add-comment-label {
 	padding-left: 2px;
 	font-size: 15px;
 }
+
+.payment-features-list {
+	font-size: 18px;
+	color: #333;
+	font-weight: 700;
+}
+
+button.paypal-button {
+	max-width: 207px;
+	margin-top: 5px;
+	&:hover {
+		cursor: pointer;
+		opacity: 0.9;
+	}
+	&:focus {
+		outline: none;
+	}
+}
