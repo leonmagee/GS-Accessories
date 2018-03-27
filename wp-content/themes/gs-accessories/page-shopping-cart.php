@@ -46,7 +46,7 @@ get_header();
 
       // var_dump($email_body);
 
-
+      $product_details_string = '';
 
       if ( $_SESSION['shopping_cart'] ) {
         $cart_data = unserialize($_SESSION['shopping_cart']);
@@ -91,6 +91,14 @@ get_header();
         //$quantity_array = array('1000','2000','3000','4000','5000');
 
         $colors = get_field('accessory_colors', $product_id_actual );
+
+        $product_details_string .= ( str_replace('-', ' ', $item['product']) ) . ' ';
+
+        if ( $item['color'] ) {
+          $product_details_string .= '(' . $item['color'] . ') ';
+        }
+
+        $product_details_string .= 'x ' . $item['quantity'] . ' | ';
 
           ?>
 
@@ -170,6 +178,12 @@ get_header();
             Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
           </div>
 
+        <?php 
+
+        $product_details_final = substr($product_details_string, 0, -3);
+
+        //var_dump($product_details_final); ?>
+
 
           <div class="min-amount-wrap">
 
@@ -199,13 +213,57 @@ get_header();
           
           <input type="hidden" name="place-cart-order" />
 
-          <button type="submit" class="submit-order-button">Place Your Order</button>
+          <div class="button-wrap">
+            <button type="submit" class="submit-order-button">Pickup / Drop-off</button>
+          </div>
 
         </form>
 
+  <div class="paypal-test">
+    
+    <?php // simple paypal
+    //echo do_shortcode('[wp_cart_button name="Test Product" price="29.95"]'); 
+    ?>
+
+    <?php // simple paypal
+    //echo do_shortcode('[show_wp_shopping_cart]'); 
+    ?>
+    
+    <?php // quick paypal checkout 
+    //echo do_shortcode('[qpp form="Checkout"]'); 
+    ?>
+
+  <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+  <!-- Identify your business so that you can collect the payments. -->
+  <input type="hidden" name="business" value="gs-wireless@att.net">
+
+  <!-- Specify a Buy Now button. -->
+  <input type="hidden" name="cmd" value="_xclick">
+
+  <!-- Specify details about the item that buyers will purchase. -->
+  <input type="hidden" name="item_name" value="<?php echo $product_details_final; ?>">
+  <input type="hidden" name="amount" value="<?php echo $total_cost; ?>">
+
+  <input type="hidden" name="currency_code" value="USD">
+
+  <!-- Display the payment button. -->
+  <button type="submit" class="submit-order-button">Checkout with PayPal</button>
+
+<!--   <img alt="" border="0" width="1" height="1"
+  src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" > -->
+
+</form>
+
+
+  </div>
+
+
+
+
         <?php } else { ?>
   
-          <button class="submit-order-button disabled">Place Your Order</button>
+          <button class="submit-order-button disabled">Checkout</button>
 
         <?php } ?>
 
