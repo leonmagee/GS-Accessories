@@ -290,7 +290,7 @@ if ($paypal = $_GET['paypal']) {
 
       <h1 class="entry-title">Complete Payment</h1>
 
-      <p>Please Finish processing your payment with PayPal</p>
+      <p>Please Finish processing your payment with PayPal.</p>
 
         <div class="paypal-wrap">
 
