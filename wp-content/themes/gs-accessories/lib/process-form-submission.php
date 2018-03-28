@@ -265,7 +265,12 @@ if ( isset($_POST['place-cart-order'])) {
 
 	wp_mail( $to, $subject, $body, $headers );
 
-	$payment_instructions = get_field('paypal_instructions', 'option');
+	if ( $payment_type == 'PayPal' ) {
+		$payment_instructions = get_field('paypal_instructions', 'option');
+	} else {
+		$payment_instructions = get_field('pick_up_instructions', 'option');
+	}
+
 
 	// $payment_instructions = '<div>
 	// <div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below.</div>

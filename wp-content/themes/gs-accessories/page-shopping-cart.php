@@ -288,9 +288,9 @@ if ($paypal = $_GET['paypal']) {
 
       <div class="paypal-wrap-outer">
 
-      <h1 class="entry-title">Complete Payment</h1>
+      <h1 class="entry-title">PayPal Checkout</h1>
 
-      <p>Please Finish processing your payment with PayPal.</p>
+      <p><strong>Thank you</strong> for submitting your order with GS Wireless. We highly appreciate your business and the great opportunity you are giving us to serve you. Your order will be processed and shipped within 24 hours after receiving the full payment. A tracking number and shipping carrier information will be emailed to you when it becomes available.</p>
 
         <div class="paypal-wrap">
 
