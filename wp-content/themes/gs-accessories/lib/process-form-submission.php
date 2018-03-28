@@ -255,9 +255,9 @@ if ( isset($_POST['place-cart-order'])) {
 	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />' . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 
 	// send email to admin
-	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong></div><br />';
+	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong><br />Order Type: <strong>' . $payment_type . '</strong></div><br />';
 	$to = array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com');
-	//$to = array($admin_email, 'leonmagee@hotmail.com'); // @todo
+	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;
