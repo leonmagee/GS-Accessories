@@ -1,5 +1,25 @@
 jQuery(function ($) {
 
+
+    //trigger form submit when paypal is clicked
+    // @todo create a separate hidden field that you update first to tell the 
+    // process submit function that its a paypal submission
+
+    // $('#paypal_button_id').click(function() {
+    //     console.log('working still?');
+    //     $('#submit_cart_button').click();
+    // });
+
+
+// $('form#paypal_form_id').submit(function(){
+//     //alert('I do something before the actual submission');
+//     $('#submit_cart_button').click();
+//     //return false;
+//     return true;
+// });
+
+
+
     //console.log('custom.js is loading');
 
     $('.menu-toggle').click(function() {

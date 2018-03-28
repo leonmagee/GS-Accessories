@@ -28,7 +28,6 @@ get_header();
       <a href="/place-your-order">Add More Accessories</a>
     </div>
 
-
     <div class='cart-wrap'>
 
       <?php
@@ -46,7 +45,8 @@ get_header();
 
       // var_dump($email_body);
 
-      $product_details_string = '';
+      $product_details_array = array();
+      $product_cost_array = array();
 
       if ( $_SESSION['shopping_cart'] ) {
         $cart_data = unserialize($_SESSION['shopping_cart']);
@@ -92,13 +92,17 @@ get_header();
 
         $colors = get_field('accessory_colors', $product_id_actual );
 
-        $product_details_string .= ( str_replace('-', ' ', $item['product']) ) . ' ';
+        $product_details_string = ( str_replace('-', ' ', $item['product']) ) . ' ';
 
         if ( $item['color'] ) {
           $product_details_string .= '(' . $item['color'] . ') ';
         }
 
-        $product_details_string .= 'x ' . $item['quantity'] . ' | ';
+        $product_details_string .= 'x ' . $item['quantity'];
+
+        $product_details_array[] = $product_details_string;
+        $product_cost_array[] = $price;
+
 
           ?>
 
@@ -210,7 +214,7 @@ get_header();
 
         <form method="post" action="#">
 
-          <label class='add-comment-label'>Add Comment</label>
+          <label class='add-comment-label'>Add Comment or Suggestion</label>
           <textarea name="customer-comments"></textarea>
           
           <input type="hidden" name="place-cart-order" />
@@ -221,7 +225,7 @@ get_header();
           </ul>
 
           <div class="button-wrap">
-            <button type="submit" class="submit-order-button">Pickup / Drop-off</button>
+            <button id="submit_cart_button" type="submit" class="submit-order-button">Pickup / Drop-off</button>
           </div>
 
         </form>
@@ -240,23 +244,36 @@ get_header();
     //echo do_shortcode('[qpp form="Checkout"]'); 
     ?>
 
-  <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+  <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 
   <!-- Identify your business so that you can collect the payments. -->
   <input type="hidden" name="business" value="gs-wireless@att.net">
 
   <!-- Specify a Buy Now button. -->
-  <input type="hidden" name="cmd" value="_xclick">
+  <!-- <input type="hidden" name="cmd" value="_xclick"> -->  
+  <input type="hidden" name="cmd" value="_cart">
+
+  <input type="hidden" name="upload" value="1">
 
   <!-- Specify details about the item that buyers will purchase. -->
-  <input type="hidden" name="item_name" value="<?php echo $product_details_final; ?>">
-  <input type="hidden" name="amount" value="<?php echo $total_cost; ?>">
+<!--         $product_details_array[] = $product_details_string;
+        $product_cost_array[] = $price; -->
+
+        <?php 
+        $counter = 0;
+        foreach($product_details_array as $product_name ) { ?>
+  <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
+  <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $product_cost_array[$counter]; ?>">
+        <?php 
+        $counter++;
+      } ?>
+
 
   <input type="hidden" name="currency_code" value="USD">
 
   <!-- Display the payment button. -->
   
-  <button class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+  <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
 
 <!--   <img alt="" border="0" width="1" height="1"
   src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" > -->

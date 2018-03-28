@@ -209,28 +209,28 @@
 }
 
 button.submit-order-button {
-			background-color: darken($brand-primary, 10%);
-			//border: 1px solid darken(#74bfdd, 10%);
-			padding: 8px 10px;
-			color: #FFF;
-			border-radius: 5px;
-			font-size: 23px;
-			font-weight: bold;
-			&:hover {
-				background-color: darken($brand-primary, 5%);
-				cursor: pointer;
-			}
+	background-color: darken($brand-primary, 10%);
+	//border: 1px solid darken(#74bfdd, 10%);
+	padding: 8px 10px;
+	color: #FFF;
+	border-radius: 5px;
+	font-size: 23px;
+	font-weight: bold;
+	&:hover {
+		background-color: darken($brand-primary, 5%);
+		cursor: pointer;
+	}
 
-			&.disabled {
-				opacity: 0.5;
-				&:hover {
-					cursor: auto;
-					background-color: darken($brand-primary, 10%);
-				}
-				&:focus {
-					outline: none;
-				}
-			}
+	&.disabled {
+		opacity: 0.5;
+		&:hover {
+			cursor: auto;
+			background-color: darken($brand-primary, 10%);
+		}
+		&:focus {
+			outline: none;
+		}
+	}
 }
 
 label.add-comment-label {
