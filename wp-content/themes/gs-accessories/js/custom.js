@@ -10,6 +10,17 @@ jQuery(function ($) {
     //     $('#submit_cart_button').click();
     // });
 
+    $('#paypal_checkout_button').click(function(e) {
+        e.preventDefault();
+
+        $('input[name="payment-type"]').val('PayPal');
+
+        $('.paypal-wrap').addClass('paypal-visible');
+
+        $('form#main_form_id').submit();
+
+    });
+
 
 // $('form#paypal_form_id').submit(function(){
 //     //alert('I do something before the actual submission');
@@ -17,6 +28,8 @@ jQuery(function ($) {
 //     //return false;
 //     return true;
 // });
+
+
 
 
 

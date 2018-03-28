@@ -176,6 +176,14 @@ if ( isset($_POST['place-cart-order'])) {
 	session_start();
 
 	$comments = filter_input(INPUT_POST, 'customer-comments', FILTER_SANITIZE_SPECIAL_CHARS);
+	
+	$payment_type = filter_input(INPUT_POST, 'payment-type', FILTER_SANITIZE_SPECIAL_CHARS);
+
+	// if ( $payment_type == 'PayPal') {
+
+	// 	$product_names = filter_input(INPUT_POST, 'product-names', FILTER_SANITIZE_SPECIAL_CHARS);
+	// 	$product_values = filter_input(INPUT_POST, 'product-names', FILTER_SANITIZE_SPECIAL_CHARS);
+	// }
 
 	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
 
@@ -312,6 +320,7 @@ if ( isset($_POST['place-cart-order'])) {
 	$new_order_id = wp_insert_post($args);
 
 	update_field('comments', $comments, $new_order_id);
+	update_field('order_type', $payment_type, $new_order_id);
 	update_field('total_charge', $total_cost_final, $new_order_id);
 
 
@@ -360,8 +369,15 @@ if ( isset($_POST['place-cart-order'])) {
 	// var_dump($new_order_id);
 	// die('new post working?');
 
+	// here we need to determine if this is a PayPal order or a pick up order
+
 
 	// redirect to order placed page
-	wp_redirect('/order-placed');
+	if ( $payment_type == 'Pick Up' ) {
+		wp_redirect('/order-placed');
+	} elseif ( $payment_type == 'PayPal' ) {
+		//wp_redirect('/cart?paypal=show&paypal_names=' . $product_names . '&paypal_values=' . $product_values);
+		wp_redirect('/cart?paypal=show');
+	}
 	exit;
 }

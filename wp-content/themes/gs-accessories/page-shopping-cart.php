@@ -11,6 +11,22 @@ restricted_page();
 
 get_header();
 
+//var_dump($_SESSION);
+
+
+if ($paypal = $_GET['paypal']) {
+  $paypal_mode = true;
+  // $product_names_unserialize = unserialize($_GET['paypal_names']);
+  // $product_values_unserialize = unserialize($_GET['paypal_values']);
+  // //var_dump($_GET['paypal_names']);
+  // var_dump($_GET['paypal_values']);
+  // die('working');
+} else {
+  $paypal_mode = false;
+}
+
+//var_dump($paypal_mode);
+
 // reset session
 // session_start();
 // $_SESSION['shopping_cart'] = '';
@@ -22,6 +38,8 @@ get_header();
 
    <main id="main" class="site-main">
 
+    <?php if ( ! $paypal_mode ) { ?>
+
     <h1 class="entry-title">Cart</h1>
 
     <div class="add-more-items-wrap">
@@ -30,7 +48,7 @@ get_header();
 
     <div class='cart-wrap'>
 
-      <?php
+    <?php
 
       //var_dump(unserialize($_SESSION['shopping_cart']));
 
@@ -62,46 +80,46 @@ get_header();
           $product_id_actual = $product_id_exp[0];
         // $page_object = get_page_by_path($item['product'], OBJECT, 'accessories');
         // $post_id = $page_object->ID;
-        $post_image = get_field('image_gallery', $product_id_actual);
-        if ( $post_image ) {
-          $img_url = $post_image[0]['sizes']['thumbnail'];
-        } else {
+          $post_image = get_field('image_gallery', $product_id_actual);
+          if ( $post_image ) {
+            $img_url = $post_image[0]['sizes']['thumbnail'];
+          } else {
           // create new placeholder image
-          $img_url = get_template_directory_uri() . "/assets/img/placeholder-image-small.jpg";
-        }
+            $img_url = get_template_directory_uri() . "/assets/img/placeholder-image-small.jpg";
+          }
 
 
 
-        if ( current_user_can('delete_published_posts')) {
+          if ( current_user_can('delete_published_posts')) {
             $acf_price = get_field('wholesale_price', $product_id_actual);
-        } else {
+          } else {
             $acf_price = get_field('retail_price', $product_id_actual);
-        }
+          }
 
-        if ( $acf_price ) {
-          $price = $acf_price * $item['quantity'];
-          $acf_price_per = '$' . number_format($acf_price, 2);
-          $price_value = '$' . number_format($price, 2);
-          $total_cost = $price + $total_cost;
-        } else {
-          $acf_price = false;
-          $price_value = 'N/A';
-        }
+          if ( $acf_price ) {
+            $price = $acf_price * $item['quantity'];
+            $acf_price_per = '$' . number_format($acf_price, 2);
+            $price_value = '$' . number_format($price, 2);
+            $total_cost = $price + $total_cost;
+          } else {
+            $acf_price = false;
+            $price_value = 'N/A';
+          }
 
         //$quantity_array = array('1000','2000','3000','4000','5000');
 
-        $colors = get_field('accessory_colors', $product_id_actual );
+          $colors = get_field('accessory_colors', $product_id_actual );
 
-        $product_details_string = ( str_replace('-', ' ', $item['product']) ) . ' ';
+          $product_details_string = ( str_replace('-', ' ', $item['product']) ) . ' ';
 
-        if ( $item['color'] ) {
-          $product_details_string .= '(' . $item['color'] . ') ';
-        }
+          if ( $item['color'] ) {
+            $product_details_string .= '(' . $item['color'] . ') ';
+          }
 
-        $product_details_string .= 'x ' . $item['quantity'];
+          $product_details_string .= 'x ' . $item['quantity'];
 
-        $product_details_array[] = $product_details_string;
-        $product_cost_array[] = $price;
+          $product_details_array[] = $product_details_string;
+          $product_cost_array[] = $price;
 
 
           ?>
@@ -127,97 +145,109 @@ get_header();
 
             <form class="details-form" method="post" action="#">
 
-            <div class="cart-property quantity"><span>Quantity:</span>
+              <div class="cart-property quantity"><span>Quantity:</span>
 
-              <input name="accessory-quantity" type="number" value="<?php echo $item['quantity']; ?>" />
-              
-            </div>
+                <input name="accessory-quantity" type="number" value="<?php echo $item['quantity']; ?>" />
 
-            <div class="cart-property color">
-              <?php if ( $colors ) { ?>
-              <span>Color:</span>
+              </div>
 
-               <select name="accessory-color">
-                <?php foreach( $colors as $color ) { 
+              <div class="cart-property color">
+                <?php if ( $colors ) { ?>
+                <span>Color:</span>
+
+                <select name="accessory-color">
+                  <?php foreach( $colors as $color ) { 
                     if ( $color == $item['color'] ) {
                       $selected = 'selected="selected"';
                     } else {
                       $selected = '';
                     }
-                  ?>
-                 <option <?php echo $selected; ?> value="<?php echo $color; ?>">
-                  <?php echo $color; ?></option>
-                 <?php } ?>
-               </select>
+                    ?>
+                    <option <?php echo $selected; ?> value="<?php echo $color; ?>">
+                      <?php echo $color; ?></option>
+                      <?php } ?>
+                    </select>
 
-              <?php } ?>
+                    <?php } ?>
 
-            </div>
+                  </div>
 
-            <input type="hidden" name="update-cart-accessory" value=<?php echo $product_id; ?> />
+                  <input type="hidden" name="update-cart-accessory" value=<?php echo $product_id; ?> />
 
-              <div class="cart-property update">
+                  <div class="cart-property update">
 
                     <button type="submit">Update</button>
 
+                  </div>
+
+                </form>
+                <div class="cart-property remove">
+                  <form method="post" action="#">
+
+                    <input type="hidden" name="remove-cart-accessory" value=<?php echo $product_id; ?> />
+
+                    <button type="submit">Remove</button>
+
+                  </form>
+
+
+                </div>
               </div>
 
-          </form>
-            <div class="cart-property remove">
-              <form method="post" action="#">
+              <?php } ?>
 
-                <input type="hidden" name="remove-cart-accessory" value=<?php echo $product_id; ?> />
+              <div class="cart-total">
+                Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
+              </div>
 
-              <button type="submit">Remove</button>
+              <?php 
 
-            </form>
-
-
-            </div>
-          </div>
-
-          <?php } ?>
-
-          <div class="cart-total">
-            Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
-          </div>
-
-        <?php 
-
-        $product_details_final = substr($product_details_string, 0, -3);
+              $product_details_final = substr($product_details_string, 0, -3);
 
         //var_dump($product_details_final); ?>
 
 
-          <div class="min-amount-wrap">
+        <div class="min-amount-wrap">
 
           <?php
-            if ( current_user_can('delete_published_posts')) {
-                $min_amount = 1000;
-            } else {
-                $min_amount = 300;
-            }
+          if ( current_user_can('delete_published_posts')) {
+            $min_amount = 1000;
+          } else {
+            $min_amount = 300;
+          }
 
-            if ( ! $require_text = get_field('require_text', 'option') ) {
-                $require_text = 'MOQ Requirement';
-            }
+          if ( ! $require_text = get_field('require_text', 'option') ) {
+            $require_text = 'MOQ Requirement';
+          }
           ?>
 
-            <?php echo $require_text; ?> $<?php echo number_format($min_amount, 2); ?>
+          <?php echo $require_text; ?> $<?php echo number_format($min_amount, 2); ?>
 
-          </div>
-
-
-        <?php if ($total_cost >= $min_amount) { ?>
+        </div>
 
 
+        <?php if ($total_cost >= $min_amount) { 
 
-        <form method="post" action="#">
+          //var_dump($product_details_array);
+          //$product_details_array_serial = htmlspecialchars(serialize($product_details_array));
+          $_SESSION['product_names'] = serialize($product_details_array);
+          $_SESSION['product_values'] = serialize($product_cost_array);
+          //var_dump($product_details_array_serial);
+          //$product_cost_array_serial = htmlspecialchars(serialize($product_cost_array));
+          //var_dump($serial);
+
+          ?>
+
+
+
+        <form id="main_form_id" method="post" action="#">
 
           <label class='add-comment-label'>Add Comment or Suggestion</label>
           <textarea name="customer-comments"></textarea>
           
           <input type="hidden" name="place-cart-order" />
+
+          <input type="hidden" name="payment-type" value="Pick Up" />
 
           <ul class="payment-features-list">
             <li>FREE SHIPPING</li>
@@ -228,87 +258,79 @@ get_header();
             <button id="submit_cart_button" type="submit" class="submit-order-button">Pickup / Drop-off</button>
           </div>
 
+          <div class="button-wrap">
+            <button id="paypal_checkout_button" type="submit" class="submit-order-button">PayPal Checkout</button>
+          </div>
+
         </form>
 
-  <div class="paypal-test">
-    
-    <?php // simple paypal
-    //echo do_shortcode('[wp_cart_button name="Test Product" price="29.95"]'); 
-    ?>
+      <?php } else { ?>
 
-    <?php // simple paypal
-    //echo do_shortcode('[show_wp_shopping_cart]'); 
-    ?>
-    
-    <?php // quick paypal checkout 
-    //echo do_shortcode('[qpp form="Checkout"]'); 
-    ?>
+      <button class="submit-order-button disabled">Checkout</button>
 
-  <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+      <?php } ?>
 
-  <!-- Identify your business so that you can collect the payments. -->
-  <input type="hidden" name="business" value="gs-wireless@att.net">
+      <?php } else {?>
 
-  <!-- Specify a Buy Now button. -->
-  <!-- <input type="hidden" name="cmd" value="_xclick"> -->  
-  <input type="hidden" name="cmd" value="_cart">
+      <div class="empty-cart">Your Cart is Empty</div>
 
-  <input type="hidden" name="upload" value="1">
+      <?php } ?>
 
-  <!-- Specify details about the item that buyers will purchase. -->
-<!--         $product_details_array[] = $product_details_string;
-        $product_cost_array[] = $price; -->
-
-        <?php 
-        $counter = 0;
-        foreach($product_details_array as $product_name ) { ?>
-  <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
-  <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $product_cost_array[$counter]; ?>">
-        <?php 
-        $counter++;
-      } ?>
-
-
-  <input type="hidden" name="currency_code" value="USD">
-
-  <!-- Display the payment button. -->
-  
-  <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
-
-<!--   <img alt="" border="0" width="1" height="1"
-  src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" > -->
-
-</form>
-
-
-  </div>
-
-
-
-
-        <?php } else { ?>
-  
-          <button class="submit-order-button disabled">Checkout</button>
-
-        <?php } ?>
-
-        <?php } else {?>
-          
-          <div class="empty-cart">Your Cart is Empty</div>
-
-          <?php } ?>
-
-        </div>
-
-
-
-
-      </main><!-- #main -->
     </div>
-  </div><!-- #primary -->
 
-  <?php
-  get_footer();
+      <?php } else {
+
+         $product_details_array = unserialize($_SESSION['product_names']);
+         $product_cost_array = unserialize($_SESSION['product_values']);
+          //$_SESSION['product_values'] = serialize($product_cost_array);
+
+        ?>
+
+      <div class="paypal-wrap-outer">
+
+      <h1 class="entry-title">Complete Payment</h1>
+
+      <p>Please Finish processing your payment with PayPal</p>
+
+        <div class="paypal-wrap">
+
+          <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+            <input type="hidden" name="business" value="gs-wireless@att.net">
+
+            <input type="hidden" name="cmd" value="_cart">
+
+            <input type="hidden" name="upload" value="1">
+
+            <?php 
+            $counter = 0;
+            foreach($product_details_array as $product_name ) { ?>
+            <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
+            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $product_cost_array[$counter]; ?>">
+            <?php 
+            $counter++;
+          } ?>
+
+          <input type="hidden" name="currency_code" value="USD">
+
+          <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+
+        </form>
+
+      </div>
+
+
+      <?php } ?>
+
+    </div>
+
+
+  </main><!-- #main -->
+</div>
+</div><!-- #primary -->
+
+<?php
+get_footer();
 
 
 
