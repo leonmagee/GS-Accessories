@@ -213,7 +213,7 @@ if ($paypal = $_GET['paypal']) {
           if ( current_user_can('delete_published_posts')) {
             $min_amount = 1000;
           } else {
-            $min_amount = 300;
+            $min_amount = 200;
           }
 
           if ( ! $require_text = get_field('require_text', 'option') ) {
