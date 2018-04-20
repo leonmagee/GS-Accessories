@@ -256,7 +256,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 	// send email to admin
 	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong><br />Order Type: <strong>' . $payment_type . '</strong></div><br />';
-	$to = array($admin_email, 'leonmagee33@gmail.com', 'shay@mygswireless.com');
+	$to = array($admin_email, 'leonmagee33@gmail.com');
 	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
 	$subject = 'GS Accessories Order';
