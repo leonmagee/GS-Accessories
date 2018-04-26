@@ -160,11 +160,9 @@ if ( isset( $_GET['added-to-cart'])) {
                             <div class="cell large-4">
 
 
-                                <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
+                                <?php $colors = get_field('accessory_colors'); ?>
 
-                                    $colors = get_field('accessory_colors'); 
 
-                                    ?>
                                     <div class="order-button-wrap">
 
                                         <form method="POST" action="#">
@@ -200,11 +198,21 @@ if ( isset( $_GET['added-to-cart'])) {
 
                                           <?php } else { $colors = false; }?>
 
-                                          <button type="submit" class="gs-button">Add To Cart</button>
+
+
+                                            <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { ?>
+
+                                            <button type="submit" class="gs-button">Add To Cart</button>
+                                            
+                                            <?php } ?>
+
 
                                       </form>
                                   </div>
-                                  <?php } ?>
+                                  
+
+
+
 
 
                               </div>
