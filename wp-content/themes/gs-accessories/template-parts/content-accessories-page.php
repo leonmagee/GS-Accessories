@@ -52,12 +52,12 @@ if ( isset( $_GET['added-to-cart'])) {
             }
             $combined_features = array_merge($features, $add_features_array);
         } else {
-           $combined_features = $features; 
-       }
+         $combined_features = $features; 
+     }
 
-       $colors = get_field('accessory_colors');
+     $colors = get_field('accessory_colors');
 
-       if ( $colors ) {
+     if ( $colors ) {
         $border_class = 'border-class';
     } else {
         $border_class = '';
@@ -108,7 +108,7 @@ if ( isset( $_GET['added-to-cart'])) {
                     <?php if ( $success_notice ) { ?>
                     <div class="cell medium-12 single-product-callout-success">
                         <div class="callout success">
-                            Product Added to Cart. <a href="/cart">View Cart</a> or <a href="/products">Continue Shopping</a>.
+                            Product Added to Cart. <a href="/cart">View Cart</a> <span>-</span> <a href="/products">Continue Shopping</a> <span>-</span> <a href="<?php echo $continue_url; ?>">Go Back</a>                               
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@ if ( isset( $_GET['added-to-cart'])) {
                         <div class="cell large-8">
 
                             <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
-                             if ( current_user_can('edit_posts') ) {
+                               if ( current_user_can('edit_posts') ) {
                                 if ( current_user_can('delete_published_posts')) {
                                     $price_name = 'Wholesaler';
                                     $price_value = number_format($wholesale_price, 2);
@@ -145,70 +145,72 @@ if ( isset( $_GET['added-to-cart'])) {
                                         Per Unit
                                     </div>
 
-                                    <div class="continue-shopping-wrapper">
-                                     <a class="gs-button" href="<?php echo $continue_url; ?>">Go Back</a> 
-                                 </div>
-
-                             </div>
-                             <?php } } ?>
+                                </div>
+                                <?php } } ?>
 
 
 
-                             <div class="accessory-description">
-                                <h4>Description</h4>
-                                <?php echo $description; ?>
+                                <div class="accessory-description">
+                                    <h4>Description</h4>
+                                    <?php echo $description; ?>
+                                </div>
+
                             </div>
 
-                        </div>
-
-                        <div class="cell large-4">
+                            <div class="cell large-4">
 
 
-                            <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
+                                <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
 
-                                $colors = get_field('accessory_colors'); 
+                                    $colors = get_field('accessory_colors'); 
 
-                                ?>
-                                <div class="order-button-wrap">
+                                    ?>
+                                    <div class="order-button-wrap">
 
-                                    <form method="POST" action="#">
+                                        <form method="POST" action="#">
 
-                                        <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
+                                            <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
 
-                                        <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
+                                            <input type="hidden" name="product" value="<?php echo $post->post_name; ?>" />
 
-                                        <div class="input-item">
+                                            <div class="input-item">
 
-                                            <label>Quantity</label>
+                                                <label>Quantity</label>
 
-                                            <input name="quantity" type="number" placeholder="Max 10,000" />
+                                                <input name="quantity" type="number" placeholder="Max 10,000" />
 
-                                        </div>
+                                            </div>
 
-                                        <?php if ( $colors ) { ?>
-                                        <div class="input-item">
+                                            <?php if ( $colors ) { ?>
+                                            <div class="input-item">
 
-                                            <label>Color</label>
+                                                <label>Color</label>
 
-                                            <select name="color-select">
+                                                <select name="color-select">
 
-                                              <?php foreach ( $colors as $color ) { ?>
+                                                  <?php foreach ( $colors as $color ) { ?>
 
-                                              <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
+                                                  <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
 
-                                              <?php } ?>
+                                                  <?php } ?>
 
-                                          </select>
+                                              </select>
 
-                                      </div>
+                                          </div>
 
-                                      <?php } else { $colors = false; }?>
+                                          <?php } else { $colors = false; }?>
 
-                                      <button type="submit" class="gs-button">Add To Cart</button>
+                                          <button type="submit" class="gs-button">Add To Cart</button>
 
-                                  </form>
+                                      </form>
+                                  </div>
+                                  <?php } ?>
+
+
                               </div>
-                              <?php } ?>
+
+
+
 
 
                           </div>
@@ -216,158 +218,152 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
+                          <?php if ( $protections ) { ?>
 
-                      </div>
+                          <div class="protections-wrap cell medium-6">
 
+                            <h4>Protections</h4>
 
+                            <?php foreach( $protections as $protection ) {
 
+                                if ( $protection == 'Overcharge Protection' ) { ?>
 
-                      <?php if ( $protections ) { ?>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/over-charge-protection'); ?>
+                                    <span>Overcharge Protection</span>
+                                </div>
+                                <?php }
 
-                      <div class="protections-wrap cell medium-6">
+                                if ( $protection == 'Over-Voltage Protection' ) { ?>
 
-                        <h4>Protections</h4>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/voltage-protection'); ?>
+                                    <span>Over-Voltage Protection</span>
+                                </div>
+                                <?php }
 
-                        <?php foreach( $protections as $protection ) {
+                                if ( $protection == 'Short Circuit Protection' ) { ?>
 
-                            if ( $protection == 'Overcharge Protection' ) { ?>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/short-circuit-protection'); ?>
+                                    <span>Short Circuit Protection</span>
+                                </div>
+                                <?php }
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/over-charge-protection'); ?>
-                                <span>Overcharge Protection</span>
-                            </div>
-                            <?php }
+                                if ( $protection == 'Over-Current Protection' ) { ?>
 
-                            if ( $protection == 'Over-Voltage Protection' ) { ?>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/current-protection'); ?>
+                                    <span>Over-Current Protection</span>
+                                </div>
+                                <?php }
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/voltage-protection'); ?>
-                                <span>Over-Voltage Protection</span>
-                            </div>
-                            <?php }
+                                if ( $protection == 'Over-Heat Protection' ) { ?>
 
-                            if ( $protection == 'Short Circuit Protection' ) { ?>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/over-heat-protection'); ?>
+                                    <span>Overheating Protection</span>
+                                </div>
+                                <?php }
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/short-circuit-protection'); ?>
-                                <span>Short Circuit Protection</span>
-                            </div>
-                            <?php }
+                                if ( $protection == 'Fail-Safe Protection' ) { ?>
 
-                            if ( $protection == 'Over-Current Protection' ) { ?>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/fail-safe-protection'); ?>
+                                    <span>Fail-Safe Protection</span>
+                                </div>
+                                <?php }
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/current-protection'); ?>
-                                <span>Over-Current Protection</span>
-                            </div>
-                            <?php }
+                                if ( $protection == 'Anti-Scratch Protection' ) { ?>
 
-                            if ( $protection == 'Over-Heat Protection' ) { ?>
-
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/over-heat-protection'); ?>
-                                <span>Overheating Protection</span>
-                            </div>
-                            <?php }
-
-                            if ( $protection == 'Fail-Safe Protection' ) { ?>
-
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/fail-safe-protection'); ?>
-                                <span>Fail-Safe Protection</span>
-                            </div>
-                            <?php }
-
-                            if ( $protection == 'Anti-Scratch Protection' ) { ?>
-
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/anti-scratch-protection'); ?>
-                                <span>Anti-Scratch Protection</span>
-                            </div>
-                            <?php }
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/anti-scratch-protection'); ?>
+                                    <span>Anti-Scratch Protection</span>
+                                </div>
+                                <?php }
 
 
-                            if ( $protection == 'Full 360 Protection' ) { ?>
+                                if ( $protection == 'Full 360 Protection' ) { ?>
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/360-protection'); ?>
-                                <span>Full 360° Protection</span>
-                            </div>
-                            <?php }
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/360-protection'); ?>
+                                    <span>Full 360° Protection</span>
+                                </div>
+                                <?php }
 
 
-                            if ( $protection == 'Anti-Shock Protection' ) { ?>
+                                if ( $protection == 'Anti-Shock Protection' ) { ?>
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/anti-shock-protection'); ?>
-                                <span>Anti-Shock Protection</span>
-                            </div>
-                            <?php }
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/anti-shock-protection'); ?>
+                                    <span>Anti-Shock Protection</span>
+                                </div>
+                                <?php }
 
-                            if ( $protection == 'Shock-Absorption Protection' ) { ?>
+                                if ( $protection == 'Shock-Absorption Protection' ) { ?>
 
-                            <div class="protection">
-                                <?php get_template_part('assets/svg/absorb-protection'); ?>
-                                <span>Shock-Absorption Protection</span>
-                            </div>
-                            <?php }
-                        } ?>
+                                <div class="protection">
+                                    <?php get_template_part('assets/svg/absorb-protection'); ?>
+                                    <span>Shock-Absorption Protection</span>
+                                </div>
+                                <?php }
+                            } ?>
 
-                    </div>
-
-                    <?php } ?>
-
-                    <?php if ( $combined_features ) { ?>
-                    <div class="features-section-wrap features-wrap cell medium-6">
-                        <div class="features-section <?php echo $border_class; ?>">
-                            <h4>Features</h4>
-                            <ul>
-                                <?php foreach( $combined_features as $feature ) { ?>
-                                <li>
-                                    <?php get_template_part('assets/svg/icon-square'); ?>
-                                    <?php echo $feature; ?>
-
-                                </li>
-                                <?php } ?>
-                            </ul>
                         </div>
-                    </div>
 
-                    <?php } ?>
+                        <?php } ?>
 
+                        <?php if ( $combined_features ) { ?>
+                        <div class="features-section-wrap features-wrap cell medium-6">
+                            <div class="features-section <?php echo $border_class; ?>">
+                                <h4>Features</h4>
+                                <ul>
+                                    <?php foreach( $combined_features as $feature ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-square'); ?>
+                                        <?php echo $feature; ?>
 
-                    <div class="features-section-wrap benefits-wrap cell medium-6">
-                        <div class="benefits features-section">
-                            <h4>Benefits</h4>
-
-                            <ul>
-                                <li><?php get_template_part('assets/svg/icon-star'); ?>Professional HQ Packaging</li>
-                                <li><?php get_template_part('assets/svg/icon-star'); ?>USA Supplier</li>
-                                <li><?php get_template_part('assets/svg/icon-star'); ?>Physical Stock</li>
-                                <li><?php get_template_part('assets/svg/icon-star'); ?>Low Prices</li>
-                                <li><?php get_template_part('assets/svg/icon-star'); ?>Quality Guaranteed</li>
-                                <li><?php get_template_part('assets/svg/icon-star'); ?>Fast and FREE Shipping</li>
-                            </ul>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                    <?php if ( $colors && ( ! $colors ) ) { //hide colors for now ?>
-                    <div class="features-section-wrap colors-wrap cell medium-6">
-                        <div class="features-section colors">
-                            <h4>Colors</h4>
-                            <ul>
-                                <?php foreach( $colors as $color ) { ?>
-                                <li>
-                                    <?php get_template_part('assets/svg/icon-circle'); ?>
-                                    <?php echo $color; ?>    
-                                </li>
-                                <?php } ?>
-                            </ul>
+                        <?php } ?>
+
+
+                        <div class="features-section-wrap benefits-wrap cell medium-6">
+                            <div class="benefits features-section">
+                                <h4>Benefits</h4>
+
+                                <ul>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Professional HQ Packaging</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>USA Supplier</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Physical Stock</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Low Prices</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Quality Guaranteed</li>
+                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Fast and FREE Shipping</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <?php } ?>
 
-                </div><!-- description features wrap -->
+                        <?php if ( $colors && ( ! $colors ) ) { //hide colors for now ?>
+                        <div class="features-section-wrap colors-wrap cell medium-6">
+                            <div class="features-section colors">
+                                <h4>Colors</h4>
+                                <ul>
+                                    <?php foreach( $colors as $color ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-circle'); ?>
+                                        <?php echo $color; ?>    
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php } ?>
+
+                    </div><!-- description features wrap -->
 
 
 
@@ -375,9 +371,9 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
+                </div>
             </div>
-        </div>
 
-    </div><!-- .entry-content -->
+        </div><!-- .entry-content -->
 
-</article><!-- #post-->
+    </article><!-- #post-->
