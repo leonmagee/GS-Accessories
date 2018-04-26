@@ -177,6 +177,12 @@
         grid-auto-flow: column;
     }
     margin-bottom: 20px;
+
+    .video-item.amazon-link {
+        &:hover {
+            opacity: 0.9;
+        }
+    }
 }
 
 .gswireless-link-wrap {
