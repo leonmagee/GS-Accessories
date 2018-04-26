@@ -69,6 +69,12 @@ get_header(); ?>
 
 </div>
 
+<div class="gswireless-link-wrap">
+  <a href="https://mygswireless.com" target="_blank">
+    <img src="https://mygsaccessories.com/wp-content/uploads/slides_accessories_link.jpg" />
+  </a>
+</div>
+
 </div><!-- homepage outer wrap -->
 
 </div>

@@ -178,3 +178,9 @@
     }
     margin-bottom: 20px;
 }
+
+.gswireless-link-wrap {
+    &:hover {
+        opacity: 0.9;
+    }
+}
