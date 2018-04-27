@@ -19,6 +19,7 @@ date_default_timezone_set('America/Los_Angeles');
  function mm_register_post_types() {
  	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
  	md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
+ 	md_create_wp_cpt::create_post_type( 'coupons', 'Coupon', 'Coupons', 'coupon', 'tag' );
  }
  add_action( 'init', 'mm_register_post_types' );
 
