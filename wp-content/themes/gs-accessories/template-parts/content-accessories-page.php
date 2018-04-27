@@ -108,7 +108,7 @@ if ( isset( $_GET['added-to-cart'])) {
                     <?php if ( $success_notice ) { ?>
                     <div class="cell medium-12 single-product-callout-success">
                         <div class="callout success">
-                            Product Added to Cart. <a href="/cart">View Cart</a> <span>-</span> <a href="/products">Continue Shopping</a> <span>-</span> <a href="<?php echo $continue_url; ?>">Go Back</a>                               
+                            <span>Product Added to Cart.</span><a href="/cart">View Cart</a><a href="/products">Continue Shopping</a><a href="<?php echo $continue_url; ?>">Go Back</a>                               
                         </div>
                     </div>
 

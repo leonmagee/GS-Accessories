@@ -243,12 +243,40 @@
 
 .single-product-callout-success {
     padding-top: 15px;
+    .callout.success {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        grid-gap: 10px;
+        align-items: center;
+        @media(max-width: 639px) {
+            grid-template-columns: 1fr 1fr 1fr;
+            span {
+                grid-column: 1 / -1;
+            }
+            a {
+                font-size: 0.7em;
+                white-space: nowrap;
+            }
+        }
+
+        a {
+            background-color: lighten($brand-primary, 3%);
+            border: 1px solid $brand-primary;
+            padding: 5px 10px;
+            border-radius: 10px;
+            color: #FFF;
+            text-align: center;
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
     @media(min-width: $screen-md) {
         padding-top: 0;
     }
-    span {
-        color: #777;
-    }
+    // span {
+    //     color: #777;
+    // }
 }
 
 .continue-shopping-wrapper {

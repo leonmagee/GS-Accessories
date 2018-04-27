@@ -167,7 +167,8 @@
     padding: 45px 15px 20px;
     background-color: #F7F7F7;
     border-top: 1px solid #E5E5E5;
-    border-bottom: 1px solid #E5E5E5;
+    //border-bottom: 1px solid #E5E5E5;
+    //border-bottom: 1px solid #00000033;
 }
 
 .video-embed-wraps {
@@ -175,10 +176,12 @@
         display: grid;
         grid-gap: 20px;
         grid-auto-flow: column;
+        align-items: center;
     }
     margin-bottom: 20px;
 
     .video-item.amazon-link {
+        padding: 25px;
         &:hover {
             opacity: 0.9;
         }
@@ -186,6 +189,9 @@
 }
 
 .gswireless-link-wrap {
+    img {
+        width: 100%;
+    }
     &:hover {
         opacity: 0.9;
     }
