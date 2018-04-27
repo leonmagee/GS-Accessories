@@ -249,7 +249,7 @@
         grid-gap: 10px;
         align-items: center;
         @media(max-width: 639px) {
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: auto auto auto;
             span {
                 grid-column: 1 / -1;
             }
@@ -260,7 +260,7 @@
         }
 
         a {
-            background-color: lighten($brand-primary, 3%);
+            background-color: lighten($brand-primary, 1%);
             border: 1px solid $brand-primary;
             padding: 5px 10px;
             border-radius: 10px;
