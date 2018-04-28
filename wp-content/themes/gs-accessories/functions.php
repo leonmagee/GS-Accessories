@@ -7,9 +7,13 @@
  * @package GS_Accessories
  */
 
-
-
 date_default_timezone_set('America/Los_Angeles');
+
+/**
+* Define Constants
+*/
+define('MOQ_WHOLESALER', 1000);
+define('MOQ_DEALER', 100);
 
  /**
   * Add Files
@@ -410,25 +414,6 @@ function isa_pre_user_query($user_search) {
 }
 
 add_action('pre_user_query','isa_pre_user_query');
-
-/**
-* Add ID to YouTube Video
-*/
-// add_filter( 'oembed_dataparse', function( $return, $data, $url ){
-//     if( false === strpos( $return,'youtube.com' ) )
-//         return $return;
-
-//     $id = explode( 'watch?v=', $url );
-//     $add_id = str_replace( 'allowfullscreen>', 'allowfullscreen id="yt-'.$id[1].'">', $return );
-//     return $add_id;
-// }, 10, 3 );
-
-
-
-
-
-
-
 
 
 

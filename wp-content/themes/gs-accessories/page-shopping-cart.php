@@ -211,9 +211,9 @@ if ($paypal = $_GET['paypal']) {
 
           <?php
           if ( current_user_can('delete_published_posts')) {
-            $min_amount = 1000;
+            $min_amount = MOQ_WHOLESALER;
           } else {
-            $min_amount = 200;
+            $min_amount = MOQ_DEALER;
           }
 
           if ( ! $require_text = get_field('require_text', 'option') ) {
