@@ -199,10 +199,15 @@
 
 .orbit-bullets {
     height: 35px;
+    background: #DDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     // width: 100%;
     // display: table;
     // text-align: center;
     button {
-        //margin: 0 3px;
+        margin: 0 3px;
     }
 }
