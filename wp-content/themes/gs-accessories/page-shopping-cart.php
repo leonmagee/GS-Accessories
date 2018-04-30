@@ -13,23 +13,40 @@ get_header();
 
 //var_dump($_SESSION);
 
+$coupon_array = array();
+
+$args = array('post_type' => 'coupons');
+$custom_query = new WP_Query($args);
+while( $custom_query->have_posts() ) {
+  $custom_query->the_post();
+  $coupon_percent_field = get_field('discount_percent');
+  $coupon_name = strtolower(get_the_title());
+  $coupon_array[$coupon_name] = $coupon_percent_field;
+}
+
+wp_reset_postdata();
+
+
+$coupon_applied = false;
+$coupon_percent = null;
+
+if ( $current_coupon = $_GET['coupon']) {
+  $coupon_applied = true;
+  $coupon_percent = $coupon_array[strtolower($current_coupon)];
+}
+
+//var_dump($coupon_array);
+
+// $input_name = 'GSvIPsd';
+// $namer = strtolower($input_name);
+
+//var_dump($coupon_array[$namer]);
 
 if ($paypal = $_GET['paypal']) {
   $paypal_mode = true;
-  // $product_names_unserialize = unserialize($_GET['paypal_names']);
-  // $product_values_unserialize = unserialize($_GET['paypal_values']);
-  // //var_dump($_GET['paypal_names']);
-  // var_dump($_GET['paypal_values']);
-  // die('working');
 } else {
   $paypal_mode = false;
 }
-
-//var_dump($paypal_mode);
-
-// reset session
-// session_start();
-// $_SESSION['shopping_cart'] = '';
 ?>
 
 <div id="primary" class="content-area">
@@ -197,6 +214,11 @@ if ($paypal = $_GET['paypal']) {
               <?php } ?>
 
               <div class="cart-total">
+                  <?php if ( $coupon_percent ) {
+                    $total_cost = $total_cost * ( ( 100 - $coupon_percent ) / 100 );
+                  }
+                  ?>
+
                 Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
               </div>
 
@@ -238,7 +260,7 @@ if ($paypal = $_GET['paypal']) {
 
           ?>
 
-
+        <div class="form-grip-wrap">
 
         <form id="main_form_id" method="post" action="#">
 
@@ -264,12 +286,35 @@ if ($paypal = $_GET['paypal']) {
 
         </form>
 
+
         <div class="coupon-form-wrapper">
+        
+        <?php if ( $coupon_applied ) { 
+
+          if ( $coupon_percent ) { ?>
+
+          <div class="callout success">
+            <p>Coupon Applied!</p>
+          </div>
+
+          <?php } else { ?>
+
+            <div class="callout alert">
+              <p>Invalid Coupon</p>
+            </div>
+
+          <?php }
+
+          } ?>
+
           <form method="POST">
+            <input type="hidden" name="coupon-apply-submit" />
             <input type="text" name="coupon" placeholder="Coupon Code" /> 
             <button type="submit" class="gs-button">Apply Coupon</button>
           </form>
         </div>
+
+      </div>
 
       <?php } else { ?>
 
