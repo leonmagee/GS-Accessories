@@ -264,6 +264,13 @@ if ($paypal = $_GET['paypal']) {
 
         </form>
 
+        <div class="coupon-form-wrapper">
+          <form method="POST">
+            <input type="text" name="coupon" placeholder="Coupon Code" /> 
+            <button type="submit" class="gs-button">Apply Coupon</button>
+          </form>
+        </div>
+
       <?php } else { ?>
 
       <button class="submit-order-button disabled">Checkout</button>

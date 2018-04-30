@@ -261,7 +261,7 @@ function gs_accessories_custom_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.8' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.9' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 
@@ -362,12 +362,7 @@ function change_wp_role_names() {
 	//}
 }
 
-
 add_action('init', 'change_wp_role_names');
-
-
-
-
 
 /**
 * Let Editors Manage Users (run only once)

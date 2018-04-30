@@ -258,6 +258,22 @@ button.paypal-button {
 	}
 }
 
+.coupon-form-wrapper {
+	max-width: 300px;
+	padding: 20px;
+	//border: 1px solid #DDD;
+	margin: 20px 0;
+	background: #FCFCFD;
+	box-shadow: 0 0 1px 1px rgba(0,0,0,0.08);
+	input {
+		padding: 5px 10px;
+	}
+	.gs-button {
+		font-size: 14px;
+		padding: 10px 15px;
+	}
+}
+
 // .paypal-wrap {
 // 	display: none;
 // 	&.paypal-visible {

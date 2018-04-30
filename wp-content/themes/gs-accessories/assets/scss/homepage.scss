@@ -196,3 +196,12 @@
         opacity: 0.9;
     }
 }
+
+.orbit-bullets {
+    width: 100%;
+    display: table;
+    text-align: center;
+    button {
+        margin: 0 3px;
+    }
+}
