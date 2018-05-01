@@ -367,7 +367,11 @@ if ( isset($_POST['place-cart-order'])) {
 		wp_redirect('/order-placed');
 	} elseif ( $payment_type == 'PayPal' ) {
 		//wp_redirect('/cart?paypal=show&paypal_names=' . $product_names . '&paypal_values=' . $product_values);
-		wp_redirect('/cart?paypal=show');
+		if ( $coupon_code ) {
+			wp_redirect('/cart?paypal=show&coupon=' . $coupon_code);
+		} else {
+			wp_redirect('/cart?paypal=show');
+		}
 	}
 	exit;
 }

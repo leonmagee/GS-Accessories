@@ -240,7 +240,7 @@ if ($paypal = $_GET['paypal']) {
         </div>
 
 
-        <?php if ($total_cost >= $min_amount) { 
+        <?php if ($total_cost >= $min_amount) {
 
           //var_dump($product_details_array);
           //$product_details_array_serial = htmlspecialchars(serialize($product_details_array));
@@ -283,7 +283,7 @@ if ($paypal = $_GET['paypal']) {
 
         <div class="coupon-form-wrapper">
         
-        <?php if ( $coupon_applied ) { 
+        <?php if ( $coupon_applied ) {
 
           if ( $coupon_percent ) { ?>
 
@@ -316,7 +316,7 @@ if ($paypal = $_GET['paypal']) {
 
       <?php } ?>
 
-      <?php } else {?>
+      <?php } else { ?>
 
       <div class="empty-cart">Your Cart is Empty</div>
 
@@ -350,9 +350,17 @@ if ($paypal = $_GET['paypal']) {
 
             <?php 
             $counter = 0;
-            foreach($product_details_array as $product_name ) { ?>
+            foreach($product_details_array as $product_name ) {
+
+              if ( $coupon_percent ) {
+                $value = percent_price($product_cost_array[$counter], $coupon_percent);
+              } else {
+                $value = $product_cost_array[$counter];
+              }
+
+              ?>
             <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
-            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $product_cost_array[$counter]; ?>">
+            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
             <?php 
             $counter++;
           } ?>
