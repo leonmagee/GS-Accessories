@@ -355,6 +355,23 @@ if ( isset( $_GET['added-to-cart'])) {
                             </div>
                         </div>
 
+                        <div class="features-section-wrap reviews-wrap cell medium-6">
+
+                            <div class="features-section">
+                                <h4>Reviews</h4>
+                            
+                                <?php
+                                echo do_shortcode('[site_reviews assigned_to="' . $post->ID . '" hide="title, author"]');
+                                ?>
+                                
+                                <h4>Leave a Review</h4>
+                            
+                                <?php
+                                echo do_shortcode('[site_reviews_form assign_to="' . $post->ID . '" hide=email,name,terms,title]');
+                                ?>
+                            </div>
+                        </div>
+
                         <?php if ( $colors && ( ! $colors ) ) { //hide colors for now ?>
                         <div class="features-section-wrap colors-wrap cell medium-6">
                             <div class="features-section colors">
@@ -372,12 +389,6 @@ if ( isset( $_GET['added-to-cart'])) {
                         <?php } ?>
 
                     </div><!-- description features wrap -->
-
-
-
-
-
-
 
                 </div>
             </div>
