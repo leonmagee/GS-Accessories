@@ -301,7 +301,7 @@ if ($paypal = $_GET['paypal']) {
 
           } ?>
 
-          <form method="POST">
+          <form method="POST" id="coupon_name_form" action="#">
             <input type="hidden" name="coupon-apply-submit" />
             <input type="text" name="coupon" placeholder="Coupon Code" /> 
             <button type="submit" class="gs-button">Apply Coupon</button>
