@@ -178,6 +178,8 @@ if ( isset($_POST['place-cart-order'])) {
 	$comments = filter_input(INPUT_POST, 'customer-comments', FILTER_SANITIZE_SPECIAL_CHARS);
 	
 	$payment_type = filter_input(INPUT_POST, 'payment-type', FILTER_SANITIZE_SPECIAL_CHARS);
+	
+	$coupon_code = filter_input(INPUT_POST, 'coupon-code', FILTER_SANITIZE_SPECIAL_CHARS);
 
 	// if ( $payment_type == 'PayPal') {
 
@@ -252,7 +254,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
 
-	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />' . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />' . '<div><strong>Total Charges: ' . $total_cost_final . '</strong></div><div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div>';
 
 	// send email to admin
 	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong><br />Order Type: <strong>' . $payment_type . '</strong></div><br />';
@@ -270,33 +272,6 @@ if ( isset($_POST['place-cart-order'])) {
 	} else {
 		$payment_instructions = get_field('pick_up_instructions', 'option');
 	}
-
-
-	// $payment_instructions = '<div>
-	// <div>Thank you for submitting your order with GS Wireless, we highly appreciate your business. You are one step away from completing your order by submitting your payment to us through either option below.</div>
-	// <div>
-	// <br />
-	// <div><strong>Option #1 (PayPal Payment)</strong></div>
-	// <div>
-	// Remit payment through PayPal to ' . $admin_email . ' and choose send to (family or friends) to avoid extra fee otherwise 3% charge will be applied to your total invoice.</div>
-	// </div>
-	// <div>
-	// <br />
-	// <div><strong>Option #2 (Bank Wire, Check Or Cash Deposit)</strong><div>
-	// <div>Cash deposit can be made at any US Bank, check or other form of deposit including money order could take more than 72H to clear. We required a copy of the deposit slip, branch phone number and teller name to confirm deposit type.</div>
-	// </div>
-	// <div>
-	// <br />
-	// <div>Wire Transfer Information:</div>
-	// <div>Bank Name: U.S. Bank</div>
-	// <div>Account Holder: Golden State Wireless Inc.</div>
-	// <div>Account Number: 153497481058</div>
-	// <div>Routing Number: 122235821</div>
-	// <div>U.S. Bank SWIFT code: USBKUS44IMT (for international use)</div>
-	// </div>
-	// <br />
-	// <div><strong>Order Details</strong><div><br />';
-
 
 	// send email to user
 	$to = $user_email; // get admin email here

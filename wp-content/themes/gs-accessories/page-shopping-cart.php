@@ -13,22 +13,11 @@ get_header();
 
 //var_dump($_SESSION);
 
-$coupon_array = array();
-
-$args = array('post_type' => 'coupons');
-$custom_query = new WP_Query($args);
-while( $custom_query->have_posts() ) {
-  $custom_query->the_post();
-  $coupon_percent_field = get_field('discount_percent');
-  $coupon_name = strtolower(get_the_title());
-  $coupon_array[$coupon_name] = $coupon_percent_field;
-}
-
-wp_reset_postdata();
-
+$coupon_array = get_coupon_array();
 
 $coupon_applied = false;
 $coupon_percent = null;
+$current_coupon = '';
 
 if ( $current_coupon = $_GET['coupon']) {
   $coupon_applied = true;
@@ -213,16 +202,19 @@ if ($paypal = $_GET['paypal']) {
 
               <?php } ?>
 
-              <div class="cart-total">
-                  <?php if ( $coupon_percent ) {
-                    $total_cost = $total_cost * ( ( 100 - $coupon_percent ) / 100 );
-                  }
-                  ?>
 
+
+              <?php if ( $coupon_percent ) {
+                    $after_coupon_cost = percent_price($total_cost, $coupon_percent); ?>
+                <div class="cart-total">
+                  Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span>
+                </div>
+              <?php } else { ?>
+              <div class="cart-total">
                 Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
               </div>
 
-              <?php 
+              <?php }
 
               $product_details_final = substr($product_details_string, 0, -3);
 
@@ -266,6 +258,8 @@ if ($paypal = $_GET['paypal']) {
 
           <label class='add-comment-label'>Add Comment or Suggestion</label>
           <textarea name="customer-comments"></textarea>
+
+          <input type="hidden" name="coupon-code" value="<?php echo $current_coupon; ?>" />
           
           <input type="hidden" name="place-cart-order" />
 
@@ -294,7 +288,7 @@ if ($paypal = $_GET['paypal']) {
           if ( $coupon_percent ) { ?>
 
           <div class="callout success">
-            <p>Coupon Applied!</p>
+            <p><span><?php echo $current_coupon; ?></span> Coupon Applied!</p>
           </div>
 
           <?php } else { ?>

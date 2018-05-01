@@ -180,6 +180,9 @@
 		span {
 			color: darken( $brand-primary, 15%);
 			font-weight: bold;
+			strike {
+				color: lighten($brand-third, 13%);
+			}
 		}
 	}
 	.min-amount-wrap {
@@ -285,6 +288,12 @@ button.paypal-button {
 			justify-self: end;
 			align-self: start;
 			min-width: 400px;
+		}
+		.callout {
+			span {
+				text-transform: uppercase;
+				font-weight: 600;
+			}
 		}
 	}
 }

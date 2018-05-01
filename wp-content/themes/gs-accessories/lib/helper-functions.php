@@ -28,3 +28,30 @@ function content_excerpt( $content, $length, $suffix = '...' ) {
     }
 
 }
+
+function percent_price($price, $percent) {
+
+    $after_coupon_cost = $price * ( ( 100 - $percent ) / 100 );
+
+    return $after_coupon_cost;
+}
+
+function get_coupon_array() {
+    $coupon_array = array();
+    $args = array('post_type' => 'coupons');
+    $custom_query = new WP_Query($args);
+    while( $custom_query->have_posts() ) {
+      $custom_query->the_post();
+      $coupon_percent_field = get_field('discount_percent');
+      $coupon_name = strtolower(get_the_title());
+      $coupon_array[$coupon_name] = $coupon_percent_field;
+    }
+    wp_reset_postdata();
+
+    return $coupon_array;
+}
+
+
+
+
+
