@@ -361,13 +361,13 @@ if ( isset( $_GET['added-to-cart'])) {
                                 <h4>Reviews</h4>
                             
                                 <?php
-                                echo do_shortcode('[site_reviews assigned_to="' . $post->ID . '" hide="title, author"]');
+                                echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1 pagination=ajax]');
                                 ?>
-                                
+
                                 <h4>Leave a Review</h4>
                             
                                 <?php
-                                echo do_shortcode('[site_reviews_form assign_to="' . $post->ID . '" hide=email,name,terms,title]');
+                                echo do_shortcode('[site_reviews_form assign_to="post_id" hide="email,name,terms,title"]');
                                 ?>
                             </div>
                         </div>
