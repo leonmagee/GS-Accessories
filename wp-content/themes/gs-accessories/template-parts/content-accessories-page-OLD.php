@@ -109,18 +109,13 @@ if ( isset( $_GET['added-to-cart'])) {
 
                 </div>
 
-                <?php 
-                // if ( ! $protections ) { //var_dump($protections);
-                //     $protection_class = 'no-protections';
-                // } else {
-                //     $protection_class = '';
-                // } 
+                <?php if ( ! $protections ) { //var_dump($protections);
+                    $protection_class = 'no-protections';
+                } else {
+                    $protection_class = '';
+                } ?>
 
-                ?>
-
-
-
-                <div class="cell large-7 description-features-wrap main-grid-wrap">
+                <div class="cell large-7 description-features-wrap <?php echo $protection_class; ?>">
 
                     <?php if ( $success_notice ) { ?>
                     <div class="cell medium-12 single-product-callout-success">
@@ -141,7 +136,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                        <div class="css-grid-item description">
+                        <div class="css-grid-item">
 
                             <?php if (is_user_logged_in() && $wholesale_price && $retail_price ) { 
                                if ( current_user_can('edit_posts') ) {
@@ -188,7 +183,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                            <div class="css-grid-item quantity">
+                            <div class="css-grid-item">
 
 
                                 <?php $colors = get_field('accessory_colors'); ?>
@@ -248,7 +243,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                           <?php if ( $protections ) { ?>
 
-                          <div class="protections-wrap css-grid-item protections">
+                          <div class="protections-wrap css-grid-item">
 
                             <h4>Protections</h4>
 
@@ -346,7 +341,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
                         <?php if ( $combined_features ) { ?>
-                        <div class="features-section-wrap features-wrap css-grid-item features">
+                        <div class="features-section-wrap features-wrap css-grid-item">
                             <div class="features-section">
                                 <h4>Features</h4>
                                 <ul>
@@ -368,7 +363,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
                         <?php if ( $combined_benefits ) { ?>
-                        <div class="features-section-wrap features-wrap css-grid-item benefits">
+                        <div class="features-section-wrap features-wrap css-grid-item">
                              <div class="benefits features-section">
                                 <h4>Benefits</h4>
                                 <ul>
@@ -388,24 +383,16 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                        <div class="features-section-wrap reviews-wrap css-grid-item reviews">
+                        <div class="features-section-wrap reviews-wrap css-grid-item">
 
                             <div class="features-section">
                                 <h4>Reviews</h4>
                             
                                 <?php
-                                echo do_shortcode('[site_reviews_summary assigned_to="post_id" hide="bars"]');
+                                echo do_shortcode('[site_reviews_summary assigned_to="post_id"]');
                                 
                                 //echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1]');
                                 ?>
-
-                                <button class="gs-button">See Reviews</button>
-                            </div>
-                        </div>
-
-                        <div class="features-section-wrap reviews-wrap css-grid-item review-form">
-
-                            <div class="features-section">
 
                                 <h4>Leave a Review</h4>
                             
@@ -416,6 +403,22 @@ if ( isset( $_GET['added-to-cart'])) {
                         </div>
 
                         
+
+                        <?php if ( $colors && ( ! $colors ) ) { //hide colors for now ?>
+                        <div class="features-section-wrap colors-wrap cell medium-6">
+                            <div class="features-section colors">
+                                <h4>Colors</h4>
+                                <ul>
+                                    <?php foreach( $colors as $color ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-circle'); ?>
+                                        <?php echo $color; ?>    
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php } ?>
 
                     </div><!-- description features wrap -->
 

@@ -31,9 +31,12 @@
         .accessory-description {
             width: 100%;
             font-size: 16px;
-            padding-bottom: 20px;
+            //padding-bottom: 20px;
+            p {
+                margin: 0;
+            }
             @media(min-width: $screen-lg) {
-               padding-right: 10px; 
+               //padding-right: 10px; 
             }
 
         }
@@ -124,7 +127,7 @@
         //     }
 
         // }
-        padding-bottom: 15px;
+        //padding-bottom: 15px;
         svg {
             max-width: 20px;
             max-height: 20px;
@@ -136,8 +139,9 @@
         ul {
             list-style-type: none;
             margin-left: 5px;
+            margin-bottom: 0;
             li {
-                font-size: 20px;
+                font-size: $accessories-font-size;
                 margin: 5px 0;
                 position: relative;
                 display: flex;
@@ -188,7 +192,7 @@
 
 .protections-wrap {
     //padding: 15px 0;
-    padding-bottom: 20px;
+    //padding-bottom: 20px;
 
     .protection {
         display: flex;
@@ -196,15 +200,15 @@
         padding: 5px 0;
         margin-left: 5px;
         svg {
-            max-width: 38px;
-            max-height: 38px;
+            max-width: 32px;
+            max-height: 32px;
             path, rect, polygon {
                 fill: darken($brand-primary, 5%);
             }
         }
         span {
             margin-left: 5px;
-            font-size: 20px;
+            font-size: $accessories-font-size;
             //font-weight: bold;
             //color: #222;
         }
@@ -228,19 +232,20 @@
             .reviews-wrap {
                 order: 5;
             }
+
         }
 
-        &.no-protections {
+    //     &.no-protections {
         
-        @media(min-width: $screen-sm) {
-            .features-wrap {
-                order: 2;
-            }
-            .benefits-wrap {
-                order: 3;
-            }
-        }
-    }
+    //     @media(min-width: $screen-sm) {
+    //         .features-wrap {
+    //             order: 2;
+    //         }
+    //         .benefits-wrap {
+    //             order: 3;
+    //         }
+    //     }
+    // }
 }
 
 .single-product-callout-success {
@@ -287,4 +292,32 @@
 
 .price-description-add-to-cart-wrap {
     padding-bottom: 25px;
+}
+
+.main-grid-wrap {
+    background: lightcyan;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    //grid-auto-flow: row;
+    grid-gap: 15px;
+    .css-grid-item {
+        background-color: #DDD;
+        &.description {
+            grid-column: span 3;
+        }
+        &.quantity {
+        }
+        &.protections {
+        }
+        &.features {
+        }
+        &.benefits {
+        }
+        &.reviews {
+        }
+        &.review-form {
+            
+        }
+
+    }
 }
