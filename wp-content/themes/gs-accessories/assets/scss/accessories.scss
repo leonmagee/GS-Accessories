@@ -200,8 +200,8 @@
         padding: 5px 0;
         margin-left: 5px;
         svg {
-            max-width: 29px;
-            max-height: 29px;
+            max-width: 33px;
+            max-height: 33px;
             path, rect, polygon {
                 fill: darken($brand-primary, 5%);
             }
@@ -294,31 +294,36 @@
     padding-bottom: 25px;
 }
 
-.main-grid-wrap {
+.main-grid-wrap-accessories {
     display: grid;
     grid-gap: 20px;
+    align-items: start;
     @media(min-width: $screen-md) {
-        grid-template-columns: repeat(2, auto);
+        grid-template-columns: repeat(6, auto);
         grid-auto-flow: dense;
-        grid-gap: 17px;
+        grid-gap: 45px 20px;
     }
-    @media(min-width: $screen-lg) {
-        grid-template-columns: repeat(3, auto);
-    }
+    // @media(min-width: $screen-lg) {
+    //     grid-template-columns: repeat(3, auto);
+    // }
 
     .css-grid-item {
+            @media(min-width: $screen-md) {
+                grid-column: span 3;
+            }
 
         &.description {
             @media(min-width: $screen-md) {
-                grid-column: span 2;
+                grid-column: span 4;
             }
-            @media(min-width: $screen-lg) {
-                grid-column: span 3;
-            }
+            // @media(min-width: $screen-lg) {
+            //     grid-column: span 3;
+            // }
         }
         &.quantity {
             @media(min-width: $screen-md) {
-                grid-column-end: -1;
+                grid-column: span 2;
+                align-self: end;
             }
         }
         &.protections {
@@ -332,6 +337,11 @@
         &.review-form {
         }
     }
+}
+
+.left-grid, .right-grid {
+    display: grid;
+    grid-gap: 20px;
 }
 
 #reviewsModal {

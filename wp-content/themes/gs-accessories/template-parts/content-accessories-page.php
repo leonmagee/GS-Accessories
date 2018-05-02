@@ -120,7 +120,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                <div class="cell large-7 description-features-wrap main-grid-wrap">
+                <div class="cell large-7 description-features-wrap main-grid-wrap-accessories">
 
                     <?php if ( $success_notice ) { ?>
                     <div class="cell medium-12 single-product-callout-success">
@@ -156,7 +156,6 @@ if ( isset( $_GET['added-to-cart'])) {
 
                                 ?>
 
-
                                 <div class="price-wrap-outer">
 
                                     <h4><?php echo $price_name; ?> Price</h4>
@@ -173,18 +172,12 @@ if ( isset( $_GET['added-to-cart'])) {
                                 </div>
                                 <?php } } ?>
 
-
-
                                 <div class="accessory-description">
                                     <h4>Description</h4>
                                     <?php echo $description; ?>
                                 </div>
 
                             </div>
-
-
-
-
 
 
 
@@ -246,10 +239,12 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
+                          <div class="protections-wrap css-grid-item left-grid">
+
                           <?php if ( $protections ) { ?>
 
-                          <div class="protections-wrap css-grid-item protections">
-
+                            <div class="protections-inner-wrap">
+                            
                             <h4>Protections</h4>
 
                             <?php foreach( $protections as $protection ) {
@@ -339,36 +334,10 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         </div>
 
-                        <?php } ?>
-
-
-
-
-
-                        <?php if ( $combined_features ) { ?>
-                        <div class="features-section-wrap features-wrap css-grid-item features">
-                            <div class="features-section">
-                                <h4>Features</h4>
-                                <ul>
-                                    <?php foreach( $combined_features as $feature ) { ?>
-                                    <li>
-                                        <?php get_template_part('assets/svg/icon-square'); ?>
-                                        <?php echo $feature; ?>
-
-                                    </li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
-                        </div>
 
                         <?php } ?>
-
-
-
-
-
+                        
                         <?php if ( $combined_benefits ) { ?>
-                        <div class="features-section-wrap features-wrap css-grid-item benefits">
                              <div class="benefits features-section">
                                 <h4>Benefits</h4>
                                 <ul>
@@ -381,25 +350,31 @@ if ( isset( $_GET['added-to-cart'])) {
                                     <?php } ?>
                                 </ul>
                             </div>
-                        </div>
 
                         <?php } ?>
 
-                        <div class="features-section-wrap reviews-wrap css-grid-item review-form">
+                        </div><!-- end left grid -->
+
+
+                        <div class="features-section-wrap features-wrap css-grid-item right-grid">
+
+                        <?php if ( $combined_features ) { ?>
 
                             <div class="features-section">
 
-                                <h4>Leave a Review</h4>
-                            
-                                <?php
-                                echo do_shortcode('[site_reviews_form assign_to="post_id" hide="email,name,terms,title"]');
-                                ?>
+                                <h4>Features</h4>
 
+                                <ul>
+                                    <?php foreach( $combined_features as $feature ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-square'); ?>
+                                        <?php echo $feature; ?>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
 
-                        </div>
-
-                        <div class="features-section-wrap reviews-wrap css-grid-item reviews">
+                        <?php } ?>
 
                             <div class="features-section">
                                 <h4>Reviews</h4>
@@ -413,8 +388,20 @@ if ( isset( $_GET['added-to-cart'])) {
                                 <button class="gs-button" data-open="reviewsModal">See Reviews</button>
 
                             </div>
+
+                            <div class="features-section">
+
+                                <h4>Leave a Review</h4>
                             
-                        </div>
+                                <?php
+                                echo do_shortcode('[site_reviews_form assign_to="post_id" hide="email,name,terms,title"]');
+                                ?>
+
+                            </div>
+
+
+
+                    </div><!-- right grid -->
 
                     </div><!-- description features wrap -->
 
