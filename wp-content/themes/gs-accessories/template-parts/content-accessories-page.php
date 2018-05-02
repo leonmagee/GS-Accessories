@@ -42,26 +42,48 @@ if ( isset( $_GET['added-to-cart'])) {
 
         $protections = get_field('accessory_protections');
 
+        // features
         $features = get_field('accessory_features');
-
+        
         $additional_features = get_field('additional_features');
+
         $add_features_array = array();
+
         if ( $additional_features ) {
             foreach( $additional_features as $feature ) {
                 $add_features_array[] = $feature['feature'];
             }
             $combined_features = array_merge($features, $add_features_array);
         } else {
-         $combined_features = $features; 
-     }
+            $combined_features = $features; 
+        }
 
-     $colors = get_field('accessory_colors');
+        // benefits
+        $benefits = get_field('accessory_benefits');
 
-     if ( $colors ) {
-        $border_class = 'border-class';
-    } else {
-        $border_class = '';
-    }
+        $additional_benefits = get_field('additional_benefits');
+
+        $add_benefits_array = array();
+
+        if ( $additional_benefits ) {
+            foreach( $additional_benefits as $benefit ) {
+                $add_benefits_array[] = $benefit['benefit'];
+            }
+            $combined_benefits = array_merge($benefits, $add_benefits_array);
+        } else {
+            $combined_benefits = $benefits; 
+        }
+
+
+
+
+    //  $colors = get_field('accessory_colors');
+
+    //  if ( $colors ) {
+    //     $border_class = 'border-class';
+    // } else {
+    //     $border_class = '';
+    // }
 
     ?>
     <div class="grid-x">
@@ -205,26 +227,12 @@ if ( isset( $_GET['added-to-cart'])) {
                                             <button type="submit" class="gs-button">Add To Cart</button>
                                             
                                             <?php } ?>
-
-
                                       </form>
                                   </div>
-                                  
-
-
-
-
 
                               </div>
 
-
-
-
-
                           </div>
-
-
-
 
                           <?php if ( $protections ) { ?>
 
@@ -339,21 +347,23 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php } ?>
 
-
-                        <div class="features-section-wrap benefits-wrap cell medium-6">
-                            <div class="benefits features-section">
+                        <?php if ( $combined_benefits ) { ?>
+                        <div class="features-section-wrap features-wrap cell medium-6">
+                             <div class="benefits features-section">
                                 <h4>Benefits</h4>
-
                                 <ul>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Professional HQ Packaging</li>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>USA Supplier</li>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Physical Stock</li>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Low Prices</li>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Quality Guaranteed</li>
-                                    <li><?php get_template_part('assets/svg/icon-star'); ?>Fast and FREE Shipping</li>
+                                    <?php foreach( $combined_benefits as $benefit ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-star'); ?>
+                                        <?php echo $benefit; ?>
+
+                                    </li>
+                                    <?php } ?>
                                 </ul>
                             </div>
                         </div>
+
+                        <?php } ?>
 
                         <div class="features-section-wrap reviews-wrap cell medium-6">
 
