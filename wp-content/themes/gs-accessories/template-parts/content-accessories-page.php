@@ -361,7 +361,7 @@ if ( isset( $_GET['added-to-cart'])) {
                                 <h4>Reviews</h4>
                             
                                 <?php
-                                echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1 pagination=ajax]');
+                                echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1]');
                                 ?>
 
                                 <h4>Leave a Review</h4>
