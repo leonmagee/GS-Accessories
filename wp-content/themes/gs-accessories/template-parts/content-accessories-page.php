@@ -122,7 +122,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                <div class="cell large-7 description-features-wrap main-grid-wrap-accessories">
+                <div class="cell large-7 description-features-wrap">
 
                     <?php if ( $success_notice ) { ?>
                     <div class="cell medium-12 single-product-callout-success">
@@ -134,7 +134,7 @@ if ( isset( $_GET['added-to-cart'])) {
                     <?php } ?>
 
 
-
+                <div class="main-grid-wrap-accessories">
 
 
 
@@ -428,6 +428,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 </div><!-- description features wrap -->
 
+</div>
 </div>
 </div>
 
