@@ -237,7 +237,7 @@ if ( isset( $_GET['added-to-cart'])) {
 <!--                           </div>
  -->
 
-
+                        <?php if ( $protections || $combined_features ) { ?>
 
                           <div class="protections-wrap css-grid-item left-grid">
 
@@ -333,6 +333,8 @@ if ( isset( $_GET['added-to-cart'])) {
                             } ?>
 
                         </div>
+
+                        <?php } ?>
 
 
                         <?php } ?>
