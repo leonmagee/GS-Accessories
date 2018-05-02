@@ -336,27 +336,6 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
                         <?php } ?>
-                        
-                        <?php if ( $combined_benefits ) { ?>
-                             <div class="benefits features-section">
-                                <h4>Benefits</h4>
-                                <ul>
-                                    <?php foreach( $combined_benefits as $benefit ) { ?>
-                                    <li>
-                                        <?php get_template_part('assets/svg/icon-star'); ?>
-                                        <?php echo $benefit; ?>
-
-                                    </li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
-
-                        <?php } ?>
-
-                        </div><!-- end left grid -->
-
-
-                        <div class="features-section-wrap features-wrap css-grid-item right-grid">
 
                         <?php if ( $combined_features ) { ?>
 
@@ -369,6 +348,29 @@ if ( isset( $_GET['added-to-cart'])) {
                                     <li>
                                         <?php get_template_part('assets/svg/icon-square'); ?>
                                         <?php echo $feature; ?>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+
+                        <?php } ?>
+                        
+
+
+                        </div><!-- end left grid -->
+
+
+                        <div class="features-section-wrap features-wrap css-grid-item right-grid">
+
+                        <?php if ( $combined_benefits ) { ?>
+                             <div class="benefits features-section">
+                                <h4>Benefits</h4>
+                                <ul>
+                                    <?php foreach( $combined_benefits as $benefit ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-star'); ?>
+                                        <?php echo $benefit; ?>
+
                                     </li>
                                     <?php } ?>
                                 </ul>
