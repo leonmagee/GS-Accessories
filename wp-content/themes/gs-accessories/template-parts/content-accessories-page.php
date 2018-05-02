@@ -237,8 +237,6 @@ if ( isset( $_GET['added-to-cart'])) {
 <!--                           </div>
  -->
 
-                        <?php if ( $protections || $combined_features ) { ?>
-
                           <div class="protections-wrap css-grid-item left-grid">
 
                           <?php if ( $protections ) { ?>
@@ -336,6 +334,27 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php } ?>
 
+
+                            <div class="features-section">
+                                <h4>Reviews</h4>
+                            
+                                <?php
+                                echo do_shortcode('[site_reviews_summary assigned_to="post_id" hide="bars"]');
+                                
+                                //echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1]');
+                                ?>
+
+                                <button class="gs-button" data-open="reviewsModal">See Reviews</button>
+
+                            </div>
+
+
+
+                        </div><!-- end left grid -->
+
+
+                        <div class="features-section-wrap features-wrap css-grid-item right-grid">
+
                         <?php if ( $combined_features ) { ?>
 
                             <div class="features-section">
@@ -354,14 +373,6 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php } ?>
 
-                        </div><!-- end left grid -->
-
-                        <?php } ?>
-
-
-
-                        <div class="features-section-wrap features-wrap css-grid-item right-grid">
-
                         <?php if ( $combined_benefits ) { ?>
                              <div class="benefits features-section">
                                 <h4>Benefits</h4>
@@ -377,19 +388,6 @@ if ( isset( $_GET['added-to-cart'])) {
                             </div>
 
                         <?php } ?>
-
-                            <div class="features-section">
-                                <h4>Reviews</h4>
-                            
-                                <?php
-                                echo do_shortcode('[site_reviews_summary assigned_to="post_id" hide="bars"]');
-                                
-                                //echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1]');
-                                ?>
-
-                                <button class="gs-button" data-open="reviewsModal">See Reviews</button>
-
-                            </div>
 
                             <div class="features-section">
 
