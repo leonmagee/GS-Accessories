@@ -336,9 +336,6 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php } ?>
 
-
-                        <?php } ?>
-
                         <?php if ( $combined_features ) { ?>
 
                             <div class="features-section">
@@ -356,10 +353,11 @@ if ( isset( $_GET['added-to-cart'])) {
                             </div>
 
                         <?php } ?>
-                        
-
 
                         </div><!-- end left grid -->
+
+                        <?php } ?>
+
 
 
                         <div class="features-section-wrap features-wrap css-grid-item right-grid">
