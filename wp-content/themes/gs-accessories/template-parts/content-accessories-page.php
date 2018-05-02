@@ -385,8 +385,19 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php } ?>
 
+                        <div class="features-section-wrap reviews-wrap css-grid-item review-form">
 
+                            <div class="features-section">
 
+                                <h4>Leave a Review</h4>
+                            
+                                <?php
+                                echo do_shortcode('[site_reviews_form assign_to="post_id" hide="email,name,terms,title"]');
+                                ?>
+
+                            </div>
+
+                        </div>
 
                         <div class="features-section-wrap reviews-wrap css-grid-item reviews">
 
@@ -399,23 +410,11 @@ if ( isset( $_GET['added-to-cart'])) {
                                 //echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1]');
                                 ?>
 
-                                <button class="gs-button">See Reviews</button>
+                                <button class="gs-button" data-open="reviewsModal">See Reviews</button>
+
                             </div>
-                        </div>
-
-                        <div class="features-section-wrap reviews-wrap css-grid-item review-form">
-
-                            <div class="features-section">
-
-                                <h4>Leave a Review</h4>
                             
-                                <?php
-                                echo do_shortcode('[site_reviews_form assign_to="post_id" hide="email,name,terms,title"]');
-                                ?>
-                            </div>
                         </div>
-
-                        
 
                     </div><!-- description features wrap -->
 
@@ -425,3 +424,13 @@ if ( isset( $_GET['added-to-cart'])) {
         </div><!-- .entry-content -->
 
     </article><!-- #post-->
+
+    <div class="reveal" id="reviewsModal" data-reveal>
+  <h1>Product Reviews</h1>
+  <p>
+    <?php echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=10]'); ?>
+  </p>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

@@ -67,10 +67,10 @@
     }
 
     .order-button-wrap {
-        background-color: #FAFAFA;
+        background-color: #FCFCFC;
         padding: 15px;
-        border: 1px solid #DDD;
-        border-radius: 5px;
+        border: 1px solid #DFDFDF;
+        //border-radius: 5px;
         text-align: center;
         .input-item {
             //background: blue;
@@ -101,14 +101,14 @@
 
         .price-wrap {
             color: darken( $brand-primary, 12% );
-            font-size: 30px;
+            font-size: 40px;
             font-weight: bold;
-            line-height: 25px;
+            line-height: 35px;
         }
 
         .price-description {
             color: #888;
-            font-size: 17px;
+            font-size: 18px;
         }
     }
 }
@@ -200,8 +200,8 @@
         padding: 5px 0;
         margin-left: 5px;
         svg {
-            max-width: 32px;
-            max-height: 32px;
+            max-width: 29px;
+            max-height: 29px;
             path, rect, polygon {
                 fill: darken($brand-primary, 5%);
             }
@@ -295,17 +295,31 @@
 }
 
 .main-grid-wrap {
-    background: lightcyan;
     display: grid;
-    grid-template-columns: auto auto auto;
-    //grid-auto-flow: row;
-    grid-gap: 15px;
+    grid-gap: 20px;
+    @media(min-width: $screen-md) {
+        grid-template-columns: repeat(2, auto);
+        grid-auto-flow: dense;
+        grid-gap: 17px;
+    }
+    @media(min-width: $screen-lg) {
+        grid-template-columns: repeat(3, auto);
+    }
+
     .css-grid-item {
-        background-color: #DDD;
+
         &.description {
-            grid-column: span 3;
+            @media(min-width: $screen-md) {
+                grid-column: span 2;
+            }
+            @media(min-width: $screen-lg) {
+                grid-column: span 3;
+            }
         }
         &.quantity {
+            @media(min-width: $screen-md) {
+                grid-column-end: -1;
+            }
         }
         &.protections {
         }
@@ -316,8 +330,18 @@
         &.reviews {
         }
         &.review-form {
-            
         }
+    }
+}
 
+#reviewsModal {
+    max-height: 90%;
+}
+
+.glsr-field {
+    textarea {
+        resize: none;
+        min-height: 80px;
+        max-width: 90%;
     }
 }
