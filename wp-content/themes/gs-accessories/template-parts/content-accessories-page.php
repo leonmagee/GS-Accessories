@@ -270,7 +270,7 @@ if ( isset( $_GET['added-to-cart'])) {
         <h4>Reviews</h4>
 
         <?php
-        echo do_shortcode('[site_reviews_summary assigned_to="post_id" hide="bars"]');
+        echo do_shortcode('[site_reviews_summary assigned_to="post_id"]');
 
                                 //echo do_shortcode('[site_reviews assigned_to="post_id" hide="title" count=1]');
         ?>
