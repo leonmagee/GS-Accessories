@@ -24,13 +24,6 @@ if ( $current_coupon = $_GET['coupon']) {
   $coupon_percent = $coupon_array[strtolower($current_coupon)];
 }
 
-//var_dump($coupon_array);
-
-// $input_name = 'GSvIPsd';
-// $namer = strtolower($input_name);
-
-//var_dump($coupon_array[$namer]);
-
 if ($paypal = $_GET['paypal']) {
   $paypal_mode = true;
 } else {

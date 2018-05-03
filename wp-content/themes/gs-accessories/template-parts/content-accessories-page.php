@@ -55,7 +55,11 @@ if ( isset( $_GET['added-to-cart'])) {
             foreach( $additional_features as $feature ) {
                 $add_features_array[] = $feature['feature'];
             }
-            $combined_features = array_merge($features, $add_features_array);
+            if ( $features ) {
+                $combined_features = array_merge($features, $add_features_array);
+            } else {
+                $combined_features = $add_features_array;
+            }
         } else {
             $combined_features = $features; 
         }
@@ -71,7 +75,11 @@ if ( isset( $_GET['added-to-cart'])) {
             foreach( $additional_benefits as $benefit ) {
                 $add_benefits_array[] = $benefit['benefit'];
             }
-            $combined_benefits = array_merge($benefits, $add_benefits_array);
+            if ( $benefits ) {
+                $combined_benefits = array_merge($benefits, $add_benefits_array);
+            } else {
+                $combined_benefits = $add_benefits_array;
+            }
         } else {
             $combined_benefits = $benefits; 
         }
