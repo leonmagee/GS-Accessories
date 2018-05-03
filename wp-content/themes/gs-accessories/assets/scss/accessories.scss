@@ -35,8 +35,9 @@
             p {
                 margin: 0;
             }
-            @media(min-width: $screen-lg) {
+            @media(min-width: $screen-md) {
                //padding-right: 10px; 
+               padding-bottom: 30px;
             }
 
         }
@@ -267,8 +268,8 @@
         }
 
         a {
-            background-color: lighten($brand-primary, 1%);
-            border: 1px solid $brand-primary;
+            background-color: darken($brand-primary, 4%);
+            //background-color: lighten($brand-third, 13%);
             padding: 5px 10px;
             border-radius: 10px;
             color: #FFF;
@@ -323,7 +324,7 @@
         &.quantity {
             @media(min-width: $screen-md) {
                 grid-column: span 2;
-                align-self: end;
+                //align-self: end;
             }
         }
         &.protections {
