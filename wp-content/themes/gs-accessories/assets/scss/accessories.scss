@@ -295,50 +295,50 @@
     padding-bottom: 25px;
 }
 
-.main-grid-wrap-accessories {
-    display: grid;
-    grid-gap: 20px;
-    align-items: start;
-    @media(min-width: $screen-md) {
-        grid-template-columns: repeat(6, auto);
-        grid-auto-flow: dense;
-        grid-gap: 45px 20px;
-    }
-    // @media(min-width: $screen-lg) {
-    //     grid-template-columns: repeat(3, auto);
-    // }
+// .main-grid-wrap-accessories {
+//     display: grid;
+//     grid-gap: 20px;
+//     align-items: start;
+//     @media(min-width: $screen-md) {
+//         grid-template-columns: repeat(6, auto);
+//         grid-auto-flow: dense;
+//         grid-gap: 45px 20px;
+//     }
+//     // @media(min-width: $screen-lg) {
+//     //     grid-template-columns: repeat(3, auto);
+//     // }
 
-    .css-grid-item {
-            @media(min-width: $screen-md) {
-                grid-column: span 3;
-            }
+//     .css-grid-item {
+//             @media(min-width: $screen-md) {
+//                 grid-column: span 3;
+//             }
 
-        &.description {
-            @media(min-width: $screen-md) {
-                grid-column: span 4;
-            }
-            // @media(min-width: $screen-lg) {
-            //     grid-column: span 3;
-            // }
-        }
-        &.quantity {
-            @media(min-width: $screen-md) {
-                grid-column: span 2;
-                //align-self: end;
-            }
-        }
-        &.protections {
-        }
-        &.features {
-        }
-        &.benefits {
-        }
-        &.reviews {
-        }
-        &.review-form {
-        }
-    }
-}
+//         &.description {
+//             @media(min-width: $screen-md) {
+//                 grid-column: span 4;
+//             }
+//             // @media(min-width: $screen-lg) {
+//             //     grid-column: span 3;
+//             // }
+//         }
+//         &.quantity {
+//             @media(min-width: $screen-md) {
+//                 grid-column: span 2;
+//                 //align-self: end;
+//             }
+//         }
+//         &.protections {
+//         }
+//         &.features {
+//         }
+//         &.benefits {
+//         }
+//         &.reviews {
+//         }
+//         &.review-form {
+//         }
+//     }
+// }
 
 .left-grid, .right-grid {
     display: grid;
@@ -353,6 +353,12 @@
     textarea {
         resize: none;
         max-height: 80px;
-        max-width: 245px;
+        //max-width: 245px;
     }
 }
+
+.margin-bottom-accessories > div {
+    margin-bottom: 20px;
+}
+
+
