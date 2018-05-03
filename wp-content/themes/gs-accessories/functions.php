@@ -261,7 +261,7 @@ function gs_accessories_custom_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.18' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.19' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 
