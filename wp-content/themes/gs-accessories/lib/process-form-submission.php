@@ -232,8 +232,10 @@ if ( isset($_POST['place-cart-order'])) {
 
 		if ( current_user_can('delete_published_posts')) {
 			$acf_price = get_field('wholesale_price', $product_id_actual);
-		} else {
+		} elseif (current_user_can('edit_posts')) {
 			$acf_price = get_field('retail_price', $product_id_actual);
+		} else {
+			$acf_price = get_field('market_price', $product_id_actual);
 		}
 
 		if ( $acf_price ) {
@@ -330,8 +332,10 @@ if ( isset($_POST['place-cart-order'])) {
 
 		if ( current_user_can('delete_published_posts')) {
 			$acf_price = get_field('wholesale_price', $product_id_actual);
-		} else {
+		} elseif (current_user_can('edit_posts')) {
 			$acf_price = get_field('retail_price', $product_id_actual);
+		} else {
+			$acf_price = get_field('market_price', $product_id_actual);
 		}
 
 		if ( $acf_price ) {

@@ -59,10 +59,14 @@ if ( is_user_logged_in() ) {
 }
 
 function restricted_page() {
-	if ( (! is_user_logged_in()) || (! current_user_can('edit_posts')) ) {
+	if ( ! is_user_logged_in() ) {
 		wp_redirect('/');
 		exit;
 	}
+	// if ( (! is_user_logged_in()) || (! current_user_can('edit_posts')) ) {
+	// 	wp_redirect('/');
+	// 	exit;
+	// }
 }
 
 function unrestricted_page() {

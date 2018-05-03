@@ -91,8 +91,10 @@ if ($paypal = $_GET['paypal']) {
 
           if ( current_user_can('delete_published_posts')) {
             $acf_price = get_field('wholesale_price', $product_id_actual);
-          } else {
+          } elseif (current_user_can('edit_posts')) {
             $acf_price = get_field('retail_price', $product_id_actual);
+          } else {
+            $acf_price = get_field('market_price', $product_id_actual);
           }
 
           if ( $acf_price ) {
@@ -217,10 +219,13 @@ if ($paypal = $_GET['paypal']) {
         <div class="min-amount-wrap">
 
           <?php
+          // @todo test these are all working correctly
           if ( current_user_can('delete_published_posts')) {
             $min_amount = MOQ_WHOLESALER;
-          } else {
+          } elseif (current_user_can('edit_posts')) {
             $min_amount = MOQ_DEALER;
+          } else {
+            $min_amount = 0;
           }
 
           if ( ! $require_text = get_field('require_text', 'option') ) {
@@ -228,7 +233,11 @@ if ($paypal = $_GET['paypal']) {
           }
           ?>
 
-          <?php echo $require_text; ?> $<?php echo number_format($min_amount, 2); ?>
+          <?php 
+          if ( $min_amount ) {
+            echo $require_text; ?> $<?php echo number_format($min_amount, 2); 
+          }
+          ?>
 
         </div>
 
@@ -239,6 +248,7 @@ if ($paypal = $_GET['paypal']) {
           //$product_details_array_serial = htmlspecialchars(serialize($product_details_array));
           $_SESSION['product_names'] = serialize($product_details_array);
           $_SESSION['product_values'] = serialize($product_cost_array);
+
           //var_dump($product_details_array_serial);
           //$product_cost_array_serial = htmlspecialchars(serialize($product_cost_array));
           //var_dump($serial);
@@ -263,9 +273,13 @@ if ($paypal = $_GET['paypal']) {
             <li>NO PayPal FEES</li>
           </ul>
 
+          <?php if ( current_user_can('edit_posts')) { ?>
+
           <div class="button-wrap">
             <button id="submit_cart_button" type="submit" class="submit-order-button">Pickup / Drop-off</button>
           </div>
+
+          <?php } ?>
 
           <div class="button-wrap">
             <button id="paypal_checkout_button" type="submit" class="submit-order-button">PayPal Checkout</button>

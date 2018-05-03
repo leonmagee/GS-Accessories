@@ -388,9 +388,15 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                          <?php if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { ?>
+                          <?php 
+                          //if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
+                          if ( LV_LOGGED_IN_ID ) { ?>
 
                           <button type="submit" class="gs-button">Add To Cart</button>
+
+                          <?php } else { ?>
+
+                          <a data-open="login-modal" class="gs-button">Add To Cart</a>
 
                           <?php } ?>
                       </form>

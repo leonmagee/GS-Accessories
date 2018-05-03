@@ -116,9 +116,9 @@ a.gs-button, button.gs-button, button.wpforms-submit, .button.button-primary {
   color: #FFF !important;
   text-shadow: 1px 1px rgba(0,0,0,0.05);
   //font-weight: 600;
+  width: auto;
   padding: 11px 13px !important;
   font-size: 17px;
-  //border: 2px solid $brand-primary-hover;
   border-radius: 5px;
   transition: 0.3s;
   &:hover {
