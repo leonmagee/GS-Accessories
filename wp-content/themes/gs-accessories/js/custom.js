@@ -21,6 +21,8 @@ jQuery(function ($) {
 
     });
 
+    $('.features-section .shortcode-reviews-form a').removeAttr('href').attr('data-open', 'login-modal');
+
 
 // $('form#paypal_form_id').submit(function(){
 //     //alert('I do something before the actual submission');
