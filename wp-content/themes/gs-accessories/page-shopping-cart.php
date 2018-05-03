@@ -268,15 +268,15 @@ if ($paypal = $_GET['paypal']) {
 
           <input type="hidden" name="payment-type" value="Pick Up" />
 
-          <ul class="payment-features-list">
+<!--           <ul class="payment-features-list">
             <li>FREE SHIPPING</li>
             <li>NO PayPal FEES</li>
-          </ul>
+          </ul> -->
 
           <?php if ( current_user_can('edit_posts')) { ?>
 
           <div class="button-wrap">
-            <button id="submit_cart_button" type="submit" class="submit-order-button">Pickup / Drop-off</button>
+            <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Bank Wire</button>
           </div>
 
           <?php } ?>

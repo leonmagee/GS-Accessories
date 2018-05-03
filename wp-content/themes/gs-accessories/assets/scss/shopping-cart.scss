@@ -265,11 +265,28 @@ button.paypal-button {
 
 
 .form-grip-wrap {
-	@media(min-width: $screen-md) {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		//justify-items: end;
+	// @media(min-width: $screen-md) {
+	// 	display: grid;
+	// 	grid-template-columns: 1fr 1fr;
+	// 	//justify-items: end;
+	// }
+	max-width: 300px;
+
+	textarea[name="customer-comments"] {
+		// width: 100%;
+		// width: 500px !important;
+		resize: none;
+		//min-height: 120px;
 	}
+
+	form#main_form_id {
+		min-width: 100% !important;
+
+		button.submit-order-button {
+			width: 100%;
+		}
+	}
+
 	.coupon-form-wrapper {
 		//max-width: 400px;
 		padding: 20px;
@@ -288,7 +305,6 @@ button.paypal-button {
 			//align-self: right;
 			justify-self: end;
 			align-self: start;
-			min-width: 400px;
 		}
 		.callout {
 			span {
