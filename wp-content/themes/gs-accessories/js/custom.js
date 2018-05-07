@@ -59,6 +59,7 @@ jQuery(function ($) {
         event.preventDefault();
 
         $('.mp-update-success').hide();
+        $('.mp-required-fields').hide();
         $('.uploads-spinner').css({'display': 'flex'});
 
         var username = $(".registration-input-wrap input.username").val();
@@ -75,7 +76,21 @@ jQuery(function ($) {
         var state = $(".registration-input-wrap input.state").val();
         var zip = $(".registration-input-wrap input.zip").val();
 
-        if (username && password && email_address && first_name && last_name && phone_number && company && tin_ein_or_ssn && address && city && state && zip) {
+        /* @todo how to make one form optional? */
+
+        //if ( tester.length ) { console.log('workz'); } else { console.log('nopez'); }
+
+        var tin_ssn_field = $('input.tin_ein_or_ssn');
+
+        if ( tin_ssn_field.length ) {
+
+            var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && company && tin_ein_or_ssn && address && city && state && zip);
+        } else {
+            var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && company && address && city && state && zip);
+        }
+
+        
+        if (conditional_inputs) {
 
             var formdata = new FormData();
 

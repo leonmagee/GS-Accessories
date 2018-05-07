@@ -27,4 +27,11 @@
 			background-color: $brand-primary;
 		}
 	}
+
+	.modal-button-wrap {
+		padding: 10px 0;
+		.gs-button {
+			display: inline-block;
+		}
+	}
 }
