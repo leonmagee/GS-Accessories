@@ -7,7 +7,7 @@
 $regular_inputs = array(
 	array( 'First Name', 1, 'text' ),
 	array( 'Last Name', 1, 'text' ),
-	array( 'Company Name', 1, 'text' ),
+	//array( 'Company Name', 1, 'text' ),
 	array( 'Username', 1, 'text' ),
 	array( 'Email Address', 1, 'text' ),
 	//array( 'Email Repeat', 1 ),

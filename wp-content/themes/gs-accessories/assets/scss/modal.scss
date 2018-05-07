@@ -29,9 +29,13 @@
 	}
 
 	.modal-button-wrap {
-		padding: 10px 0;
-		.gs-button {
+		text-align: center;
+		padding: 0 15px;
+		a.gs-button {
+			font-weight: 600;
+			margin: 5px 6px;
 			display: inline-block;
+			font-size: 0.8em;
 		}
 	}
 }

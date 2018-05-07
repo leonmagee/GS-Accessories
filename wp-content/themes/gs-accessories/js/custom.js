@@ -69,8 +69,11 @@ jQuery(function ($) {
         var last_name = $(".registration-input-wrap input.last_name").val();
         var phone_number = $(".registration-input-wrap input.phone_number").val();
         //var agency_name = $(".registration-input-wrap input.agency_name").val();
-        var company = $(".registration-input-wrap input.company_name").val();
-        var tin_ein_or_ssn = $(".registration-input-wrap input.tin_ein_or_ssn").val();
+        if ( $(".registration-input-wrap input.company_name").val() ) {
+            var company = $(".registration-input-wrap input.company_name").val();
+        } else {
+            var company = '';
+        }
         if ($(".registration-input-wrap input.tin_ein_or_ssn").val()) {
             var tin_ein_or_ssn = $(".registration-input-wrap input.tin_ein_or_ssn").val();
         } else {
@@ -91,7 +94,7 @@ jQuery(function ($) {
 
             var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && company && tin_ein_or_ssn && address && city && state && zip);
         } else {
-            var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && company && address && city && state && zip);
+            var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && address && city && state && zip);
         }
 
         
