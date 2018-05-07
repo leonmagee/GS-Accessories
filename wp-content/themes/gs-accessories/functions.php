@@ -251,7 +251,7 @@ function gs_accessories_custom_scripts() {
 
 		//wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.1.12', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.1.13', true );
 
 		//wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
 
@@ -265,7 +265,7 @@ function gs_accessories_custom_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.25' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.26' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 
