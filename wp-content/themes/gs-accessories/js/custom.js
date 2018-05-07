@@ -71,6 +71,11 @@ jQuery(function ($) {
         //var agency_name = $(".registration-input-wrap input.agency_name").val();
         var company = $(".registration-input-wrap input.company_name").val();
         var tin_ein_or_ssn = $(".registration-input-wrap input.tin_ein_or_ssn").val();
+        if ($(".registration-input-wrap input.tin_ein_or_ssn").val()) {
+            var tin_ein_or_ssn = $(".registration-input-wrap input.tin_ein_or_ssn").val();
+        } else {
+            var tin_ein_or_ssn = '';
+        }
         var address = $(".registration-input-wrap input.address").val();
         var city = $(".registration-input-wrap input.city").val();
         var state = $(".registration-input-wrap input.state").val();
