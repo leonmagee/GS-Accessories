@@ -42,27 +42,7 @@ if ( isset( $_GET['added-to-cart'])) {
         
         $description = get_field('accessory_text');
 
-
-
-        // protections
         $protections = get_field('accessory_protections');
-        
-        $additional_protections = get_field('additional_protections');
-
-        $add_protections_array = array();
-
-        if ( $additional_protections ) {
-            foreach( $additional_protections as $protection ) {
-                $add_protections_array[] = $protection['protection'];
-            }
-            if ( $protections ) {
-                $combined_protections = array_merge($protections, $add_protections_array);
-            } else {
-                $combined_protections = $add_protections_array;
-            }
-        } else {
-            $combined_protections = $protections; 
-        }
 
         // features
         $features = get_field('accessory_features');
@@ -222,20 +202,96 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <div class="protections-wrap features-section-wrap cell large-6 margin-bottom-accessories">
 
-                            <?php if ( $combined_protections ) { ?>
+                            <?php if ( $protections ) { ?>
 
                             <div class="protections-inner-wrap">
 
                                 <h4>Protections</h4>
 
-                                <?php foreach( $combined_protections as $protection ) { ?>
+                                <?php foreach( $protections as $protection ) {
+
+                                    if ( $protection == 'Overcharge Protection' ) { ?>
 
                                     <div class="protection">
-                                        <?php get_template_part('assets/svg/check-mark-protection'); ?>
-                                        <span><?php echo $protection; ?></span>
+                                        <?php get_template_part('assets/svg/over-charge-protection'); ?>
+                                        <span>Overcharge Protection</span>
                                     </div>
+                                    <?php }
 
-                                <?php } ?>
+                                    if ( $protection == 'Over-Voltage Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/voltage-protection'); ?>
+                                        <span>Over-Voltage Protection</span>
+                                    </div>
+                                    <?php }
+
+                                    if ( $protection == 'Short Circuit Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/short-circuit-protection'); ?>
+                                        <span>Short Circuit Protection</span>
+                                    </div>
+                                    <?php }
+
+                                    if ( $protection == 'Over-Current Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/current-protection'); ?>
+                                        <span>Over-Current Protection</span>
+                                    </div>
+                                    <?php }
+
+                                    if ( $protection == 'Over-Heat Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/over-heat-protection'); ?>
+                                        <span>Overheating Protection</span>
+                                    </div>
+                                    <?php }
+
+                                    if ( $protection == 'Fail-Safe Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/fail-safe-protection'); ?>
+                                        <span>Fail-Safe Protection</span>
+                                    </div>
+                                    <?php }
+
+                                    if ( $protection == 'Anti-Scratch Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/anti-scratch-protection'); ?>
+                                        <span>Anti-Scratch Protection</span>
+                                    </div>
+                                    <?php }
+
+
+                                    if ( $protection == 'Full 360 Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/360-protection'); ?>
+                                        <span>Full 360° Protection</span>
+                                    </div>
+                                    <?php }
+
+
+                                    if ( $protection == 'Anti-Shock Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/anti-shock-protection'); ?>
+                                        <span>Anti-Shock Protection</span>
+                                    </div>
+                                    <?php }
+
+                                    if ( $protection == 'Shock-Absorption Protection' ) { ?>
+
+                                    <div class="protection">
+                                        <?php get_template_part('assets/svg/absorb-protection'); ?>
+                                        <span>Shock-Absorption Protection</span>
+                                    </div>
+                                    <?php }
+                                } ?>
 
                             </div>
 

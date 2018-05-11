@@ -133,8 +133,8 @@
         // }
         //padding-bottom: 15px;
         svg {
-            max-width: 20px;
-            max-height: 20px;
+            max-width: 25px;
+            max-height: 25px;
             margin-right: 5px;
             path, rect, polygon, circle {
                 stroke: darken($brand-primary, 10%);
@@ -204,8 +204,8 @@
         padding: 5px 0;
         margin-left: 5px;
         svg {
-            max-width: 33px;
-            max-height: 33px;
+            max-width: 26px;
+            max-height: 26px;
             path, rect, polygon {
                 fill: darken($brand-primary, 5%);
             }
