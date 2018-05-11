@@ -295,7 +295,7 @@ if ( isset($_POST['place-cart-order'])) {
 	}
 
 	// send email to user
-	$to = $user_email; // get admin email here
+	$to = $user_email;
 	$subject = 'GS Accessories Order';
 	$body = $payment_instructions . $email_body;
 	$body_final = $email_wrap . $body . $email_wrap_close;
@@ -324,7 +324,7 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('comments', $comments, $new_order_id);
 	update_field('order_type', $payment_type, $new_order_id);
 	update_field('total_charge', $total_cost_final, $new_order_id);
-
+	update_field('customer_email', $user_email, $new_order_id);
 
 	foreach( $shopping_cart_array as $id => $data ) {
 
