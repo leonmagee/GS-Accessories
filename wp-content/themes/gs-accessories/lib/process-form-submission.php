@@ -278,11 +278,15 @@ if ( isset($_POST['place-cart-order'])) {
 	$to = array($admin_email, 'leonmagee33@gmail.com');
 	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
+	$email_wrap = '<div style="margin: 15px; border: 2px solid #E4E4E4; border-radius: 10px; padding: 10px 30px; background-color: #FFF; font-size: 18px"><div style="text-align: center;"><img src="https://mygsaccessories.com/wp-content/uploads/favicon.png" style="max-width: 80px"/></div>';
+	$email_wrap_close = '</div>';
+
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;
+	$body_final = $email_wrap . $body . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
-	wp_mail( $to, $subject, $body, $headers );
+	wp_mail( $to, $subject, $body_final, $headers );
 
 	if ( $payment_type == 'PayPal' ) {
 		$payment_instructions = get_field('paypal_instructions', 'option');
@@ -294,9 +298,10 @@ if ( isset($_POST['place-cart-order'])) {
 	$to = $user_email; // get admin email here
 	$subject = 'GS Accessories Order';
 	$body = $payment_instructions . $email_body;
+	$body_final = $email_wrap . $body . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
-	wp_mail( $to, $subject, $body, $headers );
+	wp_mail( $to, $subject, $body_final, $headers );
 
 	// clear out cart of items (empty Session)
 	$_SESSION['shopping_cart'] = '';
