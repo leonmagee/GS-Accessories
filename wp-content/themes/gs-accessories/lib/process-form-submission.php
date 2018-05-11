@@ -278,7 +278,7 @@ if ( isset($_POST['place-cart-order'])) {
 	$to = array($admin_email, 'leonmagee33@gmail.com');
 	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
-	$email_wrap = '<div style="margin: 15px; border: 8px double #E4E4E4; border-radius: 10px; padding: 10px 30px; background-color: #FFF; font-size: 18px"><div style="text-align: center;"><img src="https://mygsaccessories.com/wp-content/uploads/2017/12/gs-accessories-logo.png" style="max-width: 350px"/></div>';
+	$email_wrap = '<div style="margin: 15px; border: 8px double #E4E4E4; border-radius: 10px; padding: 10px 30px; background-color: #FFF; font-size: 18px"><div style="text-align: center;"><div style="padding: 10px;"><img src="https://mygsaccessories.com/wp-content/uploads/2017/12/gs-accessories-logo.png" style="max-width: 350px"/></div>';
 	$email_wrap_close = '</div>';
 
 	$subject = 'GS Accessories Order';
