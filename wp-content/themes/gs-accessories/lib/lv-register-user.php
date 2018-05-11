@@ -82,6 +82,11 @@ class lv_register_user {
 			$email_name = $this->last_name;
 		}
 
+		$email_wrap = '<div style="margin: 15px; border: 2px solid #E4E4E4; border-radius: 10px; padding: 10px 30px; background-color: #FFF; font-size: 18px"><div style="text-align: center;"><img src="https://mygsaccessories.com/wp-content/uploads/favicon.png" style="max-width: 80px"/></div>';
+		$email_wrap_close = '</div>';
+
+		$user_email_text = $email_wrap . $user_email_text . $email_wrap_close;
+
 		$user_email_text = get_field( 'new_account_email_text', 'option' );
 		$send_user_email = new lv_send_email_misc( $this->email, $email_name, 'GS Accessories User Registration', $user_email_text );
 		$send_user_email->send_email();
@@ -89,6 +94,10 @@ class lv_register_user {
 
 		$admin_email_text = '<strong>New User Registered</strong><br /><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Address: <strong>' . $this->address . '</strong><br /><strong>' . $this->city . ', ' . $this->state . ' ' . $this->zip . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
 		$admin_email      = get_bloginfo( 'admin_email' );
+
+
+		$admin_email_text = $email_wrap . $admin_email_text . $email_wrap_close;
+
 		$send_admin_email = new lv_send_email_misc( array($admin_email, 'leonmagee33@gmail.com'), 'GS Accessories Admin', 'GS Accessories User Registration', $admin_email_text );
 		$send_admin_email->send_email();
 	}
