@@ -175,7 +175,8 @@
     @media(min-width: $screen-md) {
         display: grid;
         grid-gap: 20px;
-        grid-auto-flow: column;
+        grid-template-columns: 8fr 7fr 8fr;
+        //grid-auto-flow: column;
         align-items: center;
     }
     margin-bottom: 20px;
