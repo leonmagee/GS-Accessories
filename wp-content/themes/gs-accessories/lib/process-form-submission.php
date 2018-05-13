@@ -283,10 +283,10 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$subject = 'GS Accessories Order';
 	$body = $admin_intro . $email_body;
-	$body_final = $email_wrap . $body . $email_wrap_close;
+	$body_final_admin = $email_wrap . $body . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
-	wp_mail( $to, $subject, $body_final, $headers );
+	wp_mail( $to, $subject, $body_final_admin, $headers );
 
 	if ( $payment_type == 'PayPal' ) {
 		$payment_instructions = get_field('paypal_instructions', 'option');
@@ -298,10 +298,10 @@ if ( isset($_POST['place-cart-order'])) {
 	$to = $user_email;
 	$subject = 'GS Accessories Order';
 	$body = $payment_instructions . $email_body;
-	$body_final = $email_wrap . $body . $email_wrap_close;
+	$body_final_customer = $email_wrap . $body . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
-	wp_mail( $to, $subject, $body_final, $headers );
+	wp_mail( $to, $subject, $body_final_customer, $headers );
 
 	// clear out cart of items (empty Session)
 	$_SESSION['shopping_cart'] = '';
@@ -325,6 +325,8 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('order_type', $payment_type, $new_order_id);
 	update_field('total_charge', $total_cost_final, $new_order_id);
 	update_field('customer_email', $user_email, $new_order_id);
+	update_field('user_email_text', $body_final_customer, $new_order_id);
+	update_field('admin_email_text', $body_final_admin, $new_order_id);
 
 	foreach( $shopping_cart_array as $id => $data ) {
 
