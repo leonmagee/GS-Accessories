@@ -411,10 +411,12 @@ add_action('pre_user_query','isa_pre_user_query');
 function custom_meta_box_markup() { 
 
 	global $post;
-	$user_email = get_field('customer_email', $post->ID); 
+	$post_id = $post->ID;
+	$user_email = get_field('customer_email', $post_id); 
 	$admin_email = get_option('admin_email');
-	$icon_url = get_site_url() . '/wp-admin/images/loading.gif';
-	?>
+	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; ?>
+
+	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
 
 	<div class="gsa-email-control-wrap">
 		<div class="form-group border">
@@ -422,14 +424,14 @@ function custom_meta_box_markup() {
 				<label>Re-Send Customer Email</label>
 			</div>
 			<div class="item">
-				<input name="gsa-email-address" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
+				<input name="gsa-email-address-customer" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
 			</div>
 			<div class="item">
 				<input name="tracking-number" placeholder="Tracking Number" />
 			</div>
 			<div class="item buttons-flex">
-				<a id="send-email-admin-id" class="flex-item button button-primary">Send Email</a>
-				<img class="flex-item" src="<?php echo $icon_url; ?>" />
+				<a id="send-email-customer" class="flex-item button button-primary">Send Email</a>
+				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
 				<div class="flex-item callout success">Email Sent!</div>
 				<div class="flex-item callout alert">Email Not Sent!</div>
 			</div>
@@ -439,10 +441,13 @@ function custom_meta_box_markup() {
 				<label>Re-Send Admin Email</label>
 			</div>
 			<div class="item">
-				<input name="gsa-email-address" placeholder="Email Address" value="<?php echo $admin_email ; ?>" />
+				<input name="gsa-email-address-admin" placeholder="Email Address" value="<?php echo $admin_email ; ?>" />
 			</div>
-			<div class="item">
-				<a id="send-email-admin-id" class="button button-primary">Send Email</a>
+			<div class="item buttons-flex">
+				<a id="send-email-admin" class="flex-item button button-primary">Send Email</a>
+				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
+				<div class="flex-item callout success">Email Sent!</div>
+				<div class="flex-item callout alert">Email Not Sent!</div>
 			</div>
 		</div>
 	</div>

@@ -47,6 +47,11 @@
 		    					background-color: #f7e4e1;
 		    				}
 		    			}
+
+		    			&.gsa_spinner, &.success, &.alert {
+		    				display: none;
+		    			}
+
 	    			}
 
 	    		}
