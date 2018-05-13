@@ -33,6 +33,7 @@ define('MOQ_DEALER', 100);
  require_once('lib/lv-register-user.php');
  require_once('lib/lv-send-email-misc.php');
  require_once('lib/lv-ajax.php');
+ require_once('lib/rest-endpoints.php');
 
  session_start();
 
@@ -78,7 +79,7 @@ function unrestricted_page() {
 
 
 
- if ( ! function_exists( 'gs_accessories_setup' ) ) :
+if ( ! function_exists( 'gs_accessories_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -197,8 +198,48 @@ function gs_accessories_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	wp_register_style( 'font-awesome', get_template_directory_uri() . '/vendor/font-awesome/css/font-awesome.min.css', array() );
+	
+	wp_enqueue_style( 'font-awesome' );
+
+	wp_register_style( 'foundation-css', get_template_directory_uri() . '/vendor/foundation/css/foundation.min.css', '', '1.0.1' );
+
+	wp_enqueue_style( 'foundation-css' );
+
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.1.13', true );
+
+	wp_enqueue_script( 'custom-js');
+
+	wp_register_script( 'foundation-js', get_template_directory_uri() . '/vendor/foundation/js/vendor/foundation.min.js', '', '1.0.1' );
+
+	wp_register_script( 'foundation-init-js', get_template_directory_uri() . '/vendor/foundation/js/app.js', array('jquery','foundation-js'), '1.0.2', true );
+
+	wp_enqueue_script( 'foundation-init-js' );
+
+	
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.28' );
+	
+	wp_enqueue_style( 'gs-accessories-styles' );
 }
 add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
+
+
+
+/**
+* Enqueue admin scripts and styles
+*/
+function gs_accessories_admin_scritps() {
+
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.1', true );
+
+	wp_enqueue_script( 'custom-admin-js');
+
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', '', '1.1.1' );
+	
+	wp_enqueue_style( 'gs-accessories-admin-styles' );
+}
+add_action('admin_enqueue_scripts', 'gs_accessories_admin_scritps');
 
 /**
  * Implement the Custom Header feature.
@@ -226,60 +267,6 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
-
-/**
- * Enqueue scripts and styles.
- */
-function gs_accessories_custom_scripts() {
-	
-		wp_register_style( 'font-awesome', get_template_directory_uri() . '/vendor/font-awesome/css/font-awesome.min.css', array() );
-	
-		wp_enqueue_style( 'font-awesome' );
-	
-		// $google_font_black_ops_one = 'https://fonts.googleapis.com/css?family=Black+Ops+One';
-	
-		// //$google_font_exo = 'https://fonts.googleapis.com/css?family=Exo:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i';
-	
-		// wp_register_style( 'google-fonts-black-ops-one', $google_font_black_ops_one, '', '1.0.1' );
-	
-		// wp_enqueue_style( 'google-fonts-black-ops-one' );
-
-	wp_register_style( 'foundation-css', get_template_directory_uri() . '/vendor/foundation/css/foundation.min.css', '', '1.0.1' );
-
-	wp_enqueue_style( 'foundation-css' );
-
-		//wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
-
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.1.13', true );
-
-		//wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
-
-	wp_enqueue_script( 'custom-js');
-
-
-	wp_register_script( 'foundation-js', get_template_directory_uri() . '/vendor/foundation/js/vendor/foundation.min.js', '', '1.0.1' );
-
-	wp_register_script( 'foundation-init-js', get_template_directory_uri() . '/vendor/foundation/js/app.js', array('jquery','foundation-js'), '1.0.2', true );
-
-	wp_enqueue_script( 'foundation-init-js' );
-
-	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.0.28' );
-	
-	wp_enqueue_style( 'gs-accessories-styles' );
-
-	// if ( is_page('Products') ) {
-	// 	wp_register_script( 'isotope-js', get_template_directory_uri() . '/vendor/isotope/isotope.js', '', '3.0.5', true );
-
-	// 	wp_register_script( 'isotope-custom-js', get_template_directory_uri() . '/js/isotope.js', array('jquery', 'isotope-js'), '1.0.2', true );
-
-	// 	wp_enqueue_script( 'isotope-custom-js');
-	// }
-}
-
-add_action( 'wp_enqueue_scripts', 'gs_accessories_custom_scripts' );
-
 
 /**
  * Add ACF Theme Options Page
@@ -328,10 +315,10 @@ function non_admin_users_redirect() {
 * Disable Admin Bar for all users
 */
 add_action('after_setup_theme', 'remove_admin_bar');
- 
+
 function remove_admin_bar() {
 	if (!is_admin()) {
-	  show_admin_bar(false);
+		show_admin_bar(false);
 	}
 // if (!current_user_can('administrator') && !is_admin()) {
 //   show_admin_bar(false);
@@ -356,13 +343,13 @@ function remove_admin_bar() {
 function change_wp_role_names() {
 	global $wp_roles;
 	//if ( ! isset( $wp_roles ) ) {
-		$wp_roles = new WP_Roles();
-		$wp_roles->roles['subscriber']['name'] = 'New Signup';
-		$wp_roles->role_names['subscriber'] = 'New Signup';
-		$wp_roles->roles['contributor']['name'] = 'Retailer';
-		$wp_roles->role_names['contributor'] = 'Retailer';
-		$wp_roles->roles['author']['name'] = 'Wholesaler';
-		$wp_roles->role_names['author'] = 'Wholesaler';
+	$wp_roles = new WP_Roles();
+	$wp_roles->roles['subscriber']['name'] = 'New Signup';
+	$wp_roles->role_names['subscriber'] = 'New Signup';
+	$wp_roles->roles['contributor']['name'] = 'Retailer';
+	$wp_roles->role_names['contributor'] = 'Retailer';
+	$wp_roles->roles['author']['name'] = 'Wholesaler';
+	$wp_roles->role_names['author'] = 'Wholesaler';
 	//}
 }
 
@@ -372,11 +359,11 @@ add_action('init', 'change_wp_role_names');
 * Let Editors Manage Users (run only once)
 */
 function isa_editor_manage_users() {
- 
-    if ( get_option( 'isa_add_cap_editor_once' ) != 'done' ) {
-     
+
+	if ( get_option( 'isa_add_cap_editor_once' ) != 'done' ) {
+
         // let editor manage users
- 
+
         $edit_editor = get_role('editor'); // Get the user role
         $edit_editor->add_cap('edit_users');
         $edit_editor->add_cap('list_users');
@@ -384,36 +371,97 @@ function isa_editor_manage_users() {
         $edit_editor->add_cap('create_users');
         $edit_editor->add_cap('add_users');
         $edit_editor->add_cap('delete_users');
- 
+
         update_option( 'isa_add_cap_editor_once', 'done' );
     }
- 
+
 }
 add_action( 'init', 'isa_editor_manage_users' );
 
 
 function isa_pre_user_query($user_search) {
- 
-    $user = wp_get_current_user();
-     
-    if ( ! current_user_can( 'manage_options' ) ) {
-   
-        global $wpdb;
-     
-        $user_search->query_where = 
-            str_replace('WHERE 1=1', 
-            "WHERE 1=1 AND {$wpdb->users}.ID IN (
-                 SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta 
-                    WHERE {$wpdb->usermeta}.meta_key = '{$wpdb->prefix}capabilities'
-                    AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')", 
-            $user_search->query_where
-        );
- 
-    }
+
+	$user = wp_get_current_user();
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+
+		global $wpdb;
+
+		$user_search->query_where = 
+		str_replace('WHERE 1=1', 
+			"WHERE 1=1 AND {$wpdb->users}.ID IN (
+			SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta 
+			WHERE {$wpdb->usermeta}.meta_key = '{$wpdb->prefix}capabilities'
+			AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')", 
+			$user_search->query_where
+		);
+
+	}
 }
 
 add_action('pre_user_query','isa_pre_user_query');
 
+
+
+/**
+* Orders Meta Box 
+* @todo move to different file
+*/
+
+function custom_meta_box_markup() { 
+
+	global $post;
+	$user_email = get_field('customer_email', $post->ID); 
+	$admin_email = get_option('admin_email');
+	$icon_url = get_site_url() . '/wp-admin/images/loading.gif';
+	?>
+
+	<div class="gsa-email-control-wrap">
+		<div class="form-group border">
+			<div class="item">
+				<label>Re-Send Customer Email</label>
+			</div>
+			<div class="item">
+				<input name="gsa-email-address" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
+			</div>
+			<div class="item">
+				<input name="tracking-number" placeholder="Tracking Number" />
+			</div>
+			<div class="item buttons-flex">
+				<a id="send-email-admin-id" class="flex-item button button-primary">Send Email</a>
+				<img class="flex-item" src="<?php echo $icon_url; ?>" />
+				<div class="flex-item callout success">Email Sent!</div>
+				<div class="flex-item callout alert">Email Not Sent!</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="item">
+				<label>Re-Send Admin Email</label>
+			</div>
+			<div class="item">
+				<input name="gsa-email-address" placeholder="Email Address" value="<?php echo $admin_email ; ?>" />
+			</div>
+			<div class="item">
+				<a id="send-email-admin-id" class="button button-primary">Send Email</a>
+			</div>
+		</div>
+	</div>
+	<?php }
+
+	function order_email_meta_box() {
+
+		add_meta_box(
+			"gsa-email-meta-box", 
+			"Email Settings", 
+			"custom_meta_box_markup", 
+			"orders", 
+			"normal", 
+			"low", 
+			null
+		);
+	}
+
+	add_action("add_meta_boxes", "order_email_meta_box");
 
 
 

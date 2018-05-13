@@ -1,0 +1,62 @@
+#gsa-email-meta-box {
+
+	.inside {
+		padding: 0 12px 12px;
+		padding: 0;
+	}
+
+	.gsa-email-control-wrap {
+
+	    a#send-email-admin-id {
+	        //color: blue;
+
+	        &:hover {
+	            // cursor: pointer;
+	            // color: red;
+	        }
+	    }
+
+	    .form-group {
+	    	padding: 0 12px 12px;
+	    	.item {
+	    		padding: 5px 0;
+
+	    		input {
+	    			min-width: 350px;
+	    		}
+
+	    		label {
+	    			font-weight: bold;
+	    		}
+	    		&.buttons-flex {
+	    			display: flex;
+	    			align-items: center;
+	    			.flex-item {
+	    				margin-right: 8px;
+
+		    			&.callout {
+		    				border: 1px solid rgba(10, 10, 10, 0.25);
+		    				padding: 4px 10px;
+		    				min-width: 150px;
+		    				text-align: center;
+
+		    				&.success {
+		    					background-color: #e1faea;
+		    				}
+		    				&.alert {
+		    					background-color: #f7e4e1;
+		    				}
+		    			}
+	    			}
+
+	    		}
+	    	}
+	    	&.border {
+	    		border-bottom: 1px solid #EEE;
+	    		margin-bottom: 6px;
+	    	}
+	    }
+
+	}
+}
+

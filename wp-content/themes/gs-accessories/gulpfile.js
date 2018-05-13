@@ -13,13 +13,6 @@ var util = require('gulp-util');
 var browserSync = require('browser-sync').create();
 var autoprefixer = require('gulp-autoprefixer');
 
-
-
-// gulp.src('./src/scss/app.scss')
-//   .pipe(sass({
-//     includePaths: ['node_modules/motion-ui/src']
-//   }));
-
 gulp.task('scss', function () {
     gulp.src(['assets/scss/import.scss'])
         .pipe(sass({
@@ -34,7 +27,21 @@ gulp.task('scss', function () {
     util.log(util.colors.red('Compiled!'));
 });
 
-gulp.task('default', ['scss', 'watch', 'browser-sync']);
+gulp.task('scss-admin', function () {
+    gulp.src(['assets/scss_admin/admin.scss'])
+        .pipe(sass({
+            style: 'compressed', errLogToConsole: true,
+            includePaths: ['node_modules/motion-ui/src']
+        }))
+        .pipe(rename('admin.min.css'))
+        .pipe(autoprefixer())
+        .pipe(minifycss())
+        .pipe(gulp.dest('assets/css'))
+        .pipe(browserSync.stream());
+    util.log(util.colors.red('Compiled!'));
+});
+
+gulp.task('default', ['scss', 'scss-admin', 'watch', 'browser-sync']);
 
 
 gulp.task('browser-sync', function() {
@@ -76,4 +83,5 @@ gulp.task('watch', function () {
      *  Watch SCSS files for changes - trigger 'scss' task
      */
     gulp.watch('assets/scss/**/*.scss', ['scss']);
+    gulp.watch('assets/scss_admin/**/*.scss', ['scss-admin']);
 });
