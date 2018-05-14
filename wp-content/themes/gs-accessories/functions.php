@@ -428,13 +428,13 @@ function custom_meta_box_markup() {
 				<label>Re-Send Customer Email</label>
 			</div>
 			<div class="item">
-				<input name="gsa-email-address-customer" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
+				<input name="gsa-email-address-user" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
 			</div>
 			<div class="item">
-				<input name="tracking-number" placeholder="Tracking Number" />
+				<input name="gsa-tracking-number" placeholder="Tracking Number" />
 			</div>
 			<div class="item buttons-flex">
-				<a id="send-email-customer" class="flex-item button button-primary">Send Email</a>
+				<a id="send-email-user" class="flex-item button button-primary">Send Email</a>
 				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
 				<div class="flex-item callout success">Email Sent!</div>
 				<div class="flex-item callout alert">Email Not Sent!</div>
