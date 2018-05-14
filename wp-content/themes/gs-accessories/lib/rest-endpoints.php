@@ -30,7 +30,13 @@ function gsa_rest_processa_admin_email($data) {
 		$subject = 'GS Accessories Order';
 		$headers = array('Content-Type: text/html; charset=UTF-8');
 
-		$mail_sent = wp_mail( $data['email'], $subject, $admin_email_text, $headers );
+		$email_wrap = GSA_EMAIL_WRAP;
+
+		$email_wrap_close = '</div>';
+
+		$admin_email_final = $email_wrap . $admin_email_text . $email_wrap_close;
+
+		$mail_sent = wp_mail( $data['email'], $subject, $admin_email_final, $headers );
 
 		//return 'not working 1';
 		return $mail_sent;

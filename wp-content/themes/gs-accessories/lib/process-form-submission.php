@@ -278,12 +278,12 @@ if ( isset($_POST['place-cart-order'])) {
 	$to = array($admin_email, 'leonmagee33@gmail.com');
 	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
-	$email_wrap = '<div style="margin: 15px; border: 8px double #E4E4E4; border-radius: 10px; padding: 10px 30px; background-color: #FFF; font-size: 18px"><div style="text-align: center;"><div style="padding: 10px;"><img src="https://mygsaccessories.com/wp-content/uploads/2017/12/gs-accessories-logo.png" style="max-width: 350px"/></div>';
+	$email_wrap = GSA_EMAIL_WRAP;
 	$email_wrap_close = '</div>';
 
 	$subject = 'GS Accessories Order';
-	$body = $admin_intro . $email_body;
-	$body_final_admin = $email_wrap . $body . $email_wrap_close;
+	$body_admin = $admin_intro . $email_body;
+	$body_final_admin = $email_wrap . $body_admin . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
 	wp_mail( $to, $subject, $body_final_admin, $headers );
@@ -297,8 +297,8 @@ if ( isset($_POST['place-cart-order'])) {
 	// send email to user
 	$to = $user_email;
 	$subject = 'GS Accessories Order';
-	$body = $payment_instructions . $email_body;
-	$body_final_customer = $email_wrap . $body . $email_wrap_close;
+	$body_customer = $payment_instructions . $email_body;
+	$body_final_customer = $email_wrap . $body_customer . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
 	wp_mail( $to, $subject, $body_final_customer, $headers );
@@ -325,8 +325,8 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('order_type', $payment_type, $new_order_id);
 	update_field('total_charge', $total_cost_final, $new_order_id);
 	update_field('customer_email', $user_email, $new_order_id);
-	update_field('user_email_text', $body_final_customer, $new_order_id);
-	update_field('admin_email_text', $body_final_admin, $new_order_id);
+	update_field('user_email_text', $body_customer, $new_order_id);
+	update_field('admin_email_text', $body_admin, $new_order_id);
 
 	foreach( $shopping_cart_array as $id => $data ) {
 
