@@ -1,5 +1,9 @@
 jQuery(function ($) {
 
+    /**
+    * @todo localize site url
+    */
+
     $('#send-email-admin').click(function() {
 
         var email_address = $('input[name="gsa-email-address-admin"]').val();
@@ -12,7 +16,7 @@ jQuery(function ($) {
         success.hide();
         alert.hide();
 
-        var rest_url = 'https://www.gs-accessories.dev/wp-json/process_emails/admin/' + post_id + '/' + email_address;
+        var rest_url = 'https://mygsaccessories.com/wp-admin/edit.php?post_type=orders/wp-json/process_emails/admin/' + post_id + '/' + email_address;
 
         $.ajax({
             type: 'GET',
@@ -57,7 +61,7 @@ jQuery(function ($) {
         success.hide();
         alert.hide();
 
-        var rest_url = 'https://www.gs-accessories.dev/wp-json/process_emails/user/' + post_id + '/' + email_address + '/' + tracking_number;
+        var rest_url = 'https://mygsaccessories.com/wp-admin/edit.php?post_type=orders/wp-json/process_emails/user/' + post_id + '/' + email_address + '/' + tracking_number;
 
         $.ajax({
             type: 'GET',

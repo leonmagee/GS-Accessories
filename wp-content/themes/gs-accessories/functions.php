@@ -235,7 +235,7 @@ add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
 */
 function gs_accessories_admin_scritps() {
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.2', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.3', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
