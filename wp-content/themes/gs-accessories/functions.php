@@ -235,11 +235,11 @@ add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
 */
 function gs_accessories_admin_scritps() {
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.4', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.5', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', '', '1.1.3' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', '', '1.1.4' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
