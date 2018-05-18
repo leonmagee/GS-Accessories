@@ -75,7 +75,8 @@ function gsa_rest_process_user_email($data) {
 		$email_wrap = GSA_EMAIL_WRAP;
 
 		if ( $data['tracking'] !== 'xxx' ) {
-			$tracking_div = '<div style="font-size: 25px; padding: 15px 0;">Your Tracking Number is <strong>' . $data['tracking'] . '</strong>!</div>';
+			//$tracking_div = '<div style="font-size: 25px; padding: 15px 0;">Your Tracking Number is <strong>' . $data['tracking'] . '</strong>!</div>';
+			$tracking_div = '<div style="font-size: 25px; padding: 15px 0;">' . $data['tracking'] . '</div>';
 		} else {
 			$tracking_div = '';
 		}

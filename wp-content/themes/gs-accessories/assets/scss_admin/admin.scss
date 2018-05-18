@@ -18,11 +18,19 @@
 
 	    .form-group {
 	    	padding: 0 12px 12px;
+	    	h4 {
+	    		margin-bottom: 0;
+	    		color: #777;
+	    	}
 	    	.item {
 	    		padding: 5px 0;
 
-	    		input {
+	    		input, textarea {
 	    			min-width: 350px;
+	    		}
+
+	    		textarea {
+	    			min-height: 130px;
 	    		}
 
 	    		label {

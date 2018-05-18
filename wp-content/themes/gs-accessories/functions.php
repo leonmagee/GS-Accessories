@@ -239,7 +239,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', '', '1.1.2' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', '', '1.1.3' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
@@ -430,8 +430,9 @@ function custom_meta_box_markup() {
 			<div class="item">
 				<input name="gsa-email-address-user" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
 			</div>
+			<h4>Tracking Number and Shipping Info</h4>
 			<div class="item">
-				<input name="gsa-tracking-number" placeholder="Tracking Number" />
+				<textarea name="gsa-tracking-number"></textarea>
 			</div>
 			<div class="item buttons-flex">
 				<a id="send-email-user" class="flex-item button button-primary">Send Email</a>
