@@ -251,7 +251,7 @@ if ( isset($_POST['place-cart-order'])) {
 		$quantity_fmt = number_format($data['quantity']);
 
 
-		$email_body .= '<div>Product: <strong>' . $product . '</strong><br />Quantity: <strong>' . $quantity_fmt . '</strong><br />Color: <strong>' . $data['color'] . '</strong><br />Unit Cost: <strong>' . $acf_price_per . '</strong><br />Total Cost: <strong>' . $price_value . '</strong></div><br />';
+		$email_body .= '<div><span style="color: #32b79d">Product:</span> <strong>' . $product . '</strong><br /><span style="color: #32b79d">Quantity:</span> <strong>' . $quantity_fmt . '</strong><br /><span style="color: #32b79d">Color:</span> <strong>' . $data['color'] . '</strong><br /><span style="color: #32b79d">Unit Cost:</span> <strong>' . $acf_price_per . '</strong><br /><span style="color: #32b79d">Total Cost:</span> <strong>' . $price_value . '</strong></div><br />';
 	}
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
@@ -274,7 +274,7 @@ if ( isset($_POST['place-cart-order'])) {
 	}
 
 	// send email to admin
-	$admin_intro = '<div>Order placed by <strong>' . $user_name . '</strong><br />Company: <strong>' . $company_name . '</strong><br />Address: <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br />Email: <strong>' . $user_email . '</strong><br />Order Type: <strong>' . $payment_type . '</strong></div><br />';
+	$admin_intro = '<div><span style="color: #32b79d">Order placed by</span> <strong>' . $user_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $user_email . '</strong><br /><span style="color: #32b79d">Order Type:</span> <strong>' . $payment_type . '</strong></div><br />';
 	$to = array($admin_email, 'leonmagee33@gmail.com');
 	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
