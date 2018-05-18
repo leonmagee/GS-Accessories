@@ -63,27 +63,27 @@ jQuery(function ($) {
 
         var rest_url = 'https://mygsaccessories.com/wp-json/process_emails/user/' + post_id + '/' + email_address + '/' + tracking_number;
 
-        // $.ajax({
-        //     type: 'GET',
-        //     url: rest_url,
-        //     dataType: 'json',
-        //     contentType: false,
-        //     processData: false,
-        //     success: function (data, textStatus, XMLHttpRequest) {
-        //         console.log('worked?', data);
-        //         spinner.hide();
-        //         if ( data === true ) {
-        //             success.show();
-        //         } else {
-        //             alert.show();
-        //         }
-        //     },
-        //     error: function (MLHttpRequest, textStatus, errorThrown) {
-        //         //alert(errorThrown);
-        //         spinner.hide();
-        //         alert.show();
-        //     }
-        // });
+        $.ajax({
+            type: 'GET',
+            url: rest_url,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data, textStatus, XMLHttpRequest) {
+                console.log('worked?', data);
+                spinner.hide();
+                if ( data === true ) {
+                    success.show();
+                } else {
+                    alert.show();
+                }
+            },
+            error: function (MLHttpRequest, textStatus, errorThrown) {
+                //alert(errorThrown);
+                spinner.hide();
+                alert.show();
+            }
+        });
 
     });
 
