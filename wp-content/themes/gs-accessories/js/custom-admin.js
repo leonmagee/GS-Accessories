@@ -47,7 +47,11 @@ jQuery(function ($) {
         var email_address = $('input[name="gsa-email-address-user"]').val();
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
         if ( $('textarea[name="gsa-tracking-number"]').val() ) {
+            //var tracking_number = encodeURI($('textarea[name="gsa-tracking-number"]').val());
             var tracking_number = $('textarea[name="gsa-tracking-number"]').val();
+            console.log(tracking_number);
+            // var single = 'sdfsf';
+            // console.log(single);
         } else {
             var tracking_number = 'xxx';
         }
@@ -62,6 +66,7 @@ jQuery(function ($) {
         alert.hide();
 
         var rest_url = 'https://mygsaccessories.com/wp-json/process_emails/user/' + post_id + '/' + email_address + '/' + tracking_number;
+        //var rest_url = 'https://www.gs-accessories.dev/wp-json/process_emails/user/' + post_id + '/' + email_address + '/' + tracking_number;
 
         $.ajax({
             type: 'GET',

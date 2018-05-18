@@ -8,7 +8,7 @@ add_action( 'rest_api_init', 'gsa_rest_endpoint_user');
 
 function gsa_rest_endpoint_admin() {
 
-	register_rest_route( 'process_emails', '/admin/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)', array(
+	register_rest_route( 'process_emails', '/admin/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.\s]+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_admin_email',
 	));
@@ -16,7 +16,7 @@ function gsa_rest_endpoint_admin() {
 
 function gsa_rest_endpoint_user() {
 
-	register_rest_route( 'process_emails', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<tracking>[a-zA-Z0-9-_\@\.]+)', array(
+	register_rest_route( 'process_emails', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<tracking>[a-zA-Z0-9-_\@\.\!%\<\>\/]+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_user_email',
 	));
@@ -75,8 +75,9 @@ function gsa_rest_process_user_email($data) {
 		$email_wrap = GSA_EMAIL_WRAP;
 
 		if ( $data['tracking'] !== 'xxx' ) {
-			//$tracking_div = '<div style="font-size: 25px; padding: 15px 0;">Your Tracking Number is <strong>' . $data['tracking'] . '</strong>!</div>';
-			$tracking_div = '<div style="font-size: 25px; padding: 15px 0;">' . $data['tracking'] . '</div>';
+
+			$tracking_text = urldecode($data['tracking']);
+			$tracking_div = '<div style="font-size: 25px; padding: 15px 0;">' . $tracking_text . '</div>';
 		} else {
 			$tracking_div = '';
 		}
