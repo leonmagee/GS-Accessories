@@ -82,7 +82,7 @@ class lv_register_user {
 			$email_name = $this->last_name;
 		}
 
-		$email_wrap = '<div style="margin: 15px; border: 2px solid #E4E4E4; border-radius: 10px; padding: 10px 30px; background-color: #FFF; font-size: 18px"><div style="text-align: center;"><img src="https://mygsaccessories.com/wp-content/uploads/favicon.png" style="max-width: 80px"/></div>';
+		$email_wrap = GSA_EMAIL_WRAP;
 		$email_wrap_close = '</div>';
 
 		$user_email_text = $email_wrap . $user_email_text . $email_wrap_close;
