@@ -310,7 +310,6 @@ if ( isset($_POST['place-cart-order'])) {
 	/**
 	* Create Post to record order
 	*/
-
 	$order_title = $user_name . ' - ID: ' . $user_id . ' - ' . date("F j, Y, g:i a");
 
 	$args = array(
@@ -326,6 +325,7 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('total_charge', $total_cost_final, $new_order_id);
 	update_field('customer_email', $user_email, $new_order_id);
 	update_field('user_email_text', $body_customer, $new_order_id);
+	update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
 	update_field('admin_email_text', $body_admin, $new_order_id);
 
 	foreach( $shopping_cart_array as $id => $data ) {
@@ -367,10 +367,7 @@ if ( isset($_POST['place-cart-order'])) {
 		);
 
 		add_row('product_entries', $row, $new_order_id);
-
-
 	}
-
 
 	// var_dump($new_order_id);
 	// die('new post working?');

@@ -235,7 +235,7 @@ add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
 */
 function gs_accessories_admin_scritps() {
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.7', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.9', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
@@ -410,6 +410,9 @@ add_action('pre_user_query','isa_pre_user_query');
 /**
 * Orders Meta Box 
 * @todo move to different file
+* @todo I need to separate out this so we have one form area to re-send the user email
+* and another to send the shipping / notification email - I should also validate to make sure there 
+* are at least the tracking number or the shipping service to let the email be submitted?
 */
 
 function custom_meta_box_markup() { 
@@ -430,10 +433,6 @@ function custom_meta_box_markup() {
 			<div class="item">
 				<input name="gsa-email-address-user" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
 			</div>
-			<h4>Tracking Number and Shipping Info</h4>
-			<div class="item">
-				<textarea name="gsa-tracking-number"></textarea>
-			</div>
 			<div class="item buttons-flex">
 				<a id="send-email-user" class="flex-item button button-primary">Send Email</a>
 				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
@@ -441,7 +440,7 @@ function custom_meta_box_markup() {
 				<div class="flex-item callout alert">Email Not Sent!</div>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group border">
 			<div class="item">
 				<label>Re-Send Admin Email</label>
 			</div>
@@ -450,6 +449,28 @@ function custom_meta_box_markup() {
 			</div>
 			<div class="item buttons-flex">
 				<a id="send-email-admin" class="flex-item button button-primary">Send Email</a>
+				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
+				<div class="flex-item callout success">Email Sent!</div>
+				<div class="flex-item callout alert">Email Not Sent!</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="item">
+				<label>Send Tracking Number / Shipping Service Email</label>
+			</div>
+			<div class="item">
+				<input name="gsa-email-address-user-tracking" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
+			</div>
+			<h4>Tracking Number</h4>
+			<div class="item">
+				<input name="gsa-tracking-number" />
+			</div>
+			<h4>Shipping Service</h4>
+			<div class="item">
+				<input name="gsa-shipping-service" />
+			</div>
+			<div class="item buttons-flex">
+				<a id="send-email-user-tracking" class="flex-item button button-primary">Send Email</a>
 				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
 				<div class="flex-item callout success">Email Sent!</div>
 				<div class="flex-item callout alert">Email Not Sent!</div>
