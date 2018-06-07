@@ -130,14 +130,14 @@ function gsa_rest_process_user_email_tracking($data) {
 		if ( $data['tracking'] ) {
 
 			//$tracking_text = urldecode($data['tracking']);
-			$tracking_number = 'Your tracking number is ' . $data['tracking'] . '.';
+			$tracking_number = 'Your tracking number is <strong>' . $data['tracking'] . '</strong>.';
 		} else {
 			$tracking_number = '';
 		}
 
 		if ( $data['service'] ) {
 			//$service = $data['service'];
-			$service = 'Your shipment will be sent via ' . $data['service'] . '.';
+			$service = 'Your shipment will be sent via <strong>' . $data['service'] . '</strong>.';
 		} else {
 			$service = '';
 		}
