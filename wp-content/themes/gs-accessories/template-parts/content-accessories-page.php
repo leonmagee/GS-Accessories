@@ -40,7 +40,7 @@ if ( isset( $_GET['added-to-cart'])) {
         
         $market_price = get_field('market_price');
         
-        $description = get_field('accessory_text');
+        $description_text = get_field('accessory_text');
 
 
 
@@ -103,6 +103,16 @@ if ( isset( $_GET['added-to-cart'])) {
         } else {
             $combined_benefits = $benefits; 
         }
+
+        // descriptions
+        $description_array = array();
+        $descriptions = get_field('accessory_descriptions');
+        if ( $descriptions ) {
+            foreach( $descriptions as $description ) {
+                $description_array[] = $description['description'];
+            }
+        }
+
 
         ?>
 
@@ -211,8 +221,8 @@ if ( isset( $_GET['added-to-cart'])) {
                         <?php } ?>
 
                         <div class="accessory-description">
-                            <h4>Description</h4>
-                            <?php echo $description; ?>
+                            <h4>Product Details</h4>
+                            <?php echo $description_text; ?>
                         </div>
 
                     </div>
@@ -240,6 +250,22 @@ if ( isset( $_GET['added-to-cart'])) {
                             </div>
 
                             <?php } ?>
+
+
+                        <?php if ( $description_array ) {  ?>
+                            <div class="features-section colors">
+                                <h4>Description</h4>
+                                <ul>
+                                    <?php foreach( $description_array as $description ) { ?>
+                                    <li>
+                                        <?php get_template_part('assets/svg/icon-circle'); ?>
+                                        <?php echo $description; ?>    
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                        </div>
+                        <?php } ?>
+
 
                         </div>
 
