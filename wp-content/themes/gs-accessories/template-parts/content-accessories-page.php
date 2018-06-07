@@ -254,7 +254,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php if ( $description_array ) {  ?>
                             <div class="features-section colors">
-                                <h4>Description</h4>
+                                <h4>Descriptions</h4>
                                 <ul>
                                     <?php foreach( $description_array as $description ) { ?>
                                     <li>
