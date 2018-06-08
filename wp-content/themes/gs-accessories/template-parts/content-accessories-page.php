@@ -345,7 +345,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                     <div class="order-button-wrap">
 
-                        <form method="POST" action="#">
+                        <form method="POST" action="#" id="accessory_single_order_form">
 
                             <input type="hidden" name="add-one-accessory" value="<?php the_ID(); ?>" />
 
@@ -368,7 +368,7 @@ if ( isset( $_GET['added-to-cart'])) {
                                         $color_class = strtolower(str_replace(' ', '-', $color));
                                     ?>
 
-                                    <input class="quantity-input <?php echo $color_class . ' ' . $counter_class; ?> " name="<?php echo $namer; ?>" type="number" placeholder="Max <?php echo $quantity; ?>" />
+                                    <input quantity="<?php echo $quantity; ?>" class="quantity-input <?php echo $color_class . ' ' . $counter_class; ?> " name="<?php echo $namer; ?>" type="number" placeholder="Max <?php echo $quantity; ?>" />
 
                                 <?php } ?>
 

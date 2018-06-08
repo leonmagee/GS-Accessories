@@ -1,5 +1,29 @@
 jQuery(function ($) {
 
+
+
+    /**
+    * Check quantity on form submit (or toggle?)
+    */
+    $('#accessory_single_order_form').submit(function(e) {
+        $('input.quantity-input').removeClass('exceeds-quantity');
+        var max_quantity = parseInt($('input.quantity-input[name="quantity"]').attr('quantity'));
+        console.log('max', max_quantity);
+        e.preventDefault();
+        console.log('form stopped');
+        var quantity_number = parseInt($('input.quantity-input[name="quantity"]').val());
+        console.log('numz', quantity_number);
+        if ( quantity_number > max_quantity ) {
+            $('input.quantity-input[name="quantity"]').val('');
+            //$('input.quantity-input[name="quantity"]').css({'background-color' : '#f7e4e1' });
+            $('input.quantity-input[name="quantity"]').addClass('exceeds-quantity');
+        } else {
+            console.log('validation passed');
+        }
+
+        //$('input').css({'background-color' : '#f7e4e1' });
+    });
+
     /**
     * Toggle Quantity Input on Single Accessories
     */
@@ -10,7 +34,6 @@ jQuery(function ($) {
         $('.order-button-wrap input.quantity-input.' + color_class).show().attr('name', 'quantity');
         console.log(color_class);
     });
-
 
     //trigger form submit when paypal is clicked
     // @todo create a separate hidden field that you update first to tell the 
