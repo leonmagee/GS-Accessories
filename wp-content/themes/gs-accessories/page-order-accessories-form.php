@@ -121,7 +121,7 @@ get_header(); ?>
 
             <select name="colors-<?php echo $product_slug; ?>">
 
-              <?php foreach ( $color_item as $color ) { ?>
+              <?php foreach ( $color_item as $color => $quantity ) { ?>
 
               <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
 

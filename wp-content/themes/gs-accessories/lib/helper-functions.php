@@ -65,7 +65,7 @@ function get_accessory_colors($id = null) {
 
         foreach( $color_quantity as $item ) {
 
-            $color_array[] = $item['color'];
+            $color_array[$item['color']] = $item['quantity'];
         }
 
         return $color_array;

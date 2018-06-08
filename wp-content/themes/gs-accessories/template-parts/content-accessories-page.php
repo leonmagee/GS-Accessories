@@ -221,6 +221,26 @@ if ( isset( $_GET['added-to-cart'])) {
                         <?php } ?>
 
                         <div class="accessory-description">
+                            <h4>Inventory</h4>
+                            <?php 
+                            $show_add_to_cart_form = true;
+                            $color_quantity = get_field('colors_and_quantity'); 
+                                if ( $color_quantity ) {
+                                foreach( $color_quantity as $item ) { ?>
+                                    <div class="color-quantity-item"><?php echo $item['color']; ?> - <?php echo $item['quantity']; ?> Available</div>
+                                <?php }
+                            } else {
+                                echo "<span class='out-of-stock'>Out of Stock</span>";
+                                $show_add_to_cart_form = false;
+                            }
+
+
+                            ?>
+                        </div>
+
+
+
+                        <div class="accessory-description">
                             <h4>Product Details</h4>
                             <?php echo $description_text; ?>
                         </div>
@@ -318,7 +338,10 @@ if ( isset( $_GET['added-to-cart'])) {
 
                 <div class="css-grid-item quantity">
 
-                    <?php $colors = get_accessory_colors(); ?>
+                    <?php 
+
+                    if ( $show_add_to_cart_form ) {
+                    $colors = get_accessory_colors(); ?>
 
                     <div class="order-button-wrap">
 
@@ -332,7 +355,22 @@ if ( isset( $_GET['added-to-cart'])) {
 
                                 <label>Quantity</label>
 
-                                <input name="quantity" type="number" placeholder="Max 10,000" />
+                                <?php 
+                                    $counter = 1;
+                                        foreach ( $colors as $color => $quantity ) {
+                                            if ( $counter === 1 ) {
+                                                $namer = 'quantity';
+                                            } else {
+                                                $namer = 'not-quantity';
+                                            }
+                                            $counter_class = 'item-' . $counter;
+                                            $counter++;
+                                        $color_class = strtolower(str_replace(' ', '-', $color));
+                                    ?>
+
+                                    <input class="quantity-input <?php echo $color_class . ' ' . $counter_class; ?> " name="<?php echo $namer; ?>" type="number" placeholder="Max <?php echo $quantity; ?>" />
+
+                                <?php } ?>
 
                             </div>
 
@@ -343,7 +381,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                                 <select name="color-select">
 
-                                  <?php foreach ( $colors as $color ) { ?>
+                                  <?php foreach ( $colors as $color => $quantity ) { ?>
 
                                   <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
 
@@ -370,6 +408,8 @@ if ( isset( $_GET['added-to-cart'])) {
                           <?php } ?>
                       </form>
                   </div>
+
+              <?php } ?>
 
               </div>
 

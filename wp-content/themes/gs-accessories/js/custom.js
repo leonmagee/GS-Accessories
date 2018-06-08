@@ -1,5 +1,16 @@
 jQuery(function ($) {
 
+    /**
+    * Toggle Quantity Input on Single Accessories
+    */
+    $('.order-button-wrap select[name="color-select"]').change(function() {
+        var selected_color = $(this).val();
+        var color_class = selected_color.replace(' ', '-').toLowerCase();
+        $('.order-button-wrap input.quantity-input').hide().attr('name', 'not-quantity');
+        $('.order-button-wrap input.quantity-input.' + color_class).show().attr('name', 'quantity');
+        console.log(color_class);
+    });
+
 
     //trigger form submit when paypal is clicked
     // @todo create a separate hidden field that you update first to tell the 

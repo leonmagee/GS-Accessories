@@ -159,7 +159,7 @@ if ($paypal = $_GET['paypal']) {
                 <span>Color:</span>
 
                 <select name="accessory-color">
-                  <?php foreach( $colors as $color ) { 
+                  <?php foreach( $colors as $color => $quantity ) { 
                     if ( $color == $item['color'] ) {
                       $selected = 'selected="selected"';
                     } else {
