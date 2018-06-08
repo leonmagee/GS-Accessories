@@ -85,7 +85,7 @@ if ( isset($_POST['add-one-accessory'])) {
 	$time = time();
 	$array_key = $post_id . '-' . $time;
 
-	// $colors = get_field('accessory_colors', $post_id);
+	// $colors = get_field('accessory_xxx_colors', $post_id);
 
 	// if ( $colors ) {
 	// 	$color = $colors[0];

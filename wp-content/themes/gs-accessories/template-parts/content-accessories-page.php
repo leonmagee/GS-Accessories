@@ -253,7 +253,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
                         <?php if ( $description_array ) {  ?>
-                            <div class="features-section colors">
+                            <div class="features-section descriptions">
                                 <h4>Descriptions</h4>
                                 <ul>
                                     <?php foreach( $description_array as $description ) { ?>
@@ -318,8 +318,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                 <div class="css-grid-item quantity">
 
-                    <?php $colors = get_field('accessory_colors'); ?>
-
+                    <?php $colors = get_accessory_colors(); ?>
 
                     <div class="order-button-wrap">
 

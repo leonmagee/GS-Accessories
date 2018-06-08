@@ -51,6 +51,31 @@ function get_coupon_array() {
     return $coupon_array;
 }
 
+function get_accessory_colors($id = null) {
+
+    if ( $id ) {
+        $color_quantity = get_field('colors_and_quantity', $id);
+    } else {
+        $color_quantity = get_field('colors_and_quantity');
+    }
+
+    $color_array = array();
+
+    if ( $color_quantity ) {
+
+        foreach( $color_quantity as $item ) {
+
+            $color_array[] = $item['color'];
+        }
+
+        return $color_array;
+
+    } else {
+        return array('Default');
+    }
+
+}
+
 
 
 

@@ -74,7 +74,7 @@ get_header(); ?>
 
               $product_slug = $post->post_name; 
 
-              $colors = get_field('accessory_colors'); 
+              $colors = get_accessory_colors();
 
               if ( $colors ) {
                $colors_array[$product_slug] =  $colors;
