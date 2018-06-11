@@ -74,7 +74,6 @@ function get_accessory_colors($id = null) {
         return $color_array;
 
     } else {
-        //return array('Default');
         return false;
     }
 

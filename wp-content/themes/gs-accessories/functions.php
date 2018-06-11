@@ -308,9 +308,34 @@ add_action( 'admin_init', 'non_admin_users_redirect' );
 
 function non_admin_users_redirect() {
 
+	/**
+	* @todo this needs to effect Agents as well... 
+	*/
 	if ( ! current_user_can( 'level_5' ) ) {
 
 		wp_redirect( site_url() );
+	}
+}
+
+
+/**
+* Redirect Agents (editors)
+*/
+add_action( 'pre_get_posts', 'agent_login_redirect' );
+
+function agent_login_redirect() {
+
+	$current_user   = wp_get_current_user();
+    $role_name      = $current_user->roles[0];
+	if ( $role_name === 'editor' ) {
+		$current_page = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
+		$slug = $current_page->post_name;
+    	if ( $slug !== 'agent-admin' ) {
+    		/**
+    		* @todo also allow for registration page? reports page? any page available to Agent
+    		*/
+			wp_redirect( site_url() . '/agent-admin' );
+    	}
 	}
 }
 
@@ -354,6 +379,8 @@ function change_wp_role_names() {
 	$wp_roles->role_names['contributor'] = 'Retailer';
 	$wp_roles->roles['author']['name'] = 'Wholesaler';
 	$wp_roles->role_names['author'] = 'Wholesaler';
+	$wp_roles->roles['editor']['name'] = 'Agent';
+	$wp_roles->role_names['editor'] = 'Agent';
 	//}
 }
 
