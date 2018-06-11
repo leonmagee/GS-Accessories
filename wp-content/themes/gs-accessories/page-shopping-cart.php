@@ -107,9 +107,7 @@ if ($paypal = $_GET['paypal']) {
             $price_value = 'N/A';
           }
 
-        //$quantity_array = array('1000','2000','3000','4000','5000');
-
-          //$colors = get_field('accessory_colors', $product_id_actual );
+          //$quantity_array = array('1000','2000','3000','4000','5000');
 
           $colors = get_accessory_colors($product_id_actual);
 
