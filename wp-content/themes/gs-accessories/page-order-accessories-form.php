@@ -40,18 +40,18 @@ get_header(); ?>
     <h2>Order Accessories</h2>
 
     <?php if ( $required_warning ) { ?>
-    <div class="quantity-required callout alert">
-      A Quantity is Required
-    </div>
+      <div class="quantity-required callout alert">
+        A Quantity is Required
+      </div>
     <?php } ?>
 
-      <?php if ( $success_notice ) { ?>
-    <div class="added-to-cart callout success">
-      Successfully added to cart. <a href="/cart">View Cart</a>.
-    </div>
+    <?php if ( $success_notice ) { ?>
+      <div class="added-to-cart callout success">
+        Successfully added to cart. <a href="/cart">View Cart</a>.
+      </div>
     <?php } ?>
 
-    <form class="order-form" method="POST" action="#">
+    <form class="order-form" id="add_to_order" method="POST" action="#">
 
       <div class="form-inner-wrap">
 
@@ -61,7 +61,6 @@ get_header(); ?>
           <select name="product" id="product_select_field">
 
             <?php
-
 
             $args = array('post_type' => 'accessories', 'order' => 'ASC');
             $accessories_query = new WP_Query($args);
@@ -76,6 +75,10 @@ get_header(); ?>
 
               $colors = get_accessory_colors();
 
+              if ( ! $colors ) {
+                continue;
+              }
+
               if ( $colors ) {
                $colors_array[$product_slug] =  $colors;
              } else {
@@ -85,83 +88,112 @@ get_header(); ?>
             ?>
 
             <option value="<?php echo $product_slug; ?>"><?php the_title(); ?></option>
-            <?php } ?>
+          <?php } ?>
 
-          </select>
-
-        </div>
-
-        <div class="input-wrap">
-
-         <label>Enter Quantity<span>*</span></label>
-
-         <input name="quantity" type="number" placeholder="Max 10,000" />
-
-<!--     <select name="quantity">
-           <option value="1000">1,000 units</option>
-           <option value="2000">2,000 units</option>
-           <option value="3000">3,000 units</option>
-           <option value="4000">4,000 units</option>
-           <option value="5000">5,000 units</option>
-         </select> -->
-       </div>
-
-       <?php 
-
-       $counter = 1;
-
-       foreach ( $colors_array as $product_slug => $color_item ) {
-
-         if ( $color_item ) {
-          ?>
-
-          <div class="input-wrap color-select color-select-<?php echo $counter; ?> <?php echo $product_slug; ?>">
-
-            <label>Colors</label>
-
-            <select name="colors-<?php echo $product_slug; ?>">
-
-              <?php foreach ( $color_item as $color => $quantity ) { ?>
-
-              <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
-
-              <?php } ?>
-
-            </select>
-
-          </div>
-
-          <?php } else { ?>
-
-          <div class="input-wrap color-select color-select-<?php echo $counter; ?> <?php echo $product_slug; ?>">
-
-            <label>Colors</label>
-
-            <span class='no-color-options'>N/A</span>
-
-          </div>
-          <?php } 
-
-          $counter++;
-        } ?>
+        </select>
 
       </div>
 
-      <div class="button-wrap">
+      <div class="input-wrap">
 
-        <button class="gs-button" type="submit">Add Product</button> 
+       <label>Enter Quantity<span>*</span></label>
 
-      </div> 
+       <?php 
 
-    </form>
+       $outer_counter = 1;
+       foreach ( $colors_array as $product_slug => $color_item ) {
+        $counter = 1;
+        foreach ( $color_item as $color => $quantity ) {
+          if ( $outer_counter === 1 ) {
+            $namer = 'quantity';
+          } else {
+            $namer = 'not-quantity';
+          }
+          $counter_class = 'item-' . $counter;
+          $counter_class_outer = 'item-outer-' . $outer_counter;
+          $slug_class = $product_slug . '-' . $counter;
+          $counter++;
+          $outer_counter++;
+          $color_class = strtolower(str_replace(' ', '-', $color));
+          ?>
 
-    <div class="view-cart-wrap">
+          <input quantity="<?php echo $quantity; ?>" class="quantity-input <?php echo $color_class . ' ' . $counter_class . ' ' . $counter_class_outer . ' ' . $slug_class; ?> " name="<?php echo $namer; ?>" type="number" placeholder="Max <?php echo $quantity; ?>" />
 
-      <a class="gs-button" href="/cart">View Cart</a> 
+        <?php } ?>
+
+
+      <?php } ?>
 
     </div>
 
-  </main><!-- #main -->
+    <?php 
+
+    $counter = 1;
+
+    foreach ( $colors_array as $product_slug => $color_item ) {
+
+     if ( $color_item ) {
+      ?>
+
+      <div class="input-wrap color-select color-select-<?php echo $counter; ?> <?php echo $product_slug; ?>">
+
+        <label>Colors</label>
+
+        <select name="colors-<?php echo $product_slug; ?>">
+
+          <?php 
+
+          $inner_counter = 1;
+
+          foreach ( $color_item as $color => $quantity ) { 
+
+            $counter_class = $product_slug . '-' . $inner_counter;
+
+            ?>
+
+            <option item_id="<?php echo $counter_class; ?>" value="<?php echo $color; ?>"><?php echo $color; ?></option>
+
+          <?php 
+          
+          $inner_counter++;
+        
+          } ?>
+
+        </select>
+
+      </div>
+
+    <?php } else { ?>
+
+      <div class="input-wrap color-select color-select-<?php echo $counter; ?> <?php echo $product_slug; ?>">
+
+        <label>Colors</label>
+
+        <span class='no-color-options'>N/A</span>
+
+      </div>
+    <?php } 
+
+    $counter++;
+  } ?>
+
+</div>
+
+<div class="button-wrap">
+
+  <button class="gs-button" type="submit">Add Product</button> 
+
+</div> 
+
+</form>
+
+<div class="view-cart-wrap">
+
+  <a class="gs-button" href="/cart">View Cart</a> 
+
+</div>
+
+</main><!-- #main -->
 </div>
 </div><!-- #primary -->
 

@@ -224,10 +224,10 @@ if ( isset( $_GET['added-to-cart'])) {
                             <h4>Inventory</h4>
                             <?php 
                             $show_add_to_cart_form = true;
-                            $color_quantity = get_field('colors_and_quantity'); 
-                                if ( $color_quantity ) {
-                                foreach( $color_quantity as $item ) { ?>
-                                    <div class="color-quantity-item"><?php echo $item['color']; ?> - <?php echo $item['quantity']; ?> Available</div>
+                            $color_quantity = get_accessory_colors();
+                            if ( $color_quantity ) {
+                                foreach( $color_quantity as $item => $quantity ) { ?>
+                                    <div class="color-quantity-item"><?php echo $item; ?> - <?php echo $quantity; ?> Available</div>
                                 <?php }
                             } else {
                                 echo "<span class='out-of-stock'>Out of Stock</span>";

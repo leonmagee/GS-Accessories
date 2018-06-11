@@ -30,6 +30,32 @@ form.order-form {
 				color: #333;
 			}
 
+			input.quantity-input {
+            
+	            display: none;
+		            &.item-outer-1 {
+		                display: block;
+	            }
+
+	            &.exceeds-quantity {
+                background-color: #f7e4e1;
+                border-color: darken(#f7e4e1, 5%);
+
+                &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    color: darken(#f7e4e1, 35%);
+                    opacity: 1; /* Firefox */
+                }
+
+                &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    color: darken(#f7e4e1, 35%);
+                }
+
+                &::-ms-input-placeholder { /* Microsoft Edge */
+                    color: darken(#f7e4e1, 35%);
+                }
+            }
+        	}
+
 			::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 			  color: #AAA;
 			}

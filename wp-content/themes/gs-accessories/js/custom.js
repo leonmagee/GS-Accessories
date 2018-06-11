@@ -1,27 +1,26 @@
 jQuery(function ($) {
 
-
-
     /**
     * Check quantity on form submit (or toggle?)
     */
-    $('#accessory_single_order_form').submit(function(e) {
+    $('#accessory_single_order_form, form.order-form#add_to_order').submit(function(e) {
+
+        form = this;
         $('input.quantity-input').removeClass('exceeds-quantity');
         var max_quantity = parseInt($('input.quantity-input[name="quantity"]').attr('quantity'));
-        console.log('max', max_quantity);
         e.preventDefault();
-        console.log('form stopped');
         var quantity_number = parseInt($('input.quantity-input[name="quantity"]').val());
-        console.log('numz', quantity_number);
         if ( quantity_number > max_quantity ) {
             $('input.quantity-input[name="quantity"]').val('');
-            //$('input.quantity-input[name="quantity"]').css({'background-color' : '#f7e4e1' });
             $('input.quantity-input[name="quantity"]').addClass('exceeds-quantity');
         } else {
-            console.log('validation passed');
+            //console.log('validation passed');
+            form.submit();
         }
+    });
 
-        //$('input').css({'background-color' : '#f7e4e1' });
+    $('input.quantity-input').keypress(function() {
+        $(this).removeClass('exceeds-quantity');
     });
 
     /**
@@ -33,6 +32,33 @@ jQuery(function ($) {
         $('.order-button-wrap input.quantity-input').hide().attr('name', 'not-quantity');
         $('.order-button-wrap input.quantity-input.' + color_class).show().attr('name', 'quantity');
         console.log(color_class);
+    });
+
+    /**
+    * Toggle Quantity Input on Add More Products
+    */
+    $('form.order-form#add_to_order select[name="product"]').change(function() {
+        var selected_product = $(this).val();
+        var selected_product_class = selected_product + '-1';
+        //console.log(selected_product);
+
+
+        // var color_class = selected_color.replace(' ', '-').toLowerCase();
+        $('form.order-form#add_to_order input.quantity-input').hide().attr('name', 'not-quantity');
+        $('form.order-form#add_to_order input.quantity-input.' + selected_product_class).show().attr('name', 'quantity');
+        // console.log(color_class);
+    });
+
+
+    $('form.order-form#add_to_order .input-wrap.color-select select').change(function() {
+        //var selected_color = $(this).val();
+        var selected_product_class = $('option:selected', this).attr('item_id');
+
+        //console.log(option + ' was selected!');
+
+        $('form.order-form#add_to_order input.quantity-input').hide().attr('name', 'not-quantity');
+        $('form.order-form#add_to_order input.quantity-input.' + selected_product_class).show().attr('name', 'quantity');
+        // console.log(color_class);
     });
 
     //trigger form submit when paypal is clicked

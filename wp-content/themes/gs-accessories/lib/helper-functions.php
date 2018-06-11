@@ -65,13 +65,17 @@ function get_accessory_colors($id = null) {
 
         foreach( $color_quantity as $item ) {
 
-            $color_array[$item['color']] = $item['quantity'];
+            if ( $item['quantity'] > 0 ) {
+            
+                $color_array[$item['color']] = $item['quantity'];
+            }
         }
 
         return $color_array;
 
     } else {
-        return array('Default');
+        //return array('Default');
+        return false;
     }
 
 }
