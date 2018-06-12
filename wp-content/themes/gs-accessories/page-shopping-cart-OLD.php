@@ -114,15 +114,15 @@ if ($paypal = $_GET['paypal']) {
 
     <?php if ( ! $paypal_mode ) { ?>
 
-      <h1 class="entry-title">Cart</h1>
+    <h1 class="entry-title">Cart</h1>
 
-      <div class="add-more-items-wrap">
-        <a href="/place-your-order">Add More Accessories</a>
-      </div>
+    <div class="add-more-items-wrap">
+      <a href="/place-your-order">Add More Accessories</a>
+    </div>
 
-      <div class='cart-wrap'>
+    <div class='cart-wrap'>
 
-        <?php
+    <?php
 
       //var_dump(unserialize($_SESSION['shopping_cart']));
 
@@ -137,13 +137,13 @@ if ($paypal = $_GET['paypal']) {
 
       // var_dump($email_body);
 
-        $product_details_array = array();
-        $product_cost_array = array();
+      $product_details_array = array();
+      $product_cost_array = array();
 
-        if ( $_SESSION['shopping_cart'] ) {
-          $cart_data = unserialize($_SESSION['shopping_cart']);
+      if ( $_SESSION['shopping_cart'] ) {
+        $cart_data = unserialize($_SESSION['shopping_cart']);
         //var_dump($cart_data);
-          $total_cost = 0;
+        $total_cost = 0;
         foreach( $cart_data as $product_id => $item ) { // $id => $item
 
           /**
@@ -215,53 +215,78 @@ if ($paypal = $_GET['paypal']) {
               <label>Total Cost</label>
               <div class="price-line"><?php echo $price_value; ?></div>
               <?php if ( $acf_price ) { ?>
-                <div class="details"><strong><?php echo $acf_price_per; ?></strong> per unit</div>
+              <div class="details"><strong><?php echo $acf_price_per; ?></strong> per unit</div>
               <?php } ?>
             </div>
 
             <form class="details-form" method="post" action="#">
 
-              <div class="cart-property quantity"><span>Quantity: </span><strong><?php echo $item['quantity']; ?></strong>
+              <div class="cart-property quantity"><span>Quantity:</span>
+
+                <input name="accessory-quantity" type="number" value="<?php echo $item['quantity']; ?>" />
+
               </div>
 
               <div class="cart-property color">
+                <?php if ( $colors ) { ?>
                 <span>Color:</span>
-                <strong><?php echo $item['color']; ?></strong>
+
+                <select name="accessory-color">
+                  <?php foreach( $colors as $color => $quantity ) { 
+                    if ( $color == $item['color'] ) {
+                      $selected = 'selected="selected"';
+                    } else {
+                      $selected = '';
+                    }
+                    ?>
+                    <option <?php echo $selected; ?> value="<?php echo $color; ?>">
+                      <?php echo $color; ?></option>
+                      <?php } ?>
+                    </select>
+
+                    <?php } ?>
+
+                  </div>
+
+                  <input type="hidden" name="update-cart-accessory" value=<?php echo $product_id; ?> />
+
+                  <div class="cart-property update">
+
+                    <button type="submit">Update</button>
+
+                  </div>
+
+                </form>
+                <div class="cart-property remove">
+                  <form method="post" action="#">
+
+                    <input type="hidden" name="remove-cart-accessory" value=<?php echo $product_id; ?> />
+
+                    <button type="submit">Remove</button>
+
+                  </form>
+
+
+                </div>
               </div>
 
-              <input type="hidden" name="update-cart-accessory" value=<?php echo $product_id; ?> />
-
-            </form>
-            <div class="cart-property remove">
-              <form method="post" action="#">
-
-                <input type="hidden" name="remove-cart-accessory" value=<?php echo $product_id; ?> />
-
-                <button type="submit">Remove</button>
-
-              </form>
-
-
-            </div>
-          </div>
-
-        <?php } ?>
+              <?php } ?>
 
 
 
-        <?php if ( $coupon_percent ) {
-          $after_coupon_cost = percent_price($total_cost, $coupon_percent); ?>
-          <div class="cart-total">
-            Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span>
-          </div>
-        <?php } else { ?>
-          <div class="cart-total">
-            Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
-          </div>
+              <?php if ( $coupon_percent ) {
+                    $after_coupon_cost = percent_price($total_cost, $coupon_percent); ?>
+                <div class="cart-total">
+                  Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span>
+                </div>
+              <?php } else { ?>
+              <div class="cart-total">
+                Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
+              </div>
 
-        <?php }
+              <?php }
 
-        $product_details_final = substr($product_details_string, 0, -3);
+              $product_details_final = substr($product_details_string, 0, -3);
 
         //var_dump($product_details_final); ?>
 
@@ -305,18 +330,18 @@ if ($paypal = $_GET['paypal']) {
 
           ?>
 
-          <div class="form-grip-wrap">
+        <div class="form-grip-wrap">
 
-            <form id="main_form_id" method="post" action="#">
+        <form id="main_form_id" method="post" action="#">
 
-              <label class='add-comment-label'>Add Comment or Suggestion</label>
-              <textarea name="customer-comments"></textarea>
+          <label class='add-comment-label'>Add Comment or Suggestion</label>
+          <textarea name="customer-comments"></textarea>
 
-              <input type="hidden" name="coupon-code" value="<?php echo $current_coupon; ?>" />
+          <input type="hidden" name="coupon-code" value="<?php echo $current_coupon; ?>" />
+          
+          <input type="hidden" name="place-cart-order" />
 
-              <input type="hidden" name="place-cart-order" />
-
-              <input type="hidden" name="payment-type" value="Pick Up" />
+          <input type="hidden" name="payment-type" value="Pick Up" />
 
 <!--           <ul class="payment-features-list">
             <li>FREE SHIPPING</li>
@@ -325,9 +350,9 @@ if ($paypal = $_GET['paypal']) {
 
           <?php if ( current_user_can('edit_posts')) { ?>
 
-            <div class="button-wrap">
-              <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Bank Wire</button>
-            </div>
+          <div class="button-wrap">
+            <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Bank Wire</button>
+          </div>
 
           <?php } ?>
 
@@ -339,22 +364,22 @@ if ($paypal = $_GET['paypal']) {
 
 
         <div class="coupon-form-wrapper">
+        
+        <?php if ( $coupon_applied ) {
 
-          <?php if ( $coupon_applied ) {
+          if ( $coupon_percent ) { ?>
 
-            if ( $coupon_percent ) { ?>
+          <div class="callout success">
+            <p><span><?php echo $current_coupon; ?></span> Coupon Applied!</p>
+          </div>
 
-              <div class="callout success">
-                <p><span><?php echo $current_coupon; ?></span> Coupon Applied!</p>
-              </div>
+          <?php } else { ?>
 
-            <?php } else { ?>
+            <div class="callout alert">
+              <p>Invalid Coupon</p>
+            </div>
 
-              <div class="callout alert">
-                <p>Invalid Coupon</p>
-              </div>
-
-            <?php }
+          <?php }
 
           } ?>
 
@@ -367,76 +392,76 @@ if ($paypal = $_GET['paypal']) {
 
       </div>
 
-    <?php } else { ?>
+      <?php } else { ?>
 
       <button class="submit-order-button disabled">Checkout</button>
 
-    <?php } ?>
+      <?php } ?>
 
-  <?php } else { ?>
+      <?php } else { ?>
 
-    <div class="empty-cart">Your Cart is Empty</div>
+      <div class="empty-cart">Your Cart is Empty</div>
 
-  <?php } ?>
+      <?php } ?>
 
-</div>
+    </div>
 
-<?php } else {
+      <?php } else {
 
- $product_details_array = unserialize($_SESSION['product_names']);
- $product_cost_array = unserialize($_SESSION['product_values']);
+         $product_details_array = unserialize($_SESSION['product_names']);
+         $product_cost_array = unserialize($_SESSION['product_values']);
           //$_SESSION['product_values'] = serialize($product_cost_array);
 
- ?>
-
- <div class="paypal-wrap-outer">
-
-  <h1 class="entry-title">PayPal Checkout</h1>
-
-  <p><strong>Thank you</strong> for submitting your order with GS Wireless. We highly appreciate your business and the great opportunity you are giving us to serve you. Your order will be processed and shipped within 24 hours after receiving the full payment. A tracking number and shipping carrier information will be emailed to you when it becomes available.</p>
-
-  <div class="paypal-wrap">
-
-    <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-
-      <input type="hidden" name="business" value="gs-wireless@att.net">
-
-      <input type="hidden" name="cmd" value="_cart">
-
-      <input type="hidden" name="upload" value="1">
-
-      <?php 
-      $counter = 0;
-      foreach($product_details_array as $product_name ) {
-
-        if ( $coupon_percent ) {
-          $value = percent_price($product_cost_array[$counter], $coupon_percent);
-        } else {
-          $value = $product_cost_array[$counter];
-        }
-
         ?>
-        <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
-        <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
-        <?php 
-        $counter++;
-      } ?>
 
-      <input type="hidden" name="currency_code" value="USD">
+      <div class="paypal-wrap-outer">
 
-      <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+      <h1 class="entry-title">PayPal Checkout</h1>
 
-    </form>
+      <p><strong>Thank you</strong> for submitting your order with GS Wireless. We highly appreciate your business and the great opportunity you are giving us to serve you. Your order will be processed and shipped within 24 hours after receiving the full payment. A tracking number and shipping carrier information will be emailed to you when it becomes available.</p>
 
-  </div>
+        <div class="paypal-wrap">
+
+          <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+            <input type="hidden" name="business" value="gs-wireless@att.net">
+
+            <input type="hidden" name="cmd" value="_cart">
+
+            <input type="hidden" name="upload" value="1">
+
+            <?php 
+            $counter = 0;
+            foreach($product_details_array as $product_name ) {
+
+              if ( $coupon_percent ) {
+                $value = percent_price($product_cost_array[$counter], $coupon_percent);
+              } else {
+                $value = $product_cost_array[$counter];
+              }
+
+              ?>
+            <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
+            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
+            <?php 
+            $counter++;
+          } ?>
+
+          <input type="hidden" name="currency_code" value="USD">
+
+          <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+
+        </form>
+
+      </div>
 
 
-<?php } ?>
+      <?php } ?>
 
-</div>
+    </div>
 
 
-</main><!-- #main -->
+  </main><!-- #main -->
 </div>
 </div><!-- #primary -->
 

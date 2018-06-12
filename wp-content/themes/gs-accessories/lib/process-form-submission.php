@@ -225,10 +225,21 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$total_cost = 0;
 
+	//var_dump($shopping_cart_array);
+
+	$change_quantity_array = array();
+
 	foreach( $shopping_cart_array as $id => $data ) {
+
 		$product = strtoupper(str_replace('-', ' ' , $data['product']));
 		$product_id_exp = explode('-', $id);
 		$product_id_actual = $product_id_exp[0];
+
+		$change_quantity_array[] = array(
+			'id' => $product_id_actual, 
+			'quantity' => $data['quantity'], 
+			'color' => $data['color']
+		);
 
 		if ( current_user_can('delete_published_posts')) {
 			$acf_price = get_field('wholesale_price', $product_id_actual);
@@ -252,6 +263,29 @@ if ( isset($_POST['place-cart-order'])) {
 
 
 		$email_body .= '<div><span style="color: #32b79d">Product:</span> <strong>' . $product . '</strong><br /><span style="color: #32b79d">Quantity:</span> <strong>' . $quantity_fmt . '</strong><br /><span style="color: #32b79d">Color:</span> <strong>' . $data['color'] . '</strong><br /><span style="color: #32b79d">Unit Cost:</span> <strong>' . $acf_price_per . '</strong><br /><span style="color: #32b79d">Total Cost:</span> <strong>' . $price_value . '</strong></div><br />';
+	}
+
+	$field_key = "colors_and_quantity";
+
+	foreach( $change_quantity_array as $purchase ) {
+
+		$post_id = $purchase['id'];
+
+		$value = get_field($field_key, $post_id);
+
+		foreach( $value as $key => $item ) {
+		  if ( $item['color'] === $purchase['color'] ) {
+		  	$old_quantity = $value[$key]['quantity'];
+		  	$new_quantity = ( $old_quantity - $purchase['quantity'] );
+		  	if ( $new_quantity < 0 ) {
+		  		$new_quantity = 0;
+		  	}
+		    $value[$key]['quantity'] = $new_quantity;
+		  }
+		}
+
+		update_field( $field_key, $value, $post_id );
+
 	}
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
