@@ -397,13 +397,11 @@ if ( isset($_POST['place-cart-order'])) {
 			$price_value = '';
 		}
 
-
-
 		$row = array(
 			'product_name'	=> $product,
 			'product_quantity'	=> $quantity,
 			'product_color'	=> $color,
-			'product_id' => '11111',
+			'product_id' => $product_id_actual,
 			//'cat_id' => '11111',
 			'unit_cost' => $acf_price_per,
 			'cost_total' => $price_value
@@ -444,6 +442,16 @@ if ( isset($_POST['coupon-apply-submit'])) {
 
 	wp_redirect('/cart?coupon=' . $coupon_name);
 	exit;
+}
+
+if ( isset($_POST['change-month-year'])) {
+
+	$month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_SPECIAL_CHARS);
+	$year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_SPECIAL_CHARS);
+
+	wp_redirect('/agent-admin?data_month=' . $month . '&data_year=' . $year);
+	exit;
+
 }
 
 

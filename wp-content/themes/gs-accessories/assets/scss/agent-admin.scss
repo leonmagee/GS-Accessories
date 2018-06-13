@@ -1,0 +1,35 @@
+.new-retailer-button-wrap {
+	padding: 15px 0 30px;
+}
+
+.change-date-form {
+	padding: 20px;
+	background-color: #FAFAFA;
+	border: 1px solid #EEE;
+	max-width: 240px;
+	margin: 15px 0;
+
+	h5 {
+		a {
+			color: darken( $brand-primary, 17%);
+		}
+	}
+
+	.change-date-form-inner {
+		//display: none;
+		transition: 1s;
+		height: 0;
+		overflow: hidden;
+
+		&.active {
+			height: 10em;
+		}
+	}
+}
+
+.order-details-wrap {
+	max-width: 700px;
+	padding: 20px;
+	border: 1px solid #EEE;
+	margin: 15px 0;
+}

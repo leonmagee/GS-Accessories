@@ -236,4 +236,15 @@ jQuery(function ($) {
       }
     });
 
+    /**
+    * Toggle date change form for Agent Admin page
+    */
+    $('.change-date-form a.toggle').click(function() {
+        $('form.change-date-form-inner').toggleClass('active');
+    });
+
 });
+
+
+
+
