@@ -5,177 +5,211 @@
  * @todo also query by month
  */
 
+if ( isset($_GET['data_month'])) {
+	$current_month = intval($_GET['data_month']);
+	$current_year = intval($_GET['data_year']);
+	$monthName = DateTime::createFromFormat('m', $current_month)->format('F');
+	$display_date = $monthName . ' ' . $current_year;
+
+} else {
+	$display_date = date( 'F Y' );
+}
+
 get_header(); ?>
 
 <div id="primary" class="content-area">
+
+
 	<div class="max-width-wrap">
+
+
 		<main id="main" class="site-main">
 
 			<header class="entry-header">
-				<h1 class="entry-title">Agent Admin</h1>
+				<h1 class="entry-title">Commission Data - <?php echo $display_date; ?></h1>
 			</header>
-	
-			<div class="new-retailer-button-wrap">
-				<a href="#" class="gs-button">Add New Retailer</a>
-			</div>
 
+			<div class="grid-x">
 
-			<?php
+				<div class="cell large-9">
 
-				if ( isset($_GET['data_month'])) {
-					$current_month = intval($_GET['data_month']);
-					$current_year = intval($_GET['data_year']);
-					$monthName = DateTime::createFromFormat('m', $current_month)->format('F');
-					$display_date = $monthName . ' ' . $current_year;
+					<div class="month-info">
+						<div class="change-date-form">
+							<div class="agent-button-wrap">
+								<a class="toggle gs-button">Change Date</a>
+							</div>
 
-				} else {
-					// get month
-					$display_date = date( 'F Y' );
-				}
-			?>
+							<?php 
 
-			<div class="month-info">
-				<h3>Commission Data - <?php echo $display_date; ?></h3>
-				<div class="change-date-form">
-					<h5><a class="toggle">Change Date</a></h5>
+							$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
 
-					<?php 
+							$years = array();
+							$current_year = intval(date('Y'));
+							for ( $i = 2018; $i <= $current_year; $i++ ) {
+								$years[] = $i;
+							} ?>
 
-					$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
+							<form class="change-date-form-inner" method="POST" action="#">
+								<input type="hidden" name="change-month-year" />
+								<select name="month">
+									<?php foreach( $months as $key => $month ) { 
+										$month_val = ( $key + 1); ?>
+										<option value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
+									<?php } ?>
+								</select>
 
-					$years = array();
-					$current_year = intval(date('Y'));
-					for ( $i = 2018; $i <= $current_year; $i++ ) {
-						$years[] = $i;
+								<select name="year">
+									<?php foreach( $years as $year ) { ?>
+										<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+									<?php } ?>
+								</select>
+
+								<button type="submit" class="gs-button">Update</button>
+							</form>
+						</div>
+					</div>
+
+					<?php
+
+					$current_user_id = 'user_' . get_current_user_id();
+					$category_payment_values = get_field('agent_percent', $current_user_id);
+					$cat_percent_array = array();
+
+					foreach( $category_payment_values as $item ) {
+						$cat_percent_array[$item['category']] = intval($item['percent']);
 					} ?>
 
-					<form class="change-date-form-inner" method="POST" action="#">
-						<input type="hidden" name="change-month-year" />
-						<select name="month">
-							<?php foreach( $months as $key => $month ) { 
-								$month_val = ( $key + 1); ?>
-								<option value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
-							<?php } ?>
-						</select>
+					<div class="completed-orders-wrap">
+						<?php 
 
-						<select name="year">
-							<?php foreach( $years as $year ) { ?>
-								<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-							<?php } ?>
-						</select>
+						$args = array(
+							'post_type' => 'orders', 
+							'posts_per_page' => -1,
+							'meta_query' => array(
+								array(
+									'key' => 'agent_id',
+									'value' => 12, // @todo chagne this to logged in user id?
+								),
+								array(
+									'key' => 'paid',
+									'value' => 'Paid in Full'
+								)
+							),
+						);
 
-						<button type="submit" class="gs-button">Update</button>
-					</form>
-				</div>
-			</div>
 
-			<?php
+						$order_query = new WP_Query($args);
 
-			$current_user_id = 'user_' . get_current_user_id();
-			$category_payment_values = get_field('agent_percent', $current_user_id);
-			$cat_percent_array = array();
+						$total_payment = 0;
 
-			foreach( $category_payment_values as $item ) {
-				$cat_percent_array[$item['category']] = intval($item['percent']);
-			}
+						while( $order_query->have_posts() ) {
 
-			//var_dump($cat_percent_array);
-			?>
+							$order_query->the_post(); 
+							$date = get_the_date();
+							$purchaser_id = get_field('user_id');
+							$userdata = get_userdata($purchaser_id);
+							$first = $userdata->user_firstname;
+							$last = $userdata->user_lastname; 
+							$order_id = $post->ID;
+							?>
 
-			<div class="completed-orders-wrap">
-				<?php 
+							<div class="order-details-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Order ID</th>
+											<th>Retailer Name</th>
+											<th>Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><?php echo $order_id; ?></td>
+											<td><?php echo $first . ' ' . $last; ?></td>
+											<td><?php echo $date; ?></td>
+										</tr>
+									</tbody>
+								</table>
 
-				$args = array(
-					'post_type' => 'orders', 
-					'posts_per_page' => -1,
-					'meta_key' => 'agent_id',
-					'meta_value' => 12
-				);
+								<div class="products-ordred">
 
-				$order_query = new WP_Query($args);
+									<table>
+										<thead>
+											<tr>
+												<th>Product</th>
+												<th>Color</th>
+												<th>Quantity</th>
+												<th>Total Cost</th>
+												<th>Your Percent</th>
+												<th>Payment</th>
+											</tr>
+										</thead>
+										<tbody>
 
-				$total_payment = 0;
+											<?php $entries = get_field('product_entries'); 
 
-				while( $order_query->have_posts() ) {
+											foreach( $entries as $entry ) {
+												$product_name = $entry['product_name'];
+												$product_id = $entry['product_id'];
+												$product_color = $entry['product_color'];
+												$product_quantity = $entry['product_quantity'];
+												$unit_cost = $entry['unit_cost'];
+												$cost_total = $entry['cost_total'];
+												$cost_actual = intval(str_replace('$', '', $cost_total));
+												$category_array = get_the_category($product_id);
+												$cat_name = $category_array[0]->name;
+												$cat_id = $category_array[0]->term_id;
+												if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
+													$payment_percent = 0;
+												}
+												$payment = ( $cost_actual * ( $payment_percent / 100 ) );
+												$total_payment = ( $total_payment + $payment ); ?>
 
-					$order_query->the_post(); 
-					$date = get_the_date();
-					$purchaser_id = get_field('user_id');
-					$userdata = get_userdata($purchaser_id);
-					$first = $userdata->user_firstname;
-					$last = $userdata->user_lastname; 
-					$order_id = $post->ID;
-					?>
+												<tr>	
+													<td><?php echo $product_name; ?></td>
+													<td><?php echo $product_color; ?></td>
+													<td><?php echo $product_quantity; ?></td>
+													<td><?php echo $cost_total; ?></td>
+													<td><?php echo $payment_percent; ?></td>
+													<td>$<?php echo number_format( $payment, 2); ?></td>
+												</tr>
 
-					<div class="order-details-wrap">
-						<table>
-							<thead>
-								<tr>
-									<th>Order ID</th>
-									<th>Retailer Name</th>
-									<th>Date</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><?php echo $order_id; ?></td>
-									<td><?php echo $first . ' ' . $last; ?></td>
-									<td><?php echo $date; ?></td>
-								</tr>
-							</tbody>
-						</table>
+											<?php } ?>
 
-						<div class="products-ordred">
+										</tbody>
 
-							<?php $entries = get_field('product_entries'); 
+									</table>
 
-							foreach( $entries as $entry ) {
-								$product_name = $entry['product_name'];
-								$product_id = $entry['product_id'];
-								$product_color = $entry['product_color'];
-								$product_quantity = $entry['product_quantity'];
-								$unit_cost = $entry['unit_cost'];
-								$cost_total = $entry['cost_total'];
-								$cost_actual = intval(str_replace('$', '', $cost_total));
-								$category_array = get_the_category($product_id);
-								$cat_name = $category_array[0]->name;
-								$cat_id = $category_array[0]->term_id;
-								if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
-									$payment_percent = 0;
-								}
-								$payment = ( $cost_actual * ( $payment_percent / 100 ) );
-								$total_payment = ( $total_payment + $payment );
-								//var_dump($cat_name . ' ' . $cat_id); ?>
+								</div>
 
-								<div>Name: <?php echo $product_name; ?></div>
-								<div>ID: <?php echo $product_id; ?></div>
-								<div>Color: <?php echo $product_color; ?></div>
-								<div>Quantity: <?php echo $product_quantity; ?></div>
-								<div>Unit Cost: <?php echo $unit_cost; ?></div>
-								<div>Total Cost: <?php echo $cost_total; ?></div>
-								<div>Your Percent: <?php echo $payment_percent; ?>%</div>
-								<div>Payment: $<?php echo number_format( $payment, 2); ?></div>
-								<div><?php //echo $cat_name; ?></div>
-								<div><?php //echo $cat_id; ?></div>
-								<br />
+							</div>
 
-							<?php } ?>
+						<?php }
+						wp_reset_postdata();
+						?>
+
+						<div class="agent-total-payment">
+							<h3>Your Total Payment for <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
 
 						</div>
-
-
 
 					</div>
 
-				<?php }
-				wp_reset_postdata();
-				?>
+				</div>
 
-						<div>
-							<h1>Your Total Payment for (Current Month)</h1>
-							<h1>$<?php echo number_format($total_payment, 2); ?></h1>
+				<div class="cell large-3">
 
+					<div class="agent-right-sidebar-inner">
+
+						<div class="agent-button-wrap">
+							<a href="/register-user-agent" class="gs-button">Add New Retailer</a>
 						</div>
+
+						<h3>Your Retailers</h3>
+
+					</div>
+
+				</div>
 
 			</div>
 
@@ -184,5 +218,4 @@ get_header(); ?>
 </div><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();

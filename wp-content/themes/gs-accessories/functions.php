@@ -319,7 +319,8 @@ function non_admin_users_redirect() {
 
 
 /**
-* Redirect Agents (editors for now???)
+* Redirect Agents
+* @todo remove level_10 access - does this do anything??????
 */
 add_action( 'pre_get_posts', 'agent_login_redirect' );
 
@@ -331,7 +332,7 @@ function agent_login_redirect() {
 	if ( $role_name === 'um_agent' ) {
 		$current_page = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
 		$slug = $current_page->post_name;
-    	if ( $slug !== 'agent-admin' ) {
+    	if ( ( $slug !== 'agent-admin' ) && ( $slug !== 'register-user-agent') ) {
     		/**
     		* @todo also allow for registration page? reports page? any page available to Agent
     		*/
