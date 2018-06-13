@@ -30,7 +30,7 @@ if ( isset($_POST['product-order-form'])) {
     //$Basket->do_actions(); 
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
-		$ShopingCart->add_data($product, $quantity, $color);
+		$ShopingCart->add_data($product, $quantity, $color, $post_id);
     //$ShopingCart->add_data(time(),'magnetic case', 2000, 'black');
     // $ShopingCart->add_data('USB Charger', 1000, 'white');
     //var_dump($ShopingCart);
@@ -144,29 +144,28 @@ if ( isset($_POST['remove-cart-accessory'])) {
 /**
 * Update Cart Item in Session
 */
-if ( isset($_POST['update-cart-accessory'])) {
+// if ( isset($_POST['update-cart-accessory'])) {
 
+// 	$post_id = filter_input(INPUT_POST, 'update-cart-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
 
-	$post_id = filter_input(INPUT_POST, 'update-cart-accessory', FILTER_SANITIZE_SPECIAL_CHARS);
+// 	$quantity = filter_input(INPUT_POST, 'accessory-quantity', FILTER_SANITIZE_SPECIAL_CHARS);
 
-	$quantity = filter_input(INPUT_POST, 'accessory-quantity', FILTER_SANITIZE_SPECIAL_CHARS);
+// 	$color = filter_input(INPUT_POST, 'accessory-color', FILTER_SANITIZE_SPECIAL_CHARS);
 
-	$color = filter_input(INPUT_POST, 'accessory-color', FILTER_SANITIZE_SPECIAL_CHARS);
+// 	session_start();
 
-	session_start();
+// 	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
 
-	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
+// 	$item_array = $shopping_cart_array[$post_id];
 
-	$item_array = $shopping_cart_array[$post_id];
+// 	$item_array['quantity'] = $quantity;
 
-	$item_array['quantity'] = $quantity;
+// 	$item_array['color'] = $color;
 
-	$item_array['color'] = $color;
+// 	$shopping_cart_array[$post_id] = $item_array;
 
-	$shopping_cart_array[$post_id] = $item_array;
-
-	$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
-}
+// 	$_SESSION['shopping_cart'] = serialize($shopping_cart_array);
+// }
 
 /**
 * Place Cart Order
@@ -361,6 +360,14 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('user_email_text', $body_customer, $new_order_id);
 	update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
 	update_field('admin_email_text', $body_admin, $new_order_id);
+	update_field('user_id', $user_id, $new_order_id);
+
+	$acf_user_id = 'user_' . $user_id;
+	$referring_agent_id = get_field('referring_agent', $acf_user_id);
+	if ( ! ( $agent_id = $referring_agent_id['ID'] ) ) {
+		$agent_id = 0;
+	}
+	update_field('agent_id', $agent_id, $new_order_id);
 
 	foreach( $shopping_cart_array as $id => $data ) {
 
@@ -396,6 +403,8 @@ if ( isset($_POST['place-cart-order'])) {
 			'product_name'	=> $product,
 			'product_quantity'	=> $quantity,
 			'product_color'	=> $color,
+			'product_id' => '11111',
+			//'cat_id' => '11111',
 			'unit_cost' => $acf_price_per,
 			'cost_total' => $price_value
 		);

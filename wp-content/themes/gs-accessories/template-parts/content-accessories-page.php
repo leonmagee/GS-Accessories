@@ -220,16 +220,31 @@ if ( isset( $_GET['added-to-cart'])) {
 
                         <?php } ?>
 
-                        <div class="accessory-description">
-                            <h4>Inventory</h4>
+                        <div class="accessory-description-inventory">
                             <?php 
                             $show_add_to_cart_form = true;
                             $color_quantity = get_accessory_colors();
-                            if ( $color_quantity ) {
-                                foreach( $color_quantity as $item => $quantity ) { ?>
-                                    <div class="color-quantity-item"><?php echo $item; ?> - <?php echo $quantity; ?> Available</div>
-                                <?php }
-                            } else {
+                            if ( $color_quantity ) { ?>
+                                
+                                <table class="single-accessory-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Color</th>
+                                            <th>In Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                <?php foreach( $color_quantity as $item => $quantity ) { ?>
+                                    <tr>
+                                        <td><?php echo $item; ?></td>
+                                        <td><?php echo $quantity; ?> Available</td>
+                                    </tr>
+                                <?php } ?>
+
+                                    </tbody>
+                                </table>
+                            <?php } else {
                                 echo "<span class='out-of-stock'>Out of Stock</span>";
                                 $show_add_to_cart_form = false;
                             }

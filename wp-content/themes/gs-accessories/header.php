@@ -77,6 +77,8 @@
 
 					<div class="cell large-8">
 
+						<?php if ( ! AGENT_LOGGED_IN ) { ?>
+
 						<nav id="site-navigation-custom" class="main-navigation-custom menu-hidden">
 
 							<ul id="first_name" class="menu">
@@ -120,6 +122,8 @@
 					// ) );
 							?>
 						</nav><!-- #site-navigation -->
+
+					<?php } ?>
 
 					</div>
 

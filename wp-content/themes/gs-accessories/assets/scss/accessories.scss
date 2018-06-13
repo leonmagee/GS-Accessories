@@ -347,8 +347,29 @@
 
 span.out-of-stock {
     color: lighten($brand-third, 15%);
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+table.single-accessory-table {
+
+    tr {
+        background-color: #FBFBFB !important;
+        th {
+            background-color: #F7F7F7;
+        }
+        th, td {
+        border: 1px solid #EAEAEA;
+        }
+        td {
+            padding-top: 7px;
+            padding-bottom: 7px;
+            color: darken($brand-primary, 17%);
+            font-weight: bold;
+        }
+    }
 }
 
 

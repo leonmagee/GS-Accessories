@@ -11,7 +11,7 @@ restricted_page();
 
 get_header();
 
-// $session_data = $_SESSION;
+//$session_data = $_SESSION;
 
 // foreach( $session_data as $key => $item ) {
 //   var_dump($key);
@@ -59,10 +59,12 @@ get_header();
 // $shopping_cart = unserialize($_SESSION['shopping_cart']);
 // $product_names = unserialize($_SESSION['product_names']);
 // $product_values = unserialize($_SESSION['product_values']);
-// var_dump($shopping_cart);
-// // foreach( $shopping_cart as $item ) {
-// //   //var_dump($item);
-// // }
+//$product_id = unserialize($_SESSION['product_id']);
+//var_dump($shopping_cart);
+// foreach( $shopping_cart as $item ) {
+//   //var_dump($item);
+// }
+// var_dump($_SESSION);
 // echo "<br />";
 // echo "<br />";
 // var_dump($product_names);
@@ -71,6 +73,9 @@ get_header();
 // var_dump($product_values);
 // echo "<br />";
 // echo "<br />";
+// var_dump($product_id);
+
+// die();
 
 //shopping_cart
 //product_names

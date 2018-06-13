@@ -319,7 +319,7 @@ function non_admin_users_redirect() {
 
 
 /**
-* Redirect Agents (editors)
+* Redirect Agents (editors for now???)
 */
 add_action( 'pre_get_posts', 'agent_login_redirect' );
 
@@ -327,15 +327,20 @@ function agent_login_redirect() {
 
 	$current_user   = wp_get_current_user();
     $role_name      = $current_user->roles[0];
-	if ( $role_name === 'editor' ) {
+    //var_dump($role_name);
+	if ( $role_name === 'um_agent' ) {
 		$current_page = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
 		$slug = $current_page->post_name;
     	if ( $slug !== 'agent-admin' ) {
     		/**
     		* @todo also allow for registration page? reports page? any page available to Agent
     		*/
+    		define('AGENT_LOGGED_IN', true);
 			wp_redirect( site_url() . '/agent-admin' );
+			//exit;
     	}
+	} else {
+		define('AGENT_LOGGED_IN', false);
 	}
 }
 
@@ -379,8 +384,8 @@ function change_wp_role_names() {
 	$wp_roles->role_names['contributor'] = 'Retailer';
 	$wp_roles->roles['author']['name'] = 'Wholesaler';
 	$wp_roles->role_names['author'] = 'Wholesaler';
-	$wp_roles->roles['editor']['name'] = 'Agent';
-	$wp_roles->role_names['editor'] = 'Agent';
+	// $wp_roles->roles['editor']['name'] = 'Editor';
+	// $wp_roles->role_names['editor'] = 'Editor';
 	//}
 }
 
