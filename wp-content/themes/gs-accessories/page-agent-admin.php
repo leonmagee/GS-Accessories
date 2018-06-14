@@ -105,7 +105,6 @@ get_header(); ?>
 							),
 						);
 
-
 						$order_query = new WP_Query($args);
 
 						$total_payment = 0;
@@ -163,7 +162,7 @@ get_header(); ?>
 													$product_quantity = $entry['product_quantity'];
 													$unit_cost = $entry['unit_cost'];
 													$cost_total = $entry['cost_total'];
-													$cost_actual = intval(str_replace('$', '', $cost_total));
+													$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
 													$category_array = get_the_category($product_id);
 													$cat_name = $category_array[0]->name;
 													$cat_id = $category_array[0]->term_id;
@@ -194,9 +193,9 @@ get_header(); ?>
 
 							<?php } 
 
-						} else {
-							echo 'NO ORDERS!!!!!!';
-						}
+						} else { ?>
+							<div class="no-orders-info">No orders for this period.</div>
+						<?php }
 						wp_reset_postdata();
 						?>
 
