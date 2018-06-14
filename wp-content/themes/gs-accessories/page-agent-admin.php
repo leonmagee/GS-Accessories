@@ -12,7 +12,9 @@ if ( isset($_GET['data_month'])) {
 	$display_date = $monthName . ' ' . $current_year;
 
 } else {
-	$display_date = date( 'F Y' );
+	$current_month = intval(date( 'n' ));
+	$current_year = intval(date( 'Y' ));
+	$display_date = date('F Y');
 }
 
 get_header(); ?>
@@ -85,10 +87,16 @@ get_header(); ?>
 						$args = array(
 							'post_type' => 'orders', 
 							'posts_per_page' => -1,
+							'date_query' => array(
+								array(
+									'year'  => $current_year,
+									'month' => $current_month,
+								),
+							),
 							'meta_query' => array(
 								array(
 									'key' => 'agent_id',
-									'value' => 12, // @todo chagne this to logged in user id?
+									'value' => LV_LOGGED_IN_ID, 
 								),
 								array(
 									'key' => 'paid',
@@ -101,90 +109,94 @@ get_header(); ?>
 						$order_query = new WP_Query($args);
 
 						$total_payment = 0;
+						if ( $order_query->have_posts() ) {
+							while( $order_query->have_posts() ) {
 
-						while( $order_query->have_posts() ) {
+								$order_query->the_post(); 
+								$date = get_the_date();
+								$purchaser_id = get_field('user_id');
+								$userdata = get_userdata($purchaser_id);
+								$first = $userdata->user_firstname;
+								$last = $userdata->user_lastname;
+								$order_id = $post->ID;
+								?>
 
-							$order_query->the_post(); 
-							$date = get_the_date();
-							$purchaser_id = get_field('user_id');
-							$userdata = get_userdata($purchaser_id);
-							$first = $userdata->user_firstname;
-							$last = $userdata->user_lastname; 
-							$order_id = $post->ID;
-							?>
-
-							<div class="order-details-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Order ID</th>
-											<th>Retailer Name</th>
-											<th>Date</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><?php echo $order_id; ?></td>
-											<td><?php echo $first . ' ' . $last; ?></td>
-											<td><?php echo $date; ?></td>
-										</tr>
-									</tbody>
-								</table>
-
-								<div class="products-ordred">
-
+								<div class="order-details-wrap">
 									<table>
 										<thead>
 											<tr>
-												<th>Product</th>
-												<th>Color</th>
-												<th>Quantity</th>
-												<th>Total Cost</th>
-												<th>Your Percent</th>
-												<th>Payment</th>
+												<th>Order ID</th>
+												<th>Retailer Name</th>
+												<th>Date</th>
 											</tr>
 										</thead>
 										<tbody>
-
-											<?php $entries = get_field('product_entries'); 
-
-											foreach( $entries as $entry ) {
-												$product_name = $entry['product_name'];
-												$product_id = $entry['product_id'];
-												$product_color = $entry['product_color'];
-												$product_quantity = $entry['product_quantity'];
-												$unit_cost = $entry['unit_cost'];
-												$cost_total = $entry['cost_total'];
-												$cost_actual = intval(str_replace('$', '', $cost_total));
-												$category_array = get_the_category($product_id);
-												$cat_name = $category_array[0]->name;
-												$cat_id = $category_array[0]->term_id;
-												if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
-													$payment_percent = 0;
-												}
-												$payment = ( $cost_actual * ( $payment_percent / 100 ) );
-												$total_payment = ( $total_payment + $payment ); ?>
-
-												<tr>	
-													<td><?php echo $product_name; ?></td>
-													<td><?php echo $product_color; ?></td>
-													<td><?php echo $product_quantity; ?></td>
-													<td><?php echo $cost_total; ?></td>
-													<td><?php echo $payment_percent; ?></td>
-													<td>$<?php echo number_format( $payment, 2); ?></td>
-												</tr>
-
-											<?php } ?>
-
+											<tr>
+												<td><?php echo $order_id; ?></td>
+												<td><?php echo $first . ' ' . $last; ?></td>
+												<td><?php echo $date; ?></td>
+											</tr>
 										</tbody>
-
 									</table>
+
+									<div class="products-ordred">
+
+										<table>
+											<thead>
+												<tr>
+													<th>Product</th>
+													<th>Color</th>
+													<th>Quantity</th>
+													<th>Total Cost</th>
+													<th>Your Percent</th>
+													<th>Payment</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<?php $entries = get_field('product_entries'); 
+
+												foreach( $entries as $entry ) {
+													$product_name = $entry['product_name'];
+													$product_id = $entry['product_id'];
+													$product_color = $entry['product_color'];
+													$product_quantity = $entry['product_quantity'];
+													$unit_cost = $entry['unit_cost'];
+													$cost_total = $entry['cost_total'];
+													$cost_actual = intval(str_replace('$', '', $cost_total));
+													$category_array = get_the_category($product_id);
+													$cat_name = $category_array[0]->name;
+													$cat_id = $category_array[0]->term_id;
+													if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
+														$payment_percent = 0;
+													}
+													$payment = ( $cost_actual * ( $payment_percent / 100 ) );
+													$total_payment = ( $total_payment + $payment ); ?>
+
+													<tr>	
+														<td><?php echo $product_name; ?></td>
+														<td><?php echo $product_color; ?></td>
+														<td><?php echo $product_quantity; ?></td>
+														<td><?php echo $cost_total; ?></td>
+														<td><?php echo $payment_percent; ?>%</td>
+														<td>$<?php echo number_format( $payment, 2); ?></td>
+													</tr>
+
+												<?php } ?>
+
+											</tbody>
+
+										</table>
+
+									</div>
 
 								</div>
 
-							</div>
+							<?php } 
 
-						<?php }
+						} else {
+							echo 'NO ORDERS!!!!!!';
+						}
 						wp_reset_postdata();
 						?>
 
@@ -206,6 +218,58 @@ get_header(); ?>
 						</div>
 
 						<h3>Your Retailers</h3>
+
+						<?php
+
+						$args = array(
+							'posts_per_page' => -1,
+							'meta_query' => array(
+								array(
+									'key' => 'referring_agent',
+									'value' => LV_LOGGED_IN_ID,
+								),
+							),
+						);
+
+						// The Query
+						$user_query = new WP_User_Query( $args );
+
+						// User Loop
+						if ( ! empty( $user_query->get_results() ) ) { ?>
+							<div class="retailer-names-wrap">
+								<?php foreach ( $user_query->get_results() as $user ) {
+									$userdata = get_userdata($user->ID);
+									$first = $userdata->user_firstname;
+									$last = $userdata->user_lastname;
+									?>
+									<div class="retailer-name"><?php echo $first . ' ' . $last; ?></div>
+								<?php } ?>
+							</div>
+						<?php } else { ?>
+							<div class="no-retailers">No Retailers found.</div>
+						<?php }
+						
+
+
+						// $users_query = new WP_Query($args);
+						// while( $users_query->have_posts() ) {
+						// 	$users_query->the_post();
+
+						// 	the_title();
+						// }
+						wp_reset_postdata();
+
+
+
+
+
+
+
+						$order_query = new WP_Query($args);
+						
+
+
+						?>
 
 					</div>
 

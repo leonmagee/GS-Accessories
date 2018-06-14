@@ -77,11 +77,11 @@
 
 					<div class="cell large-8">
 
-						<?php if ( ! AGENT_LOGGED_IN ) { ?>
-
 						<nav id="site-navigation-custom" class="main-navigation-custom menu-hidden">
 
 							<ul id="first_name" class="menu">
+
+								<?php if ( ! AGENT_LOGGED_IN ) { ?>
 
 								<li><a href="/products">Products</a></li>
 								<li><a href="/about">About</a></li>
@@ -98,32 +98,25 @@
 								</li>
 
 
-								<?php } else { 
-
-									//if( current_user_can('edit_posts')) { 
-										?>
+								<?php } else { ?>
 
 								<li><a href="/place-your-order">Add to Order</a></li>
 								<li><a href="/cart"><i class="fa fa-shopping-cart"></i></a></li>
 
-								<?php 
-								//} 
-							} ?>
+								<?php } ?>
+
+							<?php } else { ?>
+
+								<li><a href="/agent-admin">Dashboard</a></li>
+								<li><a href="/register-user-agent">Add Retailers</a></li>
+
+							<?php } ?>
 
 							</ul>
 
-
-
-
-							<?php
-					// wp_nav_menu( array(
-					// 	'theme_location' => 'menu-1',
-					// 	'menu_id'        => 'primary-menu',
-					// ) );
-							?>
 						</nav><!-- #site-navigation -->
 
-					<?php } ?>
+					
 
 					</div>
 

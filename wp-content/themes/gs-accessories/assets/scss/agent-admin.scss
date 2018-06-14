@@ -55,4 +55,23 @@
 	@media(min-width: $screen-md) {
 		padding: 0 20px 0 40px;
 	}
+	.retailer-names-wrap {
+		padding: 10px 20px;
+		border: 1px solid #EEE;
+		background-color: #FAFAFA;
+
+		.retailer-name {
+			font-size: 1.2em;
+			font-weight: bold;
+			color: $brand-primary-hover;
+			padding: 10px 0;
+		}
+	}
+
+	.no-retailers {
+		font-size: 1.2em;
+		font-weight: bold;
+		color: $brand-third;
+	}
 }
+
