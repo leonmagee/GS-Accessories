@@ -214,7 +214,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.2.0', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.2.1', true );
 
 	wp_enqueue_script( 'custom-js');
 
@@ -225,7 +225,7 @@ function gs_accessories_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.2.0' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.2.1' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
