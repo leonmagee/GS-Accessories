@@ -39,6 +39,9 @@ define('GSA_EMAIL_WRAP', $email_wrap);
  require_once('lib/lv-ajax.php');
  require_once('lib/rest-endpoints.php');
 
+ /**
+ * Start session to enable shopping cart functionality
+ */
  session_start();
 
 /**
@@ -228,8 +231,6 @@ function gs_accessories_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
 
-
-
 /**
 * Enqueue admin scripts and styles
 */
@@ -298,8 +299,6 @@ function gs_accessories_image_sizes() {
 
 add_action('init', 'gs_accessories_image_sizes');
 
-
-
 /**
  * Redirect non admin users to front page
  */
@@ -310,13 +309,15 @@ function non_admin_users_redirect() {
 
 	/**
 	* @todo this needs to effect Agents as well... 
+	* @todo test this for non -localhost site?
 	*/
 	if ( ! current_user_can( 'level_5' ) ) {
+	//if ( ! current_user_can( 'delete_others_pages' ) ) {
 
 		wp_redirect( site_url() );
+		//exit;
 	}
 }
-
 
 /**
 * Redirect Agents
@@ -327,24 +328,23 @@ add_action( 'pre_get_posts', 'agent_login_redirect' );
 function agent_login_redirect() {
 
 	$current_user   = wp_get_current_user();
-    $role_name      = $current_user->roles[0];
+	$role_name      = $current_user->roles[0];
     //var_dump($role_name);
 	if ( $role_name === 'um_agent' ) {
 		$current_page = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
 		$slug = $current_page->post_name;
-    	if ( ( $slug !== 'agent-admin' ) && ( $slug !== 'register-user-agent') ) {
+		if ( ( $slug !== 'agent-admin' ) && ( $slug !== 'register-user-agent') ) {
     		/**
     		* @todo also allow for registration page? reports page? any page available to Agent
     		*/
     		define('AGENT_LOGGED_IN', true);
-			wp_redirect( site_url() . '/agent-admin' );
+    		wp_redirect( site_url() . '/agent-admin' );
 			//exit;
     	}
-	} else {
-		define('AGENT_LOGGED_IN', false);
-	}
+    } else {
+    	define('AGENT_LOGGED_IN', false);
+    }
 }
-
 
 /**
 * Disable Admin Bar for all users
@@ -355,9 +355,9 @@ function remove_admin_bar() {
 	if (!is_admin()) {
 		show_admin_bar(false);
 	}
-// if (!current_user_can('administrator') && !is_admin()) {
-//   show_admin_bar(false);
-// }
+	// if (!current_user_can('administrator') && !is_admin()) {
+	//   show_admin_bar(false);
+	// }
 }
 
 /**
@@ -385,9 +385,6 @@ function change_wp_role_names() {
 	$wp_roles->role_names['contributor'] = 'Retailer';
 	$wp_roles->roles['author']['name'] = 'Wholesaler';
 	$wp_roles->role_names['author'] = 'Wholesaler';
-	// $wp_roles->roles['editor']['name'] = 'Editor';
-	// $wp_roles->role_names['editor'] = 'Editor';
-	//}
 }
 
 add_action('init', 'change_wp_role_names');
@@ -510,28 +507,19 @@ function custom_meta_box_markup() {
 			</div>
 		</div>
 	</div>
-	<?php }
+<?php }
 
-	function order_email_meta_box() {
+function order_email_meta_box() {
 
-		add_meta_box(
-			"gsa-email-meta-box", 
-			"Email Settings", 
-			"custom_meta_box_markup", 
-			"orders", 
-			"normal", 
-			"low", 
-			null
-		);
-	}
+	add_meta_box(
+		"gsa-email-meta-box", 
+		"Email Settings", 
+		"custom_meta_box_markup", 
+		"orders", 
+		"normal", 
+		"low", 
+		null
+	);
+}
 
-	add_action("add_meta_boxes", "order_email_meta_box");
-
-
-
-
-
-
-
-	
-	
+add_action("add_meta_boxes", "order_email_meta_box");

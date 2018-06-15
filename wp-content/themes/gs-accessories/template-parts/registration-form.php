@@ -1,8 +1,6 @@
 <?php
 /**
  *  Form to register new users
- *
- *  array( 'Label', 'required(boolean)' );
  */
 $regular_inputs = array(
 	array( 'First Name', 1, 'text' ),
@@ -30,6 +28,7 @@ $regular_inputs = array(
 //	'Instagram'
 //);
 ?>
+
 <div class="registration-form-wrapper form-wrap">
     <form method="post" name="registration-form">
         <div class="form-area-top">

@@ -54,12 +54,24 @@ class lv_register_user {
 
 		$this->user_id = wp_create_user( $this->username, $this->password, $this->email );
 
+		/**
+		* Just check logged in status here... get user type
+		* if it's an agent, then... 
+		*/
+
+		if ( AGENT_LOGGED_IN && LV_LOGGED_IN_ID ) {
+			$user_role = 'contributor';
+		} else {
+			$user_role = 'subscriber';
+		}
+
+
 		wp_update_user( array(
 			'ID'         => $this->user_id,
 			'first_name' => $this->first_name,
 			'last_name'  => $this->last_name,
 			//'role'       => 'agent'
-			'role'       => 'subscriber'
+			'role'       => $user_role
 		) );
 
 		update_user_meta( $this->user_id, 'phone_number', $this->phone_number );
@@ -69,6 +81,9 @@ class lv_register_user {
 		update_user_meta( $this->user_id, 'city', $this->city );
 		update_user_meta( $this->user_id, 'state', $this->state );
 		update_user_meta( $this->user_id, 'zip', $this->zip );
+		if ( AGENT_LOGGED_IN && LV_LOGGED_IN_ID ) {
+			update_user_meta( $this->user_id, 'referring_agent', LV_LOGGED_IN_ID );
+		}
 
 		/**
 		 * Here we send email to the admin and to the user

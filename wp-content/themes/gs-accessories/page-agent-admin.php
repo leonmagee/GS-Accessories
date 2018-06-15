@@ -4,6 +4,7 @@
  *
  * @todo also query by month
  */
+restricted_page();
 
 if ( isset($_GET['data_month'])) {
 	$current_month = intval($_GET['data_month']);

@@ -113,6 +113,8 @@ jQuery(function ($) {
 
     /**
      * Process ajax register new user
+     *
+     * @todo modify this to check for and Agent Retailer
      */
     $("#register-new-user-submit").click(function (event) {
 
