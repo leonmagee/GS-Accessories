@@ -3,7 +3,9 @@
  * Template Name: Inventory Report
  */
 
-get_header(); ?>
+restricted_page();
+get_header(); 
+?>
 
 	<div id="primary" class="content-area">
 		<div class="max-width-wrap">
@@ -19,13 +21,11 @@ get_header(); ?>
 						$custom_query->the_post();
 
 						?>
-						<div class="accessory-inventory-item">
-						<?php the_title(); ?>
-						                            <?php 
-                            //$show_add_to_cart_form = true;
-                            $color_quantity = get_accessory_colors();
+						
+						    <?php $color_quantity = get_accessory_colors();
                             if ( $color_quantity ) { ?>
-                                
+                            	<div class="accessory-inventory-item">
+								<h4><?php the_title(); ?></h4>
                                 <table class="single-accessory-table">
                                     <thead>
                                         <tr>
@@ -44,21 +44,11 @@ get_header(); ?>
 
                                     </tbody>
                                 </table>
-                            <?php } else {
-                                echo "<span class='out-of-stock'>Out of Stock</span>";
-                                $show_add_to_cart_form = false;
-                            }
+                                						</div>
 
-
-                            ?>
-							
-						</div>
-					
-
-					<?php }
+                            <?php } 
+					 }
 					wp_reset_postdata();
-					
-
 
 				?>
 
