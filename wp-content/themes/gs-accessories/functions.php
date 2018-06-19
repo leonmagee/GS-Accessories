@@ -522,3 +522,66 @@ function order_email_meta_box() {
 }
 
 add_action("add_meta_boxes", "order_email_meta_box");
+
+
+/**
+* Inventory Report Admin Page
+*/
+add_action( 'admin_menu', 'inventory_report_admin_page' );
+
+function inventory_report_admin_page() {
+
+	add_menu_page( 'Inventory Report', 'Inventory', 'manage_options', 'current-inventory.php', 'inventory_admin_page', 'dashicons-chart-line', 6  );
+}
+
+function inventory_admin_page(){
+	?>
+	<div class="wrap">
+		<h2>Current Inventory</h2>
+		<div class="accessory-inventory-wrap">
+
+			<?php
+
+			$args = array('post_type' => 'accessories');
+			$custom_query = new WP_Query($args);
+			while( $custom_query->have_posts() ) {
+				$custom_query->the_post();
+
+				?>
+				
+				<?php $color_quantity = get_accessory_colors();
+				if ( $color_quantity ) { ?>
+					<div class="accessory-inventory-item">
+						<h3 style="margin-bottom: 7px; margin-left: 3px;"><?php the_title(); ?></h3>
+						<table class="widefat fixed" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Color</th>
+									<th>In Stock</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<?php foreach( $color_quantity as $item => $quantity ) { ?>
+									<tr class="alternate">
+										<td style="border: 1px solid #EEE"><?php echo $item; ?></td>
+										<td style="border: 1px solid #EEE"><?php echo $quantity; ?> Available</td>
+									</tr>
+								<?php } ?>
+
+							</tbody>
+						</table>
+					</div>
+
+				<?php } 
+			}
+			wp_reset_postdata();
+
+			?>
+
+		</div>
+	</div>
+	<?php
+}
+
+
