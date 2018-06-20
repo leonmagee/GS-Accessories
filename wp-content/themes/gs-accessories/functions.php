@@ -630,3 +630,206 @@ function inventory_admin_page(){
 }
 
 
+
+
+
+/**
+* Inventory Report Admin Page
+*/
+add_action( 'admin_menu', 'sales_report_admin_page' );
+
+function sales_report_admin_page() {
+
+	add_menu_page( 'Sales Report', 'Sales', 'manage_options', 'current-sales.php', 'sales_admin_page', 'dashicons-chart-bar', 6  );
+}
+
+function sales_admin_page(){
+
+	if ( isset($_POST['update-inventory-sort'])) {
+		$inventory_cat = $_POST['inventory-sort'];
+	} else {
+		$inventory_cat = '';
+	}
+	?>
+	<div class="wrap">
+		<h2>Current Sales</h2>
+
+
+
+
+<div class="sales-report-wrap">
+
+					<div class="month-info">
+						<div class="change-date-form">
+							<div class="agent-button-wrap">
+								<a class="toggle gs-button">Change Date</a>
+							</div>
+
+							<?php 
+
+							$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
+
+							$years = array();
+							$current_year = intval(date('Y'));
+							for ( $i = 2018; $i <= $current_year; $i++ ) {
+								$years[] = $i;
+							} ?>
+
+							<form class="change-date-form-inner" method="POST" action="#">
+								<input type="hidden" name="change-month-year" />
+								<select name="month">
+									<?php foreach( $months as $key => $month ) { 
+										$month_val = ( $key + 1); ?>
+										<option value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
+									<?php } ?>
+								</select>
+
+								<select name="year">
+									<?php foreach( $years as $year ) { ?>
+										<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+									<?php } ?>
+								</select>
+
+								<button type="submit" class="gs-button">Update</button>
+							</form>
+						</div>
+					</div>
+
+					<div class="completed-orders-wrap">
+						<?php 
+
+						$args = array(
+							'post_type' => 'orders', 
+							'posts_per_page' => -1,
+							'date_query' => array(
+								array(
+									'year'  => $current_year,
+									'month' => $current_month,
+								),
+							),
+							'meta_query' => array(
+								array(
+									'key' => 'paid',
+									'value' => 'Paid in Full'
+								)
+							),
+						);
+
+						$order_query = new WP_Query($args);
+
+						$total_payment = 0;
+						if ( $order_query->have_posts() ) {
+							while( $order_query->have_posts() ) {
+
+								$order_query->the_post(); 
+								$date = get_the_date();
+								$purchaser_id = get_field('user_id');
+								$userdata = get_userdata($purchaser_id);
+								$first = $userdata->user_firstname;
+								$last = $userdata->user_lastname;
+								$order_id = $post->ID;
+								?>
+
+								<div class="order-details-wrap">
+									<table>
+										<thead>
+											<tr>
+												<th>Order ID</th>
+												<th>Retailer Name</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><?php echo $order_id; ?></td>
+												<td><?php echo $first . ' ' . $last; ?></td>
+												<td><?php echo $date; ?></td>
+											</tr>
+										</tbody>
+									</table>
+
+									<div class="products-ordred">
+
+										<table>
+											<thead>
+												<tr>
+													<th>Product</th>
+													<th>Color</th>
+													<th>Quantity</th>
+													<th>Total Cost</th>
+													<th>Payment</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<?php $entries = get_field('product_entries'); 
+
+												foreach( $entries as $entry ) {
+													$product_name = $entry['product_name'];
+													$product_id = $entry['product_id'];
+													$product_color = $entry['product_color'];
+													$product_quantity = $entry['product_quantity'];
+													$unit_cost = $entry['unit_cost'];
+													$cost_total = $entry['cost_total'];
+													$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
+													$category_array = get_the_category($product_id);
+													$cat_name = $category_array[0]->name;
+													$cat_id = $category_array[0]->term_id;
+													$payment = $cost_actual;
+													$total_payment = ( $total_payment + $payment ); ?>
+
+													<tr>	
+														<td><?php echo $product_name; ?></td>
+														<td><?php echo $product_color; ?></td>
+														<td><?php echo $product_quantity; ?></td>
+														<td><?php echo $cost_total; ?></td>
+														<td>$<?php echo number_format( $payment, 2); ?></td>
+													</tr>
+
+												<?php } ?>
+
+											</tbody>
+
+										</table>
+
+									</div>
+
+								</div>
+
+							<?php } 
+
+						} else { ?>
+							<div class="no-orders-info">No orders for this period.</div>
+						<?php }
+						wp_reset_postdata();
+						?>
+
+						<div class="agent-total-payment">
+							<h3>Total Sales for <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+	<?php
+}
+
+
+
