@@ -82,7 +82,9 @@ class lv_register_user {
 		update_user_meta( $this->user_id, 'state', $this->state );
 		update_user_meta( $this->user_id, 'zip', $this->zip );
 		if ( AGENT_LOGGED_IN && LV_LOGGED_IN_ID ) {
-			update_user_meta( $this->user_id, 'referring_agent', LV_LOGGED_IN_ID );
+			//update_user_meta( $this->user_id, 'referring_agent', LV_LOGGED_IN_ID );
+			$post_user_id = 'user_' . $this->user_id;
+			update_field( 'referring_agent', LV_LOGGED_IN_ID, $post_user_id );
 		}
 
 		/**

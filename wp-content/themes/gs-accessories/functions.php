@@ -27,6 +27,7 @@ define('GSA_EMAIL_WRAP', $email_wrap);
  	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
  	md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
  	md_create_wp_cpt::create_post_type( 'coupons', 'Coupon', 'Coupons', 'coupon', 'tag' );
+ 	md_create_wp_cpt::create_post_type( 'rmas', 'RMA', 'RMA', 'rmas', 'image-rotate' );
  }
  add_action( 'init', 'mm_register_post_types' );
 
@@ -535,20 +536,71 @@ function inventory_report_admin_page() {
 }
 
 function inventory_admin_page(){
+
+	if ( isset($_POST['update-inventory-sort'])) {
+		$inventory_cat = $_POST['inventory-sort'];
+	} else {
+		$inventory_cat = '';
+	}
 	?>
 	<div class="wrap">
 		<h2>Current Inventory</h2>
+
+		<?php $cats = get_categories();
+
+		//var_dump($cats);
+		// foreach( $cats as $cat ) {
+		// 	echo $cat->name;
+		// 	echo "<br />";
+		// 	echo $cat->slug;
+		// 	echo "<br />";
+		// 	echo "<br />";
+		// }
+
+
+		?>
+
+		<div class="sort-inventory-wrap">
+			<form method="POST">
+				<div>
+					<h4 style="margin-bottom: 0">Sort Inventory</h4>
+				</div>
+				<div style="padding: 10px 0;">
+					<input type="hidden" name="update-inventory-sort" />
+					<select style="min-width: 200px;" name="inventory-sort">
+						<option value="">All</option>
+						<?php foreach( $cats as $cat ) { ?>
+							<option value="<?php echo $cat->slug; ?>"><?php echo $cat->name; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div>
+					<input class="button button-primary" type="submit" value="Update"/>
+				</div>
+			</form>
+		</div>
+
 		<div class="accessory-inventory-wrap">
 
 			<?php
 
-			$args = array('post_type' => 'accessories');
+			if ( $inventory_cat ) {
+				$args = array(
+					'post_type' => 'accessories',
+					'category_name' => $inventory_cat
+				);
+			} else {
+				$args = array(
+					'post_type' => 'accessories'
+				);
+			}
+
 			$custom_query = new WP_Query($args);
 			while( $custom_query->have_posts() ) {
 				$custom_query->the_post();
 
 				?>
-				
+
 				<?php $color_quantity = get_accessory_colors();
 				if ( $color_quantity ) { ?>
 					<div class="accessory-inventory-item">
