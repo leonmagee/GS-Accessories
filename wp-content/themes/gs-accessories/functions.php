@@ -546,19 +546,7 @@ function inventory_admin_page(){
 	<div class="wrap">
 		<h2>Current Inventory</h2>
 
-		<?php $cats = get_categories();
-
-		//var_dump($cats);
-		// foreach( $cats as $cat ) {
-		// 	echo $cat->name;
-		// 	echo "<br />";
-		// 	echo $cat->slug;
-		// 	echo "<br />";
-		// 	echo "<br />";
-		// }
-
-
-		?>
+		<?php $cats = get_categories(); ?>
 
 		<div class="sort-inventory-wrap">
 			<form method="POST">
@@ -569,8 +557,13 @@ function inventory_admin_page(){
 					<input type="hidden" name="update-inventory-sort" />
 					<select style="min-width: 200px;" name="inventory-sort">
 						<option value="">All</option>
-						<?php foreach( $cats as $cat ) { ?>
-							<option value="<?php echo $cat->slug; ?>"><?php echo $cat->name; ?></option>
+						<?php foreach( $cats as $cat ) { 
+							$selected = '';
+							if ( $inventory_cat === $cat->slug ) {
+								$selected = 'selected="true"';
+							}
+							?>
+							<option <?php echo $selected; ?> value="<?php echo $cat->slug; ?>"><?php echo $cat->name; ?></option>
 						<?php } ?>
 					</select>
 				</div>
