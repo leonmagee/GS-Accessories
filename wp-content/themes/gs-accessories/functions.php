@@ -709,7 +709,7 @@ function sales_admin_page(){
 
 						<form class="change-date-form-inner" method="POST" action="#">
 
-							<h5>Sort by Month</h5>
+							<h5>Sort by Month, Year</h5>
 
 							<div style="padding: 10px 0;">
 								<input type="hidden" name="change-month-year-admin" />
