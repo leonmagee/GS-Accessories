@@ -150,7 +150,8 @@ jQuery(function ($) {
 
 
 
-
+    // Activate Datepicker
+    $('#datepicker_start, #datepicker_end').datepicker();
 
 
 

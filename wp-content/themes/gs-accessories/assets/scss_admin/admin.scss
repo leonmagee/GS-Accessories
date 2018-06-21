@@ -69,7 +69,6 @@
 	    		margin-bottom: 6px;
 	    	}
 	    }
-
 	}
 }
 
@@ -90,8 +89,27 @@
 			margin-top: 1%;
 
 		}
+		h5 {
+			font-size: 1.2em;
+			margin: 14px 0 3px;
+		}
 	}
+
+	.date-range-input {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px 0;
+	}
+
+
 }
+
+	#ui-datepicker-div {
+		// background-color: #FFF;
+		// border: 1px solid #DDD;
+		// padding: 10px;
+	}
 
 
 

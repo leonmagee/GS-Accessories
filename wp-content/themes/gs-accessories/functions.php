@@ -236,11 +236,13 @@ add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
 */
 function gs_accessories_admin_scritps() {
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery'), '1.1.9', true );
+	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
+
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.9', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', '', '1.1.5' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.5' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
@@ -661,19 +663,22 @@ function sales_admin_page(){
 		$monthName = DateTime::createFromFormat('m', $current_month)->format('F');
 		$display_date = $monthName . ' ' . $current_year;
 	}
-
-	// if ( isset($_GET['data_month'])) {
-	// 	$current_month = intval($_GET['data_month']);
-	// 	$current_year = intval($_GET['data_year']);
-	// 	$monthName = DateTime::createFromFormat('m', $current_month)->format('F');
-	// 	$display_date = $monthName . ' ' . $current_year;
-
-	// } 
-
 	else {
 		$current_month = intval(date( 'n' ));
 		$current_year = intval(date( 'Y' ));
 		$display_date = date('F Y');
+	}
+
+	$gsa_date_rage_query = false;
+
+	if ( isset($_POST['change-date-range-admin'])) {
+		$gsa_date_rage_query = true;
+		$datepicker_start = filter_input(INPUT_POST, 'datepicker-start', FILTER_SANITIZE_SPECIAL_CHARS);
+		
+		$datepicker_end = filter_input(INPUT_POST, 'datepicker-end', FILTER_SANITIZE_SPECIAL_CHARS);
+		var_dump($datepicker_start . ' ' . $datepicker_end);
+		//die('working');
+		$display_date = $datepicker_start . ' - ' . $datepicker_end;
 	}
 
 
@@ -687,7 +692,7 @@ function sales_admin_page(){
 			<div>
 				<h4 class="section-title">Report Date</h4>
 			</div>
-			
+
 			<div class="forms-wrap">
 				
 				<div class="month-choice form-item-group">
@@ -705,11 +710,11 @@ function sales_admin_page(){
 
 						<form class="change-date-form-inner" method="POST" action="#">
 
-								<h5>Choose Month</h5>
+							<h5>Sort by Month</h5>
 
-								<div style="padding: 10px 0;">
-									<input type="hidden" name="change-month-year-admin" />
-									<div>
+							<div style="padding: 10px 0;">
+								<input type="hidden" name="change-month-year-admin" />
+								<div>
 									<select name="month">
 										<?php foreach( $months as $key => $month ) {
 											$month_val = ( $key + 1); 
@@ -722,15 +727,15 @@ function sales_admin_page(){
 											<option <?php echo $selected; ?> value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
 										<?php } ?>
 									</select>
-									</div>
-									<div style="margin-top: 5px;">
+								</div>
+								<div style="margin-top: 5px;">
 									<select name="year">
 										<?php foreach( $years as $year ) { ?>
 											<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
 										<?php } ?>
 									</select>
-									</div>
 								</div>
+							</div>
 							
 							<div>
 								<button type="submit" class="button button-primary">Update</button>
@@ -740,31 +745,66 @@ function sales_admin_page(){
 				</div>
 
 				<div class="range-choice form-item-group">
-					<h5>Choose Date Range</h5>
-					Date Range selector
+					<h5>Sort by Date Range</h5>
+					<form method="POST">
+						<input type="hidden" name="change-date-range-admin" />
+						<div class="date-range-input">
+							<label>Starting Date:</label>
+							<input type="text" name="datepicker-start" id="datepicker_start" />
+						</div>
+						<div class="date-range-input">
+							<label>Ending Date:</label>
+							<input type="text" name="datepicker-end" id="datepicker_end" />
+						</div>
+
+						<div>
+							<button type="submit" class="button button-primary">Update</button>
+						</div>
+
+					</form>
 				</div>
 
 			</div>
 
 			<div class="completed-orders-wrap">
-				<?php 
+				
+				<?php if ( $gsa_date_rage_query ) {
 
-				$args = array(
-					'post_type' => 'orders', 
-					'posts_per_page' => -1,
-					'date_query' => array(
-						array(
-							'year'  => $current_year,
-							'month' => $current_month,
+					$args = array(
+						'post_type' => 'orders', 
+						'posts_per_page' => -1,
+						'date_query' => array(
+							array(
+								'before'  => $datepicker_end,
+								'after' => $datepicker_start,
+							),
 						),
-					),
-					'meta_query' => array(
-						array(
-							'key' => 'paid',
-							'value' => 'Paid in Full'
-						)
-					),
-				);
+						'meta_query' => array(
+							array(
+								'key' => 'paid',
+								'value' => 'Paid in Full'
+							)
+						),
+					);
+				} else {
+					$args = array(
+						'post_type' => 'orders', 
+						'posts_per_page' => -1,
+						'date_query' => array(
+							array(
+								'year'  => $current_year,
+								'month' => $current_month,
+							),
+						),
+						'meta_query' => array(
+							array(
+								'key' => 'paid',
+								'value' => 'Paid in Full'
+							)
+						),
+					);
+				}
+
 
 				$order_query = new WP_Query($args);
 
@@ -785,107 +825,107 @@ function sales_admin_page(){
 						.product-table-items:not(:nth-child(1)) td {
 							border-top: 1px solid #EEE;
 						}
-						</style>
+					</style>
 
-						<div class="order-details-wrap">
-							<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
+					<div class="order-details-wrap">
+						<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
+							<thead>
+								<tr class="alternate">
+									<th>Order ID</th>
+									<th>Retailer Name</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><?php echo $order_id; ?></td>
+									<td><?php echo $first . ' ' . $last; ?></td>
+									<td><?php echo $date; ?></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="products-ordred" style="margin-top: 10px;">
+
+							<table class="widefat fixed" cellspacing="0">
 								<thead>
 									<tr class="alternate">
-										<th>Order ID</th>
-										<th>Retailer Name</th>
-										<th>Date</th>
+										<th>Product</th>
+										<th>Color</th>
+										<th>Quantity</th>
+										<th>Total Cost</th>
+										<th>Payment</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><?php echo $order_id; ?></td>
-										<td><?php echo $first . ' ' . $last; ?></td>
-										<td><?php echo $date; ?></td>
-									</tr>
-								</tbody>
-							</table>
 
-							<div class="products-ordred" style="margin-top: 10px;">
+									<?php $entries = get_field('product_entries'); 
 
-								<table class="widefat fixed" cellspacing="0">
-									<thead>
-										<tr class="alternate">
-											<th>Product</th>
-											<th>Color</th>
-											<th>Quantity</th>
-											<th>Total Cost</th>
-											<th>Payment</th>
+									foreach( $entries as $entry ) {
+										$product_name = $entry['product_name'];
+										$product_id = $entry['product_id'];
+										$product_color = $entry['product_color'];
+										$product_quantity = $entry['product_quantity'];
+										$unit_cost = $entry['unit_cost'];
+										$cost_total = $entry['cost_total'];
+										$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
+										$category_array = get_the_category($product_id);
+										$cat_name = $category_array[0]->name;
+										$cat_id = $category_array[0]->term_id;
+										$payment = $cost_actual;
+										$total_payment = ( $total_payment + $payment ); ?>
+
+										<tr class="product-table-items">	
+											<td><?php echo $product_name; ?></td>
+											<td><?php echo $product_color; ?></td>
+											<td><?php echo $product_quantity; ?></td>
+											<td><?php echo $cost_total; ?></td>
+											<td>$<?php echo number_format( $payment, 2); ?></td>
 										</tr>
-									</thead>
-									<tbody>
 
-										<?php $entries = get_field('product_entries'); 
+									<?php } ?>
 
-										foreach( $entries as $entry ) {
-											$product_name = $entry['product_name'];
-											$product_id = $entry['product_id'];
-											$product_color = $entry['product_color'];
-											$product_quantity = $entry['product_quantity'];
-											$unit_cost = $entry['unit_cost'];
-											$cost_total = $entry['cost_total'];
-											$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
-											$category_array = get_the_category($product_id);
-											$cat_name = $category_array[0]->name;
-											$cat_id = $category_array[0]->term_id;
-											$payment = $cost_actual;
-											$total_payment = ( $total_payment + $payment ); ?>
+								</tbody>
 
-											<tr class="product-table-items">	
-												<td><?php echo $product_name; ?></td>
-												<td><?php echo $product_color; ?></td>
-												<td><?php echo $product_quantity; ?></td>
-												<td><?php echo $cost_total; ?></td>
-												<td>$<?php echo number_format( $payment, 2); ?></td>
-											</tr>
-
-										<?php } ?>
-
-									</tbody>
-
-								</table>
-
-							</div>
+							</table>
 
 						</div>
 
-					<?php } 
+					</div>
 
-				} else { ?>
-					<div class="no-orders-info">No orders for this period.</div>
-				<?php }
-				wp_reset_postdata();
-				?>
+				<?php } 
 
-				<div class="agent-total-payment">
-					<h3>Total Sales for <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
+			} else { ?>
+				<div class="no-orders-info">No orders for this period.</div>
+			<?php }
+			wp_reset_postdata();
+			?>
 
-				</div>
+			<div class="agent-total-payment">
+				<h3>Total Sales for <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
 
 			</div>
 
 		</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</div>
-	<?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<?php
 }
 
 
