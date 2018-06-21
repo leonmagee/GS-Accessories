@@ -111,5 +111,17 @@
 		// padding: 10px;
 	}
 
+	.gsa-agent-total-payment {
+		span {
+			color: darken(#1486B8, 3%);
+		}
+	}
+
+	.gsa-no-orders-info {
+		padding: 20px 0;
+		color: red;
+		font-size: 1.4em;
+	}
+
 
 

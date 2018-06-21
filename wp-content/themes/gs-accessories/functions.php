@@ -666,7 +666,7 @@ function sales_admin_page(){
 	else {
 		$current_month = intval(date( 'n' ));
 		$current_year = intval(date( 'Y' ));
-		$display_date = date('F Y');
+		$display_date = 'for ' . date('F Y');
 	}
 
 	$gsa_date_rage_query = false;
@@ -678,7 +678,13 @@ function sales_admin_page(){
 		$datepicker_end = filter_input(INPUT_POST, 'datepicker-end', FILTER_SANITIZE_SPECIAL_CHARS);
 		var_dump($datepicker_start . ' ' . $datepicker_end);
 		//die('working');
-		$display_date = $datepicker_start . ' - ' . $datepicker_end;
+		if ( $datepicker_start && $datepicker_end ) {
+			$display_date = 'for ' . $datepicker_start . ' - ' . $datepicker_end;
+		} elseif( $datepicker_start ) {
+			$display_date = 'for ' . $datepicker_start . ' - present';
+		} elseif( $datepicker_end ) {
+			$display_date = 'through ' . $datepicker_end;
+		}
 	}
 
 
@@ -767,7 +773,7 @@ function sales_admin_page(){
 			</div>
 
 			<div class="completed-orders-wrap">
-				
+
 				<?php if ( $gsa_date_rage_query ) {
 
 					$args = array(
@@ -896,13 +902,13 @@ function sales_admin_page(){
 				<?php } 
 
 			} else { ?>
-				<div class="no-orders-info">No orders for this period.</div>
+				<div class="gsa-no-orders-info">No orders for this period.</div>
 			<?php }
 			wp_reset_postdata();
 			?>
 
-			<div class="agent-total-payment">
-				<h3>Total Sales for <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
+			<div class="gsa-agent-total-payment">
+				<h3>Total Sales <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
 
 			</div>
 
