@@ -73,3 +73,25 @@
 	}
 }
 
+.gsa-sales-admin-page {
+
+	h4.section-title {
+		margin-bottom: 0;
+	}
+
+	.forms-wrap {
+		display: flex;
+		.form-item-group {
+			padding: 0 20px 15px;
+			background-color: #FFF;
+			border: 1px solid #DDD;
+			flex: 0 1 25%;
+			margin-right: 2%;
+			margin-top: 1%;
+
+		}
+	}
+}
+
+
+

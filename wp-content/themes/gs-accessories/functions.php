@@ -678,57 +678,72 @@ function sales_admin_page(){
 
 
 	?>
-	<div class="wrap">
+	<div class="wrap gsa-sales-admin-page">
+
 		<h2>Current Sales</h2>
 
 		<div class="sales-report-wrap">
 
-			<div class="month-info">
-				<div class="change-date-form">
-					<?php 
+			<div>
+				<h4 class="section-title">Report Date</h4>
+			</div>
+			
+			<div class="forms-wrap">
+				
+				<div class="month-choice form-item-group">
 
-					$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
+					<div class="change-date-form">
+						<?php 
 
-					$years = array();
-					$current_year = intval(date('Y'));
-					for ( $i = 2018; $i <= $current_year; $i++ ) {
-						$years[] = $i;
-					} ?>
+						$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
 
-					<form class="change-date-form-inner" method="POST" action="#">
-						<div>
-							<h4 style="margin-bottom: 0">Report Date</h4>
-						</div>
-						<div style="padding: 10px 0;">
-							<input type="hidden" name="change-month-year-admin" />
+						$years = array();
+						$current_year = intval(date('Y'));
+						for ( $i = 2018; $i <= $current_year; $i++ ) {
+							$years[] = $i;
+						} ?>
+
+						<form class="change-date-form-inner" method="POST" action="#">
+
+								<h5>Choose Month</h5>
+
+								<div style="padding: 10px 0;">
+									<input type="hidden" name="change-month-year-admin" />
+									<div>
+									<select name="month">
+										<?php foreach( $months as $key => $month ) {
+											$month_val = ( $key + 1); 
+											if ( $month_val === intval($current_month) ) {
+												$selected = 'selected="true"';
+											} else {
+												$selected = '';
+											}
+											?>
+											<option <?php echo $selected; ?> value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
+										<?php } ?>
+									</select>
+									</div>
+									<div style="margin-top: 5px;">
+									<select name="year">
+										<?php foreach( $years as $year ) { ?>
+											<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+										<?php } ?>
+									</select>
+									</div>
+								</div>
+							
 							<div>
-							<select name="month">
-								<?php foreach( $months as $key => $month ) {
-									$month_val = ( $key + 1); 
-									if ( $month_val === intval($current_month) ) {
-										$selected = 'selected="true"';
-									} else {
-										$selected = '';
-									}
-									?>
-									<option <?php echo $selected; ?> value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
-								<?php } ?>
-							</select>
+								<button type="submit" class="button button-primary">Update</button>
 							</div>
-							<div style="margin-top: 5px;">
-							<select name="year">
-								<?php foreach( $years as $year ) { ?>
-									<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-								<?php } ?>
-							</select>
-							</div>
-						</div>
-
-						<div>
-							<button type="submit" class="button button-primary">Update</button>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
+
+				<div class="range-choice form-item-group">
+					<h5>Choose Date Range</h5>
+					Date Range selector
+				</div>
+
 			</div>
 
 			<div class="completed-orders-wrap">
