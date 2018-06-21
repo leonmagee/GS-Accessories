@@ -692,10 +692,6 @@ function sales_admin_page(){
 
 		<div class="sales-report-wrap">
 
-			<div>
-				<h4 class="section-title">Report Date</h4>
-			</div>
-
 			<div class="forms-wrap">
 				
 				<div class="month-choice form-item-group">
