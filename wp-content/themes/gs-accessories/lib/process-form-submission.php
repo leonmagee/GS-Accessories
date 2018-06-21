@@ -454,6 +454,9 @@ if ( isset($_POST['coupon-apply-submit'])) {
 	exit;
 }
 
+/**
+* Agent Page change date
+*/
 if ( isset($_POST['change-month-year'])) {
 
 	$month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -461,7 +464,6 @@ if ( isset($_POST['change-month-year'])) {
 
 	wp_redirect('/agent-admin?data_month=' . $month . '&data_year=' . $year);
 	exit;
-
 }
 
 
