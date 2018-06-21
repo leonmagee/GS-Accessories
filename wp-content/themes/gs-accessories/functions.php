@@ -674,10 +674,7 @@ function sales_admin_page(){
 	if ( isset($_POST['change-date-range-admin'])) {
 		$gsa_date_rage_query = true;
 		$datepicker_start = filter_input(INPUT_POST, 'datepicker-start', FILTER_SANITIZE_SPECIAL_CHARS);
-		
 		$datepicker_end = filter_input(INPUT_POST, 'datepicker-end', FILTER_SANITIZE_SPECIAL_CHARS);
-		var_dump($datepicker_start . ' ' . $datepicker_end);
-		//die('working');
 		if ( $datepicker_start && $datepicker_end ) {
 			$display_date = 'for ' . $datepicker_start . ' - ' . $datepicker_end;
 		} elseif( $datepicker_start ) {
