@@ -59,6 +59,12 @@ body.gs-accessories {
     display: flex;
   }
 
+  &.page-template-page-submit-rma {
+      .main-content-wrap {
+        flex: none;
+      }
+  }
+
   .entry-content {
     padding: 0 15px;
     @media( min-width: $screen-md) {

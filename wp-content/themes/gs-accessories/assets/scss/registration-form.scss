@@ -11,12 +11,23 @@
 
     display: flex;
     flex-wrap: wrap;
+    &.return-details-wrap {
+      padding: 10px;
+      border: 1px solid #EEE;
+      margin: 5px 5px 15px;
+    }
   }
   .form-area-middle {
     //display: none;
   }
   .form-footer {
 
+  }
+
+  .return-items-header {
+    font-weight: bold;
+    margin: 10px 7px 0;
+    font-size: 1.3em;
   }
 
   .registration-input-wrap {
@@ -58,6 +69,19 @@
             min-height: 80px;
           }
     }
+
+    &.rma-quantity {
+      flex: 0 1 13%;
+    }
+    &.rma-name {
+      flex: 0 1 65%;
+    }
+    &.rma-price {
+      flex: 0 1 16%;
+    }
+
+
+
   }
 
   // .submit-input {
