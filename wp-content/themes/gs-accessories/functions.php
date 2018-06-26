@@ -214,7 +214,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.2.1', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.2.2', true );
 
 	wp_enqueue_script( 'custom-js');
 
@@ -225,7 +225,7 @@ function gs_accessories_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.2.3' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.2.4' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
@@ -313,13 +313,24 @@ function non_admin_users_redirect() {
 	* @todo this needs to effect Agents as well... 
 	* @todo test this for non -localhost site?
 	*/
-	if ( ! current_user_can( 'level_5' ) ) {
+	if ( ( ! current_user_can( 'level_5' ) ) && ( $_SERVER['PHP_SELF'] != '/wp-admin/admin-ajax.php' ) )  {
 	//if ( ! current_user_can( 'delete_others_pages' ) ) {
 
 		wp_redirect( site_url() );
 		//exit;
 	}
 }
+
+
+// add_action( 'admin_init', 'redirect_non_logged_users_to_specific_page' );
+
+// function redirect_non_logged_users_to_specific_page() {
+
+// if ( !is_user_logged_in() && is_page('add page slug or i.d here') && $_SERVER['PHP_SELF'] != '/wp-admin/admin-ajax.php' ) {
+
+// wp_redirect( 'http://www.example.dev/page/' ); 
+//     exit;
+// }
 
 /**
 * Redirect Agents

@@ -1,3 +1,4 @@
+// registration and RMA forms
 .registration-form-wrapper { // used on agent profile page too?
   // background-color: #FAFAFA;
   // border: 1px solid #EEE;
@@ -34,19 +35,6 @@
     width: 100%;
     flex: 0 1 48%;
     margin: 1%;
-    // @media(min-width: $screen-md) {
-    //   flex: 0 1 31%;
-    //   margin: 1%;
-    // }
-    // label {
-    //   font-weight: bold;
-    //   font-size: 8px;
-    //   color: blue;
-    //   @media(min-width: $screen-sm) {
-    //     font-size: 16px;
-    //     color: red;
-    //   }
-    // }
     input {
       border-radius: 0;
       box-shadow: none;
@@ -79,27 +67,19 @@
     &.rma-price {
       flex: 0 1 16%;
     }
+    &.rma-serial {
+      flex: 0 1 38%;
+    }
+    &.rma-po-number {
+      flex: 0 1 23%;
+    }
+    &.rma-date {
+      flex: 0 1 33%;
+    }
 
 
 
   }
-
-  // .submit-input {
-  //   // @include form_text;
-  //   // font-weight: 700;
-  //   padding: 7px 13px;
-  //   border-radius: 5px;
-  //   margin: 0 11px;
-  //   text-transform: uppercase;
-  //   border: none;
-  //   background-color: darken($brand-primary, 10%);
-  //   color: #FFF;
-  //   font-weight: bold;
-  //   font-size: 22px;
-  //   &:hover {
-  //     background-color: darken($brand-primary, 5%);
-  //   }
-  // }
 }
 
 .register-user-email-taken {

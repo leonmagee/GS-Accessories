@@ -440,10 +440,13 @@ if ( isset($_POST['place-cart-order'])) {
 	exit;
 }
 
+
+
 /**
 * Update Cart Item in Session
 */
 if ( isset($_POST['coupon-apply-submit'])) {
+
 
 	$coupon_name = filter_input(INPUT_POST, 'coupon', FILTER_SANITIZE_SPECIAL_CHARS);
 

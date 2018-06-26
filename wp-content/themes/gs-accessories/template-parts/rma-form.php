@@ -59,6 +59,9 @@ $regular_inputs = array(
                 </div>
 			
 			<?php } ?>
+
+			<input type="hidden" class="logged_in_user_id" value="<?php echo $user_id; ?>" />
+
         </div>
 
         
@@ -89,6 +92,11 @@ $regular_inputs = array(
 				<label>Serial Number</label>
 				<input name="item_serial_<?php echo $i; ?>" type="text" />
 			</div>
+			
+			<div class="registration-input-wrap rma-po-number">
+				<label>PO Number</label>
+				<input name="item_po_number_<?php echo $i; ?>" type="text" />
+			</div>
 
 			<div class="registration-input-wrap rma-date">
 				<label>Date Purchased</label>
@@ -102,6 +110,6 @@ $regular_inputs = array(
 
 		<?php } ?>
 
-        <button type="submit" class="gs-button" id="register-new-user-submit">Submit</button>
+        <button type="submit" class="gs-button" id="rma-form-submit">Submit</button>
     </form>
 </div>

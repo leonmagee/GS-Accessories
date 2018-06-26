@@ -150,6 +150,155 @@ function lv_register_user() {
 add_action( 'wp_ajax_lv_register_user', 'lv_register_user' ); //@todo remove this? (redirect if logged in?)
 add_action( 'wp_ajax_nopriv_lv_register_user', 'lv_register_user' );
 
+
+
+
+/**
+ *  Submit RMA Form
+ */
+function lv_process_rma() {
+
+	if ( isset( $_POST['lv_process_rma_click'] ) ) {
+
+		if ( isset( $_POST['email_address'] ) ) {
+			$first_name    = filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS );
+			$last_name     = filter_input( INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS );
+			$email_address = filter_input( INPUT_POST, 'email_address', FILTER_SANITIZE_SPECIAL_CHARS );
+			$company      = filter_input( INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS );
+			$phone_number = filter_input( INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS );
+
+			$address = filter_input( INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS );
+			$city = filter_input( INPUT_POST, 'city', FILTER_SANITIZE_SPECIAL_CHARS );
+			$state = filter_input( INPUT_POST, 'state', FILTER_SANITIZE_SPECIAL_CHARS );
+			$zip = filter_input( INPUT_POST, 'zip', FILTER_SANITIZE_SPECIAL_CHARS );
+			
+			$user = filter_input( INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS );
+
+			// @todo get other inputs
+
+			if (!filter_var($email_address, FILTER_VALIDATE_EMAIL)) {
+				wp_die( 'invalid_email_address' );
+			} else {
+
+				$data_string = $first_name . ' ' . $last_name . ' ' . $email_address . ' ' . $company . ' ' . $phone_number . ' ' . $address . ' ' . $city . ' ' . $state . ' ' . $zip . ' ' . $user;
+					//wp_die('working so farz: ' . $data_string);
+
+
+
+	/**
+	* Create Post to record order
+	*/
+	$rma_title = $first_name . ' ' . $last_name . ' - RMA - ' . date("F j, Y, g:i a");
+
+	$args = array(
+		'post_title' => $rma_title,
+		'post_type' => 'rmas',
+		'post_status' => 'publish'
+	);
+
+	$new_rma_id = wp_insert_post($args);
+
+	update_field( 'user_id', $user, $new_rma_id);
+	update_field( 'reason', $email_address, $new_rma_id);
+
+	// update_field('comments', $comments, $new_order_id);
+	// update_field('order_type', $payment_type, $new_order_id);
+	// update_field('total_charge', $total_cost_final, $new_order_id);
+	// update_field('customer_email', $user_email, $new_order_id);
+	// update_field('user_email_text', $body_customer, $new_order_id);
+	// update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
+	// update_field('admin_email_text', $body_admin, $new_order_id);
+	// update_field('user_id', $user_id, $new_order_id);
+
+	// $acf_user_id = 'user_' . $user_id;
+	// $referring_agent_id = get_field('referring_agent', $acf_user_id);
+	// if ( ! ( $agent_id = $referring_agent_id['ID'] ) ) {
+	// 	$agent_id = 0;
+	// }
+	// update_field('agent_id', $agent_id, $new_order_id);
+
+	// foreach( $shopping_cart_array as $id => $data ) {
+
+	// 	$product_id_exp = explode('-', $id);
+	// 	$product_id_actual = $product_id_exp[0];
+
+	// 	$product = strtoupper(str_replace('-', ' ' , $data['product']));
+	// 	$quantity = $data['quantity'];
+	// 	$color = $data['color'];
+
+	// 	if ( current_user_can('delete_published_posts')) {
+	// 		$acf_price = get_field('wholesale_price', $product_id_actual);
+	// 	} elseif (current_user_can('edit_posts')) {
+	// 		$acf_price = get_field('retail_price', $product_id_actual);
+	// 	} else {
+	// 		$acf_price = get_field('market_price', $product_id_actual);
+	// 	}
+
+	// 	if ( $acf_price ) {
+	// 		$price = $acf_price * $data['quantity'];
+	// 		$acf_price_per = '$' . number_format($acf_price, 2);
+	// 		$price_value = '$' . number_format($price, 2);
+	// 		//$total_cost = $price + $total_cost;
+	// 	} else {
+ //          //$acf_price = false;
+	// 		$acf_price_per = '';
+	// 		$price_value = '';
+	// 	}
+
+	// 	$row = array(
+	// 		'product_name'	=> $product,
+	// 		'product_quantity'	=> $quantity,
+	// 		'product_color'	=> $color,
+	// 		'product_id' => $product_id_actual,
+	// 		//'cat_id' => '11111',
+	// 		'unit_cost' => $acf_price_per,
+	// 		'cost_total' => $price_value
+	// 	);
+
+	// 	add_row('product_entries', $row, $new_order_id);
+	// }
+
+
+
+
+					// create RMA
+					// process 
+
+				// require_once( 'lv-register-user.php' );
+				// $new_user = new lv_register_user(
+				// 	$username,
+				// 	$first_name,
+				// 	$last_name,
+				// 	$email_address,
+				// 	$password,
+				// 	$phone_number,
+				// 	$company,
+				// 	$tin_ein_or_ssn,
+				// 	$address,
+				// 	$city,
+				// 	$state,
+				// 	$zip );
+				// $new_user->process_registration_form();
+				// //wp_die( 'response' );
+
+
+			}
+
+		}
+
+
+	} 
+}
+
+/**
+ *  Ajax Action Hooks - references name of JS function
+ */
+add_action( 'wp_ajax_lv_process_rma', 'lv_process_rma' ); //@todo remove this? (redirect if logged in?)
+add_action( 'wp_ajax_nopriv_lv_process_rma', 'lv_process_rma' );
+
+
+
+
 /**
  *  Favorite Listing
  */

@@ -210,6 +210,96 @@ jQuery(function ($) {
         }
     });
 
+    /**
+    * Process ajax submit RMA form
+    */
+    $("#rma-form-submit").click(function (event) {
+
+        event.preventDefault();
+
+        $('.mp-update-success').hide();
+        $('.mp-required-fields').hide();
+        $('.uploads-spinner').css({'display': 'flex'});
+
+        var email_address = $(".registration-input-wrap input.email_address").val();
+        var first_name = $(".registration-input-wrap input.first_name").val();
+        var last_name = $(".registration-input-wrap input.last_name").val();
+        var phone_number = $(".registration-input-wrap input.phone_number").val();
+        if ( $(".registration-input-wrap input.company_name").val() ) {
+            var company = $(".registration-input-wrap input.company_name").val();
+        } else {
+            var company = '';
+        }
+        var address = $(".registration-input-wrap input.address").val();
+        var city = $(".registration-input-wrap input.city").val();
+        var state = $(".registration-input-wrap input.state").val();
+        var zip = $(".registration-input-wrap input.zip").val();
+        var logged_in_user = $('.logged_in_user_id').val(); // test this works with different users...
+        
+        // get product details
+        item_name_1
+        var item_quantity_1 = $('input[name="item_quantity_1"]').val();
+        var item_name_1 = $('input[name="item_name_1"]').val();
+        //console.log(item_quantity_1);
+        //console.log(item_name_1);
+
+
+
+
+        console.log('user id: ' + logged_in_user);
+        // required inputs
+        var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
+        
+        if (conditional_inputs) {
+
+            var formdata = new FormData();
+
+            formdata.append("lv_process_rma_click", 'click');
+
+            formdata.append("email_address", email_address);
+            formdata.append("first_name", first_name);
+            formdata.append("last_name", last_name);
+            formdata.append("phone_number", phone_number);
+            formdata.append("company", company);
+            formdata.append("address", address);
+            formdata.append("city", city);
+            formdata.append("state", state);
+            formdata.append("zip", zip);
+            formdata.append("user", logged_in_user);
+
+            formdata.append("action", "lv_process_rma");
+
+            $.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function (data, textStatus, XMLHttpRequest) {
+                //success: function (response) {
+                    //console.log( 'made it to success????');
+                    console.log(data);
+                    $('.register-user-email-taken').hide();
+                    $('.uploads-spinner').hide();
+                    if (data === 'email_already_taken') {
+                        $('.register-user-email-taken').show();
+                    } else if (data === 'invalid_email_address')  {
+                        $('.register-user-email-invalid').show();
+                    } else {
+                        $('.mp-update-success').show();
+                    }
+                    
+                },
+                error: function (MLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        } else {
+            $('.uploads-spinner').hide();
+            $('.mp-required-fields').show();
+        }
+    });
+
 
     /**
     * Close video modal and stop video
