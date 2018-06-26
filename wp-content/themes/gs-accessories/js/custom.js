@@ -243,7 +243,7 @@ jQuery(function ($) {
         var item_serial_1 = $('input[name="item_serial_1"]').val();
         var item_po_number_1 = $('input[name="item_po_number_1"]').val();
         var item_date_1 = $('input[name="item_date_1"]').val();
-        var item_description_1 = $('input[name="item_description_1"]').val();
+        var item_description_1 = $('textarea[name="item_description_1"]').val();
 
         //console.log('user id: ' + logged_in_user);
         // required inputs
