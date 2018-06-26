@@ -49,7 +49,7 @@ $regular_inputs = array(
 				$input_name  = strtolower( str_replace( ' ', '_', $input_title ) );
 				$value = $input[3];
 				?>
-                <div class="registration-input-wrap <?php echo $input[2]; ?>">
+                <div class="registration-input-wrap <?php echo $input[2]; ?> <?php echo strtolower($input[0]); ?>">
                     <label class="<?php echo $input_name; ?>"><?php echo $input_title; ?><?php echo $req; ?></label>
                     <?php if ( $input[2] == 'textarea' ) { ?>
 						<textarea name="<?php echo $input_name; ?>"  class="<?php echo $input_name; ?>"></textarea>

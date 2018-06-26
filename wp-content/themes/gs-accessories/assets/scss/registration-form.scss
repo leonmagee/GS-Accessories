@@ -58,7 +58,12 @@
             min-height: 80px;
           }
     }
-
+    &.state {
+      flex: 0 1 18%;
+    }
+    &.zip {
+      flex: 0 1 28%;
+    }
     &.rma-quantity {
       flex: 0 1 13%;
     }
