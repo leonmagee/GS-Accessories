@@ -164,7 +164,7 @@ function lv_process_rma() {
 			$first_name    = filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS );
 			$last_name     = filter_input( INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS );
 			$email_address = filter_input( INPUT_POST, 'email_address', FILTER_SANITIZE_SPECIAL_CHARS );
-			$company      = filter_input( INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS );
+			$company_name      = filter_input( INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS );
 			$phone_number = filter_input( INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS );
 
 			$address = filter_input( INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS );
@@ -172,7 +172,19 @@ function lv_process_rma() {
 			$state = filter_input( INPUT_POST, 'state', FILTER_SANITIZE_SPECIAL_CHARS );
 			$zip = filter_input( INPUT_POST, 'zip', FILTER_SANITIZE_SPECIAL_CHARS );
 			
-			$user = filter_input( INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS );
+			$user_id = filter_input( INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS );
+
+
+			$item_quantity_1 = filter_input( INPUT_POST, 'item_quantity_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			$item_name_1 = filter_input( INPUT_POST, 'item_name_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			$item_price_1 = filter_input( INPUT_POST, 'item_price_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			$item_serial_1 = filter_input( INPUT_POST, 'item_serial_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			$item_po_number_1 = filter_input( INPUT_POST, 'item_po_number_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			$item_date_1 = filter_input( INPUT_POST, 'item_date_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			$item_description_1 = filter_input( INPUT_POST, 'item_description_1', FILTER_SANITIZE_SPECIAL_CHARS );
+
+
+
 
 			// @todo get other inputs
 
@@ -180,7 +192,7 @@ function lv_process_rma() {
 				wp_die( 'invalid_email_address' );
 			} else {
 
-				$data_string = $first_name . ' ' . $last_name . ' ' . $email_address . ' ' . $company . ' ' . $phone_number . ' ' . $address . ' ' . $city . ' ' . $state . ' ' . $zip . ' ' . $user;
+				//$data_string = $first_name . ' ' . $last_name . ' ' . $email_address . ' ' . $company . ' ' . $phone_number . ' ' . $address . ' ' . $city . ' ' . $state . ' ' . $zip . ' ' . $user_id;
 					//wp_die('working so farz: ' . $data_string);
 
 
@@ -198,24 +210,35 @@ function lv_process_rma() {
 
 	$new_rma_id = wp_insert_post($args);
 
-	update_field( 'user_id', $user, $new_rma_id);
-	update_field( 'reason', $email_address, $new_rma_id);
+	update_field( 'user_id', $user_id, $new_rma_id);
+	update_field( 'first_name', $first_name, $new_rma_id);
+	update_field( 'last_name', $last_name, $new_rma_id);
+	update_field( 'email_address', $email_address, $new_rma_id);
+	update_field( 'company_name', $company_name, $new_rma_id);
+	update_field( 'phone_number', $phone_number, $new_rma_id);
+	update_field( 'address', $address, $new_rma_id);
+	update_field( 'city', $city, $new_rma_id);
+	update_field( 'state', $state, $new_rma_id);
+	update_field( 'zip', $zip, $new_rma_id);
 
-	// update_field('comments', $comments, $new_order_id);
-	// update_field('order_type', $payment_type, $new_order_id);
-	// update_field('total_charge', $total_cost_final, $new_order_id);
-	// update_field('customer_email', $user_email, $new_order_id);
-	// update_field('user_email_text', $body_customer, $new_order_id);
-	// update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
-	// update_field('admin_email_text', $body_admin, $new_order_id);
-	// update_field('user_id', $user_id, $new_order_id);
+	$item_1_data = array(
+		'quantity' => $item_quantity_1,
+		'item_name' => $item_name_1,
+		'unit_price' => $item_price_1,
+		'serial_number' => $item_serial_1,
+		'po_number' => $item_po_number_1,
+		'date_purchased' => $item_date_1,
+		'return_problem_description' => $item_description_1
+	);
 
-	// $acf_user_id = 'user_' . $user_id;
-	// $referring_agent_id = get_field('referring_agent', $acf_user_id);
-	// if ( ! ( $agent_id = $referring_agent_id['ID'] ) ) {
-	// 	$agent_id = 0;
-	// }
-	// update_field('agent_id', $agent_id, $new_order_id);
+	update_field( 'return_item_1', $item_1_data, $new_rma_id);
+
+	// return_item_1
+	// return_item_2
+	// return_item_3
+	// return_item_4
+	// return_item_5
+
 
 	// foreach( $shopping_cart_array as $id => $data ) {
 

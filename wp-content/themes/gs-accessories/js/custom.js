@@ -237,16 +237,15 @@ jQuery(function ($) {
         var logged_in_user = $('.logged_in_user_id').val(); // test this works with different users...
         
         // get product details
-        item_name_1
         var item_quantity_1 = $('input[name="item_quantity_1"]').val();
         var item_name_1 = $('input[name="item_name_1"]').val();
-        //console.log(item_quantity_1);
-        //console.log(item_name_1);
+        var item_price_1 = $('input[name="item_price_1"]').val();
+        var item_serial_1 = $('input[name="item_serial_1"]').val();
+        var item_po_number_1 = $('input[name="item_po_number_1"]').val();
+        var item_date_1 = $('input[name="item_date_1"]').val();
+        var item_description_1 = $('input[name="item_description_1"]').val();
 
-
-
-
-        console.log('user id: ' + logged_in_user);
+        //console.log('user id: ' + logged_in_user);
         // required inputs
         var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
         
@@ -266,6 +265,14 @@ jQuery(function ($) {
             formdata.append("state", state);
             formdata.append("zip", zip);
             formdata.append("user", logged_in_user);
+            
+            formdata.append("item_quantity_1", item_quantity_1);
+            formdata.append("item_name_1", item_name_1);
+            formdata.append("item_price_1", item_price_1);
+            formdata.append("item_serial_1", item_serial_1);
+            formdata.append("item_po_number_1", item_po_number_1);
+            formdata.append("item_date_1", item_date_1);
+            formdata.append("item_description_1", item_description_1);
 
             formdata.append("action", "lv_process_rma");
 
@@ -281,6 +288,7 @@ jQuery(function ($) {
                     console.log(data);
                     $('.register-user-email-taken').hide();
                     $('.uploads-spinner').hide();
+                    $('body').scrollTop(0);
                     if (data === 'email_already_taken') {
                         $('.register-user-email-taken').show();
                     } else if (data === 'invalid_email_address')  {

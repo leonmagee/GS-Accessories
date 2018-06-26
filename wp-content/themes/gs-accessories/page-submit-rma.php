@@ -6,7 +6,7 @@
 restricted_page();
 
 get_template_part( 'template-parts/spinner' );
-$user_email_text = get_field( 'new_account_email_text', 'option' );
+$user_email_text = get_field( 'rma_submission_text', 'option' );
 get_header(); ?>
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
