@@ -12,9 +12,9 @@ function lv_ajaxurl() {
 	//if ( is_page( 'your-profile' ) || is_page( 'register-account' ) ) {
 	?>
 
-    <script type="text/javascript">
-        var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
-    </script>
+	<script type="text/javascript">
+		var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
+	</script>
 
 	<?php
 	//}
@@ -193,137 +193,74 @@ function lv_process_rma() {
 				$item_description[$i] = filter_input( INPUT_POST, 'item_description_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 			}
 
-			// @todo get other inputs
-
 			if (!filter_var($email_address, FILTER_VALIDATE_EMAIL)) {
+
 				wp_die( 'invalid_email_address' );
+
 			} else {
 
-				//$data_string = $first_name . ' ' . $last_name . ' ' . $email_address . ' ' . $company . ' ' . $phone_number . ' ' . $address . ' ' . $city . ' ' . $state . ' ' . $zip . ' ' . $user_id;
-					//wp_die('working so farz: ' . $data_string);
+				//Create Post to record order
+				
+				$rma_title = $first_name . ' ' . $last_name . ' - RMA - ' . date("F j, Y, g:i a");
 
+				$args = array(
+					'post_title' => $rma_title,
+					'post_type' => 'rmas',
+					'post_status' => 'publish'
+				);
 
+				$new_rma_id = wp_insert_post($args);
 
-	/**
-	* Create Post to record order
-	*/
-	$rma_title = $first_name . ' ' . $last_name . ' - RMA - ' . date("F j, Y, g:i a");
+				$rma_number = 'GSA-RMA-' . $new_rma_id;
 
-	$args = array(
-		'post_title' => $rma_title,
-		'post_type' => 'rmas',
-		'post_status' => 'publish'
-	);
+				update_field( 'rma_number', $rma_number, $new_rma_id);
+				update_field( 'user_id', $user_id, $new_rma_id);
+				update_field( 'first_name', $first_name, $new_rma_id);
+				update_field( 'last_name', $last_name, $new_rma_id);
+				update_field( 'email_address', $email_address, $new_rma_id);
+				update_field( 'company_name', $company_name, $new_rma_id);
+				update_field( 'phone_number', $phone_number, $new_rma_id);
+				update_field( 'address', $address, $new_rma_id);
+				update_field( 'city', $city, $new_rma_id);
+				update_field( 'state', $state, $new_rma_id);
+				update_field( 'zip', $zip, $new_rma_id);
 
-	$new_rma_id = wp_insert_post($args);
+				for ( $i = 0; $i < 5; $i++ ) {
 
-	$rma_number = 'GSA-RMA-' . $new_rma_id;
+					$item_data = array(
+						'quantity' => $item_quantity[$i],
+						'item_name' => $item_name[$i],
+						'unit_price' => $item_price[$i],
+						'serial_number' => $item_serial[$i],
+						'po_number' => $item_po_number[$i],
+						'date_purchased' => $item_date[$i],
+						'return_problem_description' => $item_description[$i]
+					);
 
+					update_field( 'return_item_' . ($i + 1), $item_data, $new_rma_id);
+				}
 
-	update_field( 'rma_number', $rma_number, $new_rma_id);
-	update_field( 'user_id', $user_id, $new_rma_id);
-	update_field( 'first_name', $first_name, $new_rma_id);
-	update_field( 'last_name', $last_name, $new_rma_id);
-	update_field( 'email_address', $email_address, $new_rma_id);
-	update_field( 'company_name', $company_name, $new_rma_id);
-	update_field( 'phone_number', $phone_number, $new_rma_id);
-	update_field( 'address', $address, $new_rma_id);
-	update_field( 'city', $city, $new_rma_id);
-	update_field( 'state', $state, $new_rma_id);
-	update_field( 'zip', $zip, $new_rma_id);
+				// send admin email
+				$admin_email = get_option('admin_email');
 
-	for ( $i = 0; $i < 5; $i++ ) {
+				$email_body = 'rma product details...';
 
-		$item_data = array(
-			'quantity' => $item_quantity[$i],
-			'item_name' => $item_name[$i],
-			'unit_price' => $item_price[$i],
-			'serial_number' => $item_serial[$i],
-			'po_number' => $item_po_number[$i],
-			'date_purchased' => $item_date[$i],
-			'return_problem_description' => $item_description[$i]
-		);
+				// send email to admin
+				$admin_intro = '<div><span style="color: #32b79d">RMA Number: </span> <strong>' . $rma_number . '</strong><br /><span style="color: #32b79d">RMA submitted by</span> <strong>' . $first_name . ' ' . $last_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $email_address . '</strong><br />';
+				$to = array($admin_email, 'leonmagee33@gmail.com');
 
-		update_field( 'return_item_' . ($i + 1), $item_data, $new_rma_id);
-	}
+				$email_wrap = GSA_EMAIL_WRAP;
+				$email_wrap_close = '</div>';
 
-	// return_item_1
-	// return_item_2
-	// return_item_3
-	// return_item_4
-	// return_item_5
+				$subject = 'GS Accessories RMA';
+				$body_admin = $admin_intro . $email_body;
+				$body_final_admin = $email_wrap . $body_admin . $email_wrap_close;
+				$headers = array('Content-Type: text/html; charset=UTF-8');
 
-
-	// foreach( $shopping_cart_array as $id => $data ) {
-
-	// 	$product_id_exp = explode('-', $id);
-	// 	$product_id_actual = $product_id_exp[0];
-
-	// 	$product = strtoupper(str_replace('-', ' ' , $data['product']));
-	// 	$quantity = $data['quantity'];
-	// 	$color = $data['color'];
-
-	// 	if ( current_user_can('delete_published_posts')) {
-	// 		$acf_price = get_field('wholesale_price', $product_id_actual);
-	// 	} elseif (current_user_can('edit_posts')) {
-	// 		$acf_price = get_field('retail_price', $product_id_actual);
-	// 	} else {
-	// 		$acf_price = get_field('market_price', $product_id_actual);
-	// 	}
-
-	// 	if ( $acf_price ) {
-	// 		$price = $acf_price * $data['quantity'];
-	// 		$acf_price_per = '$' . number_format($acf_price, 2);
-	// 		$price_value = '$' . number_format($price, 2);
-	// 		//$total_cost = $price + $total_cost;
-	// 	} else {
- //          //$acf_price = false;
-	// 		$acf_price_per = '';
-	// 		$price_value = '';
-	// 	}
-
-	// 	$row = array(
-	// 		'product_name'	=> $product,
-	// 		'product_quantity'	=> $quantity,
-	// 		'product_color'	=> $color,
-	// 		'product_id' => $product_id_actual,
-	// 		//'cat_id' => '11111',
-	// 		'unit_cost' => $acf_price_per,
-	// 		'cost_total' => $price_value
-	// 	);
-
-	// 	add_row('product_entries', $row, $new_order_id);
-	// }
-
-
-
-
-					// create RMA
-					// process 
-
-				// require_once( 'lv-register-user.php' );
-				// $new_user = new lv_register_user(
-				// 	$username,
-				// 	$first_name,
-				// 	$last_name,
-				// 	$email_address,
-				// 	$password,
-				// 	$phone_number,
-				// 	$company,
-				// 	$tin_ein_or_ssn,
-				// 	$address,
-				// 	$city,
-				// 	$state,
-				// 	$zip );
-				// $new_user->process_registration_form();
-				// //wp_die( 'response' );
-
+				wp_mail( $to, $subject, $body_final_admin, $headers );
 
 			}
-
 		}
-
-
 	} 
 }
 
@@ -336,120 +273,4 @@ add_action( 'wp_ajax_nopriv_lv_process_rma', 'lv_process_rma' );
 
 
 
-/**
- *  Favorite Listing
- */
-function mp_save_favorite_listing() {
-
-	if ( isset( $_POST['listing_id'] ) ) {
-
-		$listing_id      = $_POST['listing_id'];
-		$listing_address = $_POST['listing_address'];
-		$listing_url     = $_POST['listing_url'];
-		$user_id         = $_POST['user_id'];
-
-		global $wpdb;
-		$prefix     = $wpdb->prefix;
-		$table_name = $prefix . 'mp_favorite_listings';
-
-		$favorite_query         = "SELECT * FROM `{$table_name}` WHERE `user_id` = '{$user_id}' AND `listing_id` = '{$listing_id}'";
-		$query_favorite_listing = $wpdb->get_results( $favorite_query );
-
-		if ( $query_favorite_listing ) {
-			$entry_id              = $query_favorite_listing[0]->id;
-			$favorite_query_delete = "DELETE FROM `{$table_name}` WHERE `id` = '{$entry_id}'";
-			$wpdb->get_results( $favorite_query_delete );
-		} else {
-
-			$wpdb->insert( $table_name, array(
-				'time'          => current_time( 'mysql' ),
-				'user_id'       => $user_id,
-				'listing_id'    => $listing_id,
-				'listing_title' => $listing_address,
-				'listing_url'   => $listing_url
-			) );
-		}
-	}
-}
-
-//add_action( 'wp_ajax_mp_favorite_listing', 'mp_save_favorite_listing' );
-
-
-/**
- *  Save Search
- */
-function mp_save_search() {
-	if ( isset( $_POST['search_request'] ) ) {
-
-		$user_id    = $_POST['user_id'];
-		$search_url = $_POST['search_request'];
-
-		global $wpdb;
-		$prefix     = $wpdb->prefix;
-		$table_name = $prefix . 'mp_saved_searches';
-
-		$saved_search_query = "SELECT * FROM `{$table_name}` WHERE `user_id` = '{$user_id}' AND `search_url` = '{$search_url}'";
-		$query_saved_search = $wpdb->get_results( $saved_search_query );
-
-		if ( $query_saved_search ) {
-			$entry_id           = $query_saved_search[0]->id;
-			$save_search_delete = "DELETE FROM `{$table_name}` WHERE `id` = '{$entry_id}'";
-			$wpdb->get_results( $save_search_delete );
-		} else {
-
-			$wpdb->insert( $table_name, array(
-				'time'       => current_time( 'mysql' ),
-				'user_id'    => $user_id,
-				'search_url' => $search_url
-			) );
-		}
-	}
-}
-
-//add_action( 'wp_ajax_mp_save_search', 'mp_save_search' );
-
-
-/**
- *  Send Listing Agent Email - @todo get code from CCG?
- */
-function mp_send_listing_agent_email() {
-
-
-	if ( isset( $_POST['mp_email_listing_agent_click'] ) ) {
-
-		$user_name    = $_POST['user_name'];
-		$user_phone   = $_POST['user_phone'];
-		$user_email   = $_POST['user_email'];
-		$user_comment = $_POST['user_comment'];
-		$agent_email  = $_POST['agent_email'];
-
-		$send_emails = new mp_send_email( $user_email, $user_name, $user_phone, $user_comment, $agent_email );
-		$send_emails->send_email();
-		//wp_die('email sent! ' . $agent_email);
-	}
-}
-
-// should work whether or not logged in
-//add_action( 'wp_ajax_mp_send_listing_agent_email', 'mp_send_listing_agent_email' );
-//add_action( 'wp_ajax_nopriv_mp_send_listing_agent_email', 'mp_send_listing_agent_email' );
-
-
-/**
- *  User Delete Listing
- */
-function mp_user_delete_listing() {
-
-	if ( isset( $_POST['listing_id'] ) ) {
-
-		$listing_id = $_POST['listing_id'];
-
-		if ( wp_delete_post( $listing_id ) ) {
-			wp_die( true );
-		} else {
-			wp_die( false );
-		}
-	}
-}
-
-//add_action( 'wp_ajax_mp_user_delete_listing', 'mp_user_delete_listing' );
 
