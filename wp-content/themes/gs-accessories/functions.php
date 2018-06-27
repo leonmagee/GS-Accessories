@@ -238,7 +238,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.11', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.12', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
@@ -452,12 +452,7 @@ add_action('pre_user_query','isa_pre_user_query');
 
 /**
 * Orders Meta Box 
-* @todo move to different file
-* @todo I need to separate out this so we have one form area to re-send the user email
-* and another to send the shipping / notification email - I should also validate to make sure there 
-* are at least the tracking number or the shipping service to let the email be submitted?
 */
-
 function custom_meta_box_markup() { 
 
 	global $post;
@@ -536,6 +531,63 @@ function order_email_meta_box() {
 }
 
 add_action("add_meta_boxes", "order_email_meta_box");
+
+
+
+/**
+* RMA Meta Box 
+*/
+function custom_meta_box_markup_rma() { 
+
+	global $post;
+	$post_id = $post->ID;
+	$user_email = get_field('email_address', $post_id); 
+	$admin_email = get_option('admin_email');
+	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; ?>
+
+	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
+
+	<div class="gsa-email-control-wrap">
+		<div class="form-group border">
+			<div class="item">
+				<label>Customer Email</label>
+			</div>
+			<div class="item">
+				<input name="gsa-email-address-user" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
+			</div>
+			<div class="item buttons-flex">
+				<a id="send-email-user" class="flex-item button button-primary">Approve RMA</a>
+				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
+				<div class="flex-item callout success">Email Sent!</div>
+				<div class="flex-item callout alert">Email Not Sent!</div>
+			</div>
+		</div>
+
+
+
+
+
+	</div>
+<?php }
+
+function rma_meta_box() {
+
+	add_meta_box(
+		"gsa-email-meta-box", 
+		"RMA Settings", 
+		"custom_meta_box_markup_rma", 
+		"rmas", 
+		"normal", 
+		"low", 
+		null
+	);
+}
+
+add_action("add_meta_boxes", "rma_meta_box");
+
+
+
+
 
 
 /**
@@ -815,7 +867,6 @@ function sales_admin_page(){
 					);
 				}
 
-
 				$order_query = new WP_Query($args);
 
 				$total_payment = 0;
@@ -919,20 +970,6 @@ function sales_admin_page(){
 		</div>
 
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 <?php
