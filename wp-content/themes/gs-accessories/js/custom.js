@@ -237,15 +237,28 @@ jQuery(function ($) {
         var logged_in_user = $('.logged_in_user_id').val(); // test this works with different users...
         
         // get product details
-        var item_quantity_1 = $('input[name="item_quantity_1"]').val();
-        var item_name_1 = $('input[name="item_name_1"]').val();
-        var item_price_1 = $('input[name="item_price_1"]').val();
-        var item_serial_1 = $('input[name="item_serial_1"]').val();
-        var item_po_number_1 = $('input[name="item_po_number_1"]').val();
-        var item_date_1 = $('input[name="item_date_1"]').val();
-        var item_description_1 = $('textarea[name="item_description_1"]').val();
 
-        //console.log('user id: ' + logged_in_user);
+        var item_quantity = [];
+        var item_name = [];
+        var item_price = [];
+        var item_serial = [];
+        var item_po_number = [];
+        var item_date = [];
+        var item_description = [];
+
+        var i;
+
+        for ( i = 0; i < 5; i++) {
+            var current = ( i + 1 );
+            item_quantity[i] = $('input[name="item_quantity_' + current + '"]').val();
+            item_name[i] = $('input[name="item_name_' + current + '"]').val();
+            item_price[i] = $('input[name="item_price_' + current + '"]').val();
+            item_serial[i] = $('input[name="item_serial_' + current + '"]').val();
+            item_po_number[i] = $('input[name="item_po_number_' + current + '"]').val();
+            item_date[i] = $('input[name="item_date_' + current + '"]').val();
+            item_description[i] = $('textarea[name="item_description_' + current + '"]').val();
+        }
+
         // required inputs
         var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
         
@@ -265,14 +278,20 @@ jQuery(function ($) {
             formdata.append("state", state);
             formdata.append("zip", zip);
             formdata.append("user", logged_in_user);
-            
-            formdata.append("item_quantity_1", item_quantity_1);
-            formdata.append("item_name_1", item_name_1);
-            formdata.append("item_price_1", item_price_1);
-            formdata.append("item_serial_1", item_serial_1);
-            formdata.append("item_po_number_1", item_po_number_1);
-            formdata.append("item_date_1", item_date_1);
-            formdata.append("item_description_1", item_description_1);
+
+            var i;
+
+            for ( i = 0; i < 5; i++) {
+
+                var current = ( i + 1 );
+                formdata.append("item_quantity_" + current, item_quantity[i]);
+                formdata.append("item_name_" + current, item_name[i]);
+                formdata.append("item_price_" + current, item_price[i]);
+                formdata.append("item_serial_" + current, item_serial[i]);
+                formdata.append("item_po_number_" + current, item_po_number[i]);
+                formdata.append("item_date_" + current, item_date[i]);
+                formdata.append("item_description_" + current, item_description[i]);
+            }
 
             formdata.append("action", "lv_process_rma");
 

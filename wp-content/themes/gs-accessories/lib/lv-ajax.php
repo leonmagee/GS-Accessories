@@ -174,17 +174,24 @@ function lv_process_rma() {
 			
 			$user_id = filter_input( INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS );
 
+			$item_quantity = array();
+			$item_name = array();
+			$item_price = array();
+			$item_serial = array();
+			$item_po_number = array();
+			$item_date = array();
+			$item_description = array();
 
-			$item_quantity_1 = filter_input( INPUT_POST, 'item_quantity_1', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_name_1 = filter_input( INPUT_POST, 'item_name_1', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_price_1 = filter_input( INPUT_POST, 'item_price_1', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_serial_1 = filter_input( INPUT_POST, 'item_serial_1', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_po_number_1 = filter_input( INPUT_POST, 'item_po_number_1', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_date_1 = filter_input( INPUT_POST, 'item_date_1', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_description_1 = filter_input( INPUT_POST, 'item_description_1', FILTER_SANITIZE_SPECIAL_CHARS );
+			for ( $i = 0; $i < 5; $i++ ) {
 
-
-
+				$item_quantity[$i] = filter_input( INPUT_POST, 'item_quantity_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_name[$i] = filter_input( INPUT_POST, 'item_name_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_price[$i] = filter_input( INPUT_POST, 'item_price_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_serial[$i] = filter_input( INPUT_POST, 'item_serial_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_po_number[$i] = filter_input( INPUT_POST, 'item_po_number_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_date[$i] = filter_input( INPUT_POST, 'item_date_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_description[$i] = filter_input( INPUT_POST, 'item_description_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+			}
 
 			// @todo get other inputs
 
@@ -221,17 +228,20 @@ function lv_process_rma() {
 	update_field( 'state', $state, $new_rma_id);
 	update_field( 'zip', $zip, $new_rma_id);
 
-	$item_1_data = array(
-		'quantity' => $item_quantity_1,
-		'item_name' => $item_name_1,
-		'unit_price' => $item_price_1,
-		'serial_number' => $item_serial_1,
-		'po_number' => $item_po_number_1,
-		'date_purchased' => $item_date_1,
-		'return_problem_description' => $item_description_1
-	);
+	for ( $i = 0; $i < 5; $i++ ) {
 
-	update_field( 'return_item_1', $item_1_data, $new_rma_id);
+		$item_data = array(
+			'quantity' => $item_quantity[$i],
+			'item_name' => $item_name[$i],
+			'unit_price' => $item_price[$i],
+			'serial_number' => $item_serial[$i],
+			'po_number' => $item_po_number[$i],
+			'date_purchased' => $item_date[$i],
+			'return_problem_description' => $item_description[$i]
+		);
+
+		update_field( 'return_item_' . ($i + 1), $item_data, $new_rma_id);
+	}
 
 	// return_item_1
 	// return_item_2
