@@ -217,6 +217,10 @@ function lv_process_rma() {
 
 	$new_rma_id = wp_insert_post($args);
 
+	$rma_number = 'GSA-RMA-' . $new_rma_id;
+
+
+	update_field( 'rma_number', $rma_number, $new_rma_id);
 	update_field( 'user_id', $user_id, $new_rma_id);
 	update_field( 'first_name', $first_name, $new_rma_id);
 	update_field( 'last_name', $last_name, $new_rma_id);

@@ -542,7 +542,6 @@ function custom_meta_box_markup_rma() {
 	global $post;
 	$post_id = $post->ID;
 	$user_email = get_field('email_address', $post_id); 
-	$admin_email = get_option('admin_email');
 	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; ?>
 
 	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
@@ -556,9 +555,9 @@ function custom_meta_box_markup_rma() {
 				<input name="gsa-email-address-user" placeholder="Email Address" value="<?php echo $user_email ; ?>" />
 			</div>
 			<div class="item buttons-flex">
-				<a id="send-email-user" class="flex-item button button-primary">Approve RMA</a>
+				<a id="send-rma-email" class="flex-item button button-primary">Approve RMA</a>
 				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
-				<div class="flex-item callout success">Email Sent!</div>
+				<div class="flex-item callout success">RMA Approved!</div>
 				<div class="flex-item callout alert">Email Not Sent!</div>
 			</div>
 		</div>
