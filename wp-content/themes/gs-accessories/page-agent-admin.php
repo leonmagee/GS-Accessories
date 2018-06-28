@@ -115,6 +115,7 @@ get_header(); ?>
 								$order_query->the_post(); 
 								$date = get_the_date();
 								$purchaser_id = get_field('user_id');
+								$company = get_field('company', 'user_' . $purchaser_id);
 								$userdata = get_userdata($purchaser_id);
 								$first = $userdata->user_firstname;
 								$last = $userdata->user_lastname;
@@ -127,6 +128,7 @@ get_header(); ?>
 											<tr>
 												<th>Order ID</th>
 												<th>Retailer Name</th>
+												<th>Company</th>
 												<th>Date</th>
 											</tr>
 										</thead>
@@ -134,6 +136,7 @@ get_header(); ?>
 											<tr>
 												<td><?php echo $order_id; ?></td>
 												<td><?php echo $first . ' ' . $last; ?></td>
+												<td><?php echo $company; ?></td>
 												<td><?php echo $date; ?></td>
 											</tr>
 										</tbody>
@@ -238,11 +241,12 @@ get_header(); ?>
 						if ( ! empty( $user_query->get_results() ) ) { ?>
 							<div class="retailer-names-wrap">
 								<?php foreach ( $user_query->get_results() as $user ) {
-									$userdata = get_userdata($user->ID);
-									$first = $userdata->user_firstname;
-									$last = $userdata->user_lastname;
+									$company = get_field('company', 'user_' . $user->ID);
+									// $userdata = get_userdata($user->ID);
+									// $first = $userdata->user_firstname;
+									// $last = $userdata->user_lastname;
 									?>
-									<div class="retailer-name"><?php echo $first . ' ' . $last; ?></div>
+									<div class="retailer-name"><?php echo $company; ?></div>
 								<?php } ?>
 							</div>
 						<?php } else { ?>

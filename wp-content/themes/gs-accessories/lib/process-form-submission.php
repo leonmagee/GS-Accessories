@@ -303,7 +303,7 @@ if ( isset($_POST['place-cart-order'])) {
 	    	$after_coupon_cost = percent_price($total_cost, $coupon_percent);
 	    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
 
-	    	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div><div><strong>Total Charges: <strike>' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
+	    	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div><div><strong>Total Charges: <strike style="color: red;">' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
 	    } else {
 			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 	    }

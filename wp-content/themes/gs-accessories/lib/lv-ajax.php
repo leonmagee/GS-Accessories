@@ -225,6 +225,8 @@ function lv_process_rma() {
 				update_field( 'state', $state, $new_rma_id);
 				update_field( 'zip', $zip, $new_rma_id);
 
+				$product_details = '';
+
 				for ( $i = 0; $i < 5; $i++ ) {
 
 					$item_data = array(
@@ -238,6 +240,17 @@ function lv_process_rma() {
 					);
 
 					update_field( 'return_item_' . ($i + 1), $item_data, $new_rma_id);
+
+					$product_details .= '<div>
+						<h3 style="margin-bottom: 8px">Item #' . ($i + 1) . '</h3>
+						<div>Quantity: <strong>' . $item_quantity[$i] . '</strong></div>
+						<div>Item Name: <strong>' . $item_name[$i] . '</strong></div>
+						<div>Unit Price: <strong>' . $item_price[$i] . '</strong></div>
+						<div>Serial Number: <strong>' . $item_serial[$i] . '</strong></div>
+						<div>PO Number: <strong>' . $item_po_number[$i] . '</strong></div>
+						<div>Date Purchased: <strong>' . $item_date[$i] . '</strong></div>
+						<div>Description: <strong>' . $item_description[$i] . '</strong></div>
+					</div>';
 				}
 
 				// send admin email
@@ -253,11 +266,20 @@ function lv_process_rma() {
 				$email_wrap_close = '</div>';
 
 				$subject = 'GS Accessories RMA';
-				$body_admin = $admin_intro . $email_body;
+				$body_admin = $admin_intro . $product_details . $email_body;
 				$body_final_admin = $email_wrap . $body_admin . $email_wrap_close;
 				$headers = array('Content-Type: text/html; charset=UTF-8');
 
 				wp_mail( $to, $subject, $body_final_admin, $headers );
+
+
+				$customer_email_text = '<div>Thank you for submitting your RMA request. You will receive another email once we have reviewed your request.</div>';
+
+				$body_final_customer = $email_wrap . $customer_email_text . $email_wrap_close;
+
+				$to = array($admin_email, 'leonmagee33@gmail.com');
+
+				wp_mail( $email_address, $subject, $body_final_customer, $headers );
 
 			}
 		}
