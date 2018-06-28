@@ -256,8 +256,6 @@ function lv_process_rma() {
 				// send admin email
 				$admin_email = get_option('admin_email');
 
-				$email_body = 'rma product details...';
-
 				// send email to admin
 				$admin_intro = '<div><span style="color: #32b79d">RMA Number: </span> <strong>' . $rma_number . '</strong><br /><span style="color: #32b79d">RMA submitted by</span> <strong>' . $first_name . ' ' . $last_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $email_address . '</strong><br />';
 				$to = array($admin_email, 'leonmagee33@gmail.com');
@@ -266,7 +264,7 @@ function lv_process_rma() {
 				$email_wrap_close = '</div>';
 
 				$subject = 'GS Accessories RMA';
-				$body_admin = $admin_intro . $product_details . $email_body;
+				$body_admin = $admin_intro . $product_details;
 				$body_final_admin = $email_wrap . $body_admin . $email_wrap_close;
 				$headers = array('Content-Type: text/html; charset=UTF-8');
 

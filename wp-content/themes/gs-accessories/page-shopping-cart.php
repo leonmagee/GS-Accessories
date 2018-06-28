@@ -337,7 +337,8 @@ if ($paypal = $_GET['paypal']) {
           <?php } ?>
 
           <div class="button-wrap">
-            <button id="paypal_checkout_button" type="submit" class="submit-order-button">PayPal Checkout</button>
+<!--             <button id="paypal_checkout_button" type="submit" class="submit-order-button">PayPal Checkout</button> -->
+            <button id="paypal_checkout_button" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
           </div>
 
         </form>
