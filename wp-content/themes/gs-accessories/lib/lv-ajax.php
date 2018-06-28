@@ -242,14 +242,14 @@ function lv_process_rma() {
 					update_field( 'return_item_' . ($i + 1), $item_data, $new_rma_id);
 
 					$product_details .= '<div>
-						<h3 style="margin-bottom: 8px">Item #' . ($i + 1) . '</h3>
-						<div>Quantity: <strong>' . $item_quantity[$i] . '</strong></div>
-						<div>Item Name: <strong>' . $item_name[$i] . '</strong></div>
-						<div>Unit Price: <strong>' . $item_price[$i] . '</strong></div>
-						<div>Serial Number: <strong>' . $item_serial[$i] . '</strong></div>
-						<div>PO Number: <strong>' . $item_po_number[$i] . '</strong></div>
-						<div>Date Purchased: <strong>' . $item_date[$i] . '</strong></div>
-						<div>Description: <strong>' . $item_description[$i] . '</strong></div>
+						<h3 style="margin-bottom: 8px"><span style="color: #32b79d">Item #' . ($i + 1) . '</span></h3>
+						<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_quantity[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_name[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_price[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Serial Number:</span> <strong>' . $item_serial[$i] . '</strong></div>
+						<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_po_number[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_date[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Description:</span> <strong>' . $item_description[$i] . '</strong></div>
 					</div>';
 				}
 
