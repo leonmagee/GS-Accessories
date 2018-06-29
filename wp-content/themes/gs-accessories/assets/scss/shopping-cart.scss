@@ -197,6 +197,16 @@
 	}
 }
 
+.page-template-page-shopping-cart {
+	button#paypal_checkout_button {
+		max-width: 100%;
+		width: 100%;
+		img {
+			width: 100%;
+		}
+	}
+}
+
 .add-more-items-wrap {
 	a {
 		color: darken( $brand-primary, 10%);
