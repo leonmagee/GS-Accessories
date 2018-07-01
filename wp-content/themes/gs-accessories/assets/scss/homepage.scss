@@ -190,11 +190,17 @@
 }
 
 .gswireless-link-wrap {
+    @include img_bg;
+    border-top: 1px solid #EEE;
+    border-bottom: 1px solid #EEE;
+    transition: 0.3s;
     img {
         width: 100%;
     }
     &:hover {
-        opacity: 0.9;
+        opacity: 0.8;
+        // background-image: none;
+        // background-color: $brand-primary;
     }
 }
 

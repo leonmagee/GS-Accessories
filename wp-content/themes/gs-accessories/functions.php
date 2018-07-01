@@ -225,7 +225,7 @@ function gs_accessories_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.2.11' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css', '', '1.2.12' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
@@ -557,9 +557,9 @@ function custom_meta_box_markup_rma() {
 			<div class="item">
 				<label>Message to Customer</label>
 			</div>
-<!-- 			<div class="item">
+			<div class="item">
 				<textarea name="rma-message"></textarea>
-			</div> -->
+			</div>
 			<div class="item buttons-flex">
 				<a id="send-rma-email" class="flex-item button button-primary">Approve RMA</a>
 				<a id="send-rma-email-reject" class="flex-item button button-secondary">Reject RMA</a>

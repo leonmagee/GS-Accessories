@@ -28,7 +28,7 @@ function gsa_rest_endpoint_user() {
 
 function gsa_rest_endpoint_rma() {
 
-	register_rest_route( 'process_rma', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)', array(
+	register_rest_route( 'process_rma', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_rma_email',
 	));
@@ -124,7 +124,11 @@ function gsa_rest_process_rma_email($data) {
 		$custom_query->the_post();
 		$rma_number = get_field('rma_number');
 		$rma_instructions = get_field('rma_instructions', 'option');
-		$user_email_text = '<div>' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div>';
+		if ( $data['message']) {
+			$user_email_text = '<div>' . urldecode($data['message']) . '<br /><br />' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div>';
+		} else {
+			$user_email_text = '<div>' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div>';
+		}
 		//$user_email_text = get_field('user_email_text');
 	}
 	wp_reset_postdata();

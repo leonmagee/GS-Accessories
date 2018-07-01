@@ -152,7 +152,11 @@ jQuery(function ($) {
     $('#send-rma-email').click(function() {
 
         var email_address = $('input[name="gsa-email-address-user"]').val();
+        var rma_message = $('textarea[name="rma-message"').val();
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
+
+        console.log('hhhhh');
+        console.log(rma_message);
         
         var spinner = $(this).parent().find('.gsa_spinner');
         var success = $(this).parent().find('.success');
@@ -165,7 +169,7 @@ jQuery(function ($) {
         //var site_url = 'https://mygsaccessories.com';
         var site_url = 'https://www.gs-accessories.dev';
 
-        var rest_url = site_url + '/wp-json/process_rma/user/' + post_id + '/' + email_address;
+        var rest_url = site_url + '/wp-json/process_rma/user/' + post_id + '/' + email_address +'/' + rma_message;
         //var rest_url = 'https://www.gs-accessories.dev/wp-json/process_emails/user/' + post_id + '/' + email_address + '/' + tracking_number;
 
         $.ajax({

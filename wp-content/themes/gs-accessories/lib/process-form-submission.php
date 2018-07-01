@@ -179,6 +179,12 @@ if ( isset($_POST['place-cart-order'])) {
 	$payment_type = filter_input(INPUT_POST, 'payment-type', FILTER_SANITIZE_SPECIAL_CHARS);
 	
 	$coupon_code = filter_input(INPUT_POST, 'coupon-code', FILTER_SANITIZE_SPECIAL_CHARS);
+	
+	$credit_used = filter_input(INPUT_POST, 'credit-used', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+
+
 
 	// if ( $payment_type == 'PayPal') {
 
@@ -218,6 +224,25 @@ if ( isset($_POST['place-cart-order'])) {
 	} else {
 		$user_name = $user->data->user_nicename;
 	}
+
+	// process credit
+	if ( $credit_used ) {
+		$current_credit = intval(get_field('credit_value', 'user_' . $user_id));
+		$credit_used_val = intval($credit_used);
+		$new_credit_value = ( $current_credit - $credit_used_val );
+		//$new_credit_value = ( $credit_used_val - $current_credit  );
+		//if ( $new_credit_value)
+		// var_dump($user_id);
+		// var_dump($current_credit); //5000
+		// var_dump($credit_used); //1500 string
+		// var_dump($credit_used_val); //1500
+		// var_dump($new_credit_value); //-1500
+		//die('working');
+		update_field('credit_value', $new_credit_value, 'user_' . $user_id);
+		//die('working');
+	}
+
+
 	//die();
 
 	//die('working so far');
@@ -443,7 +468,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 
 /**
-* Update Cart Item in Session
+* Apply Coupon
 */
 if ( isset($_POST['coupon-apply-submit'])) {
 

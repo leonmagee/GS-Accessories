@@ -11,88 +11,6 @@ restricted_page();
 
 get_header();
 
-//$session_data = $_SESSION;
-
-// foreach( $session_data as $key => $item ) {
-//   var_dump($key);
-//   echo "<br />";
-//   var_dump($item);
-//   echo "<br />";
-//   echo "<br />";
-// }
-// if( have_rows('colors_and_quantity') ) {
-
-//   $i = 0;
-
-//   while( have_rows('colors_and_quantity') ) {
-
-//     the_row();
-
-//     $i++;
-
-//     echo "item number " . $i . "<br />";
-
-
-
-//     //update_sub_field('caption', "This caption is in row {$i}");
-
-//   }
-
-// }
-
-// $field_key = "colors_and_quantity";
-// $post_id = 206;
-// $value = get_field($field_key, $post_id);
-
-// foreach( $value as $key => $item ) {
-//   if ( $item['color'] === 'Rose Gold' ) {
-//     $value[$key]['quantity'] = 777;
-//   }
-// }
-// var_dump($value);
-
-// update_field( $field_key, $value, $post_id );
-
-
-
-
-// $shopping_cart = unserialize($_SESSION['shopping_cart']);
-// $product_names = unserialize($_SESSION['product_names']);
-// $product_values = unserialize($_SESSION['product_values']);
-//$product_id = unserialize($_SESSION['product_id']);
-//var_dump($shopping_cart);
-// foreach( $shopping_cart as $item ) {
-//   //var_dump($item);
-// }
-// var_dump($_SESSION);
-// echo "<br />";
-// echo "<br />";
-// var_dump($product_names);
-// echo "<br />";
-// echo "<br />";
-// var_dump($product_values);
-// echo "<br />";
-// echo "<br />";
-// var_dump($product_id);
-
-// die();
-
-//shopping_cart
-//product_names
-//product_values
-
-
-
-
-
-
-
-//die();
-
-
-
-
-
 $coupon_array = get_coupon_array();
 
 $coupon_applied = false;
@@ -103,6 +21,8 @@ if ( $current_coupon = $_GET['coupon']) {
   $coupon_applied = true;
   $coupon_percent = $coupon_array[strtolower($current_coupon)];
 }
+
+$current_credit = intval(get_field('credit_value', 'user_' . LV_LOGGED_IN_ID));
 
 if ($paypal = $_GET['paypal']) {
   $paypal_mode = true;
@@ -129,45 +49,22 @@ if ($paypal = $_GET['paypal']) {
 
         <?php
 
-      //var_dump(unserialize($_SESSION['shopping_cart']));
-
-      // $cart_data = unserialize($_SESSION['shopping_cart']);
-
-      // $email_body = '';
-
-      // foreach( $cart_data as $id => $data ) {
-      //   $product = strtoupper(str_replace('-', ' ' , $data['product']));
-      //   $email_body .= '<div>Product ID: ' . $id . ' Product: ' . $product . ' Quantity: ' . $data['quantity'] . ' Color: ' . $data['color'] . '</div>';
-      // }
-
-      // var_dump($email_body);
-
         $product_details_array = array();
         $product_cost_array = array();
 
         if ( $_SESSION['shopping_cart'] ) {
           $cart_data = unserialize($_SESSION['shopping_cart']);
-        //var_dump($cart_data);
           $total_cost = 0;
         foreach( $cart_data as $product_id => $item ) { // $id => $item
 
-          /**
-          * @todo remove this - it will be moved to process function
-          * @todo and then key will reference post ID?
-          */
           $product_id_exp = explode('-', $product_id);
           $product_id_actual = $product_id_exp[0];
-        // $page_object = get_page_by_path($item['product'], OBJECT, 'accessories');
-        // $post_id = $page_object->ID;
           $post_image = get_field('image_gallery', $product_id_actual);
           if ( $post_image ) {
             $img_url = $post_image[0]['sizes']['thumbnail'];
           } else {
-          // create new placeholder image
             $img_url = get_template_directory_uri() . "/assets/img/placeholder-image-small.jpg";
           }
-
-
 
           if ( current_user_can('delete_published_posts')) {
             $acf_price = get_field('wholesale_price', $product_id_actual);
@@ -186,8 +83,6 @@ if ($paypal = $_GET['paypal']) {
             $acf_price = false;
             $price_value = 'N/A';
           }
-
-          //$quantity_array = array('1000','2000','3000','4000','5000');
 
           $colors = get_accessory_colors($product_id_actual);
 
@@ -252,29 +147,57 @@ if ($paypal = $_GET['paypal']) {
 
         <?php } ?>
 
+        <?php 
+        $credit_used = 0;
+        if ( ( $current_credit ) && ( $current_credit >= 0 ) ) {
 
+          $original_cost = $total_cost;
 
-        <?php if ( $coupon_percent ) {
-          $after_coupon_cost = percent_price($total_cost, $coupon_percent); ?>
-          <div class="cart-total">
-            Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span>
-          </div>
-        <?php } else { ?>
-          <div class="cart-total">
-            Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
-          </div>
+          if ( $total_cost >= $current_credit ) {
+            $credit_used = $current_credit;
+            $total_cost = ( $total_cost - $current_credit );
+          } else {
+            $credit_used = $total_cost;
+            $current_credit = $total_cost;
+            $total_cost = 0;
+          }
 
-        <?php }
+          $credit_line = 'Credit Applied: <span>$' . number_format($original_cost, 2) . '</span> - <span class="credit">$' . number_format($current_credit, 2) . '</span> = <span>$' . number_format($total_cost, 2) . '</span><br />';
+
+          if ( $coupon_percent ) {
+            $after_coupon_cost = percent_price($total_cost, $coupon_percent); ?>
+            <div class="cart-total">
+              <?php echo $credit_line; ?>
+              Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span>
+            </div>
+          <?php } else { ?>
+            <div class="cart-total">
+              <?php echo $credit_line; ?>
+              Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
+            </div>
+
+          <?php }
+        } else {
+          if ( $coupon_percent ) {
+            $after_coupon_cost = percent_price($total_cost, $coupon_percent); ?>
+            <div class="cart-total">
+              Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span>
+            </div>
+          <?php } else { ?>
+            <div class="cart-total">
+              Total Cost: <span>$<?php echo number_format($total_cost, 2); ?></span>
+            </div>
+
+          <?php }
+        }
 
         $product_details_final = substr($product_details_string, 0, -3);
 
-        //var_dump($product_details_final); ?>
-
+        ?>
 
         <div class="min-amount-wrap">
 
           <?php
-          // @todo test these are all working correctly
           if ( current_user_can('delete_published_posts')) {
             $min_amount = MOQ_WHOLESALER;
           } elseif (current_user_can('edit_posts')) {
@@ -297,16 +220,10 @@ if ($paypal = $_GET['paypal']) {
         </div>
 
 
-        <?php if ($total_cost >= $min_amount) {
+        <?php if ($original_cost >= $min_amount) {
 
-          //var_dump($product_details_array);
-          //$product_details_array_serial = htmlspecialchars(serialize($product_details_array));
           $_SESSION['product_names'] = serialize($product_details_array);
           $_SESSION['product_values'] = serialize($product_cost_array);
-
-          //var_dump($product_details_array_serial);
-          //$product_cost_array_serial = htmlspecialchars(serialize($product_cost_array));
-          //var_dump($serial);
 
           ?>
 
@@ -323,143 +240,124 @@ if ($paypal = $_GET['paypal']) {
 
               <input type="hidden" name="payment-type" value="Pick Up" />
 
-<!--           <ul class="payment-features-list">
-            <li>FREE SHIPPING</li>
-            <li>NO PayPal FEES</li>
-          </ul> -->
+              <input type="hidden" name="credit-used" value="<?php echo $credit_used; ?>" />
 
-          <?php if ( current_user_can('edit_posts')) { ?>
+              <?php if ( current_user_can('edit_posts')) { ?>
 
-            <div class="button-wrap">
-              <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Bank Wire</button>
+                <div class="button-wrap">
+                  <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Bank Wire</button>
+                </div>
+
+              <?php } ?>
+
+              <div class="button-wrap">
+                <button id="paypal_checkout_button" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+              </div>
+
+            </form>
+
+            <div class="coupon-form-wrapper">
+
+              <?php if ( $coupon_applied ) {
+
+                if ( $coupon_percent ) { ?>
+
+                  <div class="callout success">
+                    <p><span><?php echo $current_coupon; ?></span> Coupon Applied!</p>
+                  </div>
+
+                <?php } else { ?>
+
+                  <div class="callout alert">
+                    <p>Invalid Coupon</p>
+                  </div>
+
+                <?php }
+
+              } ?>
+
+              <form method="POST" id="coupon_name_form" action="#">
+                <input type="hidden" name="coupon-apply-submit" />
+                <input type="text" name="coupon" placeholder="Coupon Code" /> 
+                <button type="submit" class="gs-button">Apply Coupon</button>
+              </form>
             </div>
 
-          <?php } ?>
-
-          <div class="button-wrap">
-<!--             <button id="paypal_checkout_button" type="submit" class="submit-order-button">PayPal Checkout</button> -->
-            <button id="paypal_checkout_button" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
           </div>
 
-        </form>
+        <?php } else { ?>
 
+          <button class="submit-order-button disabled">Checkout</button>
 
-        <div class="coupon-form-wrapper">
+        <?php } ?>
 
-          <?php if ( $coupon_applied ) {
+      <?php } else { ?>
 
-            if ( $coupon_percent ) { ?>
+        <div class="empty-cart">Your Cart is Empty</div>
 
-              <div class="callout success">
-                <p><span><?php echo $current_coupon; ?></span> Coupon Applied!</p>
-              </div>
+      <?php } ?>
 
-            <?php } else { ?>
+    </div>
 
-              <div class="callout alert">
-                <p>Invalid Coupon</p>
-              </div>
+  <?php } else {
 
-            <?php }
+   $product_details_array = unserialize($_SESSION['product_names']);
+   $product_cost_array = unserialize($_SESSION['product_values']);
 
-          } ?>
+   ?>
 
-          <form method="POST" id="coupon_name_form" action="#">
-            <input type="hidden" name="coupon-apply-submit" />
-            <input type="text" name="coupon" placeholder="Coupon Code" /> 
-            <button type="submit" class="gs-button">Apply Coupon</button>
-          </form>
-        </div>
+   <div class="paypal-wrap-outer">
 
-      </div>
+    <h1 class="entry-title">PayPal Checkout</h1>
 
-    <?php } else { ?>
+    <p><strong>Thank you</strong> for submitting your order with GS Wireless. We highly appreciate your business and the great opportunity you are giving us to serve you. Your order will be processed and shipped within 24 hours after receiving the full payment. A tracking number and shipping carrier information will be emailed to you when it becomes available.</p>
 
-      <button class="submit-order-button disabled">Checkout</button>
+    <div class="paypal-wrap">
 
-    <?php } ?>
+      <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 
-  <?php } else { ?>
+        <input type="hidden" name="business" value="gs-wireless@att.net">
 
-    <div class="empty-cart">Your Cart is Empty</div>
+        <input type="hidden" name="cmd" value="_cart">
+
+        <input type="hidden" name="upload" value="1">
+
+        <?php 
+        $counter = 0;
+        foreach($product_details_array as $product_name ) {
+          // @todo apply credit here as well... credit would have already been subtracked (page was refreshed...)...
+
+          if ( $coupon_percent ) {
+            $value = percent_price($product_cost_array[$counter], $coupon_percent);
+          } else {
+            $value = $product_cost_array[$counter];
+          }
+
+          ?>
+          <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
+          <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
+          <?php 
+          $counter++;
+        } ?>
+
+        <input type="hidden" name="currency_code" value="USD">
+
+        <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+
+      </form>
+
+    </div>
+
 
   <?php } ?>
 
 </div>
 
-<?php } else {
-
- $product_details_array = unserialize($_SESSION['product_names']);
- $product_cost_array = unserialize($_SESSION['product_values']);
-          //$_SESSION['product_values'] = serialize($product_cost_array);
-
- ?>
-
- <div class="paypal-wrap-outer">
-
-  <h1 class="entry-title">PayPal Checkout</h1>
-
-  <p><strong>Thank you</strong> for submitting your order with GS Wireless. We highly appreciate your business and the great opportunity you are giving us to serve you. Your order will be processed and shipped within 24 hours after receiving the full payment. A tracking number and shipping carrier information will be emailed to you when it becomes available.</p>
-
-  <div class="paypal-wrap">
-
-    <form id="paypal_form_id" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-
-      <input type="hidden" name="business" value="gs-wireless@att.net">
-
-      <input type="hidden" name="cmd" value="_cart">
-
-      <input type="hidden" name="upload" value="1">
-
-      <?php 
-      $counter = 0;
-      foreach($product_details_array as $product_name ) {
-
-        if ( $coupon_percent ) {
-          $value = percent_price($product_cost_array[$counter], $coupon_percent);
-        } else {
-          $value = $product_cost_array[$counter];
-        }
-
-        ?>
-        <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
-        <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
-        <?php 
-        $counter++;
-      } ?>
-
-      <input type="hidden" name="currency_code" value="USD">
-
-      <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
-
-    </form>
-
-  </div>
-
-
-<?php } ?>
-
-</div>
-
 
 </main><!-- #main -->
+
 </div>
+
 </div><!-- #primary -->
 
-<?php
-get_footer();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<?php get_footer();
