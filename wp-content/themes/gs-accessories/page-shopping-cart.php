@@ -149,9 +149,10 @@ if ($paypal = $_GET['paypal']) {
 
         <?php 
         $credit_used = 0;
+        $original_cost = $total_cost;
+
         if ( ( $current_credit ) && ( $current_credit >= 0 ) ) {
 
-          $original_cost = $total_cost;
 
           if ( $total_cost >= $current_credit ) {
             $credit_used = $current_credit;
