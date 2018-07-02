@@ -324,11 +324,10 @@ if ($paypal = $_GET['paypal']) {
         <input type="hidden" name="upload" value="1">
 
         <?php 
-        $discount_applied = false;
+        $discount_string = '';
         if ( isset( $_GET['misc'])) {
 
-          $discount_applied = true;
-          $discount_value = 99;
+          //$discount_value = 200;
           $salt_1 = 'sldkfj29374297%%!!sldfj';
           $salt_2 = 'xxxx2937429347&sdklhfsl';
           //$salted_string = $salt_1 . $discount_value . $salt_2;
@@ -343,38 +342,11 @@ if ($paypal = $_GET['paypal']) {
           }
 
           $string_1 = str_replace($salt_1, '', $decrypted_string);
-          $string_final = intval(str_replace($salt_2, '', $string_1));
+          $discount_amount = intval(str_replace($salt_2, '', $string_1));
+          $discount_string = '<input type="hidden" name="discount_amount_cart" value="' . $discount_amount . '">';
         }
 
-
-
         $counter = 0;
-        if ( $discount_applied ) {
-          $discount_value = $string_final;
-          var_dump('DISCOUNT APPLIED!');
-          foreach($product_details_array as $product_name ) {
-
-            if ( $coupon_percent ) {
-              $value = percent_price($product_cost_array[$counter], $coupon_percent);
-            } else {
-              $value = $product_cost_array[$counter];
-            }
-            if ( $value >= $discount_value ) {
-              $value = ( $value - $discount_value );
-              $discount_value = 0;
-            } else {
-              $value = 0;
-              $discount_value = ( $discount_value - $value );
-            }
-
-            ?>
-            <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
-            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
-            <?php 
-            $counter++;
-          }
-        } else {
-          var_dump('DISCOUNT NOT APPLIED!');
 
           foreach($product_details_array as $product_name ) {
 
@@ -391,12 +363,13 @@ if ($paypal = $_GET['paypal']) {
             $counter++;
           }
 
-
-        } ?>
+        echo $discount_string;
+        ?>
 
         <input type="hidden" name="currency_code" value="USD">
 
-        <button id="paypal_button_id" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+        <button id="paypal_button_id" discount_amount_cart
+=333 class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
 
       </form>
 

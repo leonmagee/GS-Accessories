@@ -182,26 +182,14 @@ if ( isset($_POST['place-cart-order'])) {
 	
 	$credit_used = filter_input(INPUT_POST, 'credit-used', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
-
-
-
-	// if ( $payment_type == 'PayPal') {
-
-	// 	$product_names = filter_input(INPUT_POST, 'product-names', FILTER_SANITIZE_SPECIAL_CHARS);
-	// 	$product_values = filter_input(INPUT_POST, 'product-names', FILTER_SANITIZE_SPECIAL_CHARS);
-	// }
-
 	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
 
 	// get user email address
 	$user = wp_get_current_user(); 
 	$user_email = $user->data->user_email;
-	//var_dump($user->data->user_email);
 
 	// get admin email address
 	$admin_email = get_option('admin_email');
-	//var_dump($admin_email);
 	$user_id = $user->data->ID;
 	$first_name = get_user_meta($user_id, 'first_name', true);
 	$last_name = get_user_meta($user_id, 'last_name', true);
@@ -217,8 +205,6 @@ if ( isset($_POST['place-cart-order'])) {
 		$ref_agent_email = $user_object->user_email;
 	}
 
-	// var_dump($user->data->user_nicename);
-	// var_dump($first_name . ' ' . $last_name);
 	if ( $first_name && $last_name ) {
 		$user_name = $first_name . ' ' . $last_name;
 	} else {
@@ -230,32 +216,12 @@ if ( isset($_POST['place-cart-order'])) {
 		$current_credit = intval(get_field('credit_value', 'user_' . $user_id));
 		$credit_used_val = intval($credit_used);
 		$new_credit_value = ( $current_credit - $credit_used_val );
-		//$new_credit_value = ( $credit_used_val - $current_credit  );
-		//if ( $new_credit_value)
-		// var_dump($user_id);
-		// var_dump($current_credit); //5000
-		// var_dump($credit_used); //1500 string
-		// var_dump($credit_used_val); //1500
-		// var_dump($new_credit_value); //-1500
-		//die('working');
 		update_field('credit_value', $new_credit_value, 'user_' . $user_id);
-		//die('working');
 	}
-
-
-	//die();
-
-	//die('working so far');
-
-	//$cart_data = unserialize($_SESSION['shopping_cart']);
-
-	//$email_body = '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />';
 
 	$email_body = '';
 
 	$total_cost = 0;
-
-	//var_dump($shopping_cart_array);
 
 	$change_quantity_array = array();
 
@@ -285,7 +251,6 @@ if ( isset($_POST['place-cart-order'])) {
 			$price_value = '$' . number_format($price, 2);
 			$total_cost = $price + $total_cost;
 		} else {
-          //$acf_price = false;
 			$price_value = 'N/A';
 		}
 
@@ -335,6 +300,10 @@ if ( isset($_POST['place-cart-order'])) {
 
 	} else {
 		$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+	}
+
+	if ( $credit_used ) {
+		$email_body = $email_body . '<br /><div><strong>Credit Used:</strong> <strong>$' . number_format($credit_used, 2) . '</strong></div>';
 	}
 
 	// send email to admin
@@ -456,10 +425,20 @@ if ( isset($_POST['place-cart-order'])) {
 		wp_redirect('/order-placed');
 	} elseif ( $payment_type == 'PayPal' ) {
 		//wp_redirect('/cart?paypal=show&paypal_names=' . $product_names . '&paypal_values=' . $product_values);
+
+		if ( $credit_used ) {
+		  // @todo make salts constants
+		  $salt_1 = 'sldkfj29374297%%!!sldfj';
+          $salt_2 = 'xxxx2937429347&sdklhfsl';
+          $salted_string = $salt_1 . $credit_used . $salt_2;
+          $encrypted_string = urlencode(base64_encode($salted_string));
+          $credit_param = '&misc=' . $encrypted_string;
+		}
+
 		if ( $coupon_code ) {
-			wp_redirect('/cart?paypal=show&coupon=' . $coupon_code);
+			wp_redirect('/cart?paypal=show&coupon=' . $coupon_code . $credit_param);
 		} else {
-			wp_redirect('/cart?paypal=show');
+			wp_redirect('/cart?paypal=show' . $credit_param);
 		}
 	}
 	exit;
