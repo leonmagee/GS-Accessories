@@ -214,3 +214,21 @@
         margin: 0 3px;
     }
 }
+
+.homepage-amazon-wrap {
+    padding: 20px;
+    text-align: center;
+    color: #FFF;
+    background-color: darken($brand-primary, 10%);
+    background-image: url('../img/what-the-hex-trans.png');
+    border-top: 1px solid rgba(0,0,0,0.02);
+    img {
+        max-width: 35%;
+        @media(min-width: $screen-sm) {
+            max-width: 20%;
+        }
+        @media(min-width: $screen-md) {
+            max-width: 13%;
+        }
+    }
+}

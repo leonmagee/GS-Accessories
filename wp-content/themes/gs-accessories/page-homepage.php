@@ -38,18 +38,14 @@ get_header(); ?>
           <?php }?>
         </ul>
       </div>
-      <nav class="orbit-bullets">
-        <?php
-        $counter = 0;
-        foreach ( $slides as $slide ) { ?>
-        <button <?php if ($counter == 0) {echo 'class="is-active"';}?> data-slide="<?php echo $counter; ?>"><span class="show-for-sr">Slide <?php echo ($counter + 1); ?> details.</span></button>
-
-        <?php
-        $counter++;
-      }?>
-
-    </nav>
   </div>
+
+</div>
+
+<div class="homepage-amazon-wrap">
+  <a href="https://www.amazon.com/s?marketplaceID=ATVPDKIKX0DER&me=A1AC06F3GET8FM&merchant=A1AC06F3GET8FM&redirect=true" target="_blank">
+  <img src="<?php echo site_url(); ?>/wp-content/uploads/amazon_buy_link.jpg" />
+</a>
 
 </div>
 
