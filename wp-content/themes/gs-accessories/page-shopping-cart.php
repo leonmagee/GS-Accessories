@@ -324,21 +324,74 @@ if ($paypal = $_GET['paypal']) {
         <input type="hidden" name="upload" value="1">
 
         <?php 
-        $counter = 0;
-        foreach($product_details_array as $product_name ) {
-          // @todo apply credit here as well... credit would have already been subtracked (page was refreshed...)...
+        $discount_applied = false;
+        if ( isset( $_GET['misc'])) {
 
-          if ( $coupon_percent ) {
-            $value = percent_price($product_cost_array[$counter], $coupon_percent);
-          } else {
-            $value = $product_cost_array[$counter];
+          $discount_applied = true;
+          $discount_value = 99;
+          $salt_1 = 'sldkfj29374297%%!!sldfj';
+          $salt_2 = 'xxxx2937429347&sdklhfsl';
+          //$salted_string = $salt_1 . $discount_value . $salt_2;
+          //$encrypted_string = urlencode(base64_encode($salted_string));
+          $encrypted_string = $_GET['misc'];
+          //var_dump($encrypted_string);
+          //c2xka2ZqMjkzNzQyOTclJSEhc2xkZmo5OXh4eHgyOTM3NDI5MzQ3JnNka2xoZnNs
+          $decrypted_string = base64_decode(urldecode($encrypted_string));
+
+          if ( ( ! preg_match('/' . $salt_1 . '/', $decrypted_string ) ) || (! preg_match('/' . $salt_2 . '/', $decrypted_string ) ) ) {
+            $discount_applied = false;
           }
 
-          ?>
-          <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
-          <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
-          <?php 
-          $counter++;
+          $string_1 = str_replace($salt_1, '', $decrypted_string);
+          $string_final = intval(str_replace($salt_2, '', $string_1));
+        }
+
+
+
+        $counter = 0;
+        if ( $discount_applied ) {
+          $discount_value = $string_final;
+          var_dump('DISCOUNT APPLIED!');
+          foreach($product_details_array as $product_name ) {
+
+            if ( $coupon_percent ) {
+              $value = percent_price($product_cost_array[$counter], $coupon_percent);
+            } else {
+              $value = $product_cost_array[$counter];
+            }
+            if ( $value >= $discount_value ) {
+              $value = ( $value - $discount_value );
+              $discount_value = 0;
+            } else {
+              $value = 0;
+              $discount_value = ( $discount_value - $value );
+            }
+
+            ?>
+            <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
+            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
+            <?php 
+            $counter++;
+          }
+        } else {
+          var_dump('DISCOUNT NOT APPLIED!');
+
+          foreach($product_details_array as $product_name ) {
+
+            if ( $coupon_percent ) {
+              $value = percent_price($product_cost_array[$counter], $coupon_percent);
+            } else {
+              $value = $product_cost_array[$counter];
+            }
+
+            ?>
+            <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
+            <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
+            <?php 
+            $counter++;
+          }
+
+
         } ?>
 
         <input type="hidden" name="currency_code" value="USD">

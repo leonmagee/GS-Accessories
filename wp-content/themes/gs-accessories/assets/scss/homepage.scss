@@ -219,16 +219,19 @@
     padding: 20px;
     text-align: center;
     color: #FFF;
-    background-color: darken($brand-primary, 10%);
-    background-image: url('../img/what-the-hex-trans.png');
-    border-top: 1px solid rgba(0,0,0,0.02);
+    background-color: darken($brand-primary, 5%);
+    //background-image: url('../img/what-the-hex-trans.png');
+    //border-top: 20px solid #F7F7F7;
+    border-top: 2px solid darken($brand-primary, 12%);
+    border-bottom: 2px solid darken($brand-primary, 12%);
+    //margin-top: 20px;
     img {
-        max-width: 35%;
+        max-width: 55%;
         @media(min-width: $screen-sm) {
-            max-width: 20%;
+            max-width: 40%;
         }
         @media(min-width: $screen-md) {
-            max-width: 13%;
+            max-width: 23%;
         }
     }
 }

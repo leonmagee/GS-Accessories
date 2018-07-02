@@ -44,7 +44,7 @@ get_header(); ?>
 
 <div class="homepage-amazon-wrap">
   <a href="https://www.amazon.com/s?marketplaceID=ATVPDKIKX0DER&me=A1AC06F3GET8FM&merchant=A1AC06F3GET8FM&redirect=true" target="_blank">
-  <img src="<?php echo site_url(); ?>/wp-content/uploads/amazon_buy_link.jpg" />
+  <img src="<?php echo site_url(); ?>/wp-content/uploads/amazon_buy_link_new.png" />
 </a>
 
 </div>
