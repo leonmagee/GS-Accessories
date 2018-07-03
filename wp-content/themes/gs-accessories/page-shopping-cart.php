@@ -150,14 +150,18 @@ if ($paypal = $_GET['paypal']) {
         <?php 
         $credit_used = 0;
         $original_cost = $total_cost;
+        $show_paypal_button = true;
 
         if ( ( $current_credit ) && ( $current_credit >= 0 ) ) {
 
-
+          if ( $total_cost === $current_credit ) {
+            $show_paypal_button = false;
+          }
           if ( $total_cost >= $current_credit ) {
             $credit_used = $current_credit;
             $total_cost = ( $total_cost - $current_credit );
           } else {
+            $show_paypal_button = false;
             $credit_used = $total_cost;
             $current_credit = $total_cost;
             $total_cost = 0;
@@ -251,9 +255,13 @@ if ($paypal = $_GET['paypal']) {
 
               <?php } ?>
 
+              <?php
+              if ( $show_paypal_button ) { ?>
+
               <div class="button-wrap">
                 <button id="paypal_checkout_button" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
               </div>
+            <?php } ?>
 
             </form>
 
