@@ -51,10 +51,11 @@
 }
 
 .agent-right-sidebar-inner {
-	padding: 0 20px;
-	@media(min-width: $screen-md) {
-		padding: 0 20px 0 40px;
-	}
+	//padding: 0 20px;
+	// @media(min-width: $screen-md) {
+	// 	padding: 0 20px 0 40px;
+	// 	padding: 0;
+	// }
 	.retailer-names-wrap {
 		padding: 10px 20px;
 		border: 1px solid #EEE;
@@ -82,5 +83,14 @@
 	font-size: 1.3em;
 	color: $brand-third;
 	font-weight: bold;
+}
+
+.page-template-page-agent-admin {
+	header {
+		margin-bottom: 25px;
+		h1.entry-title {
+			font-size: 30px;
+		}
+	}
 }
 

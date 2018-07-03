@@ -28,13 +28,15 @@ get_header(); ?>
 
 		<main id="main" class="site-main">
 
-			<header class="entry-header">
-				<h1 class="entry-title">Commission Data - <?php echo $display_date; ?></h1>
-			</header>
 
-			<div class="grid-x">
+
+			<div class="grid-x grid-padding-x">
 
 				<div class="cell large-9">
+
+					<header class="entry-header">
+						<h1 class="entry-title">Commission Data - <?php echo $display_date; ?></h1>
+					</header>
 
 					<div class="month-info">
 						<div class="change-date-form">
@@ -214,13 +216,15 @@ get_header(); ?>
 
 				<div class="cell large-3">
 
+					<header class="entry-header">
+						<h1 class="entry-title">Your Retailers</h1>
+					</header>
+
 					<div class="agent-right-sidebar-inner">
 
 						<div class="agent-button-wrap">
 							<a href="/register-user-agent" class="gs-button">Add New Retailer</a>
 						</div>
-
-						<h3>Your Retailers</h3>
 
 						<?php
 
