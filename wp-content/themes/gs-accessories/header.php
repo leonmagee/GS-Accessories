@@ -111,7 +111,7 @@
 							<?php } else { ?>
 
 								<li><a href="/agent-admin">Dashboard</a></li>
-								<li><a href="/register-user-agent">Add Retailers</a></li>
+								<li><a href="/register-user-agent">Add New Retailer</a></li>
 
 							<?php } ?>
 
