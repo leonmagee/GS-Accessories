@@ -260,8 +260,14 @@ jQuery(function ($) {
         }
 
         // required inputs
-        var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
-        
+        // @todo change this to reflect just the inputs that will show up and are required...
+        // these can be just hidden by css?
+        //var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
+        var conditional_inputs = (item_quantity[1] && item_name[1] && item_price[1] && item_serial[1] && item_po_number[1] && item_date[1] && item_description[1]);
+       
+
+
+
         if (conditional_inputs) {
 
             var formdata = new FormData();
@@ -322,9 +328,37 @@ jQuery(function ($) {
                 }
             });
         } else {
+            $('body').scrollTop(0);
             $('.uploads-spinner').hide();
             $('.mp-required-fields').show();
+
+            if ( ! item_quantity[1]) {
+                $('input[name="item_quantity_1"]').addClass('alert-warning');
+            }
+            if ( ! item_name[1]) {
+                $('input[name="item_name_1"]').addClass('alert-warning');
+            }
+            if ( ! item_price[1]) {
+                $('input[name="item_price_1"]').addClass('alert-warning');
+            }
+            if ( ! item_serial[1]) {
+                $('input[name="item_serial_1"]').addClass('alert-warning');
+            }
+            if ( ! item_po_number[1]) {
+                $('input[name="item_po_number_1"]').addClass('alert-warning');
+            }
+            if ( ! item_date[1]) {
+                $('input[name="item_date_1"]').addClass('alert-warning');
+            }
+            if ( ! item_description[1]) {
+                $('[name="item_description_1"]').addClass('alert-warning');
+            }
         }
+    });
+
+    $('.page-template-page-submit-rma input, .page-template-page-submit-rma textarea').focus(function() {
+        //console.log('focus...');
+        $(this).removeClass('alert-warning');
     });
 
 

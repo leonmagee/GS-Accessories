@@ -37,7 +37,7 @@ $regular_inputs = array(
 
 <div class="registration-form-wrapper form-wrap">
     <form method="post" name="registration-form">
-        <div class="form-area-top">
+        <div class="form-area-top regular-inputs">
 			<?php foreach ( $regular_inputs as $input ) {
 				if ( $input[1] ) {
 					$req = '<span class="required">*</span>';
