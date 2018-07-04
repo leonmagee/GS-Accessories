@@ -984,4 +984,141 @@ function sales_admin_page(){
 }
 
 
+/**
+* Credit Admin Page
+*/
+add_action( 'admin_menu', 'credit_report_admin_page' );
+
+function credit_report_admin_page() {
+
+	add_menu_page( 'Credit Report', 'Credit', 'manage_options', 'credit-report.php', 'credit_admin_page', 'dashicons-id-alt', 6  );
+}
+
+function credit_admin_page() { 
+
+
+	$user_details_array = array();
+
+	$args = array( 'role__not_in' => array('administrator', 'editor', 'um_agent') );
+	$user_query = new WP_User_Query($args);
+
+	foreach ( $user_query->get_results() as $user ) {
+
+		$user_info = array();
+
+		if ( $user->roles[0] === 'subscriber' ) {
+			$user_info['type'] = 'New Signup';
+		} elseif ( $user->roles[0] === 'contributor' ) {
+			$user_info['type'] = 'Retailer';
+		} elseif ( $user->roles[0] === 'author' ) {
+			$user_info['type'] = 'Wholesaler';
+		}
+		$company = get_field('company', 'user_' . $user->ID);
+
+		if ( ! ( $credit = get_field('credit_value', 'user_' . $user->ID) ) ) {
+			$credit = 0;
+		}
+
+		$user_info['id'] = $user->ID;
+		$user_info['name'] = $user->display_name;
+		$user_info['company'] = $company;
+		$user_info['credit'] = $credit;
+		$user_info['email'] = $user->user_email;
+
+		$user_details_array[] = $user_info;
+
+	} 
+
+	wp_reset_postdata();
+
+	?>
+
+	<div class="wrap gsa-sales-admin-page">
+
+		<h2>Credit Report</h2>
+
+		<div class="sales-report-wrap">
+
+			<div class="forms-wrap">
+
+
+				<div class="range-choice form-item-group">
+					<h5>Change Retailer/Wholesaler Credit</h5>
+					<form method="POST">
+						<input type="hidden" name="change-date-range-admin" />
+						<div class="user-input">
+							<label>Select User</label>
+							<select>
+								<?php foreach ( $user_details_array as $user ) { ?>
+									<option value="<?php echo $user['id']; ?>"><?php echo $user['name']; ?></option>		
+								<?php } ?>
+							</select>
+						</div>
+						<div class="credit-input">
+							<label>New Credit Value</label>
+							<input type="number" name="new-credit" min="0" />
+						</div>
+
+						<div>
+							<button type="submit" class="button button-primary">Update</button>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+
+			<div class="completed-orders-wrap current-credit">
+
+				<div class="order-details-wrap">
+
+					<h2 style="margin-bottom: -15px; margin-top: 30px;">User Credit</h2>
+
+					<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
+						<thead>
+							<tr class="alternate">
+								<th>Name</th>
+								<th>Company</th>
+								<th>Email</th>
+								<th>Role</th>
+								<th>Current Credit</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<?php
+
+							foreach ( $user_details_array as $user ) {
+
+								?>
+								<tr>
+									<td><?php echo $user['name']; ?></td>
+									<td><?php echo $user['company']; ?></td>
+									<td><?php echo $user['email']; ?></td>
+									<td><?php echo $user['type']; ?></td>
+									<td>$<?php echo number_format($user['credit'], 2); ?></td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+
+
+
+					
+
+				</div>
+
+
+
+
+
+			</div>
+
+		</div>
+
+	</div>
+	<?php
+}
+
+
 
