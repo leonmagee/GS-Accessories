@@ -263,7 +263,7 @@ jQuery(function ($) {
         // @todo change this to reflect just the inputs that will show up and are required...
         // these can be just hidden by css?
         //var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
-        var conditional_inputs = (item_quantity[1] && item_name[1] && item_price[1] && item_serial[1] && item_po_number[1] && item_date[1] && item_description[1]);
+        var conditional_inputs = (item_quantity[0] && item_name[0] && item_price[0] && item_serial[0] && item_po_number[0] && item_date[0] && item_description[0]);
        
 
 
@@ -332,25 +332,25 @@ jQuery(function ($) {
             $('.uploads-spinner').hide();
             $('.mp-required-fields').show();
 
-            if ( ! item_quantity[1]) {
+            if ( ! item_quantity[0]) {
                 $('input[name="item_quantity_1"]').addClass('alert-warning');
             }
-            if ( ! item_name[1]) {
+            if ( ! item_name[0]) {
                 $('input[name="item_name_1"]').addClass('alert-warning');
             }
-            if ( ! item_price[1]) {
+            if ( ! item_price[0]) {
                 $('input[name="item_price_1"]').addClass('alert-warning');
             }
-            if ( ! item_serial[1]) {
+            if ( ! item_serial[0]) {
                 $('input[name="item_serial_1"]').addClass('alert-warning');
             }
-            if ( ! item_po_number[1]) {
+            if ( ! item_po_number[0]) {
                 $('input[name="item_po_number_1"]').addClass('alert-warning');
             }
-            if ( ! item_date[1]) {
+            if ( ! item_date[0]) {
                 $('input[name="item_date_1"]').addClass('alert-warning');
             }
-            if ( ! item_description[1]) {
+            if ( ! item_description[0]) {
                 $('[name="item_description_1"]').addClass('alert-warning');
             }
         }
@@ -360,6 +360,10 @@ jQuery(function ($) {
         //console.log('focus...');
         $(this).removeClass('alert-warning');
     });
+
+    //$('input[name="item_date_1"]').datepicker();
+    
+    $('.page-template-page-submit-rma .rma-date input').datepicker();
 
 
     /**
