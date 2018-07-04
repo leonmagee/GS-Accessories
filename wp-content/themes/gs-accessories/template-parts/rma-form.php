@@ -78,7 +78,7 @@ $regular_inputs = array(
 		<div class="form-area-top return-details-wrap">
 			<div class="registration-input-wrap rma-quantity">
 				<label>Quantity</label>
-				<input name="item_quantity_<?php echo $i; ?>" type="number" />
+				<input name="item_quantity_<?php echo $i; ?>" type="number" min="1" />
 			</div>
 			<div class="registration-input-wrap rma-name">
 				<label>Item Name</label>
