@@ -1039,14 +1039,13 @@ function credit_admin_page() {
 
 		<div class="sales-report-wrap">
 
-			<div class="forms-wrap">
-
+			<div class="forms-wrap credit">
 
 				<div class="range-choice form-item-group">
 					<h5>Change Retailer/Wholesaler Credit</h5>
 					<form method="POST">
 						<input type="hidden" name="change-date-range-admin" />
-						<div class="user-input">
+						<div class="user-input form-item">
 							<label>Select User</label>
 							<select>
 								<?php foreach ( $user_details_array as $user ) { ?>
@@ -1054,7 +1053,7 @@ function credit_admin_page() {
 								<?php } ?>
 							</select>
 						</div>
-						<div class="credit-input">
+						<div class="credit-input form-item">
 							<label>New Credit Value</label>
 							<input type="number" name="new-credit" min="0" />
 						</div>

@@ -93,6 +93,25 @@
 			font-size: 1.2em;
 			margin: 14px 0 3px;
 		}
+
+		&.credit {
+			h5 {
+				margin-bottom: 7px;
+			}
+			.form-item-group {
+				.form-item {
+					padding: 6px 0;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					input, select {
+						min-width: 170px;
+						//border: none;
+						box-shadow: none;
+					}
+				}
+			}
+		}
 	}
 
 	.date-range-input {
