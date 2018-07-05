@@ -1077,7 +1077,7 @@ function credit_admin_page() {
 							</select>
 						</div>
 						<div class="credit-input form-item">
-							<label>New Credit Value</label>
+							<label>Credit Value</label>
 							<input type="number" name="credit-new-value" min="0" placeholder="0" />
 						</div>
 
@@ -1124,15 +1124,7 @@ function credit_admin_page() {
 						</tbody>
 					</table>
 
-
-
-					
-
 				</div>
-
-
-
-
 
 			</div>
 
