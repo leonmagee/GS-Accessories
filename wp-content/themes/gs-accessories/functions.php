@@ -226,7 +226,7 @@ function gs_accessories_scripts() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.17' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.18' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
@@ -243,7 +243,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.6' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.7' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
