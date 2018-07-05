@@ -142,5 +142,9 @@
 		font-size: 1.4em;
 	}
 
+	.product-table-items:not(:nth-child(1)) td {
+		border-top: 1px solid #EEE;
+	}
+
 
 

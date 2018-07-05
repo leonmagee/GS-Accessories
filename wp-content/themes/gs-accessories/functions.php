@@ -890,12 +890,6 @@ function sales_admin_page(){
 						$order_id = $post->ID;
 						?>
 
-						<style>
-						.product-table-items:not(:nth-child(1)) td {
-							border-top: 1px solid #EEE;
-						}
-					</style>
-
 					<div class="order-details-wrap">
 						<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
 							<thead>
@@ -1113,7 +1107,7 @@ function credit_admin_page() {
 							foreach ( $user_details_array as $user ) {
 
 								?>
-								<tr>
+								<tr class="product-table-items">
 									<td><?php echo $user['name']; ?></td>
 									<td><?php echo $user['company']; ?></td>
 									<td><?php echo $user['email']; ?></td>
