@@ -1059,7 +1059,7 @@ function credit_admin_page() {
 			<div class="forms-wrap credit">
 
 				<div class="range-choice form-item-group">
-					<h5>Change Retailer/Wholesaler Credit</h5>
+					<h5>Change Credit Values</h5>
 					<form method="POST">
 						<input type="hidden" name="change-user-credit-value" />
 						<div class="user-input form-item">
