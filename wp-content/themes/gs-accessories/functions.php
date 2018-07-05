@@ -243,7 +243,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.9' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.11' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
@@ -1093,8 +1093,8 @@ function credit_admin_page() {
 					<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
 						<thead>
 							<tr class="alternate">
-								<th>Name</th>
 								<th>Company</th>
+								<th>Name</th>
 								<th>Email</th>
 								<th>Role</th>
 								<th>Current Credit</th>
@@ -1108,8 +1108,8 @@ function credit_admin_page() {
 
 								?>
 								<tr class="product-table-items">
-									<td><?php echo $user['name']; ?></td>
 									<td><?php echo $user['company']; ?></td>
+									<td><?php echo $user['name']; ?></td>
 									<td><?php echo $user['email']; ?></td>
 									<td><?php echo $user['type']; ?></td>
 									<td>$<?php echo number_format($user['credit'], 2); ?></td>
