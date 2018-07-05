@@ -243,7 +243,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.8' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.9' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
