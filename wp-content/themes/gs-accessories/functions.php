@@ -994,7 +994,27 @@ function credit_report_admin_page() {
 	add_menu_page( 'Credit Report', 'Credit', 'manage_options', 'credit-report.php', 'credit_admin_page', 'dashicons-id-alt', 6  );
 }
 
-function credit_admin_page() { 
+function credit_admin_page() {
+
+
+	if ( isset($_POST['change-user-credit-value'])) {
+
+		$user_id = filter_input(INPUT_POST, 'credit-user-id', FILTER_SANITIZE_SPECIAL_CHARS);
+		$credit_value = filter_input(INPUT_POST, 'credit-new-value', FILTER_SANITIZE_SPECIAL_CHARS);
+
+		if ( ! $credit_value ) {
+			$credit_value = 0;
+		}
+
+		update_field('credit_value', $credit_value, 'user_' . $user_id);
+
+		// var_dump($user_id);
+		// var_dump($credit_value);
+
+		// die('working');
+		
+
+	}
 
 
 	$user_details_array = array();
@@ -1019,8 +1039,11 @@ function credit_admin_page() {
 			$credit = 0;
 		}
 
+		$user_data = get_userdata($user->ID);
+		//var_dump($user_data->first_name);
+
 		$user_info['id'] = $user->ID;
-		$user_info['name'] = $user->display_name;
+		$user_info['name'] = ( $user_data->first_name . ' ' . $user_data->last_name );
 		$user_info['company'] = $company;
 		$user_info['credit'] = $credit;
 		$user_info['email'] = $user->user_email;
@@ -1044,10 +1067,10 @@ function credit_admin_page() {
 				<div class="range-choice form-item-group">
 					<h5>Change Retailer/Wholesaler Credit</h5>
 					<form method="POST">
-						<input type="hidden" name="change-date-range-admin" />
+						<input type="hidden" name="change-user-credit-value" />
 						<div class="user-input form-item">
 							<label>Select User</label>
-							<select>
+							<select name="credit-user-id">
 								<?php foreach ( $user_details_array as $user ) { ?>
 									<option value="<?php echo $user['id']; ?>"><?php echo $user['name']; ?></option>		
 								<?php } ?>
@@ -1055,7 +1078,7 @@ function credit_admin_page() {
 						</div>
 						<div class="credit-input form-item">
 							<label>New Credit Value</label>
-							<input type="number" name="new-credit" min="0" />
+							<input type="number" name="credit-new-value" min="0" placeholder="0" />
 						</div>
 
 						<div>
