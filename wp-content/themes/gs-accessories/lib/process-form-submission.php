@@ -388,6 +388,8 @@ if ( isset($_POST['place-cart-order'])) {
 
 	/**
 	* Create Post to record order
+	* @todo create 'po number' - how to make this the title? 
+	* you get the order ID after making the post?
 	*/
 	$order_title = $user_name . ' - ID: ' . $user_id . ' - ' . date("F j, Y, g:i a");
 
@@ -407,6 +409,16 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
 	update_field('admin_email_text', $body_admin, $new_order_id);
 	update_field('user_id', $user_id, $new_order_id);
+
+	$po_number = 'GSA-Order-' . $new_order_id;
+	update_field('po_number', $po_number, $new_order_id);
+	if ( $coupon_percent ) {
+		update_field('coupon_percent', $coupon_percent, $new_order_id);
+	}
+	if ( $credit_used ) {
+		update_field('credit_applied', $credit_used, $new_order_id);
+	}
+
 
 	$acf_user_id = 'user_' . $user_id;
 	$referring_agent_id = get_field('referring_agent', $acf_user_id);
