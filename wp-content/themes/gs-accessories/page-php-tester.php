@@ -28,6 +28,12 @@ get_header(); ?>
 				$item_field = get_field('return_item_' . ( $i + 1 ) );
 
 								var_dump($item_field['item_name']);
+								var_dump($item_field['item_name']);
+								var_dump($item_field['item_name']);
+								var_dump($item_field['item_name']);
+								var_dump($item_field['item_name']);
+								var_dump($item_field['item_name']);
+								var_dump($item_field['item_name']);
 
 			}
 
