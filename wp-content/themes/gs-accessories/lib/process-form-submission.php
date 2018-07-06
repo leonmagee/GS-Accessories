@@ -285,26 +285,68 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
 
+	if ( $credit_used ) {
+		$after_credit_cost = ( $total_cost - $credit_used );
+		$after_credit_final = '$' . number_format($after_credit_cost, 2);
+    }
+
 	if ( $coupon_code ) {
 		$coupon_array = get_coupon_array();
 	    $coupon_percent = $coupon_array[strtolower($coupon_code)];
 
 	    if ( $coupon_percent ) {
-	    	$after_coupon_cost = percent_price($total_cost, $coupon_percent);
-	    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
 
-	    	$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div><div><strong>Total Charges: <strike style="color: red;">' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
+	    	if ( $credit_used ) {
+
+	    		// $after_credit_cost = ( $total_cost - $credit_used );
+	    		// $after_credit_final = '$' . number_format($after_credit_cost, 2);
+		    	$after_coupon_cost = percent_price($after_credit_cost, $coupon_percent);
+		    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
+
+		    	$email_body = $email_body . '<br />
+		    	<div><strong>Comments</strong><br />' . $comments . '</div><br />
+		    	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong>
+		    	<div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div>
+		    	<div><strong>Total Charges: <strike style="color: red;">' . $after_credit_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
+		    } else {
+		    	$after_coupon_cost = percent_price($total_cost, $coupon_percent);
+		    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
+
+		    	$email_body = $email_body . '<br />
+		    	<div><strong>Comments</strong><br />' . $comments . '</div><br />
+		    	<div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div>
+		    	<div><strong>Total Charges: <strike style="color: red;">' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
+		    }
+
 	    } else {
-			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+
+	    	if ( $credit_used ) {
+
+			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />
+    	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';
+	    	} else {
+
+				$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+	    	}
 	    }
 
 	} else {
-		$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+
+
+    	if ( $credit_used ) {
+
+		$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />
+	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';
+    	} else {
+
+			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+    	}
+
 	}
 
-	if ( $credit_used ) {
-		$email_body = $email_body . '<br /><div><strong>Credit Used:</strong> <strong>$' . number_format($credit_used, 2) . '</strong></div>';
-	}
+	// if ( $credit_used ) {
+	// 	$email_body = $email_body . '<br /><div><strong>Credit Used:</strong> <strong>$' . number_format($credit_used, 2) . '</strong></div>';
+	// }
 
 	// send email to admin
 	$admin_intro = '<div><span style="color: #32b79d">Order placed by</span> <strong>' . $user_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $user_email . '</strong><br /><span style="color: #32b79d">Order Type:</span> <strong>' . $payment_type . '</strong></div><br />';
