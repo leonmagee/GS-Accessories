@@ -10,6 +10,8 @@ add_action( 'rest_api_init', 'gsa_rest_endpoint_rma');
 
 add_action( 'rest_api_init', 'gsa_rest_endpoint_rma_reject');
 
+add_action( 'rest_api_init', 'gsa_rest_endpoint_rma_resend_email');
+
 add_action( 'rest_api_init', 'gsa_rest_endpoint_user_tracking');
 
 function gsa_rest_endpoint_admin() {
@@ -41,6 +43,14 @@ function gsa_rest_endpoint_rma_reject() {
 	register_rest_route( 'process_rma_reject', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_rma_email_reject',
+	));
+}
+
+function gsa_rest_endpoint_rma_resend_email() {
+
+	register_rest_route( 'rma_resend_email', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)', array(
+		'methods' => 'GET',
+		'callback' => 'gsa_rest_rma_resend_email',
 	));
 }
 
@@ -203,6 +213,71 @@ function gsa_rest_process_rma_email_reject($data) {
 		return false;
 	}
 }
+
+
+function gsa_rest_rma_resend_email($data) {
+
+	$args = array('p' => $data['id'], 'post_type' => 'rmas');
+	$custom_query = new WP_Query($args);
+	$user_email_text = false;
+	while( $custom_query->have_posts() ) {
+
+		$custom_query->the_post();
+		$rma_number = get_field('rma_number');
+		$first_name = get_field('first_name');
+		$last_name = get_field('last_name');
+		$email_address = get_field('email_address');
+		$company_name = get_field('company_name');
+		$phone_number = get_field('phone_number');
+		$address = get_field('address');
+		$city = get_field('city');
+		$state = get_field('state');
+		$zip = get_field('zip');
+
+		$product_details = '';
+
+		for ( $i = 0; $i < 5; $i++ ) {
+
+			$item_data = get_field('return_item_' . ( $i + 1 ) );
+
+			$product_details .= '<div>
+				<h3 style="margin-bottom: 8px"><span style="color: #32b79d">Item #' . ($i + 1) . '</span></h3>
+				<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_data['quantity'] . '</strong></div>
+				<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_data['item_name']  . '</strong></div>
+				<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_data['unit_price']  . '</strong></div>
+				<div><span style="color: #32b79d">Serial Number:</span> <strong>' . $item_data['serial_number']  . '</strong></div>
+				<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_data['po_number']  . '</strong></div>
+				<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_data['date_purchased']  . '</strong></div>
+				<div><span style="color: #32b79d">Description:</span> <strong>' . $item_data['return_problem_description']  . '</strong></div>
+			</div>';
+		}
+	}
+
+	wp_reset_postdata();
+
+	$admin_intro = '<div><span style="color: #32b79d">RMA Number: </span> <strong>' . $rma_number . '</strong><br /><span style="color: #32b79d">RMA submitted by</span> <strong>' . $first_name . ' ' . $last_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $email_address . '</strong><br />';
+	$to = $data['email'];
+
+	$email_wrap = GSA_EMAIL_WRAP;
+	$email_wrap_close = '</div>';
+
+	$subject = 'GS Accessories RMA';
+	$body_admin = $admin_intro . $product_details;
+	$body_final_admin = $email_wrap . $body_admin . $email_wrap_close;
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+
+	$mail_sent = wp_mail( $to, $subject, $body_final_admin, $headers );
+
+	if ( $mail_sent ) {
+
+		return true;
+
+	} else {
+
+		return false;
+	}
+}
+
 
 function gsa_rest_process_user_email_tracking($data) {
 

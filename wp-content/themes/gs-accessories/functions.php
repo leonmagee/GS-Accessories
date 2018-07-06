@@ -239,7 +239,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.15', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.16', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
@@ -564,16 +564,14 @@ function custom_meta_box_markup_rma() {
 			<div class="item buttons-flex">
 				<a id="send-rma-email" class="flex-item button button-primary">Approve RMA</a>
 				<a id="send-rma-email-reject" class="flex-item button button-secondary">Reject RMA</a>
+				<a id="rma-original-email" class="flex-item button button-secondary">Re-Send Original Email</a>
 				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
 				<div class="flex-item callout success approve">RMA Approved!</div>
 				<div class="flex-item callout success reject">RMA Rejected</div>
+				<div class="flex-item callout success email-resend">RMA Email Re-Sent</div>
 				<div class="flex-item callout alert">Email Not Sent!</div>
 			</div>
 		</div>
-
-
-
-
 
 	</div>
 <?php }
@@ -592,10 +590,6 @@ function rma_meta_box() {
 }
 
 add_action("add_meta_boxes", "rma_meta_box");
-
-
-
-
 
 
 /**
