@@ -344,6 +344,14 @@ if ( isset($_POST['place-cart-order'])) {
 
 	}
 
+	if ( ( ! $credit_used ) && ( ! $coupon_percent ) ) {
+		$final_final_total_cost = $total_cost_final;
+	} elseif ( $coupon_percent ) {
+		$final_final_total_cost = $after_coupon_cost_final;
+	} else {
+		$final_final_total_cost = $after_credit_final;
+	}
+
 	// if ( $credit_used ) {
 	// 	$email_body = $email_body . '<br /><div><strong>Credit Used:</strong> <strong>$' . number_format($credit_used, 2) . '</strong></div>';
 	// }
@@ -403,7 +411,8 @@ if ( isset($_POST['place-cart-order'])) {
 
 	update_field('comments', $comments, $new_order_id);
 	update_field('order_type', $payment_type, $new_order_id);
-	update_field('total_charge', $total_cost_final, $new_order_id);
+	update_field('sub_total', $total_cost_final, $new_order_id);
+	update_field('total_charge', $final_final_total_cost, $new_order_id);
 	update_field('customer_email', $user_email, $new_order_id);
 	update_field('user_email_text', $body_customer, $new_order_id);
 	update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
