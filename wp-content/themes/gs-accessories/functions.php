@@ -881,23 +881,46 @@ function sales_admin_page(){
 						$userdata = get_userdata($purchaser_id);
 						$first = $userdata->user_firstname;
 						$last = $userdata->user_lastname;
+						$company = get_field('company', 'user_' . $purchaser_id);
 						$order_id = $post->ID;
+						$sub_total = get_field('sub_total');
+						if ( ! $credit_applied = get_field('credit_applied') ) {
+							$credit_applied = 'N/A';
+						} else {
+							$credit_applied = '$' . number_format($credit_applied, 2);
+						}
+						if ( ! $coupon_percent = get_field('coupon_percent') ) {
+							$coupon_percent = 'N/A';
+						} else {
+							$coupon_percent = $coupon_percent . '%';
+						}
+						$total_charge = get_field('total_charge');
 						?>
 
 					<div class="order-details-wrap">
 						<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
 							<thead>
 								<tr class="alternate">
-									<th>Order ID</th>
-									<th>Retailer Name</th>
+									<th>PO Number</th>
+									<th>Company</th>
+									<th>Name</th>
 									<th>Date</th>
+									<th>Sub Total</th>
+									<th>Credit Applied</th>
+									<th>Coupon Percent</th>
+									<th>Total Charge</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td><?php echo $order_id; ?></td>
+									<td><?php echo 'GSA-Order-' . $order_id; ?></td>
+									<td><?php echo $company; ?></td>
 									<td><?php echo $first . ' ' . $last; ?></td>
 									<td><?php echo $date; ?></td>
+									<td><?php echo $sub_total; ?></td>
+									<td><?php echo $credit_applied; ?></td>
+									<td><?php echo $coupon_percent; ?></td>
+									<td><?php echo $total_charge; ?></td>
 								</tr>
 							</tbody>
 						</table>
@@ -910,8 +933,8 @@ function sales_admin_page(){
 										<th>Product</th>
 										<th>Color</th>
 										<th>Quantity</th>
+										<th>Unit Cost</th>
 										<th>Total Cost</th>
-										<th>Payment</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -936,9 +959,10 @@ function sales_admin_page(){
 											<td><?php echo $product_name; ?></td>
 											<td><?php echo $product_color; ?></td>
 											<td><?php echo $product_quantity; ?></td>
+											<td><?php echo $unit_cost; ?></td>
 											<td><?php echo $cost_total; ?></td>
-											<td>$<?php echo number_format( $payment, 2); ?></td>
-										</tr>
+<!-- 											<td>$<?php echo number_format( $payment, 2); ?></td>
+ -->										</tr>
 
 									<?php } ?>
 
