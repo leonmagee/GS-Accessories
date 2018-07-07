@@ -419,7 +419,7 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('admin_email_text', $body_admin, $new_order_id);
 	update_field('user_id', $user_id, $new_order_id);
 
-	$po_number = 'GSA-Order-' . $new_order_id;
+	$po_number = 'GSA-ODR-' . $new_order_id;
 	update_field('po_number', $po_number, $new_order_id);
 	if ( $coupon_percent ) {
 		update_field('coupon_percent', $coupon_percent, $new_order_id);
