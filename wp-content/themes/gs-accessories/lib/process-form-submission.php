@@ -219,7 +219,27 @@ if ( isset($_POST['place-cart-order'])) {
 		update_field('credit_value', $new_credit_value, 'user_' . $user_id);
 	}
 
-	$email_body = '';
+	// create new order to get po number
+	$order_title = $user_name . ' - ID: ' . $user_id . ' - ' . date("F j, Y, g:i a");
+
+	$args = array(
+		'post_title' => $order_title,
+		'post_type' => 'orders',
+		'post_status' => 'publish'
+	);
+
+	$new_order_id = wp_insert_post($args);
+
+	$po_number = 'GSA-ODR-' . $new_order_id;
+	// end order create for now
+
+
+
+
+
+
+	//$email_body = '';
+	$email_body = '<div><span>PO Number: </span><strong>' . $po_number . '</strong></div><br />';
 
 	$total_cost = 0;
 
@@ -394,20 +414,25 @@ if ( isset($_POST['place-cart-order'])) {
 	$_SESSION['shopping_cart'] = '';
 
 
+
+
+
+
 	/**
 	* Create Post to record order
-	* @todo create 'po number' - how to make this the title? 
-	* you get the order ID after making the post?
 	*/
-	$order_title = $user_name . ' - ID: ' . $user_id . ' - ' . date("F j, Y, g:i a");
+	// $order_title = $user_name . ' - ID: ' . $user_id . ' - ' . date("F j, Y, g:i a");
 
-	$args = array(
-		'post_title' => $order_title,
-		'post_type' => 'orders',
-		'post_status' => 'publish'
-	);
+	// $args = array(
+	// 	'post_title' => $order_title,
+	// 	'post_type' => 'orders',
+	// 	'post_status' => 'publish'
+	// );
 
-	$new_order_id = wp_insert_post($args);
+	// $new_order_id = wp_insert_post($args);
+
+	// $po_number = 'GSA-ODR-' . $new_order_id;
+
 
 	update_field('comments', $comments, $new_order_id);
 	update_field('order_type', $payment_type, $new_order_id);
@@ -419,7 +444,6 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('admin_email_text', $body_admin, $new_order_id);
 	update_field('user_id', $user_id, $new_order_id);
 
-	$po_number = 'GSA-ODR-' . $new_order_id;
 	update_field('po_number', $po_number, $new_order_id);
 	if ( $coupon_percent ) {
 		update_field('coupon_percent', $coupon_percent, $new_order_id);
