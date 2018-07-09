@@ -360,10 +360,10 @@ jQuery(function ($) {
         //console.log('focus...');
         $(this).removeClass('alert-warning');
     });
-
-    //$('input[name="item_date_1"]').datepicker();
     
     $('.page-template-page-submit-rma .rma-date input').datepicker();
+
+    $('.page-template-page-order-history #datepicker_start, .page-template-page-order-history #datepicker_end').datepicker();
 
 
     /**
