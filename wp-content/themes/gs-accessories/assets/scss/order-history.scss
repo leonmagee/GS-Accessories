@@ -2,7 +2,7 @@
 
 	.change-date-form {
 
-		//max-width: 240px;
+		max-width: none;
 
 		.change-date-form-inner {
 			//display: none;
@@ -24,9 +24,27 @@
 			padding: 0 20px 15px;
 			background-color: #FFF;
 			border: 1px solid #DDD;
-			flex: 0 1 25%;
-			margin-right: 2%;
-			margin-top: 1%;
+			//flex: 0 1 50%;
+			flex: 1 1 100%;
+			@media(min-width: $screen-md) {
+				flex: 0 1 50%;
+			}
+			&.range-choice {
+				display: none;
+			}
+
+			.change-date-inner-new {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				div {
+					padding: 0 5px;
+					&:nth-child(2), &:nth-child(3) {
+						flex: 0 1 50%;
+					}
+				}
+			}
 
 		}
 		h5 {
@@ -53,5 +71,17 @@
 		// 		}
 		// 	}
 		// }
+	}
+	table.widefat.fixed {
+		@media(max-width: $screen-sm) {
+			font-size: 11px;
+		}
+		margin: 0 !important;
+	}
+	.gsa-no-orders-info {
+		color: $brand-third;
+		padding: 15px;
+		font-size: 20px;
+		font-weight: bold;
 	}
 }
