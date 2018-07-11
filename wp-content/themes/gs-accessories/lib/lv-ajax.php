@@ -174,6 +174,15 @@ function lv_process_rma() {
 			
 			$user_id = filter_input( INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS );
 
+
+			$ref_agent_id = get_user_meta($user_id, 'referring_agent', true);
+			$ref_agent_email = false;
+			if ( $ref_agent_id ) {
+				$user_object = get_userdata($ref_agent_id);
+				$ref_agent_email = $user_object->user_email;
+			}
+
+
 			$item_quantity = array();
 			$item_name = array();
 			$item_price = array();
@@ -258,7 +267,15 @@ function lv_process_rma() {
 
 				// send email to admin
 				$admin_intro = '<div><span style="color: #32b79d">RMA Number: </span> <strong>' . $rma_number . '</strong><br /><span style="color: #32b79d">RMA submitted by</span> <strong>' . $first_name . ' ' . $last_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $email_address . '</strong><br />';
-				$to = array($admin_email, 'leonmagee33@gmail.com');
+
+				if ( $ref_agent_email ) {
+					
+					$to = array($admin_email, $ref_agent_email, 'leonmagee33@gmail.com');
+
+				} else {
+
+					$to = array($admin_email, 'leonmagee33@gmail.com');
+				}
 
 				$email_wrap = GSA_EMAIL_WRAP;
 				$email_wrap_close = '</div>';
@@ -275,7 +292,7 @@ function lv_process_rma() {
 
 				$body_final_customer = $email_wrap . $customer_email_text . $email_wrap_close;
 
-				$to = array($admin_email, 'leonmagee33@gmail.com');
+				//$to = array($admin_email, 'leonmagee33@gmail.com');
 
 				wp_mail( $email_address, $subject, $body_final_customer, $headers );
 
