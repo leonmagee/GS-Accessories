@@ -10,7 +10,7 @@ jQuery(function ($) {
         var max_quantity = parseInt($('input.quantity-input[name="quantity"]').attr('quantity'));
         e.preventDefault();
         var quantity_number = parseInt($('input.quantity-input[name="quantity"]').val());
-        if ( quantity_number > max_quantity ) {
+        if ( ( quantity_number > max_quantity ) || ( ! quantity_number ) ) {
             $('input.quantity-input[name="quantity"]').val('');
             $('input.quantity-input[name="quantity"]').addClass('exceeds-quantity');
         } else {
