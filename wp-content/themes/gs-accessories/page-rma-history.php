@@ -263,7 +263,7 @@ get_header(); ?>
 															<tr class="product-table-items">	
 																<td><?php echo $quantity; ?></td>
 																<td><?php echo $item_name; ?></td>
-																<td><?php echo $unit_price; ?></td>
+																<td>$<?php echo number_format($unit_price, 2); ?></td>
 																<td><?php echo $serial_number; ?></td>
 																<td><?php echo $po_number; ?></td>
 																<td><?php echo $date_purchased; ?></td>
