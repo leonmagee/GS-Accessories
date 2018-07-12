@@ -285,7 +285,7 @@ get_header(); ?>
 									<?php } 
 
 								} else { ?>
-									<div class="gsa-no-orders-info">No orders for this period.</div>
+									<div class="gsa-no-orders-info">No RMAs for this period.</div>
 								<?php }
 								wp_reset_postdata();
 								?>
