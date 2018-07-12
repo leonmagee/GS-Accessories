@@ -102,7 +102,7 @@
 
 								<li><a href="/place-your-order">Add to Order</a></li>
 
-								<li><a href="#">RMA</a>
+								<li class="has-sub-menu"><a class="dropdown-trigger" href="#">RMA</a>
 									<ul class="sub-menu">
 										<li><a href="/rma">Submit RMA</a></li>		
 										<li><a href="/rma-history">RMA History</a></li>		
