@@ -187,18 +187,11 @@ get_header(); ?>
 										// 	$status = 'Pending';
 										// }
 										$order_id = $post->ID;
-										$sub_total = get_field('sub_total');
-										if ( ! $credit_applied = get_field('credit_applied') ) {
-											$credit_applied = 'N/A';
-										} else {
-											$credit_applied = '$' . number_format($credit_applied, 2);
+										if ( ! $rma_status = get_field('rma_status') ) {
+											$rma_status = 'Pending';
 										}
-										if ( ! $coupon_percent = get_field('coupon_percent') ) {
-											$coupon_percent = 'N/A';
-										} else {
-											$coupon_percent = $coupon_percent . '%';
-										}
-										$total_charge = get_field('total_charge');
+
+										
 										?>
 
 										<div class="order-details-wrap">
@@ -209,22 +202,16 @@ get_header(); ?>
 													<tr class="alternate">
 														<th>RMA Number</th>
 														<th>Date</th>
-														<th>Sub Total</th>
-														<th>Credit Applied</th>
-														<th>Coupon Percent</th>
-														<th>Total Charge</th>
-														<th>Order Email</th>
+														<th>RMA Status</th>
+														<th>RMA Email</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<td><?php echo 'GSA-RMA-' . $order_id; ?></td>
 														<td><?php echo $date; ?></td>
-														<td><?php echo $sub_total; ?></td>
-														<td><?php echo $credit_applied; ?></td>
-														<td><?php echo $coupon_percent; ?></td>
-														<td><?php echo $total_charge; ?></td>
-														<td><a class="gs-button gs-resend-order-email">Resend</a><img class="gsa_spinner" src="<?php echo $icon_url; ?>" />
+														<td><?php echo $rma_status; ?></td>
+														<td><a class="gs-button gs-resend-rma-email">Resend</a><img class="gsa_spinner" src="<?php echo $icon_url; ?>" />
 															<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $order_id; ?>" />
 															<input type="hidden" name="gsa-email-address-admin" value="<?php echo LV_LOGGED_IN_EMAIL; ?>" />
 														</td>
@@ -238,38 +225,51 @@ get_header(); ?>
 												<table class="widefat fixed" cellspacing="0">
 													<thead>
 														<tr class="alternate">
-															<th>Product</th>
-															<th>Color</th>
 															<th>Quantity</th>
-															<th>Unit Cost</th>
-															<th>Total Cost</th>
+															<th>Item Name</th>
+															<th>Unit Price</th>
+															<th>Serial Number</th>
+															<th>PO Number</th>
+															<th>Date Purchased</th>
 														</tr>
 													</thead>
 													<tbody>
 
-														<?php $entries = get_field('product_entries'); 
+														<?php 
+														// loop through to get 
 
-														foreach( $entries as $entry ) {
-															$product_name = $entry['product_name'];
-															$product_id = $entry['product_id'];
-															$product_color = $entry['product_color'];
-															$product_quantity = $entry['product_quantity'];
-															$unit_cost = $entry['unit_cost'];
-															$cost_total = $entry['cost_total'];
-															$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
-															$category_array = get_the_category($product_id);
-															$cat_name = $category_array[0]->name;
-															$cat_id = $category_array[0]->term_id;
-															$payment = $cost_actual;
-															$total_payment = ( $total_payment + $payment ); ?>
+														//$entries = get_field('product_entries'); 
+
+														$return_items = array(get_field('return_item_1'));
+
+														foreach( $return_items as $entry ) {
+															$quantity = $entry['quantity'];
+															$item_name = $entry['item_name'];
+															$unit_price = $entry['unit_price'];
+															$serial_number = $entry['serial_number'];
+															$po_number = $entry['po_number'];
+															$date_purchased = $entry['date_purchased'];
+															$desc = $entry['return_problem_description'];
+															
+
+															//$category_array = get_the_category($product_id);
+															// $cat_name = $category_array[0]->name;
+															// $cat_id = $category_array[0]->term_id;
+															// $payment = $cost_actual;
+															// $total_payment = ( $total_payment + $payment ); 
+
+															?>
 
 															<tr class="product-table-items">	
-																<td><?php echo $product_name; ?></td>
-																<td><?php echo $product_color; ?></td>
-																<td><?php echo $product_quantity; ?></td>
-																<td><?php echo $unit_cost; ?></td>
-																<td><?php echo $cost_total; ?></td>
-
+																<td><?php echo $quantity; ?></td>
+																<td><?php echo $item_name; ?></td>
+																<td><?php echo $unit_price; ?></td>
+																<td><?php echo $serial_number; ?></td>
+																<td><?php echo $po_number; ?></td>
+																<td><?php echo $date_purchased; ?></td>
+															</tr>
+															<tr class="product-table-items">	
+																<td style="background-color: #FFF" colspan="6"><?php echo $desc; ?></td>
 															</tr>
 
 														<?php } ?>
