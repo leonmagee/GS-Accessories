@@ -109,6 +109,7 @@ header#masthead {
         display: block;
         @media(min-width: $screen-md) {
           position: absolute;
+          z-index: 100000;
           left: -5px;
           background: #FFF;
           border: 1px solid #EEE;
