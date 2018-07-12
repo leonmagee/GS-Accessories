@@ -217,6 +217,7 @@ get_header(); ?>
 														<th>Credit Applied</th>
 														<th>Coupon Percent</th>
 														<th>Total Charge</th>
+														<th>Order Email</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -227,6 +228,7 @@ get_header(); ?>
 														<td><?php echo $credit_applied; ?></td>
 														<td><?php echo $coupon_percent; ?></td>
 														<td><?php echo $total_charge; ?></td>
+														<td><a class="gs-button gs-resend-order-email">Resend</a></td>
 													</tr>
 												</tbody>
 											</table>
