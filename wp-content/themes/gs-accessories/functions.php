@@ -62,6 +62,7 @@ if ( is_user_logged_in() ) {
 	$last_name = get_user_meta($user_id, 'last_name', true);
 	define('LV_LOGGED_IN_NAME', $first_name . ' ' . $last_name);
 	define( 'LV_LOGGED_IN_ID', $user_id );
+	define( 'LV_LOGGED_IN_EMAIL', $user->user_email );
 } else {
 	define( 'LV_LOGGED_IN_ID', false );
 }
@@ -214,7 +215,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.7', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.8', true );
 
 	wp_enqueue_script( 'custom-js');
 

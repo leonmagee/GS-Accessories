@@ -177,6 +177,8 @@ get_header(); ?>
 									);
 								}
 
+								$icon_url = get_site_url() . '/wp-admin/images/loading.gif';
+
 								$order_query = new WP_Query($args);
 
 								$total_payment = 0;
@@ -208,6 +210,8 @@ get_header(); ?>
 										?>
 
 										<div class="order-details-wrap">
+											<div class="callout success">Email Sent!</div>
+											<div class="callout alert">Email Not Sent!</div>
 											<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
 												<thead>
 													<tr class="alternate">
@@ -228,7 +232,11 @@ get_header(); ?>
 														<td><?php echo $credit_applied; ?></td>
 														<td><?php echo $coupon_percent; ?></td>
 														<td><?php echo $total_charge; ?></td>
-														<td><a class="gs-button gs-resend-order-email">Resend</a></td>
+														<td><a class="gs-button gs-resend-order-email">Resend</a><img class="gsa_spinner" src="<?php echo $icon_url; ?>" />
+															<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $order_id; ?>" />
+															<input type="hidden" name="gsa-email-address-admin" value="<?php echo LV_LOGGED_IN_EMAIL; ?>" />
+														</td>
+
 													</tr>
 												</tbody>
 											</table>

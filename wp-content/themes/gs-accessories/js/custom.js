@@ -400,16 +400,18 @@ jQuery(function ($) {
         $('form.change-date-form-inner').toggleClass('active');
     });
 
-});
 
 // send admin email from order page
 $('.gs-resend-order-email').click(function() {
 
+    console.log('clicky working');
+
         var email_address = $('input[name="gsa-email-address-admin"]').val();
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
         var spinner = $(this).parent().find('.gsa_spinner');
-        var success = $(this).parent().find('.success');
-        var alert = $(this).parent().find('.alert');
+        var success = $(this).parent().parent().parent().parent().parent().find('.callout.success');
+
+        var alert = $(this).parent().parent().parent().parent().parent().find('.callout.alert');
 
         spinner.show();
         success.hide();
@@ -443,6 +445,9 @@ $('.gs-resend-order-email').click(function() {
         });
 
     });
+
+
+});
 
 
 
