@@ -102,10 +102,16 @@
 
 								<li><a href="/place-your-order">Add to Order</a></li>
 
-								<li><a href="/rma">Submit RMA</a></li>		
+								<li><a href="#">RMA</a>
+									<ul class="sub-menu">
+										<li><a href="/rma">Submit RMA</a></li>		
+										<li><a href="/rma-history">RMA History</a></li>		
+									</ul>
+								</li>		
 								
 								<li><a href="/order-history">Order History</a></li>		
-														
+								
+
 								<li><a href="/cart"><i class="fa fa-shopping-cart"></i></a></li>
 
 								<?php } ?>

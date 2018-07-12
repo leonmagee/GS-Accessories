@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Order History
+ * Template Name: RMA History
  *
  */
 
@@ -135,7 +135,7 @@ get_header(); ?>
 								if ( $gsa_date_rage_query ) {
 
 									$args = array(
-										'post_type' => 'orders', 
+										'post_type' => 'rmas', 
 										'posts_per_page' => -1,
 										'date_query' => array(
 											array(
@@ -147,16 +147,12 @@ get_header(); ?>
 											array(
 												'key' => 'user_id',
 												'value' => LV_LOGGED_IN_ID
-											),
-											array(
-												'key' => 'paid',
-												'value' => 'Paid in Full'
 											)
 										),
 									);
 								} else {
 									$args = array(
-										'post_type' => 'orders', 
+										'post_type' => 'rmas', 
 										'posts_per_page' => -1,
 										'date_query' => array(
 											array(
@@ -168,10 +164,6 @@ get_header(); ?>
 											array(
 												'key' => 'user_id',
 												'value' => LV_LOGGED_IN_ID
-											),
-											array(
-												'key' => 'paid',
-												'value' => 'Paid in Full'
 											)
 										),
 									);
@@ -215,7 +207,7 @@ get_header(); ?>
 											<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
 												<thead>
 													<tr class="alternate">
-														<th>PO Number</th>
+														<th>RMA Number</th>
 														<th>Date</th>
 														<th>Sub Total</th>
 														<th>Credit Applied</th>
@@ -226,7 +218,7 @@ get_header(); ?>
 												</thead>
 												<tbody>
 													<tr>
-														<td><?php echo 'GSA-ODR-' . $order_id; ?></td>
+														<td><?php echo 'GSA-RMA-' . $order_id; ?></td>
 														<td><?php echo $date; ?></td>
 														<td><?php echo $sub_total; ?></td>
 														<td><?php echo $credit_applied; ?></td>
