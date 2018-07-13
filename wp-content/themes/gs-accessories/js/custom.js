@@ -417,8 +417,8 @@ $('.gs-resend-order-email').click(function() {
     success.hide();
     alert.hide();
 
-    //var site_url = 'https://mygsaccessories.com';
-        var site_url = 'https://www.gs-accessories.dev';
+    var site_url = 'https://mygsaccessories.com';
+        //var site_url = 'https://www.gs-accessories.dev';
 
         var rest_url = site_url + '/wp-json/process_emails/admin/' + post_id + '/' + email_address;
 
@@ -464,8 +464,8 @@ $('.gs-resend-rma-email').click(function() {
     success.hide();
     alert.hide();
 
-        //var site_url = 'https://mygsaccessories.com';
-        var site_url = 'https://www.gs-accessories.dev';
+        var site_url = 'https://mygsaccessories.com';
+        //var site_url = 'https://www.gs-accessories.dev';
 
         var rest_url = site_url + '/wp-json/rma_resend_email/user/' + post_id + '/' + email_address;
 
