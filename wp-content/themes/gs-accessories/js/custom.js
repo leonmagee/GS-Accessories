@@ -116,7 +116,7 @@ jQuery(function ($) {
      *
      * @todo modify this to check for and Agent Retailer
      */
-    $("#register-new-user-submit").click(function (event) {
+     $("#register-new-user-submit").click(function (event) {
 
         event.preventDefault();
 
@@ -264,7 +264,7 @@ jQuery(function ($) {
         // these can be just hidden by css?
         //var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
         var conditional_inputs = (item_quantity[0] && item_name[0] && item_price[0] && item_serial[0] && item_po_number[0] && item_date[0] && item_description[0]);
-       
+
 
 
 
@@ -356,14 +356,14 @@ jQuery(function ($) {
         }
     });
 
-    $('.page-template-page-submit-rma input, .page-template-page-submit-rma textarea').focus(function() {
+$('.page-template-page-submit-rma input, .page-template-page-submit-rma textarea').focus(function() {
         //console.log('focus...');
         $(this).removeClass('alert-warning');
     });
-    
-    $('.page-template-page-submit-rma .rma-date input').datepicker();
 
-    $('.page-template-page-order-history #datepicker_start, .page-template-page-order-history #datepicker_end').datepicker();
+$('.page-template-page-submit-rma .rma-date input').datepicker();
+
+$('.page-template-page-order-history #datepicker_start, .page-template-page-order-history #datepicker_end').datepicker();
 
 
     /**
@@ -390,7 +390,7 @@ jQuery(function ($) {
         if (!$(event.target).closest(".homepage-video-wrapper-inner").length) {
 
             stop_video();
-      }
+        }
     });
 
     /**
@@ -401,26 +401,73 @@ jQuery(function ($) {
     });
 
 
-// send admin email from order page
+/**
+* send admin email from order page
+*/
 $('.gs-resend-order-email').click(function() {
+
+    var email_address = $(this).parent().find('input[name="gsa-email-address-admin"]').val();
+    var post_id = $(this).parent().find('input[name="gsa-hidden-post-id"]').val();
+    var spinner = $(this).parent().find('.gsa_spinner');
+    var success = $(this).parent().parent().parent().parent().parent().find('.callout.success');
+
+    var alert = $(this).parent().parent().parent().parent().parent().find('.callout.alert');
+
+    spinner.show();
+    success.hide();
+    alert.hide();
+
+    //var site_url = 'https://mygsaccessories.com';
+        var site_url = 'https://www.gs-accessories.dev';
+
+        var rest_url = site_url + '/wp-json/process_emails/admin/' + post_id + '/' + email_address;
+
+        $.ajax({
+            type: 'GET',
+            url: rest_url,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data, textStatus, XMLHttpRequest) {
+                //console.log('worked?', data);
+                spinner.hide();
+                if ( data === true ) {
+                    success.show();
+                } else {
+                    alert.show();
+                }
+            },
+            error: function (MLHttpRequest, textStatus, errorThrown) {
+                //alert(errorThrown);
+                spinner.hide();
+                alert.show();
+            }
+        });
+
+    });
+
+/**
+* send admin email from RMA page
+*/
+$('.gs-resend-rma-email').click(function() {
 
     console.log('clicky working');
 
-        var email_address = $('input[name="gsa-email-address-admin"]').val();
-        var post_id = $('input[name="gsa-hidden-post-id"]').val();
-        var spinner = $(this).parent().find('.gsa_spinner');
-        var success = $(this).parent().parent().parent().parent().parent().find('.callout.success');
+    var email_address = $(this).parent().find('input[name="gsa-email-address-admin"]').val();
+    var post_id = $(this).parent().find('input[name="gsa-hidden-post-id"]').val(); // @todo important this isn't working right...
+    var spinner = $(this).parent().find('.gsa_spinner');
+    var success = $(this).parent().parent().parent().parent().parent().find('.callout.success');
 
-        var alert = $(this).parent().parent().parent().parent().parent().find('.callout.alert');
+    var alert = $(this).parent().parent().parent().parent().parent().find('.callout.alert');
 
-        spinner.show();
-        success.hide();
-        alert.hide();
+    spinner.show();
+    success.hide();
+    alert.hide();
 
-        var site_url = 'https://mygsaccessories.com';
-        //var site_url = 'https://www.gs-accessories.dev';
+        //var site_url = 'https://mygsaccessories.com';
+        var site_url = 'https://www.gs-accessories.dev';
 
-        var rest_url = site_url + '/wp-json/process_emails/admin/' + post_id + '/' + email_address;
+        var rest_url = site_url + '/wp-json/rma_resend_email/user/' + post_id + '/' + email_address;
 
         $.ajax({
             type: 'GET',
