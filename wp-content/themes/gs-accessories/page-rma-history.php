@@ -215,68 +215,76 @@ get_header(); ?>
 															<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $order_id; ?>" />
 															<input type="hidden" name="gsa-email-address-admin" value="<?php echo LV_LOGGED_IN_EMAIL; ?>" />
 														</td>
-
 													</tr>
 												</tbody>
 											</table>
 
 											<div class="products-ordred" style="margin-top: 10px;">
 
-												<table class="widefat fixed" cellspacing="0">
-													<thead>
-														<tr class="alternate">
-															<th>Quantity</th>
-															<th>Item Name</th>
-															<th>Unit Price</th>
-															<th>Serial Number</th>
-															<th>PO Number</th>
-															<th>Date Purchased</th>
-														</tr>
-													</thead>
-													<tbody>
+												<?php 
+
+												$return_items = array(
+													get_field('return_item_1'),
+													get_field('return_item_2'),
+													get_field('return_item_3'),
+													get_field('return_item_4'),
+													get_field('return_item_5'),
+												);
+
+												$counter = 0;
+												foreach( $return_items as $entry ) {
+													$counter++;
+													$quantity = $entry['quantity'];
+													$item_name = $entry['item_name'];
+													$unit_price = $entry['unit_price'];
+													if ( $unit_price ) {
+														$unit_price = '$' . number_format($unit_price, 2);
+													}
+													$serial_number = $entry['serial_number'];
+													$po_number = $entry['po_number'];
+													$date_purchased = $entry['date_purchased'];
+													$desc = $entry['return_problem_description'];
+
+													if ( $quantity || $item_name || $unit_price || $serial_number || $po_number || $date_purchased || $desc ) {
+
+														?>
+
+														<div class="table-push-down-wrap">
+															<h5>Return Item <?php echo $counter; ?></h5>
+															<table class="widefat fixed" cellspacing="0">
+																<thead>
+																	<tr class="alternate">
+																		<th>Quantity</th>
+																		<th>Item Name</th>
+																		<th>Unit Price</th>
+																		<th>Serial Number</th>
+																		<th>PO Number</th>
+																		<th>Date Purchased</th>
+																	</tr>
+																</thead>
+																<tbody>
+
+																	<tr class="product-table-items">	
+																		<td><?php echo $quantity; ?></td>
+																		<td><?php echo $item_name; ?></td>
+																		<td><?php echo $unit_price; ?></td>
+																		<td><?php echo $serial_number; ?></td>
+																		<td><?php echo $po_number; ?></td>
+																		<td><?php echo $date_purchased; ?></td>
+																	</tr>
+																	<tr class="product-table-items">	
+																		<td style="background-color: #FFF" colspan="6"><?php echo $desc; ?></td>
+																	</tr>
+
+																</tbody>
+
+															</table>
+
+														</div>
 
 														<?php 
-														// loop through to get 
-
-														//$entries = get_field('product_entries'); 
-
-														$return_items = array(get_field('return_item_1'));
-
-														foreach( $return_items as $entry ) {
-															$quantity = $entry['quantity'];
-															$item_name = $entry['item_name'];
-															$unit_price = $entry['unit_price'];
-															$serial_number = $entry['serial_number'];
-															$po_number = $entry['po_number'];
-															$date_purchased = $entry['date_purchased'];
-															$desc = $entry['return_problem_description'];
-															
-
-															//$category_array = get_the_category($product_id);
-															// $cat_name = $category_array[0]->name;
-															// $cat_id = $category_array[0]->term_id;
-															// $payment = $cost_actual;
-															// $total_payment = ( $total_payment + $payment ); 
-
-															?>
-
-															<tr class="product-table-items">	
-																<td><?php echo $quantity; ?></td>
-																<td><?php echo $item_name; ?></td>
-																<td>$<?php echo number_format($unit_price, 2); ?></td>
-																<td><?php echo $serial_number; ?></td>
-																<td><?php echo $po_number; ?></td>
-																<td><?php echo $date_purchased; ?></td>
-															</tr>
-															<tr class="product-table-items">	
-																<td style="background-color: #FFF" colspan="6"><?php echo $desc; ?></td>
-															</tr>
-
-														<?php } ?>
-
-													</tbody>
-
-												</table>
+													}
+												} ?>
 
 											</div>
 

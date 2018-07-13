@@ -100,3 +100,13 @@ a.gs-button.gs-resend-order-email, a.gs-button.gs-resend-rma-email {
 	padding-bottom: 5px !important;
 	font-size: 15px;
 }
+
+.table-push-down-wrap {
+	padding-bottom: 10px;	
+	h5 {
+		font-weight: bold;
+		margin: 15px 0 5px 5px;
+		font-size: 0.9em;
+		color: $brand-primary-hover;
+	}
+}
