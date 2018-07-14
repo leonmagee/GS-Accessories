@@ -211,9 +211,12 @@ get_header(); ?>
 														<td><?php echo 'GSA-RMA-' . $order_id; ?></td>
 														<td><?php echo $date; ?></td>
 														<td><?php echo $rma_status; ?></td>
-														<td><a class="gs-button gs-resend-rma-email">Resend</a><img class="gsa_spinner" src="<?php echo $icon_url; ?>" />
+														<td>
+															<?php if ( $rma_status === 'Completed' ) { ?>
+															<a class="gs-button gs-resend-rma-email">Resend</a><img class="gsa_spinner" src="<?php echo $icon_url; ?>" />
 															<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $order_id; ?>" />
 															<input type="hidden" name="gsa-email-address-admin" value="<?php echo LV_LOGGED_IN_EMAIL; ?>" />
+														<?php } ?>
 														</td>
 													</tr>
 												</tbody>
