@@ -43,10 +43,15 @@ get_header(); ?>
 </div>
 
 <div class="homepage-amazon-wrap">
-  <a href="https://www.amazon.com/s?marketplaceID=ATVPDKIKX0DER&me=A1AC06F3GET8FM&merchant=A1AC06F3GET8FM&redirect=true" target="_blank">
-  <img src="<?php echo site_url(); ?>/wp-content/uploads/amazon_buy_link_new.png" />
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-4"><a href="<?php echo site_url(); ?>/products/samsung-unlocked-gsm-cellphones"><img src="https://mygsaccessories.com/wp-content/uploads/banner-logos-samsung.png" /></a></div>
+    <div class="cell small-4"><a href="<?php echo site_url(); ?>/products/iphone-unlocked-gsm-cellphones"><img src="https://mygsaccessories.com/wp-content/uploads/banner-logos-apple.png" /></a></div>
+    <div class="cell small-4"><a href="<?php echo site_url(); ?>/products/lg-unlocked-gsm-cellphones"><img src="https://mygsaccessories.com/wp-content/uploads/banner-logos-lg.png" /></a></div>
+  </div>
+<!--   <a href="https://www.amazon.com/s?marketplaceID=ATVPDKIKX0DER&me=A1AC06F3GET8FM&merchant=A1AC06F3GET8FM&redirect=true" target="_blank">
+  <img src="<?php //echo site_url(); ?>/wp-content/uploads/amazon_buy_link_new.png" />
 </a>
-
+ -->
 </div>
 
 <div class="gs-homepage-content">
