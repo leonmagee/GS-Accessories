@@ -171,23 +171,23 @@
     //border-bottom: 1px solid #00000033;
 }
 
-.video-embed-wraps {
-    @media(min-width: $screen-md) {
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: 8fr 7fr 8fr;
-        //grid-auto-flow: column;
-        align-items: center;
-    }
-    margin-bottom: 20px;
+// .video-embed-wraps {
+//     @media(min-width: $screen-md) {
+//         display: grid;
+//         grid-gap: 20px;
+//         grid-template-columns: 8fr 7fr 8fr;
+//         //grid-auto-flow: column;
+//         align-items: center;
+//     }
+//     margin-bottom: 20px;
 
-    .video-item.amazon-link {
-        padding: 25px;
-        &:hover {
-            opacity: 0.9;
-        }
-    }
-}
+//     .video-item.amazon-link {
+//         padding: 25px;
+//         &:hover {
+//             opacity: 0.9;
+//         }
+//     }
+// }
 
 .gswireless-link-wrap {
     @include img_bg;
