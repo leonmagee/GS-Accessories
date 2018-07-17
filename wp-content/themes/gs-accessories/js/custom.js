@@ -493,14 +493,9 @@ $('.gs-resend-rma-email').click(function() {
 
     });
 
-$('.retailer-names-wrap .retailer-name a').click(function() {
-    $(this).parent().toggleClass('show-details');
-    $(this).find('i.fa').toggleClass('fa-plus-circle').toggleClass('fa-minus-circle');
+    $('.retailer-names-wrap .retailer-name a').click(function() {
+        $(this).parent().toggleClass('show-details');
+        $(this).find('i.fa').toggleClass('fa-plus-circle').toggleClass('fa-minus-circle');
+    });
+
 });
-
-
-});
-
-
-
-

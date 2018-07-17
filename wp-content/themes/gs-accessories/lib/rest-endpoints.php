@@ -294,7 +294,7 @@ function gsa_rest_process_user_email_tracking($data) {
 
 	if ( $user_email_text && $data['email'] ) {
 
-		$subject = 'GS Accessories Order';
+		$subject = 'GSA Shipment Tracking Number';
 		$headers = array('Content-Type: text/html; charset=UTF-8');
 
 
