@@ -62,14 +62,35 @@
 		background-color: #FAFAFA;
 
 		.retailer-name {
-			font-size: 1.2em;
-			font-weight: bold;
-			color: $brand-primary-hover;
+
+			a {
+				font-size: 1.2em;
+				font-weight: bold;
+				color: $brand-primary-hover;
+				text-transform: uppercase;
+			}
 			padding: 10px 0;
 			&:not(:nth-last-child(1)) {
 				border-bottom: 1px solid #EEE;
 			}
+
+			.address {
+				font-size: 0.9em;
+			}
+				
+			.agent-details {
+				display: none;
+			}
+
+			&.show-details {
+				.agent-details {
+					display: block;
+				}
+			}
 		}
+
+
+
 	}
 
 	.no-retailers {

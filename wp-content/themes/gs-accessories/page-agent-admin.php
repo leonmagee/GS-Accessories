@@ -246,11 +246,35 @@ get_header(); ?>
 							<div class="retailer-names-wrap">
 								<?php foreach ( $user_query->get_results() as $user ) {
 									$company = get_field('company', 'user_' . $user->ID);
-									// $userdata = get_userdata($user->ID);
-									// $first = $userdata->user_firstname;
-									// $last = $userdata->user_lastname;
+									$address = get_field('address', 'user_' . $user->ID);
+									$city = get_field('city', 'user_' . $user->ID);
+									$state = get_field('state', 'user_' . $user->ID);
+									$zip = get_field('zip', 'user_' . $user->ID);
+									$phone_number = get_field('phone_number', 'user_' . $user->ID);
+									$userdata_new = get_userdata($user->ID);
+									$first_name = $userdata_new->user_firstname;
+									$last_name = $userdata_new->user_lastname;
 									?>
-									<div class="retailer-name"><?php echo $company; ?></div>
+									<div class="retailer-name"><a href="#"><?php echo $company; ?> <i class="fa fa-plus-circle"></i></a>
+									<div class="agent-details">
+										<div>
+											<strong><?php echo $first_name . ' ' . $last_name; ?></strong>
+										</div>
+										<div class="address">
+											<?php echo $address; ?>
+										</div>
+										<div class="address">
+											<?php echo $city; ?>, <?php echo $state; ?> <?php echo $zip; ?>
+										</div>
+										<div>
+											<?php echo $phone_number; ?>
+										</div>
+											
+									</div>
+
+									</div>
+
+
 								<?php } ?>
 							</div>
 						<?php } else { ?>
