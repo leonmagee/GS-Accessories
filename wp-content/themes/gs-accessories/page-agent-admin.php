@@ -254,8 +254,9 @@ get_header(); ?>
 									$userdata_new = get_userdata($user->ID);
 									$first_name = $userdata_new->user_firstname;
 									$last_name = $userdata_new->user_lastname;
+									$user_email = $userdata_new->user_email;
 									?>
-									<div class="retailer-name"><a href="#"><?php echo $company; ?> <i class="fa fa-plus-circle"></i></a>
+									<div class="retailer-name"><a class="company-name" href="#"><?php echo $company; ?> <i class="fa fa-plus-circle"></i></a>
 									<div class="agent-details">
 										<div>
 											<strong><?php echo $first_name . ' ' . $last_name; ?></strong>
@@ -268,6 +269,9 @@ get_header(); ?>
 										</div>
 										<div>
 											<?php echo $phone_number; ?>
+										</div>
+										<div>
+											<a href="mailto:<?php echo $user_email; ?>"><?php echo $user_email; ?></a>
 										</div>
 											
 									</div>
