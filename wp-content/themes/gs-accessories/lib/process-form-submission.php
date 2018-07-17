@@ -239,7 +239,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 
 	//$email_body = '';
-	$email_body = '<div><span>PO Number: </span><strong>' . $po_number . '</strong></div><br />';
+	$email_body = '<div><span style="color: #0E509C">PO Number: </span><strong>' . $po_number . '</strong></div><br />';
 
 	$total_cost = 0;
 
