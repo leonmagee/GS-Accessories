@@ -29,6 +29,7 @@
     border-top: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
     transition: 0.3s;
+    padding: 25px 0;
     img {
         width: 100%;
     }
@@ -49,7 +50,7 @@
 }
 
 .homepage-amazon-wrap {
-    padding: 4em 20px;
+    padding: 4.5em 20px;
     text-align: center;
     color: #FFF;
     background-color: darken($brand-primary, 5%);
