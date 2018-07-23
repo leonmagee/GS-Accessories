@@ -66,8 +66,13 @@
         font-weight: bold;
 
         &:hover {
+            //color: $brand-primary !important;
             .cta-logo-item {
+                background-color: $brand-primary;
                 border-color: $brand-primary;
+                img, div {
+                    opacity: 0.9;
+                }
             }
         }
 
