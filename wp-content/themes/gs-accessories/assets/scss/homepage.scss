@@ -49,23 +49,48 @@
     }
 }
 
-.homepage-amazon-wrap {
-    padding: 4.5em 20px;
-    text-align: center;
-    color: #FFF;
-    background-color: darken($brand-primary, 5%);
-    border-top: 2px solid darken($brand-primary, 12%);
-    border-bottom: 2px solid darken($brand-primary, 12%);
-    img {
-        opacity: 0.95;
-        @media(min-width: $screen-md) {
-            max-width: 50%;
+.homepage-logo-wrap {
+    background-color: #F7F7F7;
+    border-top: 1px solid #EEE;
+    //padding: 4.5em 20px;
+    //padding: 30px 20px;
+    
+    // color: #FFF;
+    // background-color: darken($brand-primary, 5%);
+    // border-top: 2px solid darken($brand-primary, 12%);
+    // border-bottom: 2px solid darken($brand-primary, 12%);
+
+    a {
+        color: #666 !important;
+        font-size: 20px;
+        font-weight: bold;
+
+        &:hover {
+            .cta-logo-item {
+                border-color: $brand-primary;
+            }
         }
-        // @media(min-width: $screen-sm) {
-        //     max-width: 40%;
-        // }
-        // @media(min-width: $screen-md) {
-        //     max-width: 23%;
-        // }
+
     }
+
+    .cta-logo-item {
+        border: 3px solid #DDD;
+        border-radius: 20px;
+        text-align: center;
+        padding: 20px;
+        margin: 25px 25px;
+        background-color: #FFF;
+
+        img {
+            //opacity: 0.95;
+            margin: 7px 0;
+            @media(min-width: $screen-md) {
+                max-width: 50%;
+            }
+        }
+    }
+
+
+
 }
+
