@@ -97,7 +97,7 @@ function lv_register_user() {
 	if ( isset( $_POST['mp_register_user_click'] ) ) {
 
 		$form_type = filter_input( INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS );
-		wp_die($form_type);
+		//wp_die($form_type);
 
 		if ( isset( $_POST['username'] ) ) {
 			$username      = filter_input( INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS );
