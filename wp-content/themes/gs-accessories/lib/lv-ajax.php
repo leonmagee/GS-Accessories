@@ -223,6 +223,7 @@ function lv_process_rma() {
 				$rma_number = 'GSA-RMA-' . $new_rma_id;
 
 				update_field( 'rma_number', $rma_number, $new_rma_id);
+				update_field( 'rma_status', 'Pending', $new_rma_id);
 				update_field( 'user_id', $user_id, $new_rma_id);
 				update_field( 'first_name', $first_name, $new_rma_id);
 				update_field( 'last_name', $last_name, $new_rma_id);
