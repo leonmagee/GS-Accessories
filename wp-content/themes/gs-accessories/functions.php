@@ -18,18 +18,165 @@ $email_wrap = '<div style="margin: 15px; border: 8px double #E4E4E4; border-radi
 
 define('GSA_EMAIL_WRAP', $email_wrap);
 
- /**
-  * Add Files
-  **/
- require_once('lib/helper-functions.php');
- require_once('lib/generate-custom-post-type.php');
- function mm_register_post_types() {
- 	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
- 	md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
- 	md_create_wp_cpt::create_post_type( 'coupons', 'Coupon', 'Coupons', 'coupon', 'tag' );
- 	md_create_wp_cpt::create_post_type( 'rmas', 'RMA', 'RMA', 'rmas', 'image-rotate' );
- }
- add_action( 'init', 'mm_register_post_types' );
+/**
+* Add Files
+**/
+require_once('lib/helper-functions.php');
+
+require_once('lib/extended-cpts/extended-cpts.php');
+
+add_action( 'init', function() {
+	register_extended_post_type( 'accessories', [
+
+		# Add the post type to the site's main RSS feed:
+		'show_in_feed' => true,
+
+		# Show all posts on the post type archive:
+		'archive' => [
+			'nopaging' => true,
+		],
+		'menu_icon' => 'dashicons-smartphone',
+	], [
+
+		# Override the base names used for labels:
+		'singular' => 'Accessory',
+		'plural'   => 'Accessories',
+		'slug'     => 'accessories',
+	] );
+} );
+
+add_action( 'init', function() {
+	register_extended_post_type( 'orders', [
+
+		# Add the post type to the site's main RSS feed:
+		'show_in_feed' => true,
+
+		# Show all posts on the post type archive:
+		'archive' => [
+			'nopaging' => true,
+		],
+
+		//Add some custom columns to the admin screen:
+		'admin_cols' => [
+			'order_status' => [
+				'title'       => 'Order Status',
+				'meta_key'    => 'paid'
+			],
+			'order_type' => [
+				'title'       => 'Order Type',
+				'meta_key'    => 'order_type'
+			],
+			'total_charge' => [
+				'title'       => 'Total Charge',
+				'meta_key'    => 'total_charge'
+			],
+			'post_date' => array(
+				'title'      => 'Order Placed',
+				'post_field' => 'post_date',
+			),
+		],
+		'menu_icon' => 'dashicons-cart',
+
+		# Add a dropdown filter to the admin screen:
+		'admin_filters' => [
+			'order_status' => [
+				'title' => 'Order Status',
+				'meta_key' => 'paid',
+			],
+		],
+
+	], [
+
+		# Override the base names used for labels:
+		'singular' => 'Order',
+		'plural'   => 'Orders',
+		'slug'     => 'orders',
+
+	] );
+
+} );
+
+add_action( 'init', function() {
+	register_extended_post_type( 'coupons', [
+
+		# Add the post type to the site's main RSS feed:
+		'show_in_feed' => true,
+
+		# Show all posts on the post type archive:
+		'archive' => [
+			'nopaging' => true,
+		],
+		'admin_cols' => [
+			'couon_percent' => [
+				'title'       => 'Coupon Percent',
+				'meta_key'    => 'discount_percent'
+			],
+		],
+		'menu_icon' => 'dashicons-tag',
+	], [
+
+		# Override the base names used for labels:
+		'singular' => 'Coupon',
+		'plural'   => 'Coupons',
+		'slug'     => 'coupon',
+	] );
+} );
+
+add_action( 'init', function() {
+	register_extended_post_type( 'rmas', [
+
+		# Add the post type to the site's main RSS feed:
+		'show_in_feed' => true,
+
+		# Show all posts on the post type archive:
+		'archive' => [
+			'nopaging' => true,
+		],
+
+		//Add some custom columns to the admin screen:
+		'admin_cols' => [
+			'rma_status' => [
+				'title'       => 'RMA Status',
+				'meta_key'    => 'rma_status'
+			],
+			'rma_number' => [
+				'title'       => 'RMA Number',
+				'meta_key'    => 'rma_number'
+			],
+			'post_date' => array(
+				'title'      => 'RMA Requested',
+				'post_field' => 'post_date',
+			),
+		],
+		'menu_icon' => 'dashicons-image-rotate',
+
+		# Add a dropdown filter to the admin screen:
+		'admin_filters' => [
+			'order_status' => [
+				'title' => 'Order Status',
+				'meta_key' => 'paid',
+			],
+		],
+	], [
+		# Override the base names used for labels:
+		'singular' => 'RMA',
+		'plural'   => 'RMA',
+		'slug'     => 'rmas',
+
+	] );
+
+} );
+
+
+ // require_once('lib/generate-custom-post-type.php');
+
+ // function mm_register_post_types() {
+ // 	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
+ // 	md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
+ // 	md_create_wp_cpt::create_post_type( 'coupons', 'Coupon', 'Coupons', 'coupon', 'tag' );
+ // 	md_create_wp_cpt::create_post_type( 'rmas', 'RMA', 'RMA', 'rmas', 'image-rotate' );
+ // }
+ // add_action( 'init', 'mm_register_post_types' );
 
  require_once('lib/shopping_cart.php');
  require_once('lib/process-form-submission.php');

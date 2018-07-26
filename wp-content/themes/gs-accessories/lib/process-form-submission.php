@@ -436,6 +436,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 	update_field('comments', $comments, $new_order_id);
 	update_field('order_type', $payment_type, $new_order_id);
+	update_field('paid', 'Pending', $new_order_id);
 	update_field('sub_total', $total_cost_final, $new_order_id);
 	update_field('total_charge', $final_final_total_cost, $new_order_id);
 	update_field('customer_email', $user_email, $new_order_id);
