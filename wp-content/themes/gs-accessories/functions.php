@@ -83,7 +83,7 @@ add_action( 'init', function() {
 			'order_status' => [
 				'title' => 'Order Status',
 				'meta_key' => 'paid',
-			],
+			]
 		],
 
 	], [
@@ -363,7 +363,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.13', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.14', true );
 
 	wp_enqueue_script( 'custom-js');
 

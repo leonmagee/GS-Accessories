@@ -96,10 +96,10 @@ function lv_register_user() {
 
 	if ( isset( $_POST['mp_register_user_click'] ) ) {
 
-		$form_type = filter_input( INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS );
 		//wp_die($form_type);
 
 		if ( isset( $_POST['username'] ) ) {
+			$form_type 	   = filter_input( INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS );
 			$username      = filter_input( INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS );
 			$first_name    = filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS );
 			$last_name     = filter_input( INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS );
@@ -114,7 +114,18 @@ function lv_register_user() {
 			$state = filter_input( INPUT_POST, 'state', FILTER_SANITIZE_SPECIAL_CHARS );
 			$zip = filter_input( INPUT_POST, 'zip', FILTER_SANITIZE_SPECIAL_CHARS );
 
-			// @todo get other inputs
+
+			if ( $form_type === 'reseller' ) {
+				if ( ! ( $first_name && $last_name && $email_address && $password && $company && $phone_number && $tin_ein_or_ssn && $address && $city && $state && $zip ) ) {
+					wp_die('fill_all_fields');
+				}
+			} else {
+				if ( ! ( $first_name && $last_name && $email_address && $password && $phone_number && $address && $city && $state && $zip ) ) {
+					wp_die('fill_all_fields');
+				}
+			}
+
+
 
 			if ( email_exists( $email_address ) ) {
 				wp_die( 'email_already_taken' );

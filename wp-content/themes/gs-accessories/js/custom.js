@@ -191,7 +191,6 @@ jQuery(function ($) {
                 processData: false,
                 success: function (data, textStatus, XMLHttpRequest) {
                     //console.log( 'made it to success????');
-                    console.log('working????');
                     console.log(data);
                     $('.register-user-email-taken').hide();
                     $('.uploads-spinner').hide();
@@ -199,6 +198,8 @@ jQuery(function ($) {
                         $('.register-user-email-taken').show();
                     } else if (data === 'invalid_email_address')  {
                         $('.register-user-email-invalid').show();
+                    } else if (data === 'fill_all_fields') {
+                        $('.mp-required-fields').show();
                     } else {
                         $('.mp-update-success').show();
                     }
