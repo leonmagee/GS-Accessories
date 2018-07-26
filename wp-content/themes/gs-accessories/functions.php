@@ -152,9 +152,9 @@ add_action( 'init', function() {
 
 		# Add a dropdown filter to the admin screen:
 		'admin_filters' => [
-			'order_status' => [
-				'title' => 'Order Status',
-				'meta_key' => 'paid',
+			'rma_status' => [
+				'title' => 'RMA Status',
+				'meta_key' => 'rma_status',
 			],
 		],
 	], [
