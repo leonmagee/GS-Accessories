@@ -153,9 +153,10 @@ jQuery(function ($) {
         var tin_ssn_field = $('input.tin_ein_or_ssn');
 
         if ( tin_ssn_field.length ) {
-
+            var form_type = 'reseller';
             var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && company && tin_ein_or_ssn && address && city && state && zip);
         } else {
+            var form_type = 'consumer';
             var conditional_inputs = (username && password && email_address && first_name && last_name && phone_number && address && city && state && zip);
         }
 
@@ -166,13 +167,13 @@ jQuery(function ($) {
 
             formdata.append("mp_register_user_click", 'click');
 
+            formdata.append("type", form_type);
             formdata.append("username", username);
             formdata.append("password", password);
             formdata.append("email_address", email_address);
             formdata.append("first_name", first_name);
             formdata.append("last_name", last_name);
             formdata.append("phone_number", phone_number);
-            //formdata.append("agency_name", agency_name);
             formdata.append("company", company);
             formdata.append("tin_ein_or_ssn", tin_ein_or_ssn);
             formdata.append("address", address);
@@ -190,6 +191,8 @@ jQuery(function ($) {
                 processData: false,
                 success: function (data, textStatus, XMLHttpRequest) {
                     //console.log( 'made it to success????');
+                    console.log('working????');
+                    console.log(data);
                     $('.register-user-email-taken').hide();
                     $('.uploads-spinner').hide();
                     if (data === 'email_already_taken') {

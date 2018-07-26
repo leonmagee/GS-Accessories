@@ -73,6 +73,7 @@ add_action( 'init', function() {
 			'post_date' => array(
 				'title'      => 'Order Placed',
 				'post_field' => 'post_date',
+				'default' 	 => 'DESC'
 			),
 		],
 		'menu_icon' => 'dashicons-cart',
@@ -362,7 +363,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.12', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.13', true );
 
 	wp_enqueue_script( 'custom-js');
 
