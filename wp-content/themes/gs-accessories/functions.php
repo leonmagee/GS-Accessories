@@ -147,6 +147,7 @@ add_action( 'init', function() {
 			'post_date' => array(
 				'title'      => 'RMA Requested',
 				'post_field' => 'post_date',
+				'default' 	 => 'DESC'
 			),
 		],
 		'menu_icon' => 'dashicons-image-rotate',
@@ -1294,6 +1295,75 @@ function credit_admin_page() {
 	</div>
 	<?php
 }
+
+
+
+// function new_contact_methods( $contactmethods ) {
+//     $contactmethods['phone'] = 'Phone Number';
+//     return $contactmethods;
+// }
+
+// add_filter( 'user_contactmethods', 'new_contact_methods', 10, 1 );
+
+
+function new_modify_user_table( $column ) {
+    // $column['phone'] = 'Phone';
+    // return $column;
+    $column['company'] = 'Company';
+    return $column;
+}
+
+add_filter( 'manage_users_columns', 'new_modify_user_table' );
+
+function new_modify_user_table_row( $val, $column_name, $user_id ) {
+    switch ($column_name) {
+        case 'company' :
+            //return get_the_author_meta( 'phone', $user_id );
+            return get_field('company', 'user_' . $user_id);
+            break;
+        default:
+    }
+    return $val;
+}
+add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
+
+
+
+// function add_course_section_filter( $which ) {
+
+//     // create sprintf templates for <select> and <option>s
+//     $st = '<select name="course_section_%s" style="float:none;"><option value="">%s</option>%s</select>';
+//     $ot = '<option value="%s" %s>Section %s</option>';
+
+//     // determine which filter button was clicked, if any and set section
+//     $button = key( array_filter( $_GET, function($v) { return __( 'Filter' ) === $v; } ) );
+//     $section = $_GET[ 'course_section_' . $button ] ?? -1;
+
+//     // generate <option> and <select> code
+//     $options = implode( '', array_map( function($i) use ( $ot, $section ) {
+//         return sprintf( $ot, $i, selected( $i, $section, false ), $i );
+//     }, range( 1, 3 ) ));
+//     $select = sprintf( $st, $which, __( 'Course Section...' ), $options );
+
+//     // output <select> and submit button
+//     echo $select;
+//     submit_button(__( 'Filter' ), null, $which, false);
+// }
+// add_action('restrict_manage_users', 'add_course_section_filter');
+
+// function filter_users_by_course_section($query)
+// {
+//     global $pagenow;
+//     if (is_admin() && 'users.php' == $pagenow) {
+//         $button = key( array_filter( $_GET, function($v) { return __( 'Filter' ) === $v; } ) );
+//         if ($section = $_GET[ 'course_section_' . $button ]) {
+//             $meta_query = [['key' => 'courses','value' => $section, 'compare' => 'LIKE']];
+//             $query->set('meta_key', 'courses');
+//             $query->set('meta_query', $meta_query);
+//         }
+//     }
+// }
+// add_filter('pre_get_users', 'filter_users_by_course_section');
 
 
 
