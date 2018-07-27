@@ -108,8 +108,12 @@ class lv_register_user {
 		$send_user_email = new lv_send_email_misc( $this->email, $email_name, 'GS Accessories User Registration', $user_email_text );
 		$send_user_email->send_email();
 
+		if ( $this->company && $this->tin_ein_ssn ) {
+			$admin_email_text = '<strong>New User Registered</strong><br /><br />User Type: <strong>Reseller</strong><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Address: <strong>' . $this->address . '</strong><br /><strong>' . $this->city . ', ' . $this->state . ' ' . $this->zip . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
+		} else {
+			$admin_email_text = '<strong>New User Registered</strong><br /><br />User Type: <strong>Consumer</strong><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Address: <strong>' . $this->address . '</strong><br /><strong>' . $this->city . ', ' . $this->state . ' ' . $this->zip . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong>';
+		}
 
-		$admin_email_text = '<strong>New User Registered</strong><br /><br />Name: <strong>' . $email_name . '</strong><br />Email: <strong>' . $this->email . '</strong><br />Company: <strong>' . $this->company . '</strong><br />Address: <strong>' . $this->address . '</strong><br /><strong>' . $this->city . ', ' . $this->state . ' ' . $this->zip . '</strong><br />Phone Number: <strong>' . $this->phone_number . '</strong><br />TIN, EIN, or SSN #: <strong>' . $this->tin_ein_ssn . '</strong>';
 		$admin_email      = get_bloginfo( 'admin_email' );
 
 
