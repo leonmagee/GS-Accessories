@@ -41,7 +41,7 @@ add_action( 'init', function() {
 				'taxonomy' => 'category',
 			),
 			'post_date' => array(
-				'title'      => 'Order Placed',
+				'title'      => 'Accessory Added',
 				'post_field' => 'post_date',
 				'default' 	 => 'DESC'
 			),
