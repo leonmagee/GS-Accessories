@@ -41,11 +41,16 @@ add_action( 'init', function() {
 				'taxonomy' => 'category',
 			),
 			'post_date' => array(
-				'title'      => 'Accessory Added',
+				'title'      => 'Accessory',
 				'post_field' => 'post_date',
 				'default' 	 => 'DESC'
 			),
 		),
+		'admin_filters' => [
+			'categories' => [
+				'taxonomy' => 'category',
+			]
+		],
 	], [
 
 		# Override the base names used for labels:
