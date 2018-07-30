@@ -36,6 +36,16 @@ add_action( 'init', function() {
 			'nopaging' => true,
 		],
 		'menu_icon' => 'dashicons-smartphone',
+		'admin_cols' => array(
+			'categories' => array(
+				'taxonomy' => 'category',
+			),
+			'post_date' => array(
+				'title'      => 'Order Placed',
+				'post_field' => 'post_date',
+				'default' 	 => 'DESC'
+			),
+		),
 	], [
 
 		# Override the base names used for labels:
@@ -180,13 +190,13 @@ add_action( 'init', function() {
  // }
  // add_action( 'init', 'mm_register_post_types' );
 
- require_once('lib/shopping_cart.php');
- require_once('lib/process-form-submission.php');
- require_once('lib/output-modal-login.php');
- require_once('lib/lv-register-user.php');
- require_once('lib/lv-send-email-misc.php');
- require_once('lib/lv-ajax.php');
- require_once('lib/rest-endpoints.php');
+require_once('lib/shopping_cart.php');
+require_once('lib/process-form-submission.php');
+require_once('lib/output-modal-login.php');
+require_once('lib/lv-register-user.php');
+require_once('lib/lv-send-email-misc.php');
+require_once('lib/lv-ajax.php');
+require_once('lib/rest-endpoints.php');
 
  /**
  * Start session to enable shopping cart functionality
@@ -1047,99 +1057,99 @@ function sales_admin_page(){
 						$total_charge = get_field('total_charge');
 						?>
 
-					<div class="order-details-wrap">
-						<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
-							<thead>
-								<tr class="alternate">
-									<th>PO Number</th>
-									<th>Company</th>
-									<th>Name</th>
-									<th>Date</th>
-									<th>Sub Total</th>
-									<th>Credit Applied</th>
-									<th>Coupon Percent</th>
-									<th>Total Charge</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><?php echo 'GSA-Order-' . $order_id; ?></td>
-									<td><?php echo $company; ?></td>
-									<td><?php echo $first . ' ' . $last; ?></td>
-									<td><?php echo $date; ?></td>
-									<td><?php echo $sub_total; ?></td>
-									<td><?php echo $credit_applied; ?></td>
-									<td><?php echo $coupon_percent; ?></td>
-									<td><?php echo $total_charge; ?></td>
-								</tr>
-							</tbody>
-						</table>
-
-						<div class="products-ordred" style="margin-top: 10px;">
-
-							<table class="widefat fixed" cellspacing="0">
+						<div class="order-details-wrap">
+							<table style="margin-top: 30px;" class="widefat fixed" cellspacing="0">
 								<thead>
 									<tr class="alternate">
-										<th>Product</th>
-										<th>Color</th>
-										<th>Quantity</th>
-										<th>Unit Cost</th>
-										<th>Total Cost</th>
+										<th>PO Number</th>
+										<th>Company</th>
+										<th>Name</th>
+										<th>Date</th>
+										<th>Sub Total</th>
+										<th>Credit Applied</th>
+										<th>Coupon Percent</th>
+										<th>Total Charge</th>
 									</tr>
 								</thead>
 								<tbody>
-
-									<?php $entries = get_field('product_entries'); 
-
-									foreach( $entries as $entry ) {
-										$product_name = $entry['product_name'];
-										$product_id = $entry['product_id'];
-										$product_color = $entry['product_color'];
-										$product_quantity = $entry['product_quantity'];
-										$unit_cost = $entry['unit_cost'];
-										$cost_total = $entry['cost_total'];
-										$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
-										$category_array = get_the_category($product_id);
-										$cat_name = $category_array[0]->name;
-										$cat_id = $category_array[0]->term_id;
-										$payment = $cost_actual;
-										$total_payment = ( $total_payment + $payment ); ?>
-
-										<tr class="product-table-items">	
-											<td><?php echo $product_name; ?></td>
-											<td><?php echo $product_color; ?></td>
-											<td><?php echo $product_quantity; ?></td>
-											<td><?php echo $unit_cost; ?></td>
-											<td><?php echo $cost_total; ?></td>
-<!-- 											<td>$<?php echo number_format( $payment, 2); ?></td>
- -->										</tr>
-
-									<?php } ?>
-
+									<tr>
+										<td><?php echo 'GSA-Order-' . $order_id; ?></td>
+										<td><?php echo $company; ?></td>
+										<td><?php echo $first . ' ' . $last; ?></td>
+										<td><?php echo $date; ?></td>
+										<td><?php echo $sub_total; ?></td>
+										<td><?php echo $credit_applied; ?></td>
+										<td><?php echo $coupon_percent; ?></td>
+										<td><?php echo $total_charge; ?></td>
+									</tr>
 								</tbody>
-
 							</table>
 
-						</div>
+							<div class="products-ordred" style="margin-top: 10px;">
 
-					</div>
+								<table class="widefat fixed" cellspacing="0">
+									<thead>
+										<tr class="alternate">
+											<th>Product</th>
+											<th>Color</th>
+											<th>Quantity</th>
+											<th>Unit Cost</th>
+											<th>Total Cost</th>
+										</tr>
+									</thead>
+									<tbody>
 
-				<?php } 
+										<?php $entries = get_field('product_entries'); 
 
-			} else { ?>
-				<div class="gsa-no-orders-info">No orders for this period.</div>
-			<?php }
-			wp_reset_postdata();
-			?>
+										foreach( $entries as $entry ) {
+											$product_name = $entry['product_name'];
+											$product_id = $entry['product_id'];
+											$product_color = $entry['product_color'];
+											$product_quantity = $entry['product_quantity'];
+											$unit_cost = $entry['unit_cost'];
+											$cost_total = $entry['cost_total'];
+											$cost_actual = intval(str_replace(array('$',','), '', $cost_total));
+											$category_array = get_the_category($product_id);
+											$cat_name = $category_array[0]->name;
+											$cat_id = $category_array[0]->term_id;
+											$payment = $cost_actual;
+											$total_payment = ( $total_payment + $payment ); ?>
 
-			<div class="gsa-agent-total-payment">
-				<h3>Total Sales <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
+											<tr class="product-table-items">	
+												<td><?php echo $product_name; ?></td>
+												<td><?php echo $product_color; ?></td>
+												<td><?php echo $product_quantity; ?></td>
+												<td><?php echo $unit_cost; ?></td>
+												<td><?php echo $cost_total; ?></td>
+<!-- 											<td>$<?php echo number_format( $payment, 2); ?></td>
+-->										</tr>
 
-			</div>
+<?php } ?>
 
-		</div>
+</tbody>
 
-	</div>
+</table>
+
+</div>
+
+</div>
+
+<?php } 
+
+} else { ?>
+	<div class="gsa-no-orders-info">No orders for this period.</div>
+<?php }
+wp_reset_postdata();
+?>
+
+<div class="gsa-agent-total-payment">
+	<h3>Total Sales <?php echo $display_date; ?>: <span>$<?php echo number_format($total_payment, 2); ?></span></h3>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 <?php
@@ -1309,21 +1319,21 @@ function credit_admin_page() {
 function new_modify_user_table( $column ) {
     // $column['phone'] = 'Phone';
     // return $column;
-    $column['company'] = 'Company';
-    return $column;
+	$column['company'] = 'Company';
+	return $column;
 }
 
 add_filter( 'manage_users_columns', 'new_modify_user_table' );
 
 function new_modify_user_table_row( $val, $column_name, $user_id ) {
-    switch ($column_name) {
-        case 'company' :
+	switch ($column_name) {
+		case 'company' :
             //return get_the_author_meta( 'phone', $user_id );
-            return get_field('company', 'user_' . $user_id);
-            break;
-        default:
-    }
-    return $val;
+		return get_field('company', 'user_' . $user_id);
+		break;
+		default:
+	}
+	return $val;
 }
 add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
 
