@@ -305,10 +305,16 @@ if ( isset($_POST['place-cart-order'])) {
 
 	$total_cost_final = '$' . number_format( $total_cost, 2 );
 
-	if ( $credit_used ) {
-		$after_credit_cost = ( $total_cost - $credit_used );
-		$after_credit_final = '$' . number_format($after_credit_cost, 2);
-    }
+
+
+
+
+	// if ( $credit_used ) {
+	// 	$after_credit_cost = ( $total_cost - $credit_used );
+	// 	$after_credit_final = '$' . number_format($after_credit_cost, 2);
+ //    }
+
+
 
 	if ( $coupon_code ) {
 		$coupon_array = get_coupon_array();
@@ -318,16 +324,24 @@ if ( isset($_POST['place-cart-order'])) {
 
 	    	if ( $credit_used ) {
 
+
+
 	    		// $after_credit_cost = ( $total_cost - $credit_used );
 	    		// $after_credit_final = '$' . number_format($after_credit_cost, 2);
-		    	$after_coupon_cost = percent_price($after_credit_cost, $coupon_percent);
+		    	$after_coupon_cost = percent_price($total_cost, $coupon_percent);
+
 		    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
+
+		    	
+		    	$after_credit_subtracted = $after_coupon_cost - $credit_used;
+
+		    	$final_final_final = '$' . number_format( $after_credit_subtracted, 2 );
 
 		    	$email_body = $email_body . '<br />
 		    	<div><strong>Comments</strong><br />' . $comments . '</div><br />
-		    	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong>
 		    	<div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div>
-		    	<div><strong>Total Charges: <strike style="color: red;">' . $after_credit_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
+		    	<div><strong>Total Charges: <strike style="color: red;">' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong> - (<strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> credit) = <strong>' . $final_final_final . '</strong></div>';
+		    	$after_coupon_cost_final = $final_final_final;
 		    } else {
 		    	$after_coupon_cost = percent_price($total_cost, $coupon_percent);
 		    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
@@ -342,6 +356,11 @@ if ( isset($_POST['place-cart-order'])) {
 
 	    	if ( $credit_used ) {
 
+    		//if ( $credit_used ) {
+				$after_credit_cost = ( $total_cost - $credit_used );
+				$after_credit_final = '$' . number_format($after_credit_cost, 2);
+		    //}
+
 			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />
     	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';
 	    	} else {
@@ -354,6 +373,11 @@ if ( isset($_POST['place-cart-order'])) {
 
 
     	if ( $credit_used ) {
+
+    		  //if ( $credit_used ) {
+				$after_credit_cost = ( $total_cost - $credit_used );
+				$after_credit_final = '$' . number_format($after_credit_cost, 2);
+		    //}
 
 		$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />
 	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';

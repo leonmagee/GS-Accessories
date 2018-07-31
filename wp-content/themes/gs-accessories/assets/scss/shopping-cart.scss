@@ -183,7 +183,7 @@
 			&.credit {
 				color: lighten($brand-third, 13%);
 			}
-			strike {
+			strike, &.credit {
 				color: lighten($brand-third, 13%);
 				font-size: 0.9em;
 			}
