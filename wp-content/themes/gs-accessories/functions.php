@@ -25,54 +25,54 @@ require_once('lib/helper-functions.php');
 
 require_once('lib/extended-cpts/extended-cpts.php');
 
-add_action( 'init', function() {
-	register_extended_post_type( 'accessories', [
+// add_action( 'init', function() {
+// 	register_extended_post_type( 'accessories', [
 
-		# Add the post type to the site's main RSS feed:
-		'show_in_feed' => true,
+// 		# Add the post type to the site's main RSS feed:
+// 		'show_in_feed' => true,
 
-		# Show all posts on the post type archive:
-		'archive' => [
-			'nopaging' => true,
-		],
-		'menu_icon' => 'dashicons-smartphone',
-		// 'taxonomy' => array(
-		// 	'categories' => array(
-		// 		'taxonomy' => 'category',
-		// 	),
-		// ),
-		'admin_cols' => array(
-			'categories' => array(
-				'taxonomy' => 'category',
-			),
-			'post_date' => array(
-				'title'      => 'Accessory',
-				'post_field' => 'post_date',
-				'default' 	 => 'DESC'
-			),
-		),
-		'admin_filters' => [
-			'categories' => [
-				'taxonomy' => 'category',
-			]
-		],
-	], [
+// 		# Show all posts on the post type archive:
+// 		'archive' => [
+// 			'nopaging' => true,
+// 		],
+// 		'menu_icon' => 'dashicons-smartphone',
+// 		// 'taxonomy' => array(
+// 		// 	'categories' => array(
+// 		// 		'taxonomy' => 'category',
+// 		// 	),
+// 		// ),
+// 		'admin_cols' => array(
+// 			'categories' => array(
+// 				'taxonomy' => 'category',
+// 			),
+// 			'post_date' => array(
+// 				'title'      => 'Accessory',
+// 				'post_field' => 'post_date',
+// 				'default' 	 => 'DESC'
+// 			),
+// 		),
+// 		'admin_filters' => [
+// 			'categories' => [
+// 				'taxonomy' => 'category',
+// 			]
+// 		],
+// 	], [
 
-		# Override the base names used for labels:
-		'singular' => 'Accessory',
-		'plural'   => 'Accessories',
-		'slug'     => 'accessories',
-	] );
-} );
+// 		# Override the base names used for labels:
+// 		'singular' => 'Accessory',
+// 		'plural'   => 'Accessories',
+// 		'slug'     => 'accessories',
+// 	] );
+// } );
 
-add_action( 'init', function() {
-	register_extended_taxonomy( 'category', 'accessories', [], [
+// add_action( 'init', function() {
+// 	register_extended_taxonomy( 'category', 'accessories', [], [
 
-		'singular' => 'Category',
-		'plural'   => 'Categories',
-		'slug'     => 'categories',
-	] );
-} );
+// 		'singular' => 'Category',
+// 		'plural'   => 'Categories',
+// 		'slug'     => 'categories',
+// 	] );
+// } );
 
 add_action( 'init', function() {
 	register_extended_post_type( 'orders', [
@@ -199,15 +199,15 @@ add_action( 'init', function() {
 } );
 
 
- // require_once('lib/generate-custom-post-type.php');
+ require_once('lib/generate-custom-post-type.php');
 
- // function mm_register_post_types() {
- // 	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
- // 	md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
- // 	md_create_wp_cpt::create_post_type( 'coupons', 'Coupon', 'Coupons', 'coupon', 'tag' );
- // 	md_create_wp_cpt::create_post_type( 'rmas', 'RMA', 'RMA', 'rmas', 'image-rotate' );
- // }
- // add_action( 'init', 'mm_register_post_types' );
+ function mm_register_post_types() {
+ 	md_create_wp_cpt::create_post_type( 'accessories', 'Accessory', 'Accessories', 'accessories', 'smartphone' );
+ 	// md_create_wp_cpt::create_post_type( 'orders', 'Order', 'Orders', 'orders', 'cart' );
+ 	// md_create_wp_cpt::create_post_type( 'coupons', 'Coupon', 'Coupons', 'coupon', 'tag' );
+ 	// md_create_wp_cpt::create_post_type( 'rmas', 'RMA', 'RMA', 'rmas', 'image-rotate' );
+ }
+ add_action( 'init', 'mm_register_post_types' );
 
 require_once('lib/shopping_cart.php');
 require_once('lib/process-form-submission.php');
