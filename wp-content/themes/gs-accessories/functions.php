@@ -36,6 +36,11 @@ add_action( 'init', function() {
 			'nopaging' => true,
 		],
 		'menu_icon' => 'dashicons-smartphone',
+		// 'taxonomy' => array(
+		// 	'categories' => array(
+		// 		'taxonomy' => 'category',
+		// 	),
+		// ),
 		'admin_cols' => array(
 			'categories' => array(
 				'taxonomy' => 'category',
@@ -57,6 +62,15 @@ add_action( 'init', function() {
 		'singular' => 'Accessory',
 		'plural'   => 'Accessories',
 		'slug'     => 'accessories',
+	] );
+} );
+
+add_action( 'init', function() {
+	register_extended_taxonomy( 'category', 'accessories', [], [
+
+		'singular' => 'Category',
+		'plural'   => 'Categories',
+		'slug'     => 'categories',
 	] );
 } );
 
