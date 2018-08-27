@@ -89,7 +89,7 @@ $regular_inputs = array(
 				<input name="item_price_<?php echo $i; ?>" type="text" />
 			</div>
 			<div class="registration-input-wrap rma-serial">
-				<label>Serial Number</label>
+				<label>IMEI or S/N</label>
 				<input name="item_serial_<?php echo $i; ?>" type="text" />
 			</div>
 			

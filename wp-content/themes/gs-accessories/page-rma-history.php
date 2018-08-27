@@ -260,7 +260,7 @@ get_header(); ?>
 																		<th>Quantity</th>
 																		<th>Item Name</th>
 																		<th>Unit Price</th>
-																		<th>Serial Number</th>
+																		<th>IMEI or S/N</th>
 																		<th>PO Number</th>
 																		<th>Date Purchased</th>
 																	</tr>

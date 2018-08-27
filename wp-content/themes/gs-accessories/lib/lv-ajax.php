@@ -269,7 +269,7 @@ function lv_process_rma() {
 						<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_quantity[$i] . '</strong></div>
 						<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_name[$i] . '</strong></div>
 						<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_price[$i] . '</strong></div>
-						<div><span style="color: #32b79d">Serial Number:</span> <strong>' . $item_serial[$i] . '</strong></div>
+						<div><span style="color: #32b79d">IMEI or S/N:</span> <strong>' . $item_serial[$i] . '</strong></div>
 						<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_po_number[$i] . '</strong></div>
 						<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_date[$i] . '</strong></div>
 						<div><span style="color: #32b79d">Description:</span> <strong>' . $item_description[$i] . '</strong></div>

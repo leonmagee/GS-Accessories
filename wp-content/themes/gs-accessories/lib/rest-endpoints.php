@@ -245,7 +245,7 @@ function gsa_rest_rma_resend_email($data) {
 				<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_data['quantity'] . '</strong></div>
 				<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_data['item_name']  . '</strong></div>
 				<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_data['unit_price']  . '</strong></div>
-				<div><span style="color: #32b79d">Serial Number:</span> <strong>' . $item_data['serial_number']  . '</strong></div>
+				<div><span style="color: #32b79d">IMEI or S/N:</span> <strong>' . $item_data['serial_number']  . '</strong></div>
 				<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_data['po_number']  . '</strong></div>
 				<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_data['date_purchased']  . '</strong></div>
 				<div><span style="color: #32b79d">Description:</span> <strong>' . $item_data['return_problem_description']  . '</strong></div>
