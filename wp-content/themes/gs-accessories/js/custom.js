@@ -61,24 +61,36 @@ jQuery(function ($) {
         // console.log(color_class);
     });
 
-    //trigger form submit when paypal is clicked
-    // @todo create a separate hidden field that you update first to tell the 
-    // process submit function that its a paypal submission
+    //
 
-    // $('#paypal_button_id').click(function() {
-    //     console.log('working still?');
-    //     $('#submit_cart_button').click();
-    // });
 
+    /**
+    * Make it impossible to click both the pick up and paypal buttons at the same time...
+    */
+    $('.page-template-page-shopping-cart #main_form_id').submit(function() {
+        console.log('click prevention');
+        $('.page-template-page-shopping-cart #submit_cart_button').prop('disabled', true);
+        $('.page-template-page-shopping-cart #paypal_checkout_button').prop('disabled', true);
+        return true;
+    });
+
+
+    /**
+    * trigger form submit when paypal is clicked
+    */
     $('#paypal_checkout_button').click(function(e) {
         e.preventDefault();
+        console.log('paypal click prevention');
+
+        $(this).prop('disabled', true);
+        $('.page-template-page-shopping-cart #submit_cart_button').prop('disabled', true);
+        //return false;
 
         $('input[name="payment-type"]').val('PayPal');
 
         $('.paypal-wrap').addClass('paypal-visible');
 
         $('form#main_form_id').submit();
-
     });
 
     $('.features-section .shortcode-reviews-form a').removeAttr('href').attr('data-open', 'login-modal');
