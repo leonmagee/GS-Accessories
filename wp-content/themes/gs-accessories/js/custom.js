@@ -68,7 +68,7 @@ jQuery(function ($) {
     * Make it impossible to click both the pick up and paypal buttons at the same time...
     */
     $('.page-template-page-shopping-cart #main_form_id').submit(function() {
-        console.log('click prevention');
+        //console.log('click prevention');
         $('.page-template-page-shopping-cart #submit_cart_button').prop('disabled', true);
         $('.page-template-page-shopping-cart #paypal_checkout_button').prop('disabled', true);
         return true;
@@ -80,7 +80,7 @@ jQuery(function ($) {
     */
     $('#paypal_checkout_button').click(function(e) {
         e.preventDefault();
-        console.log('paypal click prevention');
+        //console.log('paypal click prevention');
 
         $(this).prop('disabled', true);
         $('.page-template-page-shopping-cart #submit_cart_button').prop('disabled', true);
