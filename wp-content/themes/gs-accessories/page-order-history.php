@@ -150,7 +150,7 @@ get_header(); ?>
 											),
 											array(
 												'key' => 'paid',
-												'value' => 'Paid in Full'
+												'value' => 'Completed'
 											)
 										),
 									);
@@ -171,7 +171,7 @@ get_header(); ?>
 											),
 											array(
 												'key' => 'paid',
-												'value' => 'Paid in Full'
+												'value' => 'Completed'
 											)
 										),
 									);
