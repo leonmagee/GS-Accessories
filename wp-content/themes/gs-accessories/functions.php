@@ -875,41 +875,41 @@ function inventory_admin_page(){
 	<?php
 }
 
-add_action('init', 'temp_update_order_value');
+//add_action('init', 'temp_update_order_value');
 
-function temp_update_order_value() {
+// function temp_update_order_value() {
 
 
-		/**
-		* Temp updating of Paid in Full to completed
-		*/
-		$args = array(
-				'post_type' => 'orders', 
-				'posts_per_page' => -1,
-				'meta_query' => array(
-					array(
-						'key' => 'paid',
-						'value' => 'Paid in Full'
-					)
-				),
-			);
+// 		/**
+// 		* Temp updating of Paid in Full to completed
+// 		*/
+// 		$args = array(
+// 				'post_type' => 'orders', 
+// 				'posts_per_page' => -1,
+// 				'meta_query' => array(
+// 					array(
+// 						'key' => 'paid',
+// 						'value' => 'Paid in Full'
+// 					)
+// 				),
+// 			);
 
-		$temp_update_query = new WP_Query($args);
+// 		$temp_update_query = new WP_Query($args);
 
-		if ( $temp_update_query->have_posts() ) {
+// 		if ( $temp_update_query->have_posts() ) {
 
-			while( $temp_update_query->have_posts() ) {
+// 			while( $temp_update_query->have_posts() ) {
 
-				$temp_update_query->the_post();
+// 				$temp_update_query->the_post();
 
-				$field = get_field('paid');
-				update_field('paid', 'Completed');
+// 				$field = get_field('paid');
+// 				update_field('paid', 'Completed');
 
-				}
+// 				}
 
-			}
+// 			}
 
-}
+// }
 
 
 
