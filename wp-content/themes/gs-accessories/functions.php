@@ -238,9 +238,11 @@ if ( is_user_logged_in() ) {
 	$user_id = $user->ID;
 	$first_name = get_user_meta($user_id, 'first_name', true);
 	$last_name = get_user_meta($user_id, 'last_name', true);
+	$hide_product_categories = get_field('hide_product_categories', 'user_' . $user_id);
 	define('LV_LOGGED_IN_NAME', $first_name . ' ' . $last_name);
-	define( 'LV_LOGGED_IN_ID', $user_id );
-	define( 'LV_LOGGED_IN_EMAIL', $user->user_email );
+	define('LV_LOGGED_IN_ID', $user_id );
+	define('LV_LOGGED_IN_EMAIL', $user->user_email );
+	define('LV_HIDE_PRODUCTS', $hide_product_categories);
 } else {
 	define( 'LV_LOGGED_IN_ID', false );
 }

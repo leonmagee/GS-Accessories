@@ -17,9 +17,30 @@ get_header(); ?>
 
         <div class="cat_archive_wrap">
 
-            <?php $custom_field_cats = get_field('categories','option'); 
+            <?php 
 
-            foreach( $custom_field_cats as $cat) { ?>
+            /**
+            * get list of categories here...
+            */
+
+            $hide_array = [];
+
+            if ( LV_HIDE_PRODUCTS ) {
+
+                foreach( LV_HIDE_PRODUCTS as $item ) {
+                    $hide_array[] = trim($item['category_title']);
+                }
+            }
+
+            $custom_field_cats = get_field('categories','option');
+
+
+            foreach( $custom_field_cats as $cat) { 
+
+                if ( in_array($cat['title'], $hide_array) ) {
+                    continue;
+                }
+                ?>
 
             <div class="cat_archive_item">
 
@@ -39,11 +60,6 @@ get_header(); ?>
             <?php } ?>
 
         </div>
-
-
-
-
-
 
     </main><!-- #main -->
 </div>
