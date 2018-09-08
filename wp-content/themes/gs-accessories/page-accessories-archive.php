@@ -23,24 +23,25 @@ get_header(); ?>
             * get list of categories here...
             */
 
-            $hide_array = [];
+            //$hide_array = [];
 
-            if ( LV_HIDE_PRODUCTS ) {
+            // if ( LV_HIDE_PRODUCTS ) {
 
-                foreach( LV_HIDE_PRODUCTS as $item ) {
-                    $hide_array[] = trim($item['category_title']);
-                }
-            }
+            //     foreach( LV_HIDE_PRODUCTS as $item ) {
+            //         $hide_array[] = trim($item['category_title']);
+            //     }
+            // }
 
             $custom_field_cats = get_field('categories','option');
 
 
             foreach( $custom_field_cats as $cat) { 
 
-                if ( in_array($cat['title'], $hide_array) ) {
-                    continue;
-                }
-                ?>
+            // if ( in_array($cat['title'], $hide_array) ) {
+            //     continue;
+            // }
+
+            ?>
 
             <div class="cat_archive_item">
 

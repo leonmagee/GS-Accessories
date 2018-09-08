@@ -62,7 +62,11 @@ get_header(); ?>
 
             <?php
 
-            $args = array('post_type' => 'accessories', 'order' => 'ASC');
+            $args = array(
+              'post_type' => 'accessories', 
+              'order' => 'ASC',
+              'post__not_in' => LV_HIDE_ACCESSORIES
+            );
             $accessories_query = new WP_Query($args);
             $colors_array = array();
             while ($accessories_query->have_posts()) {

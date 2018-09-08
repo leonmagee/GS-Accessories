@@ -23,7 +23,11 @@ $_SESSION['shopping_page'] = $current_cat;
 
     <div class="grid-x isotope-content isotope">
         <?php
-        $args = array('post_type' => 'accessories', 'category_name' => $current_cat);
+        $args = array(
+            'post_type' => 'accessories',
+            'category_name' => $current_cat,
+            'post__not_in' => LV_HIDE_ACCESSORIES
+        );
         $accessories_query = new WP_Query($args);    
         while ( $accessories_query->have_posts() ) {
             $accessories_query->the_post(); 
