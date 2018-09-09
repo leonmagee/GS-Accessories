@@ -234,10 +234,6 @@ if ( isset($_POST['place-cart-order'])) {
 	// end order create for now
 
 
-
-
-
-
 	//$email_body = '';
 	$email_body = '<div><span style="color: #0E509C">PO Number: </span><strong>' . $po_number . '</strong></div><br />';
 
@@ -276,8 +272,29 @@ if ( isset($_POST['place-cart-order'])) {
 
 		$quantity_fmt = number_format($data['quantity']);
 
+		if ( ! $coupon_code ) {
 
-		$email_body .= '<div><span style="color: #32b79d">Product:</span> <strong>' . $product . '</strong><br /><span style="color: #32b79d">Quantity:</span> <strong>' . $quantity_fmt . '</strong><br /><span style="color: #32b79d">Color:</span> <strong>' . $data['color'] . '</strong><br /><span style="color: #32b79d">Unit Cost:</span> <strong>' . $acf_price_per . '</strong><br /><span style="color: #32b79d">Total Cost:</span> <strong>' . $price_value . '</strong></div><br />';
+			$email_body .= '<div><span style="color: #32b79d">Product:</span> <strong>' . $product . '</strong><br /><span style="color: #32b79d">Quantity:</span> <strong>' . $quantity_fmt . '</strong><br /><span style="color: #32b79d">Color:</span> <strong>' . $data['color'] . '</strong><br /><span style="color: #32b79d">Unit Cost:</span> <strong>' . $acf_price_per . '</strong><br /><span style="color: #32b79d">Total Cost:</span> <strong>' . $price_value . '</strong></div><br />';
+
+		} else {
+
+			$coupon_array = get_coupon_array();
+	    	$coupon_percent = $coupon_array[strtolower($coupon_code)];
+
+	    	if ( $coupon_percent ) {
+
+	    		$price_value_new = '$' . number_format(percent_price($price, $coupon_percent), 2);
+	    		$acf_price_per_new = '$' . number_format(percent_price($acf_price, $coupon_percent), 2);
+
+				$email_body .= '<div><span style="color: #32b79d">Product:</span> <strong>' . $product . '</strong><br /><span style="color: #32b79d">Quantity:</span> <strong>' . $quantity_fmt . '</strong><br /><span style="color: #32b79d">Color:</span> <strong>' . $data['color'] . '</strong><br /><span style="color: #32b79d">Unit Cost:</span> <strong><strike style="color: red;">' . $acf_price_per . '</strike> ' . $acf_price_per_new . '</strong><br /><span style="color: #32b79d">Total Cost:</span> <strong><strike style="color: red;">' . $price_value . '</strike> ' . $price_value_new . '</strong></div><br />';
+			} else {
+	    		$email_body .= '<div><span style="color: #32b79d">Product:</span> <strong>' . $product . '</strong><br /><span style="color: #32b79d">Quantity:</span> <strong>' . $quantity_fmt . '</strong><br /><span style="color: #32b79d">Color:</span> <strong>' . $data['color'] . '</strong><br /><span style="color: #32b79d">Unit Cost:</span> <strong>' . $acf_price_per . '</strong><br /><span style="color: #32b79d">Total Cost:</span> <strong>' . $price_value . '</strong></div><br />';
+	    	}
+
+	    }
+
+
+
 	}
 
 	$field_key = "colors_and_quantity";
@@ -317,8 +334,8 @@ if ( isset($_POST['place-cart-order'])) {
 
 
 	if ( $coupon_code ) {
-		$coupon_array = get_coupon_array();
-	    $coupon_percent = $coupon_array[strtolower($coupon_code)];
+		//$coupon_array = get_coupon_array();
+	    //$coupon_percent = $coupon_array[strtolower($coupon_code)];
 
 	    if ( $coupon_percent ) {
 

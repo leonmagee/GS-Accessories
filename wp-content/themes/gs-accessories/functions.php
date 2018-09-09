@@ -859,7 +859,7 @@ function inventory_admin_page(){
 								<?php foreach( $color_quantity as $item => $quantity ) { ?>
 									<tr class="alternate">
 										<td style="border: 1px solid #EEE"><?php echo $item; ?></td>
-										<td style="border: 1px solid #EEE"><?php echo $quantity; ?> Available</td>
+										<td style="border: 1px solid #EEE"><?php echo number_format($quantity); ?> Available</td>
 									</tr>
 								<?php } ?>
 

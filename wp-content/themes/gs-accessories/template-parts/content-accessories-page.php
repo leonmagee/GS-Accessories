@@ -238,7 +238,7 @@ if ( isset( $_GET['added-to-cart'])) {
                                 <?php foreach( $color_quantity as $item => $quantity ) { ?>
                                     <tr>
                                         <td><?php echo $item; ?></td>
-                                        <td><?php echo $quantity; ?> Available</td>
+                                        <td><?php echo number_format($quantity); ?> Available</td>
                                     </tr>
                                 <?php } ?>
 
