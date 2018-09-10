@@ -24,7 +24,7 @@ function gsa_rest_endpoint_admin() {
 
 function gsa_rest_endpoint_user() {
 
-	register_rest_route( 'process_emails', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)', array(
+	register_rest_route( 'process_emails', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<user_id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_user_email',
 	));
@@ -32,7 +32,7 @@ function gsa_rest_endpoint_user() {
 
 function gsa_rest_endpoint_rma() {
 
-	register_rest_route( 'process_rma', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)', array(
+	register_rest_route( 'process_rma', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)/(?P<user_id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_rma_email',
 	));
@@ -40,7 +40,7 @@ function gsa_rest_endpoint_rma() {
 
 function gsa_rest_endpoint_rma_reject() {
 
-	register_rest_route( 'process_rma_reject', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)', array(
+	register_rest_route( 'process_rma_reject', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)/(?P<user_id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_rma_email_reject',
 	));
@@ -48,7 +48,7 @@ function gsa_rest_endpoint_rma_reject() {
 
 function gsa_rest_endpoint_rma_resend_email() {
 
-	register_rest_route( 'rma_resend_email', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)', array(
+	register_rest_route( 'rma_resend_email', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<user_id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_rma_resend_email',
 	));
@@ -56,7 +56,7 @@ function gsa_rest_endpoint_rma_resend_email() {
 
 function gsa_rest_endpoint_user_tracking() {
 
-	register_rest_route( 'process_emails', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<tracking>[a-zA-Z0-9\!%]+)/(?P<service>[a-zA-Z0-9%]+)', array(
+	register_rest_route( 'process_emails', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<tracking>[a-zA-Z0-9\!%]+)/(?P<service>[a-zA-Z0-9%]+)/(?P<user_id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_user_email_tracking',
 	));
@@ -100,6 +100,9 @@ function gsa_rest_process_user_email($data) {
 	$args = array('p' => $data['id'], 'post_type' => 'orders');
 	$custom_query = new WP_Query($args);
 	$user_email_text = false;
+
+	$ref_agent_email = get_agent_email($data['user_id']);
+
 	while( $custom_query->have_posts() ) {
 
 		$custom_query->the_post();
@@ -123,7 +126,16 @@ function gsa_rest_process_user_email($data) {
 
 		$user_email_final = $email_wrap . $user_email_text . $email_wrap_close;
 
-		$mail_sent = wp_mail( $data['email'], $subject, $user_email_final, $headers );
+		if ( $ref_agent_email ) {
+
+			$to = array($ref_agent_email, $data['email']);
+
+		} else {
+
+			$to = $data['email'];
+		}
+
+		$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
 
 		return $mail_sent;
 
@@ -139,6 +151,8 @@ function gsa_rest_process_rma_email($data) {
 	$args = array('p' => $data['id'], 'post_type' => 'rmas');
 	$custom_query = new WP_Query($args);
 	$user_email_text = false;
+	$ref_agent_email = get_agent_email($data['user_id']);
+
 	while( $custom_query->have_posts() ) {
 
 		$custom_query->the_post();
@@ -164,7 +178,29 @@ function gsa_rest_process_rma_email($data) {
 
 		$user_email_final = $email_wrap . $user_email_text . $email_wrap_close;
 
-		$mail_sent = wp_mail( $data['email'], $subject, $user_email_final, $headers );
+
+		// $ref_agent_id = get_user_meta($user_id, 'referring_agent', true);
+
+		// if ( $ref_agent_id ) {
+		// 	$user_object = get_userdata($ref_agent_id);
+		// 	$ref_agent_email = $user_object->user_email;
+		// 	$to = array($data['email'], $ref_agent_email);
+		// } else {
+		// 	$to = array($data['email']);
+		// }
+
+		//$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
+
+		if ( $ref_agent_email ) {
+
+			$to = array($ref_agent_email, $data['email']);
+
+		} else {
+
+			$to = $data['email'];
+		}
+		
+		$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
 
 		return $mail_sent;
 
@@ -179,6 +215,8 @@ function gsa_rest_process_rma_email_reject($data) {
 	$args = array('p' => $data['id'], 'post_type' => 'rmas');
 	$custom_query = new WP_Query($args);
 	$user_email_text = false;
+	$ref_agent_email = get_agent_email($data['user_id']);
+
 	while( $custom_query->have_posts() ) {
 
 		$custom_query->the_post();
@@ -204,7 +242,16 @@ function gsa_rest_process_rma_email_reject($data) {
 
 		$user_email_final = $email_wrap . $user_email_text . $email_wrap_close;
 
-		$mail_sent = wp_mail( $data['email'], $subject, $user_email_final, $headers );
+		if ( $ref_agent_email ) {
+
+			$to = array($ref_agent_email, $data['email']);
+
+		} else {
+
+			$to = $data['email'];
+		}
+
+		$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
 
 		return $mail_sent;
 
@@ -220,6 +267,8 @@ function gsa_rest_rma_resend_email($data) {
 	$args = array('p' => $data['id'], 'post_type' => 'rmas');
 	$custom_query = new WP_Query($args);
 	$user_email_text = false;
+	$ref_agent_email = get_agent_email($data['user_id']);
+
 	while( $custom_query->have_posts() ) {
 
 		$custom_query->the_post();
@@ -256,7 +305,17 @@ function gsa_rest_rma_resend_email($data) {
 	wp_reset_postdata();
 
 	$admin_intro = '<div><span style="color: #32b79d">RMA Number: </span> <strong>' . $rma_number . '</strong><br /><span style="color: #32b79d">RMA submitted by</span> <strong>' . $first_name . ' ' . $last_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $email_address . '</strong><br />';
-	$to = $data['email'];
+	
+	//$to = $data['email'];
+
+	if ( $ref_agent_email ) {
+
+		$to = array($ref_agent_email, $data['email']);
+
+	} else {
+
+		$to = $data['email'];
+	}
 
 	$email_wrap = GSA_EMAIL_WRAP;
 	$email_wrap_close = '</div>';
@@ -279,11 +338,23 @@ function gsa_rest_rma_resend_email($data) {
 }
 
 
+
+
 function gsa_rest_process_user_email_tracking($data) {
 
 	$args = array('p' => $data['id'], 'post_type' => 'orders');
 	$custom_query = new WP_Query($args);
 	$user_email_text = false;
+
+	// $ref_agent_id = get_user_meta($data['user_id'], 'referring_agent', true);
+	// $ref_agent_email = false;
+	// if ( $ref_agent_id ) {
+	// 	$user_object = get_userdata($ref_agent_id);
+	// 	$ref_agent_email = $user_object->user_email;
+	// }
+
+	$ref_agent_email = get_agent_email($data['user_id']);
+
 	while( $custom_query->have_posts() ) {
 
 		$custom_query->the_post();
@@ -325,7 +396,13 @@ function gsa_rest_process_user_email_tracking($data) {
 
 		$user_email_final = $email_wrap . $tracking_service_email . $user_email_text . $email_wrap_close;
 
-		$mail_sent = wp_mail( $data['email'], $subject, $user_email_final, $headers );
+		if ( $ref_agent_email ) {
+			$to = array($data['email'], $ref_agent_email);
+		} else {
+			$to = $data['email'];
+		}
+
+		$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
 
 		return $mail_sent;
 
@@ -334,4 +411,14 @@ function gsa_rest_process_user_email_tracking($data) {
 		return false;
 	}
 	
+}
+
+function get_agent_email($id) {
+	$ref_agent_id = get_user_meta($id, 'referring_agent', true);
+	$ref_agent_email = false;
+	if ( $ref_agent_id ) {
+		$user_object = get_userdata($ref_agent_id);
+		$ref_agent_email = $user_object->user_email;
+	}
+	return $ref_agent_email;
 }

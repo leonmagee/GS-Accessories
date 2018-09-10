@@ -421,7 +421,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.16', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.17', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
@@ -641,10 +641,13 @@ function custom_meta_box_markup() {
 	global $post;
 	$post_id = $post->ID;
 	$user_email = get_field('customer_email', $post_id); 
+	$user_id = get_field('user_id', $post_id); 
 	$admin_email = get_option('admin_email');
-	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; ?>
+	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; 
+	?>
 
 	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
+	<input type="hidden" name="gsa-user-id" value="<?php echo $user_id; ?>" />
 
 	<div class="gsa-email-control-wrap">
 		<div class="form-group border">
@@ -724,10 +727,13 @@ function custom_meta_box_markup_rma() {
 
 	global $post;
 	$post_id = $post->ID;
-	$user_email = get_field('email_address', $post_id); 
-	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; ?>
+	$user_email = get_field('email_address', $post_id);
+	$icon_url = get_site_url() . '/wp-admin/images/loading.gif';
+	$user_id = get_field('user_id', $post_id); 
+	?>
 
 	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
+	<input type="hidden" name="gsa-user-id" value="<?php echo $user_id; ?>" />
 
 	<div class="gsa-email-control-wrap">
 		<div class="form-group border">
