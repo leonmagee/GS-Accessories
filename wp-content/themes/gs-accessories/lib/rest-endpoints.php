@@ -158,7 +158,7 @@ function gsa_rest_process_rma_email($data) {
 		$custom_query->the_post();
 		$rma_number = get_field('rma_number');
 		$rma_instructions = get_field('rma_instructions', 'option');
-		if ( $data['message']) {
+		if ( $data['message'] && $data['message'] !== 'BLANK' ) {
 			$user_email_text = '<div>' . urldecode($data['message']) . '<br /><br />' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div>';
 		} else {
 			$user_email_text = '<div>' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div>';
@@ -222,7 +222,7 @@ function gsa_rest_process_rma_email_reject($data) {
 		$custom_query->the_post();
 		$rma_number = get_field('rma_number');
 		$rma_instructions_rejected = get_field('rma_instructions_rejected', 'option');
-		if ( $data['message']) {
+		if ( $data['message'] && $data['message'] !== 'BLANK' ) {
 			$user_email_text = '<div>' . urldecode($data['message']) . '<br /><br />' . $rma_instructions_rejected;
 		} else {
 			$user_email_text = '<div>' . $rma_instructions_rejected;

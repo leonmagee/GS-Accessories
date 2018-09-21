@@ -141,6 +141,9 @@ jQuery(function ($) {
 
         var email_address = $('input[name="gsa-email-address-user"]').val();
         var rma_message = $('textarea[name="rma-message"').val();
+        if ( ! rma_message ) {
+            rma_message = 'BLANK';
+        }
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
         var user_id = $('input[name="gsa-user-id"]').val();
         
@@ -186,6 +189,9 @@ jQuery(function ($) {
 
         var email_address = $('input[name="gsa-email-address-user"]').val();
         var rma_message = $('textarea[name="rma-message"').val();
+        if ( ! rma_message ) {
+            rma_message = 'BLANK';
+        }
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
         var user_id = $('input[name="gsa-user-id"]').val();
         
