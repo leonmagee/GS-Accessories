@@ -31,7 +31,7 @@ jQuery(function ($) {
         var color_class = selected_color.replace(' ', '-').toLowerCase();
         $('.order-button-wrap input.quantity-input').hide().attr('name', 'not-quantity');
         $('.order-button-wrap input.quantity-input.' + color_class).show().attr('name', 'quantity');
-        console.log(color_class);
+        //console.log(color_class);
     });
 
     /**
@@ -466,8 +466,6 @@ $('.gs-resend-order-email').click(function() {
 * send admin email from RMA page
 */
 $('.gs-resend-rma-email').click(function() {
-
-    console.log('clicky working');
 
     var email_address = $(this).parent().find('input[name="gsa-email-address-admin"]').val();
     var post_id = $(this).parent().find('input[name="gsa-hidden-post-id"]').val(); // @todo important this isn't working right...

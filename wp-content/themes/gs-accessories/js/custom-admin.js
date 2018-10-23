@@ -139,6 +139,7 @@ jQuery(function ($) {
 
     $('#send-rma-email').click(function() {
 
+        console.log('approving');
         var email_address = $('input[name="gsa-email-address-user"]').val();
         var rma_message = $('textarea[name="rma-message"').val();
         if ( ! rma_message ) {
