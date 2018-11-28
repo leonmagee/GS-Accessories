@@ -42,8 +42,6 @@ if ( isset( $_GET['added-to-cart'])) {
         
         $description_text = get_field('accessory_text');
 
-
-
         // protections
         $protections = get_field('accessory_protections');
         
@@ -196,7 +194,7 @@ if ( isset( $_GET['added-to-cart'])) {
                             if ( $market_price ) {
                                 $price_name = 'Market';
                                 $price_value = '$' . number_format($market_price, 2);
-                                $show_price = true;
+                                $show_price = false;
                             } 
                         }
                         ?>
