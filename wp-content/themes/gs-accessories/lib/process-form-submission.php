@@ -243,8 +243,9 @@ if ( isset($_POST['place-cart-order'])) {
 
 	foreach( $shopping_cart_array as $id => $data ) {
 
-		$product = strtoupper(str_replace('-', ' ' , $data['product']));
+		//$product = strtoupper(str_replace('-', ' ' , $data['product']));
 		$product_id_exp = explode('-', $id);
+		$product = get_the_title($id);
 		$product_id_actual = $product_id_exp[0];
 
 		$change_quantity_array[] = array(

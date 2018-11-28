@@ -97,6 +97,10 @@ if ($paypal = $_GET['paypal']) {
           $product_details_array[] = $product_details_string;
           $product_cost_array[] = $price;
 
+          $product_object = get_page_by_path($item['product'], OBJECT, 'accessories');
+          $product_name_new = $product_object->post_title;
+
+
 
           ?>
 
@@ -107,7 +111,7 @@ if ($paypal = $_GET['paypal']) {
 
             <div class="cart-property product"><label>Product</label>
               <a href="/accessories/<?php echo $item['product']; ?>">
-                <?php echo str_replace('-', ' ', $item['product']); ?>
+                <?php echo $product_name_new; ?>
               </a>
             </div>
 
