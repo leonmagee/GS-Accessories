@@ -502,10 +502,14 @@ if ( isset($_POST['place-cart-order'])) {
 	}
 	update_field('agent_id', $agent_id, $new_order_id);
 
+	// var_dump($shopping_cart_array);
+	// die('so far');
+
 	foreach( $shopping_cart_array as $id => $data ) {
 
 		$product_id_exp = explode('-', $id);
 		$product_id_actual = $product_id_exp[0];
+		$product_title_new = get_the_title($id);
 
 		$product = strtoupper(str_replace('-', ' ' , $data['product']));
 		$quantity = $data['quantity'];
@@ -531,7 +535,7 @@ if ( isset($_POST['place-cart-order'])) {
 		}
 
 		$row = array(
-			'product_name'	=> $product,
+			'product_name'	=> $product_title_new,
 			'product_quantity'	=> $quantity,
 			'product_color'	=> $color,
 			'product_id' => $product_id_actual,
