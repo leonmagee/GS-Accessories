@@ -292,7 +292,8 @@ if ($paypal = $_GET['paypal']) {
               <?php if ( current_user_can('edit_posts')) { ?>
 
                 <div class="button-wrap">
-                  <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Bank Wire</button>
+                  <button id="submit_cart_button" type="submit" class="submit-order-button">Pick Up / Drop Off</button>
+                  <p class="only-sd-text">ONLY Available to San Diego Retailers</p>
                 </div>
 
               <?php } ?>
