@@ -408,7 +408,7 @@ function gs_accessories_scripts() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.34' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.35' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
