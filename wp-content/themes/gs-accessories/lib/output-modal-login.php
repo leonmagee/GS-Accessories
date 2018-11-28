@@ -22,7 +22,7 @@ class mp_output_modal_login {
         <div id="<?php echo $this->link_id; ?>" class="reveal" data-reveal>
 			<?php if ( $this->link_reg ) { ?>
                 	<div class="modal-button-wrap">
-                		<a class="gs-button" href="<?php echo site_url(); ?>/register-account">Sign Up for New Reseller Account</a>
+                		<a class="gs-button gs-button-blue" href="<?php echo site_url(); ?>/register-account">SIGN UP FOR NEW RESELLER ACCOUNT!</a>
              		</div>
                     <h2>Log In</h2>
 			<?php } else { ?>

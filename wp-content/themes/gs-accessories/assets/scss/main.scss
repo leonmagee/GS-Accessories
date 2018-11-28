@@ -133,6 +133,13 @@ a.gs-button, button.gs-button, button.wpforms-submit, .button.button-primary {
   }
 }
 
+a.gs-button.gs-button-blue {
+  background-color: $brand-second !important;
+  &:hover {
+    background-color: lighten($brand-second, 8%) !important;
+  }
+}
+
 button.wpforms-submit, .glsr-field .button.button-primary {
   background-color: $brand-primary-hover !important;
   border: none !important;
