@@ -140,6 +140,13 @@ a.gs-button.gs-button-blue {
   }
 }
 
+a.red-link {
+  color: lighten($brand-third, 5%) !important;
+  &:hover {
+    color: lighten($brand-third, 20%) !important;
+  }
+}
+
 button.wpforms-submit, .glsr-field .button.button-primary {
   background-color: $brand-primary-hover !important;
   border: none !important;

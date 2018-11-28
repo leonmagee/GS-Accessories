@@ -95,7 +95,7 @@ class mp_output_modal_login {
                 </section>
 
 
-                 <a href="<?php echo wp_lostpassword_url(); ?>">Lost Password?</a>
+                 <a class="red-link" href="<?php echo wp_lostpassword_url(); ?>">Lost Password?</a>
 
 
             </div>
