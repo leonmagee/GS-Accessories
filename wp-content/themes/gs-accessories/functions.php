@@ -753,10 +753,12 @@ function custom_meta_box_markup_rma() {
 				<a id="send-rma-email" class="flex-item button button-primary">Approve RMA</a>
 				<a id="send-rma-email-reject" class="flex-item button button-secondary">Reject RMA</a>
 				<a id="rma-original-email" class="flex-item button button-secondary">Re-Send Original Email</a>
+				<a id="rma-custom-message" class="flex-item button button-secondary">Custom Message</a>
 				<img class="flex-item gsa_spinner" src="<?php echo $icon_url; ?>" />
 				<div class="flex-item callout success approve">RMA Approved!</div>
 				<div class="flex-item callout success reject">RMA Rejected</div>
 				<div class="flex-item callout success email-resend">RMA Email Re-Sent</div>
+				<div class="flex-item callout success custom-message">RMA Custom Message Sent</div>
 				<div class="flex-item callout alert">Email Not Sent!</div>
 			</div>
 		</div>

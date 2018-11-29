@@ -8,6 +8,8 @@ add_action( 'rest_api_init', 'gsa_rest_endpoint_user');
 
 add_action( 'rest_api_init', 'gsa_rest_endpoint_rma');
 
+add_action( 'rest_api_init', 'gsa_rest_endpoint_rma_custom_message');
+
 add_action( 'rest_api_init', 'gsa_rest_endpoint_rma_reject');
 
 add_action( 'rest_api_init', 'gsa_rest_endpoint_rma_resend_email');
@@ -35,6 +37,14 @@ function gsa_rest_endpoint_rma() {
 	register_rest_route( 'process_rma', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)/(?P<user_id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'gsa_rest_process_rma_email',
+	));
+}
+
+function gsa_rest_endpoint_rma_custom_message() {
+
+	register_rest_route( 'process_rma_custom_message', '/user/(?P<id>\d+)/(?P<email>[a-zA-Z0-9-_\@\.]+)/(?P<message>.+)/(?P<user_id>\d+)', array(
+		'methods' => 'GET',
+		'callback' => 'gsa_rest_process_rma_custom_message',
 	));
 }
 
@@ -164,6 +174,81 @@ function gsa_rest_process_rma_email($data) {
 		} else {
 			$user_email_text = '<div>' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div><br /><div><strong>' . $company_name . '</strong></div>';
 		}
+		//$user_email_text = get_field('user_email_text');
+	}
+	wp_reset_postdata();
+
+	if ( $user_email_text && $data['email'] ) {
+
+		$subject = 'GS Accessories RMA';
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+
+		$email_wrap = GSA_EMAIL_WRAP;
+		
+		$email_wrap_close = '</div>';
+
+		$user_email_final = $email_wrap . $user_email_text . $email_wrap_close;
+
+
+		// $ref_agent_id = get_user_meta($user_id, 'referring_agent', true);
+
+		// if ( $ref_agent_id ) {
+		// 	$user_object = get_userdata($ref_agent_id);
+		// 	$ref_agent_email = $user_object->user_email;
+		// 	$to = array($data['email'], $ref_agent_email);
+		// } else {
+		// 	$to = array($data['email']);
+		// }
+
+		//$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
+
+		if ( $ref_agent_email ) {
+
+			$to = array($ref_agent_email, $data['email']);
+
+		} else {
+
+			$to = $data['email'];
+		}
+		
+		$mail_sent = wp_mail( $to, $subject, $user_email_final, $headers );
+
+		return $mail_sent;
+
+	} else {
+
+		return false;
+	}
+}
+
+
+function gsa_rest_process_rma_custom_message($data) {
+
+	/**
+	* here's how to seee a response in Chrome Dev Tools - just var_dump it!
+	*/
+	// $array_tester = ['one', 'two', 'three'];
+	// var_dump($array_tester);
+
+	$args = array('p' => $data['id'], 'post_type' => 'rmas');
+	$custom_query = new WP_Query($args);
+	$user_email_text = false;
+	$ref_agent_email = get_agent_email($data['user_id']);
+
+	while( $custom_query->have_posts() ) {
+
+		$custom_query->the_post();
+		$rma_number = get_field('rma_number');
+		$company_name = get_field('company_name');
+
+		//$rma_instructions = get_field('rma_instructions', 'option');
+		if ( $data['message'] && $data['message'] !== 'BLANK' ) {
+			$user_email_text = '<div>' . urldecode($data['message']) . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div><br /><div><strong>' . $company_name . '</strong></div>';
+		} 
+
+		// else {
+		// 	$user_email_text = '<div>' . $rma_instructions . '</div><br /><div>RMA Number: <strong>' . $rma_number . '</strong></div><br /><div><strong>' . $company_name . '</strong></div>';
+		// }
 		//$user_email_text = get_field('user_email_text');
 	}
 	wp_reset_postdata();
