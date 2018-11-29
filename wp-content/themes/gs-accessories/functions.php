@@ -515,6 +515,25 @@ function non_admin_users_redirect() {
 //     exit;
 // }
 
+
+add_action( 'init', 'define_agent_constant');
+
+function define_agent_constant() {
+
+		if (is_user_logged_in()) {
+
+		$current_user   = wp_get_current_user();
+		$role_name      = $current_user->roles[0];
+		if ( $role_name === 'um_agent' ) {
+			define('AGENT_LOGGED_IN', true);
+	    } else {
+	    	define('AGENT_LOGGED_IN', false);
+	    }
+	} else {
+		define('AGENT_LOGGED_IN', false);
+	}
+}
+
 /**
 * Redirect Agents
 * @todo remove level_10 access - does this do anything??????
@@ -523,23 +542,23 @@ add_action( 'pre_get_posts', 'agent_login_redirect' );
 
 function agent_login_redirect() {
 
-	$current_user   = wp_get_current_user();
-	$role_name      = $current_user->roles[0];
-    //var_dump($role_name);
-	if ( $role_name === 'um_agent' ) {
-		$current_page = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
-		$slug = $current_page->post_name;
-		if ( ( $slug !== 'agent-admin' ) && ( $slug !== 'register-user-agent') ) {
-    		/**
-    		* @todo also allow for registration page? reports page? any page available to Agent
-    		*/
-    		define('AGENT_LOGGED_IN', true);
-    		wp_redirect( site_url() . '/agent-admin' );
-			//exit;
-    	}
-    } else {
-    	define('AGENT_LOGGED_IN', false);
-    }
+	if (is_user_logged_in()) {
+
+		$current_user   = wp_get_current_user();
+		$role_name      = $current_user->roles[0];
+	    //var_dump($role_name);
+		if ( $role_name === 'um_agent' ) {
+			$current_page = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
+			$slug = $current_page->post_name;
+			if ( ( $slug !== 'agent-admin' ) && ( $slug !== 'register-user-agent') ) {
+	    		/**
+	    		* @todo also allow for registration page? reports page? any page available to Agent
+	    		*/
+	    		wp_redirect( site_url() . '/agent-admin' );
+				//exit;
+	    	}
+	    } 
+	} 
 }
 
 /**

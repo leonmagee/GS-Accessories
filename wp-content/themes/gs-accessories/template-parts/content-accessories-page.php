@@ -118,16 +118,27 @@ if ( isset( $_GET['added-to-cart'])) {
             <div class="image-wrap cell large-4">
                 <?php $image_gallery = get_field('image_gallery');
 
+                // add featured video here?
 
-                if ( $image_gallery && $img_featured = array_shift($image_gallery)) { ?>
-                <div class="img-wrap-bg">
-                    <a href="<?php echo $img_featured['sizes']['large']; ?>" rel="lightbox">
-                        <img src="<?php echo $img_featured['sizes']['accessory_image']; ?>" />
-                    </a>
-                </div> 
-                <?php } else { ?>
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
-                <?php } ?>
+                if (has_post_video()) { ?>
+
+                    <div class="img-wrap-bg">
+                        <?php the_post_video(); ?>
+                    </div> 
+
+                <?php } else {
+
+                    if ( $image_gallery && $img_featured = array_shift($image_gallery)) { ?>
+                    <div class="img-wrap-bg">
+                        <a href="<?php echo $img_featured['sizes']['large']; ?>" rel="lightbox">
+                            <img src="<?php echo $img_featured['sizes']['accessory_image']; ?>" />
+                        </a>
+                    </div> 
+                    <?php } else { ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
+                    <?php } 
+                }
+                ?>
 
                 <div class="thumbnail-wrap">
 
