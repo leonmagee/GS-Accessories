@@ -425,7 +425,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_enqueue_script( 'custom-admin-js');
 
-	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.13' );
+	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.15' );
 	
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
@@ -747,7 +747,7 @@ function custom_meta_box_markup_rma() {
 				<label>Message to Customer</label>
 			</div>
 			<div class="item">
-				<textarea name="rma-message"></textarea>
+				<textarea id="rma-message" name="rma-message"></textarea>
 			</div>
 			<div class="item buttons-flex">
 				<a id="send-rma-email" class="flex-item button button-primary">Approve RMA</a>
@@ -1093,14 +1093,6 @@ function sales_admin_page(){
 						),
 					);
 				}
-
-
-
-
-
-
-
-
 
 				$order_query = new WP_Query($args);
 

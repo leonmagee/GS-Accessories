@@ -281,11 +281,13 @@ jQuery(function ($) {
 
     $('#rma-custom-message').click(function() {
 
-        console.log('sending custom message');
+        $('textarea#rma-message').removeClass('message-not-sent');
         var email_address = $('input[name="gsa-email-address-user"]').val();
         var rma_message = $('textarea[name="rma-message"').val();
         if ( ! rma_message ) {
             // error out - this is required!
+            //$('textarea#rma-message').css({'background-color':'#f7e4e1'});
+            $('textarea#rma-message').addClass('message-not-sent');
             rma_message = 'BLANK';
         }
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
@@ -299,8 +301,8 @@ jQuery(function ($) {
         success.hide();
         alert.hide();
 
-        //var site_url = 'https://mygsaccessories.com';
-        var site_url = 'https://www.gs-accessories.dev';
+        var site_url = 'https://mygsaccessories.com';
+        //var site_url = 'https://www.gs-accessories.dev';
 
         var rest_url = site_url + '/wp-json/process_rma_custom_message/user/' + post_id + '/' + email_address +'/' + rma_message + '/' + user_id;
 
