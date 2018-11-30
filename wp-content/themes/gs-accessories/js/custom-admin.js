@@ -46,6 +46,8 @@ jQuery(function ($) {
 
     $('#send-email-user').click(function() {
 
+        console.log('testing...');
+
         var email_address = $('input[name="gsa-email-address-user"]').val();
         var user_id = $('input[name="gsa-user-id"]').val();
         //console.log('user id: ' + user_id);

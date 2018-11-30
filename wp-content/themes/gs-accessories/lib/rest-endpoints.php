@@ -113,11 +113,27 @@ function gsa_rest_process_user_email($data) {
 
 	$ref_agent_email = get_agent_email($data['user_id']);
 
+	$sn_imei_section = '';
+
 	while( $custom_query->have_posts() ) {
 
 		$custom_query->the_post();
 		$user_email_text = get_field('user_email_text');
+
+		if ( $sn_imei_field = get_field('imei__serial_numbers') ) {
+
+			$sn_imei_section .= '<br /><div><h3>IMEI / Serial Numbers</h3>';
+			
+			foreach( $sn_imei_field as $item ) {
+				$sn_imei_section.= '<div><label style="color: #32b79d">' . $item['product_name'] . '</label> - <strong>' . $item['imei__serial_number'] . '</strong></div>';
+			}
+
+			$sn_imei_section .= "</div><br />";
+		}
 	}
+
+	//var_dump($sn_imei_section);
+
 	wp_reset_postdata();
 
 	if ( $user_email_text && $data['email'] ) {
@@ -134,7 +150,7 @@ function gsa_rest_process_user_email($data) {
 		
 		$email_wrap_close = '</div>';
 
-		$user_email_final = $email_wrap . $user_email_text . $email_wrap_close;
+		$user_email_final = $email_wrap . $user_email_text . $sn_imei_section . $email_wrap_close;
 
 		if ( $ref_agent_email ) {
 
