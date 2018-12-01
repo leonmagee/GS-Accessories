@@ -1,68 +1,5 @@
 <?php
 
-
-require_once(__DIR__ . '/../lib/rma-product.php');
-
-// lets get all the orders place by this user
-
-$args = array(
-        'post_type' => 'orders', 
-        'posts_per_page' => -1,
-        'meta_query' => array(
-            array(
-                'key' => 'user_id',
-                'value' => LV_LOGGED_IN_ID
-            ),
-            array(
-                'key' => 'paid',
-                'value' => 'Completed'
-            )
-        ),
-    );
-
-$order_query = new WP_Query($args);
-
-$products_array = [];
-
-if ( $order_query->have_posts() ) {
-    while( $order_query->have_posts() ) {
-        global $post;
-        $order_query->the_post(); 
-        $date = get_the_date();
-        //$purchaser_id = get_field('user_id');
-        $order_id = $post->ID;
-        //$sub_total = get_field('sub_total');
-        // if ( ! $credit_applied = get_field('credit_applied') ) {
-        //     $credit_applied = 'N/A';
-        // } else {
-        //     $credit_applied = '$' . number_format($credit_applied, 2);
-        // }
-        if ( ! $coupon_percent = get_field('coupon_percent') ) {
-            $coupon_percent = 'N/A';
-        } 
-
-        $total_charge = get_field('total_charge');
-
-        $entries = get_field('product_entries');
-
-        foreach( $entries as $entry ) {
-
-            $product_name = $entry['product_name'];
-            $product_id = $entry['product_id'];
-            $unit_cost = $entry['unit_cost'];
-
-            $products_array[] = new rma_product(
-                $product_name,
-                $date,
-                $order_id,
-                $unit_cost,
-                $coupon_percent
-            );
-        }
-    }
-}
-
-
 /**
 * Get current user values...
 */
@@ -127,53 +64,51 @@ $regular_inputs = array(
 
         </div>
 
-        <h4 class="return-items-header">Return Item</h4>
+        
+
+        <?php
+        $return_items = 6; // @todo make this a constant - then you can reference that in form
+                           // submission...
+
+        for ( $i = 1; $i < $return_items; ++$i ) {
+        ?>
+
+        <h4 class="return-items-header">Return Item #<?php echo $i; ?></h4>
 
 		<div class="form-area-top return-details-wrap">
 			<div class="registration-input-wrap rma-quantity">
 				<label>Quantity</label>
-				<input name="item_quantity" type="number" min="1" value="1"/>
+				<input name="item_quantity_<?php echo $i; ?>" type="number" min="1" />
 			</div>
 			<div class="registration-input-wrap rma-name">
 				<label>Item Name</label>
-
-
-            <select name="item_name" id="rma-item">
-            	<option></option>
-                <?php foreach($products_array as $spp) { ?>
-                    <option 
-                    purchase_date="<?php echo $spp->purchase_date; ?>"
-                    po_number="<?php echo $spp->po_number; ?>"
-                    updated_cost="<?php echo $spp->updated_cost; ?>"
-                    ><?php echo $spp->product_name; ?></option>
-                <?php } ?>
-            </select>
-
-			<!--<input name="item_name" type="text" />-->			
+				<input name="item_name_<?php echo $i; ?>" type="text" />
 			</div>
 			<div class="registration-input-wrap rma-price">
 				<label>Unit Price</label>
-				<input name="item_price" type="text" />
+				<input name="item_price_<?php echo $i; ?>" type="text" />
 			</div>
 			<div class="registration-input-wrap rma-serial">
 				<label>IMEI or S/N</label>
-				<input name="item_serial" type="text" />
+				<input name="item_serial_<?php echo $i; ?>" type="text" />
 			</div>
 			
 			<div class="registration-input-wrap rma-po-number">
 				<label>PO Number</label>
-				<input name="item_po_number" type="text" />
+				<input name="item_po_number_<?php echo $i; ?>" type="text" />
 			</div>
 
 			<div class="registration-input-wrap rma-date">
 				<label>Date Purchased</label>
-				<input name="item_date"  type="text" />
+				<input name="item_date_<?php echo $i; ?>"  type="text" />
 			</div>
 			<div class="registration-input-wrap textarea">
 				<label>Return Problem Description</label>
-				<textarea name="item_description"></textarea>
+				<textarea name="item_description_<?php echo $i; ?>"></textarea>
 			</div>
 		</div>
+
+		<?php } ?>
 
         <button type="submit" class="gs-button" id="rma-form-submit">Submit</button>
     </form>

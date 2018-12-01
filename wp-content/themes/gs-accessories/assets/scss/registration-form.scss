@@ -36,13 +36,17 @@
     width: 100%;
     flex: 0 1 48%;
     margin: 1%;
-    input {
+    input, select {
       border-radius: 0;
       box-shadow: none;
       font-size: 13px;
       padding: 6px 10px;
       height: auto;
       margin-bottom: 5px;
+    }
+    select {
+      padding: 6px 20px 6px 7px;
+      //font-size: 12px;
     }
     span {
       //color: $brand-third;

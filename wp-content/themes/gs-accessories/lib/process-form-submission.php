@@ -80,8 +80,6 @@ if ( isset($_POST['add-one-accessory'])) {
 
 	$color = filter_input(INPUT_POST, 'color-select', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
-
 	$time = time();
 	$array_key = $post_id . '-' . $time;
 
