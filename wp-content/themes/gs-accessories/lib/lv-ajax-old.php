@@ -204,14 +204,16 @@ function lv_process_rma() {
 			$item_date = array();
 			$item_description = array();
 
+			for ( $i = 0; $i < 5; $i++ ) {
 
-			$item_quantity = filter_input( INPUT_POST, 'item_quantity', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_name = filter_input( INPUT_POST, 'item_name', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_price = filter_input( INPUT_POST, 'item_price', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_serial = filter_input( INPUT_POST, 'item_serial', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_po_number = filter_input( INPUT_POST, 'item_po_number', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_date = filter_input( INPUT_POST, 'item_date', FILTER_SANITIZE_SPECIAL_CHARS );
-			$item_description = filter_input( INPUT_POST, 'item_description', FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_quantity[$i] = filter_input( INPUT_POST, 'item_quantity_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_name[$i] = filter_input( INPUT_POST, 'item_name_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_price[$i] = filter_input( INPUT_POST, 'item_price_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_serial[$i] = filter_input( INPUT_POST, 'item_serial_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_po_number[$i] = filter_input( INPUT_POST, 'item_po_number_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_date[$i] = filter_input( INPUT_POST, 'item_date_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$item_description[$i] = filter_input( INPUT_POST, 'item_description_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+			}
 
 			if (!filter_var($email_address, FILTER_VALIDATE_EMAIL)) {
 
@@ -248,28 +250,31 @@ function lv_process_rma() {
 
 				$product_details = '';
 
-				$item_data = array(
-					'quantity' => $item_quantity,
-					'item_name' => $item_name,
-					'unit_price' => $item_price,
-					'serial_number' => $item_serial,
-					'po_number' => $item_po_number,
-					'date_purchased' => $item_date,
-					'return_problem_description' => $item_description
-				);
+				for ( $i = 0; $i < 5; $i++ ) {
 
-				update_field( 'return_item_1', $item_data, $new_rma_id);
+					$item_data = array(
+						'quantity' => $item_quantity[$i],
+						'item_name' => $item_name[$i],
+						'unit_price' => $item_price[$i],
+						'serial_number' => $item_serial[$i],
+						'po_number' => $item_po_number[$i],
+						'date_purchased' => $item_date[$i],
+						'return_problem_description' => $item_description[$i]
+					);
 
-				$product_details .= '<div>
-					<h3 style="margin-bottom: 8px"><span style="color: #32b79d">Return Item</span></h3>
-					<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_quantity . '</strong></div>
-					<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_name . '</strong></div>
-					<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_price . '</strong></div>
-					<div><span style="color: #32b79d">IMEI or S/N:</span> <strong>' . $item_serial . '</strong></div>
-					<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_po_number . '</strong></div>
-					<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_date . '</strong></div>
-					<div><span style="color: #32b79d">Description:</span> <strong>' . $item_description . '</strong></div>
-				</div>';
+					update_field( 'return_item_' . ($i + 1), $item_data, $new_rma_id);
+
+					$product_details .= '<div>
+						<h3 style="margin-bottom: 8px"><span style="color: #32b79d">Item #' . ($i + 1) . '</span></h3>
+						<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_quantity[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_name[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_price[$i] . '</strong></div>
+						<div><span style="color: #32b79d">IMEI or S/N:</span> <strong>' . $item_serial[$i] . '</strong></div>
+						<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_po_number[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_date[$i] . '</strong></div>
+						<div><span style="color: #32b79d">Description:</span> <strong>' . $item_description[$i] . '</strong></div>
+					</div>';
+				}
 
 				// send admin email
 				$admin_email = get_option('admin_email');

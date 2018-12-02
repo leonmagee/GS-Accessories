@@ -23,20 +23,14 @@ $args = array(
 $order_query = new WP_Query($args);
 
 $products_array = [];
+$imei_sn_array = [];
 
 if ( $order_query->have_posts() ) {
     while( $order_query->have_posts() ) {
         global $post;
         $order_query->the_post(); 
         $date = get_the_date();
-        //$purchaser_id = get_field('user_id');
         $order_id = $post->ID;
-        //$sub_total = get_field('sub_total');
-        // if ( ! $credit_applied = get_field('credit_applied') ) {
-        //     $credit_applied = 'N/A';
-        // } else {
-        //     $credit_applied = '$' . number_format($credit_applied, 2);
-        // }
         if ( ! $coupon_percent = get_field('coupon_percent') ) {
             $coupon_percent = 'N/A';
         } 
@@ -59,8 +53,21 @@ if ( $order_query->have_posts() ) {
                 $coupon_percent
             );
         }
+
+        if($imei_sn_numbers = get_field('imei__serial_numbers')) {
+
+	        foreach( $imei_sn_numbers as $imei_sn ) {
+
+	            $imei_sn_array[] = [
+	            	'sn' => $imei_sn['imei__serial_number'],
+	            	'name' => $imei_sn['product_name']
+	            ];
+	        }
+	    }
     }
 }
+
+//var_dump($imei_sn_array);
 
 
 /**
@@ -157,7 +164,22 @@ $regular_inputs = array(
 			</div>
 			<div class="registration-input-wrap rma-serial">
 				<label>IMEI or S/N</label>
-				<input name="item_serial" type="text" />
+				<?php if (count($imei_sn_array)) { ?>
+			    <select id="imei_select" name="item_serial" id="item_serial">
+					<option>N/A</option>
+					<?php foreach($imei_sn_array as $item) { ?>
+				  		<option class="non" value="<?php echo $item['sn']; ?>"><?php echo $item['sn']; ?></option>
+					<?php } ?>
+			      <option class="editable" value="">Enter Text</option>
+			    </select>
+			    <input class="editOption" style="display:none;"></input>
+
+
+
+
+				<?php } else { ?>
+					<input name="item_serial" id="item_serial" type="text" />
+				<?php } ?>
 			</div>
 			
 			<div class="registration-input-wrap rma-po-number">

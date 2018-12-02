@@ -229,16 +229,40 @@ jQuery(function ($) {
     /**
     * RMA Choose Items
     */
-
     $('#rma-item').change(function() {
 
         const updated_cost = $('option:selected', this).attr('updated_cost');
         const purchase_date = $('option:selected', this).attr('purchase_date');
         const po_number = $('option:selected', this).attr('po_number');
 
-        $('input[name="item_price"').val(updated_cost);
-        $('input[name="item_date"').val(purchase_date);
-        $('input[name="item_po_number"').val(po_number);
+        $('input[name="item_price"]').val(updated_cost);
+        $('input[name="item_date"]').val(purchase_date);
+        $('input[name="item_po_number"]').val(po_number);
+    });
+
+
+    /**
+    * IMEI / Serial Number Input
+    */
+    var initialText = $('.editable').val();
+    $('.editOption').val(initialText);
+
+    $('#imei_select').change(function(){
+    var selected = $('option:selected', this).attr('class');
+    var optionText = $('.editable').text();
+
+    if(selected == "editable"){
+      $('.editOption').show();
+
+      $('.editOption').keyup(function(){
+          var editText = $('.editOption').val();
+          $('.editable').val(editText);
+          $('.editable').html(editText);
+      });
+
+    }else{
+      $('.editOption').hide();
+    }
     });
 
     /**
@@ -269,40 +293,16 @@ jQuery(function ($) {
         
 
         var item_quantity = $('input[name="item_quantity"]').val();
-        var item_name = $('input[name="item_name"]').val();
+        var item_name = $('select[name="item_name"]').val();
         var item_price = $('input[name="item_price"]').val();
-        var item_serial = $('input[name="item_serial"]').val();
+        var item_serial = $('select[name="item_serial"]').val();
+        if ( ! item_serial ) {
+            item_serial = $('input[name="item_serial"]').val();
+        }
         var item_po_number = $('input[name="item_po_number"]').val();
         var item_date = $('input[name="item_date"]').val();
         var item_description = $('textarea[name="item_description"]').val();
 
-        // get product details
-
-        // var item_quantity = [];
-        // var item_name = [];
-        // var item_price = [];
-        // var item_serial = [];
-        // var item_po_number = [];
-        // var item_date = [];
-        // var item_description = [];
-
-        //var i;
-
-        // for ( i = 0; i < 5; i++) {
-        //     var current = ( i + 1 );
-        //     item_quantity[i] = $('input[name="item_quantity_' + current + '"]').val();
-        //     item_name[i] = $('input[name="item_name_' + current + '"]').val();
-        //     item_price[i] = $('input[name="item_price_' + current + '"]').val();
-        //     item_serial[i] = $('input[name="item_serial_' + current + '"]').val();
-        //     item_po_number[i] = $('input[name="item_po_number_' + current + '"]').val();
-        //     item_date[i] = $('input[name="item_date_' + current + '"]').val();
-        //     item_description[i] = $('textarea[name="item_description_' + current + '"]').val();
-        // }
-
-        // required inputs
-        // @todo change this to reflect just the inputs that will show up and are required...
-        // these can be just hidden by css?
-        //var conditional_inputs = (email_address && first_name && last_name && phone_number && address && city && state && zip);
         var conditional_inputs = (item_quantity && item_name && item_price && item_serial && item_po_number && item_date && item_description);
 
         if (conditional_inputs) {
@@ -330,20 +330,6 @@ jQuery(function ($) {
             formdata.append("item_date", item_date);
             formdata.append("item_description", item_description);
 
-            //var i;
-
-            // for ( i = 0; i < 5; i++) {
-
-            //     var current = ( i + 1 );
-            //     formdata.append("item_quantity_" + current, item_quantity[i]);
-            //     formdata.append("item_name_" + current, item_name[i]);
-            //     formdata.append("item_price_" + current, item_price[i]);
-            //     formdata.append("item_serial_" + current, item_serial[i]);
-            //     formdata.append("item_po_number_" + current, item_po_number[i]);
-            //     formdata.append("item_date_" + current, item_date[i]);
-            //     formdata.append("item_description_" + current, item_description[i]);
-            // }
-
             formdata.append("action", "lv_process_rma");
 
             $.ajax({
@@ -354,8 +340,7 @@ jQuery(function ($) {
                 processData: false,
                 success: function (data, textStatus, XMLHttpRequest) {
                 //success: function (response) {
-                    //console.log( 'made it to success????');
-                    console.log(data);
+                    //console.log(data);
                     $('.register-user-email-taken').hide();
                     $('.uploads-spinner').hide();
                     $('body').scrollTop(0);
@@ -381,7 +366,7 @@ jQuery(function ($) {
                 $('input[name="item_quantity"]').addClass('alert-warning');
             }
             if ( ! item_name) {
-                $('input[name="item_name"]').addClass('alert-warning');
+                $('select[name="item_name"]').addClass('alert-warning');
             }
             if ( ! item_price) {
                 $('input[name="item_price"]').addClass('alert-warning');

@@ -17,14 +17,16 @@ $coupon_applied = false;
 $coupon_percent = null;
 $current_coupon = '';
 
-if ( $current_coupon = $_GET['coupon']) {
-  $coupon_applied = true;
-  $coupon_percent = $coupon_array[strtolower($current_coupon)];
+if(isset($_GET['coupon'])) {
+  if ( $current_coupon = $_GET['coupon']) {
+    $coupon_applied = true;
+    $coupon_percent = $coupon_array[strtolower($current_coupon)];
+  }
 }
 
 $current_credit = intval(get_field('credit_value', 'user_' . LV_LOGGED_IN_ID));
 
-if ($paypal = $_GET['paypal']) {
+if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
   $paypal_mode = true;
 } else {
   $paypal_mode = false;
@@ -52,7 +54,7 @@ if ($paypal = $_GET['paypal']) {
         $product_details_array = array();
         $product_cost_array = array();
 
-        if ( $_SESSION['shopping_cart'] ) {
+        if ( isset($_SESSION['shopping_cart']) ) {
           $cart_data = unserialize($_SESSION['shopping_cart']);
           $total_cost = 0;
         foreach( $cart_data as $product_id => $item ) { // $id => $item
