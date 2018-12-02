@@ -39,20 +39,23 @@ if ( $order_query->have_posts() ) {
 
         $entries = get_field('product_entries');
 
-        foreach( $entries as $entry ) {
+        if($entries) {
 
-            $product_name = $entry['product_name'];
-            $product_id = $entry['product_id'];
-            $unit_cost = $entry['unit_cost'];
+	        foreach( $entries as $entry ) {
 
-            $products_array[] = new rma_product(
-                $product_name,
-                $date,
-                $order_id,
-                $unit_cost,
-                $coupon_percent
-            );
-        }
+	            $product_name = $entry['product_name'];
+	            $product_id = $entry['product_id'];
+	            $unit_cost = $entry['unit_cost'];
+
+	            $products_array[] = new rma_product(
+	                $product_name,
+	                $date,
+	                $order_id,
+	                $unit_cost,
+	                $coupon_percent
+	            );
+	        }
+	    } 
 
         if($imei_sn_numbers = get_field('imei__serial_numbers')) {
 
@@ -104,6 +107,8 @@ $regular_inputs = array(
 	//array('Message', 1, 'textarea'),
 );
 ?>
+
+<?php if (count($products_array) ) { ?>
 
 <div class="registration-form-wrapper form-wrap">
     <form method="post" name="registration-form">
@@ -200,3 +205,7 @@ $regular_inputs = array(
         <button type="submit" class="gs-button" id="rma-form-submit">Submit</button>
     </form>
 </div>
+<?php } else { ?>
+		<p>You need to have a saved order to be able to usbmit an RMA.</p>
+		<br /><br /><br /.
+<?php } ?>
