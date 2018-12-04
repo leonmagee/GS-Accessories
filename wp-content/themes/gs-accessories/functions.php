@@ -396,7 +396,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.18', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.19', true );
 
 	wp_enqueue_script( 'custom-js');
 
@@ -408,7 +408,7 @@ function gs_accessories_scripts() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 	
-	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.41' );
+	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.42' );
 	
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
