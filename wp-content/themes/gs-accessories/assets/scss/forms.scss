@@ -7,4 +7,9 @@ body.gs-accessories {
         border: 1px solid #EEE;
         padding: 10px 20px;
     }
+
+    input:disabled {
+    	background-color: #F7F7F7;
+    	cursor: not-allowed;
+    }
 }

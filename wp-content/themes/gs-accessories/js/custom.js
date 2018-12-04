@@ -229,41 +229,51 @@ jQuery(function ($) {
     /**
     * RMA Choose Items
     */
-    $('#rma-item').change(function() {
+    var i;
 
-        const updated_cost = $('option:selected', this).attr('updated_cost');
-        const purchase_date = $('option:selected', this).attr('purchase_date');
-        const po_number = $('option:selected', this).attr('po_number');
+    for ( i = 0; i < 5; i++) {
+    
+        let current = ( i + 1 );
+        
+        $('#rma-item_' + current).change(function() {
 
-        $('input[name="item_price"]').val(updated_cost);
-        $('input[name="item_date"]').val(purchase_date);
-        $('input[name="item_po_number"]').val(po_number);
-    });
+            //console.log('this is current', current);
 
+            const updated_cost = $('option:selected', this).attr('updated_cost');
+            const purchase_date = $('option:selected', this).attr('purchase_date');
+            const po_number = $('option:selected', this).attr('po_number');
+
+            //console.log('updated_cost', updated_cost);
+
+            $('input[name="item_price_' + current + '"]').val(updated_cost);
+            $('input[name="item_date_' + current + '"]').val(purchase_date);
+            $('input[name="item_po_number_' + current + '"]').val(po_number);
+        });
+    }
 
     /**
     * IMEI / Serial Number Input
     */
-    var initialText = $('.editable').val();
-    $('.editOption').val(initialText);
+    // var initialText = $('.editable').val();
+    // $('.editOption').val(initialText);
 
-    $('#imei_select').change(function(){
-    var selected = $('option:selected', this).attr('class');
-    var optionText = $('.editable').text();
+    // $('#imei_select').change(function(){
+    // var selected = $('option:selected', this).attr('class');
+    // var optionText = $('.editable').text();
 
-    if(selected == "editable"){
-      $('.editOption').show();
+    // if(selected == "editable"){
+    //   $('.editOption').show();
 
-      $('.editOption').keyup(function(){
-          var editText = $('.editOption').val();
-          $('.editable').val(editText);
-          $('.editable').html(editText);
-      });
+    //   $('.editOption').keyup(function(){
+    //       var editText = $('.editOption').val();
+    //       $('.editable').val(editText);
+    //       $('.editable').html(editText);
+    //   });
 
-    }else{
-      $('.editOption').hide();
-    }
-    });
+    // }else{
+    //   $('.editOption').hide();
+    // }
+    // });
 
     /**
     * Process ajax submit RMA form
@@ -292,18 +302,43 @@ jQuery(function ($) {
         var logged_in_user = $('.logged_in_user_id').val(); // test this works with different users...
         
 
-        var item_quantity = $('input[name="item_quantity"]').val();
-        var item_name = $('select[name="item_name"]').val();
-        var item_price = $('input[name="item_price"]').val();
-        var item_serial = $('select[name="item_serial"]').val();
-        if ( ! item_serial ) {
-            item_serial = $('input[name="item_serial"]').val();
-        }
-        var item_po_number = $('input[name="item_po_number"]').val();
-        var item_date = $('input[name="item_date"]').val();
-        var item_description = $('textarea[name="item_description"]').val();
+        // get product details
 
-        var conditional_inputs = (item_quantity && item_name && item_price && item_serial && item_po_number && item_date && item_description);
+        var item_quantity = [];
+        var item_name = [];
+        var item_price = [];
+        var item_serial = [];
+        var item_po_number = [];
+        var item_date = [];
+        var item_description = [];
+
+        var i;
+
+        for ( i = 0; i < 5; i++) {
+            var current = ( i + 1 );
+            item_quantity[i] = $('input[name="item_quantity_' + current + '"]').val();
+            item_name[i] = $('select[name="item_name_' + current + '"]').val();
+            item_price[i] = $('input[name="item_price_' + current + '"]').val();
+            item_serial[i] = $('select[name="item_serial_' + current + '"]').val();
+            item_po_number[i] = $('input[name="item_po_number_' + current + '"]').val();
+            item_date[i] = $('input[name="item_date_' + current + '"]').val();
+            item_description[i] = $('textarea[name="item_description_' + current + '"]').val();
+        }
+
+
+        // var item_quantity = $('input[name="item_quantity"]').val();
+        // var item_name = $('select[name="item_name"]').val();
+        // var item_price = $('input[name="item_price"]').val();
+        // var item_serial = $('select[name="item_serial"]').val();
+        // if ( ! item_serial ) {
+        //     item_serial = $('input[name="item_serial"]').val();
+        // }
+        // var item_po_number = $('input[name="item_po_number"]').val();
+        // var item_date = $('input[name="item_date"]').val();
+        // var item_description = $('textarea[name="item_description"]').val();
+        var conditional_inputs = (item_quantity[0] && item_name[0] && item_price[0] && item_serial[0] && item_po_number[0] && item_date[0] && item_description[0]);
+
+        //var conditional_inputs = (item_quantity && item_name && item_price && item_serial && item_po_number && item_date && item_description);
 
         if (conditional_inputs) {
 
@@ -322,13 +357,27 @@ jQuery(function ($) {
             formdata.append("zip", zip);
             formdata.append("user", logged_in_user);
 
-            formdata.append("item_quantity", item_quantity);
-            formdata.append("item_name", item_name);
-            formdata.append("item_price", item_price);
-            formdata.append("item_serial", item_serial);
-            formdata.append("item_po_number", item_po_number);
-            formdata.append("item_date", item_date);
-            formdata.append("item_description", item_description);
+            var i;
+
+            for ( i = 0; i < 5; i++) {
+
+                var current = ( i + 1 );
+                formdata.append("item_quantity_" + current, item_quantity[i]);
+                formdata.append("item_name_" + current, item_name[i]);
+                formdata.append("item_price_" + current, item_price[i]);
+                formdata.append("item_serial_" + current, item_serial[i]);
+                formdata.append("item_po_number_" + current, item_po_number[i]);
+                formdata.append("item_date_" + current, item_date[i]);
+                formdata.append("item_description_" + current, item_description[i]);
+            }
+
+            // formdata.append("item_quantity", item_quantity);
+            // formdata.append("item_name", item_name);
+            // formdata.append("item_price", item_price);
+            // formdata.append("item_serial", item_serial);
+            // formdata.append("item_po_number", item_po_number);
+            // formdata.append("item_date", item_date);
+            // formdata.append("item_description", item_description);
 
             formdata.append("action", "lv_process_rma");
 
@@ -362,27 +411,51 @@ jQuery(function ($) {
             $('.uploads-spinner').hide();
             $('.mp-required-fields').show();
 
-            if ( ! item_quantity) {
-                $('input[name="item_quantity"]').addClass('alert-warning');
+
+
+            if ( ! item_quantity[0]) {
+                $('input[name="item_quantity_1"]').addClass('alert-warning');
             }
-            if ( ! item_name) {
-                $('select[name="item_name"]').addClass('alert-warning');
+            if ( ! item_name[0]) {
+                $('select[name="item_name_1"]').addClass('alert-warning');
             }
-            if ( ! item_price) {
-                $('input[name="item_price"]').addClass('alert-warning');
+            if ( ! item_price[0]) {
+                $('input[name="item_price_1"]').addClass('alert-warning');
             }
-            if ( ! item_serial) {
-                $('input[name="item_serial"]').addClass('alert-warning');
+            if ( ! item_serial[0]) {
+                $('input[name="item_serial_1"]').addClass('alert-warning');
             }
-            if ( ! item_po_number) {
-                $('input[name="item_po_number"]').addClass('alert-warning');
+            if ( ! item_po_number[0]) {
+                $('input[name="item_po_number_1"]').addClass('alert-warning');
             }
-            if ( ! item_date) {
-                $('input[name="item_date"]').addClass('alert-warning');
+            if ( ! item_date[0]) {
+                $('input[name="item_date_1"]').addClass('alert-warning');
             }
-            if ( ! item_description) {
-                $('[name="item_description"]').addClass('alert-warning');
+            if ( ! item_description[0]) {
+                $('[name="item_description_1"]').addClass('alert-warning');
             }
+
+            // if ( ! item_quantity) {
+            //     $('input[name="item_quantity"]').addClass('alert-warning');
+            // }
+            // if ( ! item_name) {
+            //     $('select[name="item_name"]').addClass('alert-warning');
+            // }
+            // if ( ! item_price) {
+            //     $('input[name="item_price"]').addClass('alert-warning');
+            // }
+            // if ( ! item_serial) {
+            //     $('input[name="item_serial"]').addClass('alert-warning');
+            // }
+            // if ( ! item_po_number) {
+            //     $('input[name="item_po_number"]').addClass('alert-warning');
+            // }
+            // if ( ! item_date) {
+            //     $('input[name="item_date"]').addClass('alert-warning');
+            // }
+            // if ( ! item_description) {
+            //     $('[name="item_description"]').addClass('alert-warning');
+            // }
         }
     });
 

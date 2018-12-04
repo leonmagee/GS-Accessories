@@ -139,18 +139,26 @@ $regular_inputs = array(
 
         </div>
 
-        <h4 class="return-items-header">Return Item</h4>
+       
+        <?php
+        $return_items = 6; // @todo make this a constant - then you can reference that in form
+                           // submission...
+
+        for ( $i = 1; $i < $return_items; ++$i ) {
+        ?>
+
+        <h4 class="return-items-header">Return Item #<?php echo $i; ?></h4>
 
 		<div class="form-area-top return-details-wrap">
 			<div class="registration-input-wrap rma-quantity">
 				<label>Quantity</label>
-				<input name="item_quantity" type="number" min="1" value="1"/>
+				<input name="item_quantity_<?php echo $i; ?>" type="number" min="1" />
 			</div>
 			<div class="registration-input-wrap rma-name">
 				<label>Item Name</label>
 
 
-            <select name="item_name" id="rma-item">
+            <select name="item_name_<?php echo $i; ?>" id="rma-item_<?php echo $i; ?>">
             	<option></option>
                 <?php foreach($products_array as $spp) { ?>
                     <option 
@@ -161,46 +169,51 @@ $regular_inputs = array(
                 <?php } ?>
             </select>
 
-			<!--<input name="item_name" type="text" />-->			
 			</div>
 			<div class="registration-input-wrap rma-price">
 				<label>Unit Price</label>
-				<input name="item_price" type="text" />
+				<input disabled name="item_price_<?php echo $i; ?>" type="text" />
 			</div>
+
 			<div class="registration-input-wrap rma-serial">
 				<label>IMEI or S/N</label>
 				<?php if (count($imei_sn_array)) { ?>
-			    <select id="imei_select" name="item_serial" id="item_serial">
+			    <select id="imei_select" name="item_serial_<?php echo $i; ?>" id="item_serial">
 					<option>N/A</option>
 					<?php foreach($imei_sn_array as $item) { ?>
 				  		<option class="non" value="<?php echo $item['sn']; ?>"><?php echo $item['sn']; ?></option>
 					<?php } ?>
-			      <option class="editable" value="">Enter Text</option>
-			    </select>
+<!-- 			      <option class="editable" value="">Enter Text</option>
+ -->			    </select>
 			    <input class="editOption" style="display:none;"></input>
-
-
-
-
 				<?php } else { ?>
 					<input name="item_serial" id="item_serial" type="text" />
 				<?php } ?>
 			</div>
-			
+
+
 			<div class="registration-input-wrap rma-po-number">
 				<label>PO Number</label>
-				<input name="item_po_number" type="text" />
+				<input disabled name="item_po_number_<?php echo $i; ?>" type="text" />
 			</div>
 
 			<div class="registration-input-wrap rma-date">
 				<label>Date Purchased</label>
-				<input name="item_date"  type="text" />
+				<input disabled name="item_date_<?php echo $i; ?>"  type="text" />
 			</div>
 			<div class="registration-input-wrap textarea">
 				<label>Return Problem Description</label>
-				<textarea name="item_description"></textarea>
+				<textarea name="item_description_<?php echo $i; ?>"></textarea>
 			</div>
 		</div>
+
+		<?php } ?>
+
+
+
+
+
+
 
         <button type="submit" class="gs-button" id="rma-form-submit">Submit</button>
     </form>
