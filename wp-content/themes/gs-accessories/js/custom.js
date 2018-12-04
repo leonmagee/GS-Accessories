@@ -320,6 +320,9 @@ jQuery(function ($) {
             item_name[i] = $('select[name="item_name_' + current + '"]').val();
             item_price[i] = $('input[name="item_price_' + current + '"]').val();
             item_serial[i] = $('select[name="item_serial_' + current + '"]').val();
+            if ( ! item_serial[i] ) {
+                item_serial[i] = $('input[name="item_serial_' + current + '"]').val();
+            }
             item_po_number[i] = $('input[name="item_po_number_' + current + '"]').val();
             item_date[i] = $('input[name="item_date_' + current + '"]').val();
             item_description[i] = $('textarea[name="item_description_' + current + '"]').val();
