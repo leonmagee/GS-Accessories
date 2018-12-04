@@ -339,7 +339,7 @@ jQuery(function ($) {
         // var item_po_number = $('input[name="item_po_number"]').val();
         // var item_date = $('input[name="item_date"]').val();
         // var item_description = $('textarea[name="item_description"]').val();
-        var conditional_inputs = (item_quantity[0] && item_name[0] && item_price[0] && item_serial[0] && item_po_number[0] && item_date[0] && item_description[0]);
+        var conditional_inputs = (item_quantity[0] && item_name[0] && item_price[0] && item_po_number[0] && item_date[0] && item_description[0]);
 
         //var conditional_inputs = (item_quantity && item_name && item_price && item_serial && item_po_number && item_date && item_description);
 
