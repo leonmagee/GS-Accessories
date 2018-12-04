@@ -187,7 +187,7 @@ $regular_inputs = array(
  -->			    </select>
 			    <input class="editOption" style="display:none;"></input>
 				<?php } else { ?>
-					<input name="item_serial" id="item_serial" type="text" />
+					<input name="item_serial_<?php echo $i; ?>" id="item_serial" type="text" />
 				<?php } ?>
 			</div>
 
