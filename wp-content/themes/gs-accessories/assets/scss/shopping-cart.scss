@@ -201,11 +201,18 @@
 }
 
 .page-template-page-shopping-cart {
-	button#paypal_checkout_button {
+	button#paypal_checkout_button, button#venmo_ca_button {
 		max-width: 100%;
 		width: 100%;
 		img {
 			width: 100%;
+		}
+	}
+	button#venmo_ca_button {
+		margin-bottom: 7px;
+		img {
+			border-radius: 5px;
+			border: 1px solid rgba(0,0,0,0.1);
 		}
 	}
 }

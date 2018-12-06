@@ -248,8 +248,42 @@ jQuery(function ($) {
             $('input[name="item_price_' + current + '"]').val(updated_cost);
             $('input[name="item_date_' + current + '"]').val(purchase_date);
             $('input[name="item_po_number_' + current + '"]').val(po_number);
+
+            // set total price
+            //updated_cost
+            const new_updated_cost = updated_cost.replace(/[$,]/g, '');
+            const quantity = $('input[name="item_quantity_' + current + '"]').val();
+            const total_cost = (parseInt(quantity) * parseInt(new_updated_cost));
+            const final_total_cost = parseFloat(Math.round(total_cost * 100) / 100).toFixed(2);
+            $('input[name="total_price_' + current + '"]').val('$' + final_total_cost);
+        });
+
+        $('#rma-quantity_' + current).bind('keyup mouseup', function() {
+
+            //console.log('this is current', current);
+
+            // const updated_cost = $('option:selected', this).attr('updated_cost');
+            // const purchase_date = $('option:selected', this).attr('purchase_date');
+            // const po_number = $('option:selected', this).attr('po_number');
+
+            // //console.log('updated_cost', updated_cost);
+
+            // $('input[name="item_price_' + current + '"]').val(updated_cost);
+            // $('input[name="item_date_' + current + '"]').val(purchase_date);
+            // $('input[name="item_po_number_' + current + '"]').val(po_number);
+            const quantity = $('input[name="item_quantity_' + current + '"]').val();
+            const updated_cost = $('input[name="item_price_' + current + '"]').val();
+
+            if (quantity && updated_cost) {
+                const new_updated_cost = updated_cost.replace(/[$,]/g, '');
+                const total_cost = (parseInt(quantity) * parseInt(new_updated_cost));
+                const final_total_cost = parseFloat(Math.round(total_cost * 100) / 100).toFixed(2);
+                $('input[name="total_price_' + current + '"]').val('$' + final_total_cost);
+            }
         });
     }
+
+
 
     /**
     * IMEI / Serial Number Input
@@ -307,6 +341,7 @@ jQuery(function ($) {
         var item_quantity = [];
         var item_name = [];
         var item_price = [];
+        var total_price = [];
         var item_serial = [];
         var item_po_number = [];
         var item_date = [];
@@ -319,6 +354,7 @@ jQuery(function ($) {
             item_quantity[i] = $('input[name="item_quantity_' + current + '"]').val();
             item_name[i] = $('select[name="item_name_' + current + '"]').val();
             item_price[i] = $('input[name="item_price_' + current + '"]').val();
+            total_price[i] = $('input[name="total_price_' + current + '"]').val();
             item_serial[i] = $('select[name="item_serial_' + current + '"]').val();
             if ( ! item_serial[i] ) {
                 item_serial[i] = $('input[name="item_serial_' + current + '"]').val();
@@ -368,6 +404,7 @@ jQuery(function ($) {
                 formdata.append("item_quantity_" + current, item_quantity[i]);
                 formdata.append("item_name_" + current, item_name[i]);
                 formdata.append("item_price_" + current, item_price[i]);
+                formdata.append("total_price_" + current, total_price[i]);
                 formdata.append("item_serial_" + current, item_serial[i]);
                 formdata.append("item_po_number_" + current, item_po_number[i]);
                 formdata.append("item_date_" + current, item_date[i]);
@@ -416,7 +453,7 @@ jQuery(function ($) {
 
 
 
-            if ( ! item_quantity[0]) {
+            if ( (! item_quantity[0]) || (item_quantity[0] < 1) ) {
                 $('input[name="item_quantity_1"]').addClass('alert-warning');
             }
             if ( ! item_name[0]) {

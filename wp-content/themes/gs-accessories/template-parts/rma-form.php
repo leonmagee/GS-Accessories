@@ -152,29 +152,29 @@ $regular_inputs = array(
 		<div class="form-area-top return-details-wrap">
 			<div class="registration-input-wrap rma-quantity">
 				<label>Quantity</label>
-				<input name="item_quantity_<?php echo $i; ?>" type="number" min="1" />
+				<input id="rma-quantity_<?php echo $i; ?>" name="item_quantity_<?php echo $i; ?>" type="number" min="1" value="1"/>
 			</div>
 			<div class="registration-input-wrap rma-name">
 				<label>Item Name</label>
-
-
-            <select name="item_name_<?php echo $i; ?>" id="rma-item_<?php echo $i; ?>">
-            	<option></option>
-                <?php foreach($products_array as $spp) { ?>
-                    <option 
-                    purchase_date="<?php echo $spp->purchase_date; ?>"
-                    po_number="<?php echo $spp->po_number; ?>"
-                    updated_cost="<?php echo $spp->updated_cost; ?>"
-                    ><?php echo $spp->product_name; ?></option>
-                <?php } ?>
-            </select>
-
+	            <select name="item_name_<?php echo $i; ?>" id="rma-item_<?php echo $i; ?>">
+	            	<option></option>
+	                <?php foreach($products_array as $spp) { ?>
+	                    <option 
+	                    purchase_date="<?php echo $spp->purchase_date; ?>"
+	                    po_number="<?php echo $spp->po_number; ?>"
+	                    updated_cost="<?php echo $spp->updated_cost; ?>"
+	                    ><?php echo $spp->product_name; ?></option>
+	                <?php } ?>
+	            </select>
 			</div>
 			<div class="registration-input-wrap rma-price">
 				<label>Unit Price</label>
 				<input disabled name="item_price_<?php echo $i; ?>" type="text" />
 			</div>
-
+			<div class="registration-input-wrap rma-total-price">
+				<label>Total Price</label>
+				<input disabled name="total_price_<?php echo $i; ?>" type="text" />
+			</div>
 			<div class="registration-input-wrap rma-serial">
 				<label>IMEI or S/N</label>
 				<?php if (count($imei_sn_array)) { ?>

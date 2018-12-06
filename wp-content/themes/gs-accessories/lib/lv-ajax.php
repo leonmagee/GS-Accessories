@@ -208,6 +208,7 @@ function lv_process_rma() {
 				$item_quantity[$i] = filter_input( INPUT_POST, 'item_quantity_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 				$item_name[$i] = filter_input( INPUT_POST, 'item_name_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 				$item_price[$i] = filter_input( INPUT_POST, 'item_price_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
+				$total_price[$i] = filter_input( INPUT_POST, 'total_price_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 				$item_serial[$i] = filter_input( INPUT_POST, 'item_serial_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 				$item_po_number[$i] = filter_input( INPUT_POST, 'item_po_number_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 				$item_date[$i] = filter_input( INPUT_POST, 'item_date_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
@@ -266,6 +267,7 @@ function lv_process_rma() {
 							'quantity' => $item_quantity[$i],
 							'item_name' => $item_name[$i],
 							'unit_price' => $item_price[$i],
+							'total_price' => $total_price[$i],
 							'serial_number' => $item_serial[$i],
 							'po_number' => $item_po_number[$i],
 							'date_purchased' => $item_date[$i],
@@ -279,6 +281,7 @@ function lv_process_rma() {
 							<div><span style="color: #32b79d">Quantity:</span> <strong>' . $item_quantity[$i] . '</strong></div>
 							<div><span style="color: #32b79d">Item Name:</span> <strong>' . $item_name[$i] . '</strong></div>
 							<div><span style="color: #32b79d">Unit Price:</span> <strong>' . $item_price[$i] . '</strong></div>
+							<div><span style="color: #32b79d">Total Price:</span> <strong>' . $total_price[$i] . '</strong></div>
 							<div><span style="color: #32b79d">IMEI or S/N:</span> <strong>' . $item_serial[$i] . '</strong></div>
 							<div><span style="color: #32b79d">PO Number:</span> <strong>' . $item_po_number[$i] . '</strong></div>
 							<div><span style="color: #32b79d">Date Purchased:</span> <strong>' . $item_date[$i] . '</strong></div>

@@ -72,10 +72,13 @@
       flex: 0 1 13%;
     }
     &.rma-name {
-      flex: 0 1 65%;
+      flex: 0 1 49%;
     }
     &.rma-price {
-      flex: 0 1 16%;
+      flex: 0 1 15%;
+    }
+    &.rma-total-price {
+      flex: 0 1 15%;
     }
     &.rma-serial {
       flex: 0 1 38%;

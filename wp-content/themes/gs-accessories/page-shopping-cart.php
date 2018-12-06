@@ -298,13 +298,21 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
                   <p class="only-sd-text">ONLY Available to San Diego Retailers</p>
                 </div>
 
+                <div class="button-wrap">
+                  <button id="venmo_ca_button" type="submit" class="paypal-button">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cash-app-venmo-checkout.jpg"/>
+                  </button>
+                </div>
+
               <?php } ?>
 
               <?php
               if ( $show_paypal_button ) { ?>
 
                 <div class="button-wrap">
-                  <button id="paypal_checkout_button" class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+                  <button id="paypal_checkout_button" class="paypal-button" type="submit">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/>
+                  </button>
                 </div>
               <?php } ?>
 
