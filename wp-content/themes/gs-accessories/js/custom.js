@@ -362,7 +362,7 @@ jQuery(function ($) {
 
             var i;
 
-            for ( i = 0; i < 5; i++) {
+            for ( i = 0; i < 3; i++) {
 
                 var current = ( i + 1 );
                 formdata.append("item_quantity_" + current, item_quantity[i]);

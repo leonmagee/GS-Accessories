@@ -195,9 +195,6 @@ function lv_process_rma() {
 				$ref_agent_email = $user_object->user_email;
 			}
 
-
-
-
 			$item_quantity = array();
 			$item_name = array();
 			$item_price = array();
@@ -206,7 +203,7 @@ function lv_process_rma() {
 			$item_date = array();
 			$item_description = array();
 
-			for ( $i = 0; $i < 5; $i++ ) {
+			for ( $i = 0; $i < 3; $i++ ) {
 
 				$item_quantity[$i] = filter_input( INPUT_POST, 'item_quantity_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );
 				$item_name[$i] = filter_input( INPUT_POST, 'item_name_' . ($i + 1), FILTER_SANITIZE_SPECIAL_CHARS );

@@ -141,7 +141,7 @@ $regular_inputs = array(
 
        
         <?php
-        $return_items = 6; // @todo make this a constant - then you can reference that in form
+        $return_items = 4; // @todo make this a constant - then you can reference that in form
                            // submission...
 
         for ( $i = 1; $i < $return_items; ++$i ) {
