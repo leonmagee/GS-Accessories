@@ -54,8 +54,8 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
         $product_details_array = array();
         $product_cost_array = array();
 
-        if ( isset($_SESSION['shopping_cart']) ) {
-          $cart_data = unserialize($_SESSION['shopping_cart']);
+        if ( isset($_SESSION['shopping_cart']) && ($cart_data = unserialize($_SESSION['shopping_cart']))) {
+          //$cart_data = unserialize($_SESSION['shopping_cart']);
           $total_cost = 0;
         foreach( $cart_data as $product_id => $item ) { // $id => $item
 
@@ -298,7 +298,11 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
                   <p class="only-sd-text">ONLY Available to San Diego Retailers</p>
                 </div>
 
-
+                <div class="button-wrap">
+                  <button id="venmo_ca_button" type="submit" class="paypal-button">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cash-app-venmo-checkout.jpg"/>
+                  </button>
+                </div>
 
               <?php } ?>
 

@@ -437,6 +437,8 @@ if ( isset($_POST['place-cart-order'])) {
 
 	if ( $payment_type == 'PayPal' ) {
 		$payment_instructions = get_field('paypal_instructions', 'option');
+	} elseif ( $payment_type == 'Venmo - Cash App' ) {
+		$payment_instructions = get_field('venmo_cash_app_instructions', 'option');
 	} else {
 		$payment_instructions = get_field('pick_up_instructions', 'option');
 	}
@@ -452,11 +454,6 @@ if ( isset($_POST['place-cart-order'])) {
 
 	// clear out cart of items (empty Session)
 	$_SESSION['shopping_cart'] = '';
-
-
-
-
-
 
 	/**
 	* Create Post to record order
@@ -553,7 +550,7 @@ if ( isset($_POST['place-cart-order'])) {
 
 
 	// redirect to order placed page
-	if ( $payment_type == 'Pick Up' ) {
+	if ( ( $payment_type == 'Pick Up' ) ||  ( $payment_type == 'Venmo - Cash App' )) {
 		wp_redirect('/order-placed');
 	} elseif ( $payment_type == 'PayPal' ) {
 		//wp_redirect('/cart?paypal=show&paypal_names=' . $product_names . '&paypal_values=' . $product_values);

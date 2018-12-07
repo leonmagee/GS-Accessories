@@ -93,6 +93,22 @@ jQuery(function ($) {
         $('form#main_form_id').submit();
     });
 
+    /**
+    * trigger form submit when venmo/cash app button is clicked
+    */
+    $('#venmo_ca_button').click(function(e) {
+        e.preventDefault();
+        //console.log('paypal click prevention');
+
+        $(this).prop('disabled', true);
+        $('.page-template-page-shopping-cart #submit_cart_button').prop('disabled', true);
+        //return false;
+
+        $('input[name="payment-type"]').val('Venmo - Cash App');
+
+        $('form#main_form_id').submit();
+    });
+
     $('.features-section .shortcode-reviews-form a').removeAttr('href').attr('data-open', 'login-modal');
 
 
@@ -269,8 +285,6 @@ jQuery(function ($) {
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
-
 
     /**
     * IMEI / Serial Number Input
