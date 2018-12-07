@@ -304,6 +304,10 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
                   </button>
                 </div>
 
+                <div class="button-wrap">
+                  <button id="wire_direct_button" type="submit" class="submit-order-button">Wire Transfer / Direct Deposit</button>
+                </div>
+
               <?php } ?>
 
               <?php

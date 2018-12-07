@@ -109,6 +109,24 @@ jQuery(function ($) {
         $('form#main_form_id').submit();
     });
 
+    /**
+    * trigger form submit when wire transfer / direct deposit button is clicked
+    */
+    $('#wire_direct_button').click(function(e) {
+        e.preventDefault();
+        //console.log('paypal click prevention');
+
+        $(this).prop('disabled', true);
+        $('.page-template-page-shopping-cart #submit_cart_button').prop('disabled', true);
+        //return false;
+
+        $('input[name="payment-type"]').val('Wire Transfer - Direct Deposit');
+
+        $('form#main_form_id').submit();
+    });
+
+    
+
     $('.features-section .shortcode-reviews-form a').removeAttr('href').attr('data-open', 'login-modal');
 
 

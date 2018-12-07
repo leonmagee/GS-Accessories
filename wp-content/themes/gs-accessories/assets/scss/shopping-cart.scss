@@ -245,6 +245,13 @@ button.submit-order-button {
 		cursor: pointer;
 	}
 
+	&#wire_direct_button {
+		background-color: $brand-third;
+		font-size: 18px;
+		padding-top: 13px;
+		padding-bottom: 13px;
+	}
+
 	&.disabled {
 		opacity: 0.5;
 		&:hover {

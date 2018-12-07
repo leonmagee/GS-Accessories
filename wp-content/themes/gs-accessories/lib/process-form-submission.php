@@ -439,9 +439,12 @@ if ( isset($_POST['place-cart-order'])) {
 		$payment_instructions = get_field('paypal_instructions', 'option');
 	} elseif ( $payment_type == 'Venmo - Cash App' ) {
 		$payment_instructions = get_field('venmo_cash_app_instructions', 'option');
+	} elseif ( $payment_type == 'Wire Transfer - Direct Deposit' ) {
+		$payment_instructions = get_field('wire_transfer_direct_deposit_instructions', 'option');
 	} else {
 		$payment_instructions = get_field('pick_up_instructions', 'option');
 	}
+	
 
 	// send email to user
 	$to = $user_email;
@@ -548,9 +551,8 @@ if ( isset($_POST['place-cart-order'])) {
 
 	// here we need to determine if this is a PayPal order or a pick up order
 
-
 	// redirect to order placed page
-	if ( ( $payment_type == 'Pick Up' ) ||  ( $payment_type == 'Venmo - Cash App' )) {
+	if ( ( $payment_type == 'Pick Up' ) ||  ( $payment_type == 'Venmo - Cash App' ) || ( $payment_type == 'Wire Transfer - Direct Deposit' ) ) {
 		wp_redirect('/order-placed');
 	} elseif ( $payment_type == 'PayPal' ) {
 		//wp_redirect('/cart?paypal=show&paypal_names=' . $product_names . '&paypal_values=' . $product_values);
