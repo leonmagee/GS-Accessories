@@ -237,40 +237,23 @@ jQuery(function ($) {
         
         $('#rma-item_' + current).change(function() {
 
-            //console.log('this is current', current);
-
             const updated_cost = $('option:selected', this).attr('updated_cost');
             const purchase_date = $('option:selected', this).attr('purchase_date');
             const po_number = $('option:selected', this).attr('po_number');
-
-            //console.log('updated_cost', updated_cost);
 
             $('input[name="item_price_' + current + '"]').val(updated_cost);
             $('input[name="item_date_' + current + '"]').val(purchase_date);
             $('input[name="item_po_number_' + current + '"]').val(po_number);
 
-            // set total price
-            //updated_cost
             const new_updated_cost = updated_cost.replace(/[$,]/g, '');
             const quantity = $('input[name="item_quantity_' + current + '"]').val();
             const total_cost = (parseInt(quantity) * parseInt(new_updated_cost));
             const final_total_cost = parseFloat(Math.round(total_cost * 100) / 100).toFixed(2);
-            $('input[name="total_price_' + current + '"]').val('$' + final_total_cost);
+            $('input[name="total_price_' + current + '"]').val('$' + numberWithCommas(final_total_cost));
         });
 
         $('#rma-quantity_' + current).bind('keyup mouseup', function() {
 
-            //console.log('this is current', current);
-
-            // const updated_cost = $('option:selected', this).attr('updated_cost');
-            // const purchase_date = $('option:selected', this).attr('purchase_date');
-            // const po_number = $('option:selected', this).attr('po_number');
-
-            // //console.log('updated_cost', updated_cost);
-
-            // $('input[name="item_price_' + current + '"]').val(updated_cost);
-            // $('input[name="item_date_' + current + '"]').val(purchase_date);
-            // $('input[name="item_po_number_' + current + '"]').val(po_number);
             const quantity = $('input[name="item_quantity_' + current + '"]').val();
             const updated_cost = $('input[name="item_price_' + current + '"]').val();
 
@@ -278,9 +261,13 @@ jQuery(function ($) {
                 const new_updated_cost = updated_cost.replace(/[$,]/g, '');
                 const total_cost = (parseInt(quantity) * parseInt(new_updated_cost));
                 const final_total_cost = parseFloat(Math.round(total_cost * 100) / 100).toFixed(2);
-                $('input[name="total_price_' + current + '"]').val('$' + final_total_cost);
+                $('input[name="total_price_' + current + '"]').val('$' + numberWithCommas(final_total_cost));
             }
         });
+    }
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
 
