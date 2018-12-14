@@ -281,7 +281,7 @@ jQuery(function ($) {
 
             const new_updated_cost = updated_cost.replace(/[$,]/g, '');
             const quantity = $('input[name="item_quantity_' + current + '"]').val();
-            const total_cost = (parseInt(quantity) * parseInt(new_updated_cost));
+            const total_cost = (parseFloat(quantity) * parseFloat(new_updated_cost));
             const final_total_cost = parseFloat(Math.round(total_cost * 100) / 100).toFixed(2);
             $('input[name="total_price_' + current + '"]').val('$' + numberWithCommas(final_total_cost));
         });
@@ -293,7 +293,7 @@ jQuery(function ($) {
 
             if (quantity && updated_cost) {
                 const new_updated_cost = updated_cost.replace(/[$,]/g, '');
-                const total_cost = (parseInt(quantity) * parseInt(new_updated_cost));
+                const total_cost = (parseInt(quantity) * parseFloat(new_updated_cost));
                 const final_total_cost = parseFloat(Math.round(total_cost * 100) / 100).toFixed(2);
                 $('input[name="total_price_' + current + '"]').val('$' + numberWithCommas(final_total_cost));
             }
