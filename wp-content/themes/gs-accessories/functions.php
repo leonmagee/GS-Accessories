@@ -249,7 +249,7 @@ if ( is_user_logged_in() ) {
 }
 
 function restricted_page() {
-	if ( (! is_user_logged_in()) || (! current_user_can('edit_posts')) ) { // get user role here and restrict?
+	if ( (! is_user_logged_in() ) ) { // get user role here and restrict?
 		wp_redirect('/');
 		exit;
 	}
