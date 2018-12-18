@@ -97,7 +97,8 @@ jQuery(function ($) {
         //console.log('user id: ' + user_id);
         var post_id = $('input[name="gsa-hidden-post-id"]').val();
         var tracking_number = $('input[name="gsa-tracking-number"]').val();
-        var shipping_service = $('input[name="gsa-shipping-service"]').val();
+        var shipping_service = $('select[name="gsa-shipping-service"]').val();
+        console.log('zzzz', shipping_service);
         
         //console.log(tracking_number + ' ' + email_address);
         var spinner = $(this).parent().find('.gsa_spinner');
