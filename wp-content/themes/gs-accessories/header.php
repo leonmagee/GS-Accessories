@@ -98,7 +98,7 @@
 								</li>
 
 
-								<?php } else { ?>
+								<?php } elseif( current_user_can('edit_posts') ) { ?>
 
 								<li><a href="/place-your-order">Add to Order</a></li>
 
