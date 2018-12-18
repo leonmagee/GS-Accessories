@@ -710,7 +710,12 @@ function custom_meta_box_markup() {
 			</div>
 			<h4>Shipping Service</h4>
 			<div class="item">
-				<input name="gsa-shipping-service" />
+				<select name="gsa-shipping-service" style="min-width: 350px">
+					<option value="USPS">USPS</option>
+					<option value="FedEx">FedEx</option>
+					<option value="UPS">UPS</option>
+					<option value="DHL">DHL</option>
+				</select>
 			</div>
 			<div class="item buttons-flex">
 				<a id="send-email-user-tracking" class="flex-item button button-primary">Send Email</a>
