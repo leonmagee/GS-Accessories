@@ -308,7 +308,7 @@ if ( isset($_POST['place-cart-order'])) {
 		    	$final_final_final = '$' . number_format( $after_credit_subtracted, 2 );
 
 		    	$email_body = $email_body . '<br />
-		    	<div><strong>Comments</strong><br />' . $comments . '</div><br />
+		    	<div style="margin-top: 20px"><strong>Comments</strong><br />' . $comments . '</div><br />
 		    	<div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div>
 		    	<div><strong>Total Charges: <strike style="color: red;">' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong> - (<strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> credit) = <strong>' . $final_final_final . '</strong></div>';
 		    	$after_coupon_cost_final = $final_final_final;
@@ -317,7 +317,7 @@ if ( isset($_POST['place-cart-order'])) {
 		    	$after_coupon_cost_final = '$' . number_format( $after_coupon_cost, 2 );
 
 		    	$email_body = $email_body . '<br />
-		    	<div><strong>Comments</strong><br />' . $comments . '</div><br />
+		    	<div style="margin-top: 20px"><strong>Comments</strong><br />' . $comments . '</div><br />
 		    	<div><strong>Coupon Applied: ' . strtoupper($coupon_code) . '</strong></div>
 		    	<div><strong>Total Charges: <strike style="color: red;">' . $total_cost_final . '</strike> ' . $after_coupon_cost_final . '</strong></div>';
 		    }
@@ -329,11 +329,11 @@ if ( isset($_POST['place-cart-order'])) {
 				$after_credit_cost = ( $total_cost - $credit_used );
 				$after_credit_final = '$' . number_format($after_credit_cost, 2);
 
-			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />
+			$email_body = $email_body . '<br /><div style="margin-top: 20px"><strong>Comments</strong><br />' . $comments . '</div><br />
     	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';
 	    	} else {
 
-				$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+				$email_body = $email_body . '<br /><div style="margin-top: 20px"><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
 	    	}
 	    }
 
@@ -345,11 +345,11 @@ if ( isset($_POST['place-cart-order'])) {
 			$after_credit_cost = ( $total_cost - $credit_used );
 			$after_credit_final = '$' . number_format($after_credit_cost, 2);
 
-		$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br />
+		$email_body = $email_body . '<br /><div style="margin-top: 20px"><strong>Comments</strong><br />' . $comments . '</div><br />
 	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';
     	} else {
 
-			$email_body = $email_body . '<br /><div><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+			$email_body = $email_body . '<br /><div><strong style="margin-top: 20px">Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
     	}
 	}
 
@@ -418,7 +418,7 @@ if ( isset($_POST['place-cart-order'])) {
 	update_field('total_charge', $final_final_total_cost, $new_order_id);
 	update_field('customer_email', $user_email, $new_order_id);
 	update_field('user_email_text', $body_customer, $new_order_id);
-	update_field('user_email_shorter_text', '<div><strong>Order Details</strong></div><br />' .  $email_body, $new_order_id);
+	update_field('user_email_shorter_text', '<div style="margin-top: 20px; margin-bottom: 10px"><strong>Order Details</strong></div><br />' .  $email_body, $new_order_id); // tracking field
 	//update_field('user_email_shorter_text', '<div><strong>Order Details</strong><div><br />' .  $email_body, $new_order_id);
 	update_field('admin_email_text', $body_admin, $new_order_id);
 	update_field('user_id', $user_id, $new_order_id);
