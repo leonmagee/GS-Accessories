@@ -394,7 +394,7 @@ if ( isset($_POST['place-cart-order'])) {
 	// send email to user
 	$to = $user_email;
 	$subject = 'GS Accessories Order';
-	$body_customer = $payment_instructions . '<div style="margin-top: 10px; margin-bottom: 10px"><strong>Order Details</strong></div>' . $email_body;
+	$body_customer = $payment_instructions . '<div style="margin-top: 20px; margin-bottom: 10px"><strong>Order Details</strong></div>' . $email_body;
 	$body_final_customer = $email_wrap . $body_customer . $email_wrap_close;
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 
