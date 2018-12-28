@@ -349,7 +349,7 @@ if ( isset($_POST['place-cart-order'])) {
 	<div><strong>Credit Applied:</strong> <strong>' . $total_cost_final . '</strong> - <strong style="color: red;">$' . number_format($credit_used, 2) . '</strong> = <strong>' . $after_credit_final . '</strong><br /><div><strong>Total Charges: ' . $after_credit_final . '</strong></div>';
     	} else {
 
-			$email_body = $email_body . '<br /><div><strong style="margin-top: 20px">Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
+			$email_body = $email_body . '<br /><div style="margin-top: 20px"><strong>Comments</strong><br />' . $comments . '</div><br /><div><strong>Total Charges: ' . $total_cost_final . '</strong></div>';
     	}
 	}
 

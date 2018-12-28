@@ -396,7 +396,7 @@ function gs_accessories_scripts() {
 
 	wp_enqueue_style( 'foundation-css' );
 
-	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.28', true );
+	wp_register_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.29', true );
 
 	wp_enqueue_script( 'custom-js');
 
@@ -421,7 +421,7 @@ function gs_accessories_admin_scritps() {
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
 
-	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.19', true );
+	wp_register_script( 'custom-admin-js', get_template_directory_uri() . '/js/custom-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.1.21', true );
 
 	wp_enqueue_script( 'custom-admin-js');
 
