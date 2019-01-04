@@ -49,8 +49,8 @@ get_header(); ?>
 							$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
 
 							$years = array();
-							$current_year = intval(date('Y'));
-							for ( $i = 2018; $i <= $current_year; $i++ ) {
+							$current_year_iterate = intval(date('Y'));
+							for ( $i = 2018; $i <= $current_year_iterate; $i++ ) {
 								$years[] = $i;
 							} ?>
 
@@ -58,14 +58,21 @@ get_header(); ?>
 								<input type="hidden" name="change-month-year" />
 								<select name="month">
 									<?php foreach( $months as $key => $month ) { 
-										$month_val = ( $key + 1); ?>
+										$month_val = ( $key + 1); 
+										?>
 										<option value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
 									<?php } ?>
 								</select>
 
 								<select name="year">
-									<?php foreach( $years as $year ) { ?>
-										<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+									<?php foreach( $years as $year ) { 
+										if ($current_year_iterate === $year) {
+											$selected = 'selected="true"';
+										} else {
+											$selected = '';
+										} ?>
+
+										<option <?php echo $selected; ?> value="<?php echo $year; ?>"><?php echo $year; ?></option>
 									<?php } ?>
 								</select>
 
@@ -172,7 +179,11 @@ get_header(); ?>
 													$category_array = get_the_category($product_id);
 													$cat_name = $category_array[0]->name;
 													$cat_id = $category_array[0]->term_id;
-													if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
+													if ( isset($cat_percent_array[$cat_id]) ) {
+														if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
+															$payment_percent = 0;
+														}
+													} else {
 														$payment_percent = 0;
 													}
 													$payment = ( $cost_actual * ( $payment_percent / 100 ) );
