@@ -225,7 +225,7 @@ require_once('lib/rest-endpoints.php');
 /**
 * test user meta
 */
-//add_user_meta( $user_id, $meta_key, $meta_value, $unique ); 
+//add_user_meta( $user_id, $meta_key, $meta_value, $unique );
 //add_user_meta(8, 'tin_ein_or_ssn', 'testingzzz');
 
 
@@ -389,7 +389,7 @@ function gs_accessories_scripts() {
 	}
 
 	wp_register_style( 'font-awesome', get_template_directory_uri() . '/vendor/font-awesome/css/font-awesome.min.css', array() );
-	
+
 	wp_enqueue_style( 'font-awesome' );
 
 	wp_register_style( 'foundation-css', get_template_directory_uri() . '/vendor/foundation/css/foundation.min.css', '', '1.0.1' );
@@ -407,9 +407,9 @@ function gs_accessories_scripts() {
 	wp_enqueue_script( 'foundation-init-js' );
 
 	wp_register_style( 'jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', '', '1.1.1');
-	
+
 	wp_register_style( 'gs-accessories-styles', get_template_directory_uri() . '/assets/css/main.min.css',  array('jquery-ui-css'), '1.2.44' );
-	
+
 	wp_enqueue_style( 'gs-accessories-styles' );
 }
 add_action( 'wp_enqueue_scripts', 'gs_accessories_scripts' );
@@ -426,7 +426,7 @@ function gs_accessories_admin_scritps() {
 	wp_enqueue_script( 'custom-admin-js');
 
 	wp_register_style( 'gs-accessories-admin-styles', get_template_directory_uri() . '/assets/css/admin.min.css', array('jquery-ui-css'), '1.1.15' );
-	
+
 	wp_enqueue_style( 'gs-accessories-admin-styles' );
 }
 add_action('admin_enqueue_scripts', 'gs_accessories_admin_scritps');
@@ -493,7 +493,7 @@ add_action( 'admin_init', 'non_admin_users_redirect' );
 function non_admin_users_redirect() {
 
 	/**
-	* @todo this needs to effect Agents as well... 
+	* @todo this needs to effect Agents as well...
 	* @todo test this for non -localhost site?
 	*/
 	if ( ( ! current_user_can( 'level_5' ) ) && ( $_SERVER['PHP_SELF'] != '/wp-admin/admin-ajax.php' ) )  {
@@ -511,7 +511,7 @@ function non_admin_users_redirect() {
 
 // if ( !is_user_logged_in() && is_page('add page slug or i.d here') && $_SERVER['PHP_SELF'] != '/wp-admin/admin-ajax.php' ) {
 
-// wp_redirect( 'http://www.example.dev/page/' ); 
+// wp_redirect( 'http://www.example.dev/page/' );
 //     exit;
 // }
 
@@ -557,8 +557,8 @@ function agent_login_redirect() {
 	    		wp_redirect( site_url() . '/agent-admin' );
 				//exit;
 	    	}
-	    } 
-	} 
+	    }
+	}
 }
 
 /**
@@ -636,12 +636,12 @@ function isa_pre_user_query($user_search) {
 
 		global $wpdb;
 
-		$user_search->query_where = 
-		str_replace('WHERE 1=1', 
+		$user_search->query_where =
+		str_replace('WHERE 1=1',
 			"WHERE 1=1 AND {$wpdb->users}.ID IN (
-			SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta 
+			SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta
 			WHERE {$wpdb->usermeta}.meta_key = '{$wpdb->prefix}capabilities'
-			AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')", 
+			AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')",
 			$user_search->query_where
 		);
 
@@ -653,16 +653,16 @@ add_action('pre_user_query','isa_pre_user_query');
 
 
 /**
-* Orders Meta Box 
+* Orders Meta Box
 */
-function custom_meta_box_markup() { 
+function custom_meta_box_markup() {
 
 	global $post;
 	$post_id = $post->ID;
-	$user_email = get_field('customer_email', $post_id); 
-	$user_id = get_field('user_id', $post_id); 
+	$user_email = get_field('customer_email', $post_id);
+	$user_id = get_field('user_id', $post_id);
 	$admin_email = get_option('admin_email');
-	$icon_url = get_site_url() . '/wp-admin/images/loading.gif'; 
+	$icon_url = get_site_url() . '/wp-admin/images/loading.gif';
 	?>
 
 	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
@@ -730,12 +730,12 @@ function custom_meta_box_markup() {
 function order_email_meta_box() {
 
 	add_meta_box(
-		"gsa-email-meta-box", 
-		"Email Settings", 
-		"custom_meta_box_markup", 
-		"orders", 
-		"normal", 
-		"low", 
+		"gsa-email-meta-box",
+		"Email Settings",
+		"custom_meta_box_markup",
+		"orders",
+		"normal",
+		"low",
 		null
 	);
 }
@@ -745,15 +745,15 @@ add_action("add_meta_boxes", "order_email_meta_box");
 
 
 /**
-* RMA Meta Box 
+* RMA Meta Box
 */
-function custom_meta_box_markup_rma() { 
+function custom_meta_box_markup_rma() {
 
 	global $post;
 	$post_id = $post->ID;
 	$user_email = get_field('email_address', $post_id);
 	$icon_url = get_site_url() . '/wp-admin/images/loading.gif';
-	$user_id = get_field('user_id', $post_id); 
+	$user_id = get_field('user_id', $post_id);
 	?>
 
 	<input type="hidden" name="gsa-hidden-post-id" value="<?php echo $post_id; ?>" />
@@ -793,12 +793,12 @@ function custom_meta_box_markup_rma() {
 function rma_meta_box() {
 
 	add_meta_box(
-		"gsa-email-meta-box", 
-		"RMA Settings", 
-		"custom_meta_box_markup_rma", 
-		"rmas", 
-		"normal", 
-		"low", 
+		"gsa-email-meta-box",
+		"RMA Settings",
+		"custom_meta_box_markup_rma",
+		"rmas",
+		"normal",
+		"low",
 		null
 	);
 }
@@ -838,7 +838,7 @@ function inventory_admin_page(){
 					<input type="hidden" name="update-inventory-sort" />
 					<select style="min-width: 200px;" name="inventory-sort">
 						<option value="">All</option>
-						<?php foreach( $cats as $cat ) { 
+						<?php foreach( $cats as $cat ) {
 							$selected = '';
 							if ( $inventory_cat === $cat->slug ) {
 								$selected = 'selected="true"';
@@ -899,7 +899,7 @@ function inventory_admin_page(){
 						</table>
 					</div>
 
-				<?php } 
+				<?php }
 			}
 			wp_reset_postdata();
 
@@ -919,7 +919,7 @@ function inventory_admin_page(){
 // 		* Temp updating of Paid in Full to completed
 // 		*/
 // 		$args = array(
-// 				'post_type' => 'orders', 
+// 				'post_type' => 'orders',
 // 				'posts_per_page' => -1,
 // 				'meta_query' => array(
 // 					array(
@@ -1007,17 +1007,17 @@ function sales_admin_page(){
 		<div class="sales-report-wrap">
 
 			<div class="forms-wrap">
-				
+
 				<div class="month-choice form-item-group">
 
 					<div class="change-date-form">
-						<?php 
+						<?php
 
-						$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
+						$months = array('January','February','March','April','May','June','July','August','September','October','November','December');
 
 						$years = array();
-						$current_year = intval(date('Y'));
-						for ( $i = 2018; $i <= $current_year; $i++ ) {
+						$current_year_loop = intval(date('Y'));
+						for ( $i = 2018; $i <= $current_year_loop; $i++ ) {
 							$years[] = $i;
 						} ?>
 
@@ -1030,7 +1030,7 @@ function sales_admin_page(){
 								<div>
 									<select name="month">
 										<?php foreach( $months as $key => $month ) {
-											$month_val = ( $key + 1); 
+											$month_val = ( $key + 1);
 											if ( $month_val === intval($current_month) ) {
 												$selected = 'selected="true"';
 											} else {
@@ -1043,13 +1043,19 @@ function sales_admin_page(){
 								</div>
 								<div style="margin-top: 5px;">
 									<select name="year">
-										<?php foreach( $years as $year ) { ?>
-											<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+										<?php foreach( $years as $year ) {
+											if ( intval($year) === intval($current_year) ) {
+												$selected = 'selected="true"';
+											} else {
+												$selected = '';
+											}
+											?>
+											<option <?php echo $selected; ?> value="<?php echo $year; ?>"><?php echo $year; ?></option>
 										<?php } ?>
 									</select>
 								</div>
 							</div>
-							
+
 							<div>
 								<button type="submit" class="button button-primary">Update</button>
 							</div>
@@ -1084,7 +1090,7 @@ function sales_admin_page(){
 				<?php if ( $gsa_date_rage_query ) {
 
 					$args = array(
-						'post_type' => 'orders', 
+						'post_type' => 'orders',
 						'posts_per_page' => -1,
 						'date_query' => array(
 							array(
@@ -1101,7 +1107,7 @@ function sales_admin_page(){
 					);
 				} else {
 					$args = array(
-						'post_type' => 'orders', 
+						'post_type' => 'orders',
 						'posts_per_page' => -1,
 						'date_query' => array(
 							array(
@@ -1124,7 +1130,7 @@ function sales_admin_page(){
 				if ( $order_query->have_posts() ) {
 					while( $order_query->have_posts() ) {
 						global $post;
-						$order_query->the_post(); 
+						$order_query->the_post();
 						$date = get_the_date();
 						$purchaser_id = get_field('user_id');
 						$userdata = get_userdata($purchaser_id);
@@ -1188,7 +1194,7 @@ function sales_admin_page(){
 									</thead>
 									<tbody>
 
-										<?php $entries = get_field('product_entries'); 
+										<?php $entries = get_field('product_entries');
 
 										foreach( $entries as $entry ) {
 											$product_name = $entry['product_name'];
@@ -1204,7 +1210,7 @@ function sales_admin_page(){
 											$payment = $cost_actual;
 											$total_payment = ( $total_payment + $payment ); ?>
 
-											<tr class="product-table-items">	
+											<tr class="product-table-items">
 												<td><?php echo $product_name; ?></td>
 												<td><?php echo $product_color; ?></td>
 												<td><?php echo $product_quantity; ?></td>
@@ -1223,7 +1229,7 @@ function sales_admin_page(){
 
 </div>
 
-<?php } 
+<?php }
 
 } else { ?>
 	<div class="gsa-no-orders-info">No orders for this period.</div>
@@ -1273,7 +1279,7 @@ function credit_admin_page() {
 		// var_dump($credit_value);
 
 		// die('working');
-		
+
 
 	}
 
@@ -1311,7 +1317,7 @@ function credit_admin_page() {
 
 		$user_details_array[] = $user_info;
 
-	} 
+	}
 
 	wp_reset_postdata();
 
@@ -1333,7 +1339,7 @@ function credit_admin_page() {
 							<label>Select User</label>
 							<select name="credit-user-id">
 								<?php foreach ( $user_details_array as $user ) { ?>
-									<option value="<?php echo $user['id']; ?>"><?php echo $user['company'] . ' - ' . $user['name']; ?></option>		
+									<option value="<?php echo $user['id']; ?>"><?php echo $user['company'] . ' - ' . $user['name']; ?></option>
 								<?php } ?>
 							</select>
 						</div>
