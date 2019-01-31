@@ -974,7 +974,7 @@ function sales_admin_page(){
 
 		//$current_month = intval($_GET['data_month']);
 		//$current_year = intval($_GET['data_year']);
-		$monthName = DateTime::createFromFormat('m', $current_month)->format('F');
+		$monthName = DateTime::createFromFormat('!m', $current_month)->format('F');
 		$display_date = $monthName . ' ' . $current_year;
 	}
 	else {
