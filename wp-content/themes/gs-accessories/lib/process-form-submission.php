@@ -27,7 +27,7 @@ if ( isset($_POST['product-order-form'])) {
 
 		$ShopingCart = new shopping_cart();
 
-    //$Basket->do_actions(); 
+    //$Basket->do_actions();
     // my own hooks to allow me to add housekeeping code without messing with my core code
 
 		$ShopingCart->add_data($product, $quantity, $color, $post_id);
@@ -100,7 +100,7 @@ if ( isset($_POST['add-one-accessory'])) {
 	if ( $_SESSION['shopping_cart'] ) {
 
 		$current_data = unserialize($_SESSION['shopping_cart']);
-		
+
 	} else {
 		$current_data = array();
 	}
@@ -147,17 +147,17 @@ if ( isset($_POST['place-cart-order'])) {
 	session_start();
 
 	$comments = filter_input(INPUT_POST, 'customer-comments', FILTER_SANITIZE_SPECIAL_CHARS);
-	
+
 	$payment_type = filter_input(INPUT_POST, 'payment-type', FILTER_SANITIZE_SPECIAL_CHARS);
-	
+
 	$coupon_code = filter_input(INPUT_POST, 'coupon-code', FILTER_SANITIZE_SPECIAL_CHARS);
-	
+
 	$credit_used = filter_input(INPUT_POST, 'credit-used', FILTER_SANITIZE_SPECIAL_CHARS);
 
 	$shopping_cart_array = unserialize($_SESSION['shopping_cart']);
 
 	// get user email address
-	$user = wp_get_current_user(); 
+	$user = wp_get_current_user();
 	$user_email = $user->data->user_email;
 
 	// get admin email address
@@ -221,8 +221,8 @@ if ( isset($_POST['place-cart-order'])) {
 		$product_id_actual = $product_id_exp[0];
 
 		$change_quantity_array[] = array(
-			'id' => $product_id_actual, 
-			'quantity' => $data['quantity'], 
+			'id' => $product_id_actual,
+			'quantity' => $data['quantity'],
 			'color' => $data['color']
 		);
 
@@ -364,9 +364,9 @@ if ( isset($_POST['place-cart-order'])) {
 	// send email to admin
 	$admin_intro = '<div><span style="color: #32b79d">Order placed by</span> <strong>' . $user_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $user_email . '</strong><br /><span style="color: #32b79d">Order Type:</span> <strong>' . $payment_type . '</strong></div><br />';
 	if ( $ref_agent_email ) {
-		$to = array($admin_email, 'leonmagee33@gmail.com', $ref_agent_email);
+		$to = array($admin_email, 'sales@mygsaccessories.com', 'leonmagee33@gmail.com', $ref_agent_email);
 	} else {
-		$to = array($admin_email, 'leonmagee33@gmail.com');
+		$to = array($admin_email, 'sales@mygsaccessories.com', 'leonmagee33@gmail.com');
 	}
 	//$to = array($admin_email, 'leonmagee@hotmail.com');
 
@@ -389,7 +389,7 @@ if ( isset($_POST['place-cart-order'])) {
 	} else {
 		$payment_instructions = get_field('pick_up_instructions', 'option');
 	}
-	
+
 
 	// send email to user
 	$to = $user_email;

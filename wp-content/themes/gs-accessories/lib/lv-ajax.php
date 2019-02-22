@@ -184,7 +184,7 @@ function lv_process_rma() {
 			$city = filter_input( INPUT_POST, 'city', FILTER_SANITIZE_SPECIAL_CHARS );
 			$state = filter_input( INPUT_POST, 'state', FILTER_SANITIZE_SPECIAL_CHARS );
 			$zip = filter_input( INPUT_POST, 'zip', FILTER_SANITIZE_SPECIAL_CHARS );
-			
+
 			$user_id = filter_input( INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS );
 
 
@@ -230,7 +230,7 @@ function lv_process_rma() {
 			} else {
 
 				//Create Post to record order
-				
+
 				$rma_title = $first_name . ' ' . $last_name . ' - RMA - ' . date("F j, Y, g:i a");
 
 				$args = array(
@@ -322,12 +322,12 @@ function lv_process_rma() {
 				$admin_intro = '<div><span style="color: #32b79d">RMA Number: </span> <strong>' . $rma_number . '</strong><br /><span style="color: #32b79d">RMA submitted by</span> <strong>' . $first_name . ' ' . $last_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $email_address . '</strong><br />';
 
 				if ( $ref_agent_email ) {
-					
-					$to = array($admin_email, $ref_agent_email, 'leonmagee33@gmail.com');
+
+					$to = array($admin_email, 'sales@mygsaccessories.com', $ref_agent_email, 'leonmagee33@gmail.com');
 
 				} else {
 
-					$to = array($admin_email, 'leonmagee33@gmail.com');
+					$to = array($admin_email, 'sales@mygsaccessories.com', 'leonmagee33@gmail.com');
 				}
 
 				$email_wrap = GSA_EMAIL_WRAP;
@@ -351,7 +351,7 @@ function lv_process_rma() {
 
 			}
 		}
-	} 
+	}
 }
 
 /**
