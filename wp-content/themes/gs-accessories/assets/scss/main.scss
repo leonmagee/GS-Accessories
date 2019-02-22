@@ -37,7 +37,7 @@ body.gs-accessories {
   //margin: 0;
 
 
-  /** 
+  /**
   * @todo add some media queries here so the max width is bigger for larger screens
   */
   .max-width-wrap {
@@ -92,9 +92,9 @@ body.gs-accessories {
   // }
 
   h1, h2, h3, h4, h5 {
-    
+
     }
-    
+
     a {
       color: darken($brand-primary, 15%);
       &:hover {
@@ -147,7 +147,7 @@ a.red-link {
   }
 }
 
-button.wpforms-submit, .glsr-field .button.button-primary {
+button.wpforms-submit, .glsr-button {
   background-color: $brand-primary-hover !important;
   border: none !important;
   border-radius: 5px !important;

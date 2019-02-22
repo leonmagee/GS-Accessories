@@ -7,14 +7,14 @@
  * @package GS_Accessories
  */
 
-if ( $current_url = $_SESSION['shopping_page'] ) {
+if ($current_url = $_SESSION['shopping_page']) {
     $continue_url = '/products/' . $current_url;
 } else {
     $continue_url = '/products';
 }
 
-if ( isset( $_GET['added-to-cart'])) {
-  if ($_GET['added-to-cart'] == 'true' ) {
+if (isset($_GET['added-to-cart'])) {
+    if ($_GET['added-to-cart'] == 'true' ) {
     $success_notice = true;
 } else {
     $success_notice = false;
@@ -33,18 +33,18 @@ if ( isset( $_GET['added-to-cart'])) {
 
 	<div class="entry-content single-accessory">
         <?php
-        
+
         $wholesale_price = get_field('wholesale_price');
 
         $retail_price = get_field('retail_price');
-        
+
         $market_price = get_field('market_price');
-        
+
         $description_text = get_field('accessory_text');
 
         // protections
         $protections = get_field('accessory_protections');
-        
+
         $additional_protections = get_field('additional_protections');
 
         $add_protections_array = array();
@@ -59,12 +59,12 @@ if ( isset( $_GET['added-to-cart'])) {
                 $combined_protections = $add_protections_array;
             }
         } else {
-            $combined_protections = $protections; 
+            $combined_protections = $protections;
         }
 
         // features
         $features = get_field('accessory_features');
-        
+
         $additional_features = get_field('additional_features');
 
         $add_features_array = array();
@@ -79,7 +79,7 @@ if ( isset( $_GET['added-to-cart'])) {
                 $combined_features = $add_features_array;
             }
         } else {
-            $combined_features = $features; 
+            $combined_features = $features;
         }
 
         // benefits
@@ -99,7 +99,7 @@ if ( isset( $_GET['added-to-cart'])) {
                 $combined_benefits = $add_benefits_array;
             }
         } else {
-            $combined_benefits = $benefits; 
+            $combined_benefits = $benefits;
         }
 
         // descriptions
@@ -124,7 +124,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                     <div class="img-wrap-bg">
                         <?php the_post_video(); ?>
-                    </div> 
+                    </div>
 
                 <?php } else {
 
@@ -133,10 +133,10 @@ if ( isset( $_GET['added-to-cart'])) {
                         <a href="<?php echo $img_featured['sizes']['large']; ?>" rel="lightbox">
                             <img src="<?php echo $img_featured['sizes']['accessory_image']; ?>" />
                         </a>
-                    </div> 
+                    </div>
                     <?php } else { ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/placeholder-image.jpg" />
-                    <?php } 
+                    <?php }
                 }
                 ?>
 
@@ -163,7 +163,7 @@ if ( isset( $_GET['added-to-cart'])) {
                 <?php if ( $success_notice ) { ?>
                 <div class="cell medium-12 single-product-callout-success">
                     <div class="callout success">
-                        <span>Product Added to Cart.</span><a href="/cart">View Cart</a><a href="/products">Continue Shopping</a><a href="<?php echo $continue_url; ?>">Go Back</a>                               
+                        <span>Product Added to Cart.</span><a href="/cart">View Cart</a><a href="/products">Continue Shopping</a><a href="<?php echo $continue_url; ?>">Go Back</a>
                     </div>
                 </div>
 
@@ -175,11 +175,11 @@ if ( isset( $_GET['added-to-cart'])) {
 
                     <div class="css-grid-item description">
 
-                        <?php 
+                        <?php
 
                         $show_price = false;
 
-                        if (is_user_logged_in() ) { 
+                        if (is_user_logged_in() ) {
                            if ( current_user_can('edit_posts') ) {
                             if ( current_user_can('delete_published_posts')) {
                                 if ( $wholesale_price ) {
@@ -190,7 +190,7 @@ if ( isset( $_GET['added-to-cart'])) {
                             } else {
                                 if ( $retail_price ) {
                                     $price_name = 'Retailer';
-                                    $price_value = '$' . number_format($retail_price, 2);  
+                                    $price_value = '$' . number_format($retail_price, 2);
                                     $show_price = true;
                                 }
                             }
@@ -199,14 +199,14 @@ if ( isset( $_GET['added-to-cart'])) {
                                 $price_name = 'Market';
                                 $price_value = '$' . number_format($market_price, 2);
                                 $show_price = false;
-                            } 
+                            }
 
                         } } else {
                             if ( $market_price ) {
                                 $price_name = 'Market';
                                 $price_value = '$' . number_format($market_price, 2);
                                 $show_price = false;
-                            } 
+                            }
                         }
                         ?>
 
@@ -230,11 +230,11 @@ if ( isset( $_GET['added-to-cart'])) {
                         <?php } ?>
 
                         <div class="accessory-description-inventory">
-                            <?php 
+                            <?php
                             $show_add_to_cart_form = true;
                             $color_quantity = get_accessory_colors();
                             if ( $color_quantity ) { ?>
-                                
+
                                 <table class="single-accessory-table">
                                     <thead>
                                         <tr>
@@ -303,7 +303,7 @@ if ( isset( $_GET['added-to-cart'])) {
                                     <?php foreach( $description_array as $description ) { ?>
                                     <li>
                                         <?php get_template_part('assets/svg/icon-circle'); ?>
-                                        <?php echo $description; ?>    
+                                        <?php echo $description; ?>
                                     </li>
                                     <?php } ?>
                                 </ul>
@@ -362,7 +362,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                 <div class="css-grid-item quantity">
 
-                    <?php 
+                    <?php
 
                     if ( $show_add_to_cart_form ) {
                     $colors = get_accessory_colors(); ?>
@@ -379,7 +379,7 @@ if ( isset( $_GET['added-to-cart'])) {
 
                                 <label>Quantity</label>
 
-                                <?php 
+                                <?php
                                     $counter = 1;
                                         foreach ( $colors as $color => $quantity ) {
                                             if ( $counter === 1 ) {
@@ -419,8 +419,8 @@ if ( isset( $_GET['added-to-cart'])) {
 
 
 
-                          <?php 
-                          //if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) { 
+                          <?php
+                          //if ( LV_LOGGED_IN_ID && current_user_can('edit_posts')) {
                           if ( LV_LOGGED_IN_ID ) { ?>
 
                           <button type="submit" class="gs-button">Add To Cart</button>
@@ -442,12 +442,13 @@ if ( isset( $_GET['added-to-cart'])) {
 
                 <?php
                 echo do_shortcode('[site_reviews_summary assigned_to="post_id"]');
-
                 ?>
 
                 <button class="gs-button" data-open="reviewsModal">See Reviews</button>
 
             </div>
+
+            <?php if(is_user_logged_in()) { ?>
 
             <div class="features-section">
 
@@ -458,6 +459,8 @@ if ( isset( $_GET['added-to-cart'])) {
                 ?>
 
             </div>
+
+            <?php } ?>
 
         </div>
 
