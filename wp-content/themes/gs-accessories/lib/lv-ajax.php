@@ -323,11 +323,11 @@ function lv_process_rma() {
 
 				if ( $ref_agent_email ) {
 
-					$to = array($admin_email, 'sales@mygsaccessories.com', $ref_agent_email, 'leonmagee33@gmail.com');
+					$to = array($admin_email, $ref_agent_email, 'leonmagee33@gmail.com');
 
 				} else {
 
-					$to = array($admin_email, 'sales@mygsaccessories.com', 'leonmagee33@gmail.com');
+					$to = array($admin_email, 'leonmagee33@gmail.com');
 				}
 
 				$email_wrap = GSA_EMAIL_WRAP;
