@@ -44,9 +44,9 @@ get_header(); ?>
 								<a class="toggle gs-button">Change Date</a>
 							</div>
 
-							<?php 
+							<?php
 
-							$months = array('January','February','March','April','May','June','July','August','September','October','November','December'); 
+							$months = array('January','February','March','April','May','June','July','August','September','October','November','December');
 
 							$years = array();
 							$current_year_iterate = intval(date('Y'));
@@ -57,15 +57,15 @@ get_header(); ?>
 							<form class="change-date-form-inner" method="POST" action="#">
 								<input type="hidden" name="change-month-year" />
 								<select name="month">
-									<?php foreach( $months as $key => $month ) { 
-										$month_val = ( $key + 1); 
+									<?php foreach( $months as $key => $month ) {
+										$month_val = ( $key + 1);
 										?>
 										<option value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
 									<?php } ?>
 								</select>
 
 								<select name="year">
-									<?php foreach( $years as $year ) { 
+									<?php foreach( $years as $year ) {
 										if ($current_year_iterate === $year) {
 											$selected = 'selected="true"';
 										} else {
@@ -87,15 +87,17 @@ get_header(); ?>
 					$category_payment_values = get_field('agent_percent', $current_user_id);
 					$cat_percent_array = array();
 
-					foreach( $category_payment_values as $item ) {
-						$cat_percent_array[$item['category']] = intval($item['percent']);
-					} ?>
+          if($category_payment_values) {
+            foreach( $category_payment_values as $item ) {
+              $cat_percent_array[$item['category']] = intval($item['percent']);
+            }
+          } ?>
 
 					<div class="completed-orders-wrap">
-						<?php 
+						<?php
 
 						$args = array(
-							'post_type' => 'orders', 
+							'post_type' => 'orders',
 							'posts_per_page' => -1,
 							'date_query' => array(
 								array(
@@ -106,7 +108,7 @@ get_header(); ?>
 							'meta_query' => array(
 								array(
 									'key' => 'agent_id',
-									'value' => LV_LOGGED_IN_ID, 
+									'value' => LV_LOGGED_IN_ID,
 								),
 								array(
 									'key' => 'paid',
@@ -121,7 +123,7 @@ get_header(); ?>
 						if ( $order_query->have_posts() ) {
 							while( $order_query->have_posts() ) {
 
-								$order_query->the_post(); 
+								$order_query->the_post();
 								$date = get_the_date();
 								$purchaser_id = get_field('user_id');
 								$company = get_field('company', 'user_' . $purchaser_id);
@@ -166,7 +168,7 @@ get_header(); ?>
 											</thead>
 											<tbody>
 
-												<?php $entries = get_field('product_entries'); 
+												<?php $entries = get_field('product_entries');
 
 												foreach( $entries as $entry ) {
 													$product_name = $entry['product_name'];
@@ -189,7 +191,7 @@ get_header(); ?>
 													$payment = ( $cost_actual * ( $payment_percent / 100 ) );
 													$total_payment = ( $total_payment + $payment ); ?>
 
-													<tr>	
+													<tr>
 														<td><?php echo $product_name; ?></td>
 														<td><?php echo $product_color; ?></td>
 														<td><?php echo $product_quantity; ?></td>
@@ -208,7 +210,7 @@ get_header(); ?>
 
 								</div>
 
-							<?php } 
+							<?php }
 
 						} else { ?>
 							<div class="no-orders-info">No orders for this period.</div>
@@ -267,7 +269,7 @@ get_header(); ?>
 									$last_name = $userdata_new->user_lastname;
 									$user_email = $userdata_new->user_email;
 									?>
-									<div class="retailer-name"><a class="company-name" href="#"><?php echo $company; ?> <i class="fa fa-plus-circle"></i></a>
+									<div class="retailer-name"><a class="company-name"><?php echo $company; ?> <i class="fa fa-plus-circle"></i></a>
 									<div class="agent-details">
 										<div>
 											<strong><?php echo $first_name . ' ' . $last_name; ?></strong>
@@ -284,7 +286,7 @@ get_header(); ?>
 										<div>
 											<a href="mailto:<?php echo $user_email; ?>"><?php echo $user_email; ?></a>
 										</div>
-											
+
 									</div>
 
 									</div>
@@ -295,7 +297,7 @@ get_header(); ?>
 						<?php } else { ?>
 							<div class="no-retailers">No Retailers found.</div>
 						<?php }
-						
+
 
 
 						// $users_query = new WP_Query($args);
@@ -313,7 +315,7 @@ get_header(); ?>
 
 
 						$order_query = new WP_Query($args);
-						
+
 
 
 						?>

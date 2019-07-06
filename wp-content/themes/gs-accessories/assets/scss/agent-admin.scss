@@ -3,115 +3,110 @@
 // }
 
 .agent-button-wrap {
-	margin: 15px 0;
-	padding-bottom: 20px;
+  margin: 15px 0;
+  padding-bottom: 20px;
 }
 
 .change-date-form {
+  max-width: 240px;
+  // margin: 15px 0;
+  // padding-bottom: 20px;
 
-	max-width: 240px;
-	// margin: 15px 0;
-	// padding-bottom: 20px;
+  .change-date-form-inner {
+    display: none;
 
-	.change-date-form-inner {
-		display: none;
-
-		&.active {
-			margin-top: 20px;
-			display: block;
-			padding: 20px;
-			background-color: #FAFAFA;
-			border: 1px solid #EEE;
-		}
-	}
+    &.active {
+      margin-top: 20px;
+      display: block;
+      padding: 20px;
+      background-color: #fafafa;
+      border: 1px solid #eee;
+    }
+  }
 }
 
 .order-details-wrap {
-	padding: 20px;
-	border: 1px solid #EEE;
-	margin: 15px 0;
+  padding: 20px;
+  border: 1px solid #eee;
+  margin: 15px 0;
 }
 
 .agent-total-payment {
-	padding: 15px 0 30px;
-	h3 {
-		span {
-			font-weight: bold;
-			color: $brand-primary-hover;
-		}
-	}
+  padding: 15px 0 30px;
+  h3 {
+    span {
+      font-weight: bold;
+      color: $brand-primary-hover;
+    }
+  }
 }
 
 .completed-orders-wrap {
-	table {
-		td {
-			border: 1px solid #EEE;
-		}
-	}
+  table {
+    td {
+      border: 1px solid #eee;
+    }
+  }
 }
 
 .agent-right-sidebar-inner {
-	//padding: 0 20px;
-	// @media(min-width: $screen-md) {
-	// 	padding: 0 20px 0 40px;
-	// 	padding: 0;
-	// }
-	.retailer-names-wrap {
-		padding: 10px 20px;
-		border: 1px solid #EEE;
-		background-color: #FAFAFA;
+  //padding: 0 20px;
+  // @media(min-width: $screen-md) {
+  // 	padding: 0 20px 0 40px;
+  // 	padding: 0;
+  // }
+  .retailer-names-wrap {
+    padding: 10px 20px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
 
-		.retailer-name {
+    .retailer-name {
+      a.company-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        //color: $brand-primary-hover;
+        color: #111;
+        text-transform: uppercase;
+      }
+      padding: 10px 0;
+      &:not(:nth-last-child(1)) {
+        border-bottom: 1px solid #eaeaea;
+      }
 
-			a.company-name {
-				font-size: 1.2em;
-				font-weight: bold;
-				color: $brand-primary-hover;
-				text-transform: uppercase;
-			}
-			padding: 10px 0;
-			&:not(:nth-last-child(1)) {
-				border-bottom: 1px solid #EEE;
-			}
+      .address {
+        font-size: 0.9em;
+      }
 
-			.address {
-				font-size: 0.9em;
-			}
-				
-			.agent-details {
-				display: none;
-			}
+      .agent-details {
+        display: none;
+      }
 
-			&.show-details {
-				.agent-details {
-					display: block;
-				}
-			}
-		}
+      &.show-details {
+        .agent-details {
+          display: block;
+        }
+      }
+    }
+  }
 
-
-
-	}
-
-	.no-retailers {
-		font-size: 1.2em;
-		font-weight: bold;
-		color: $brand-third;
-	}
+  .no-retailers {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: $brand-third;
+  }
 }
 
 .no-orders-info {
-	font-size: 1.3em;
-	color: $brand-third;
-	font-weight: bold;
+  font-size: 1.3em;
+  color: $brand-third;
+  font-weight: bold;
 }
 
 .page-template-page-agent-admin {
-	header {
-		margin-bottom: 25px;
-		h1.entry-title {
-			font-size: 30px;
-		}
-	}
+  header {
+    margin-bottom: 25px;
+    h1.entry-title {
+      font-size: 30px;
+    }
+  }
 }
-
