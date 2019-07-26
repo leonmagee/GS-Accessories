@@ -31,6 +31,12 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 } else {
   $paypal_mode = false;
 }
+
+if (isset($_GET['behalf']) && $paypal = $_GET['behalf']) {
+  $behalf_mode = true;
+} else {
+  $behalf_mode = false;
+}
 ?>
 
 <div id="primary" class="content-area">
@@ -39,7 +45,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 
    <main id="main" class="site-main">
 
-    <?php if ( ! $paypal_mode ) { ?>
+    <?php if ( ( ! $paypal_mode ) && ( ! $behalf_mode ) ) { ?>
 
       <h1 class="entry-title">Cart</h1>
 
@@ -159,9 +165,6 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
         $show_paypal_button = true;
 
         if ( $coupon_percent ) {
-
-
-
 
           if ( ( $current_credit ) && ( $current_credit >= 0 ) ) {
 
@@ -298,15 +301,22 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
                   <p class="only-sd-text">ONLY Available to San Diego Retailers</p>
                 </div>
 
-                <div class="button-wrap">
-                  <button id="venmo_ca_button" type="submit" class="paypal-button">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cash-app-venmo-checkout.jpg"/>
-                  </button>
-                </div>
+              <?php } ?>
 
-                <div class="button-wrap">
-                  <button id="wire_direct_button" type="submit" class="submit-order-button">Wire Transfer / Direct Deposit</button>
-                </div>
+              <?php
+              if ( $show_paypal_button ) { ?>
+
+              <div class="button-wrap">
+                <button id="behalf_button_id" class="behalf-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/behalf-checkout.png"/></button>
+              </div>
+
+              <?php } ?>
+
+              <?php if ( current_user_can('edit_posts')) { ?>
+
+              <div class="button-wrap">
+                <button id="wire_direct_button" type="submit" class="submit-order-button">Wire Transfer / Direct Deposit</button>
+              </div>
 
               <?php } ?>
 
@@ -320,9 +330,15 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
                 </div>
               <?php } ?>
 
-              <!-- <div class="button-wrap">
-                <button id="behalf_button_id" class="behalf-button" type="submit"><img src="<?php //..echo get_template_directory_uri(); ?>/assets/img/behalf-checkout.png"/></button>
-              </div> -->
+              <?php if ( current_user_can('edit_posts')) { ?>
+
+                <div class="button-wrap">
+                  <button id="venmo_ca_button" type="submit" class="paypal-button">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cash-app-venmo-checkout.jpg"/>
+                  </button>
+                </div>
+
+              <?php } ?>
 
             </form>
 
@@ -369,7 +385,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 
     </div>
 
-  <?php } else {
+  <?php } else { // else if paypal? I need to update this to work with behalf
 
    $product_details_array = unserialize($_SESSION['product_names']);
    $product_cost_array = unserialize($_SESSION['product_values']);
@@ -438,7 +454,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
         <input type="hidden" name="currency_code" value="USD">
 
         <button id="paypal_button_id" discount_amount_cart
-        =333 class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout-with-ccs.png"/></button>
+        =333 class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout-larger.png"/></button>
 
       </form>
 
