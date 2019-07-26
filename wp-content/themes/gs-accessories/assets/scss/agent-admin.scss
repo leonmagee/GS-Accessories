@@ -5,6 +5,16 @@
 .agent-button-wrap {
   margin: 15px 0;
   padding-bottom: 20px;
+  &.flex {
+    display: flex;
+    white-space: nowrap;
+    a {
+      margin-right: 30px;
+    }
+    button.gs-button {
+      padding: 15px !important;
+    }
+  }
 }
 
 .change-date-form {

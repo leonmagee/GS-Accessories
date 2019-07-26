@@ -138,10 +138,7 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
 
-  <form method="POST">
-    <input type="hidden" name="csv_download" />
-    <button type="submit" class="button">Download CSV</button>
-  </form>
+
 
 	<div class="max-width-wrap">
 
@@ -160,8 +157,12 @@ get_header(); ?>
 
 					<div class="month-info">
 						<div class="change-date-form">
-							<div class="agent-button-wrap">
+							<div class="agent-button-wrap flex">
 								<a class="toggle gs-button">Change Date</a>
+                <form method="POST">
+                  <input type="hidden" name="csv_download" />
+                  <button type="submit" class="gs-button">Download CSV</button>
+                </form>
 							</div>
 
 							<?php
