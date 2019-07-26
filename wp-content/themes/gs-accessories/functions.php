@@ -955,7 +955,7 @@ function inventory_admin_page()
 // }
 
 /**
- * Inventory Report Admin Page
+ * Sales Report Admin Page
  */
 add_action('admin_menu', 'sales_report_admin_page');
 
@@ -1253,6 +1253,266 @@ function sales_admin_page()
 </div>
 <?php
 }
+
+
+
+
+
+
+
+
+/**
+ * Agent Report Admin Page
+ */
+add_action('admin_menu', 'agent_report_admin_page');
+
+function agent_report_admin_page()
+{
+
+    add_menu_page('Agent Report', 'Agents', 'manage_options', 'agent-reports.php', 'agent_admin_page', 'dashicons-businessman', 6);
+}
+
+function agent_admin_page()
+{
+
+    // if (isset($_POST['change-month-year-admin'])) {
+
+    //     $current_month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    //     //var_dump($current_month);
+    //     $current_year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    //     // wp_redirect('/agent-admin?data_month=' . $month . '&data_year=' . $year);
+    //     // exit;
+
+    //     //$current_month = intval($_GET['data_month']);
+    //     //$current_year = intval($_GET['data_year']);
+    //     $monthName = DateTime::createFromFormat('!m', $current_month)->format('F');
+    //     $display_date = $monthName . ' ' . $current_year;
+    // } else {
+    //     $current_month = intval(date('n'));
+    //     $current_year = intval(date('Y'));
+    //     $display_date = 'for ' . date('F Y');
+    // }
+
+
+        if ( isset($_GET['data_month'])) {
+          $current_month = intval($_GET['data_month']);
+          $current_year = intval($_GET['data_year']);
+          $monthName = DateTime::createFromFormat('m', $current_month)->format('F');
+          $display_date = $monthName . ' ' . $current_year;
+
+        } else {
+          $current_month = intval(date( 'n' ));
+          $current_year = intval(date( 'Y' ));
+          $display_date = date('F Y');
+        }
+      ?>
+	<div class="wrap gsa-sales-admin-page">
+
+		<h2>Agent Report</h2>
+
+		<div class="sales-report-wrap">
+
+			<div class="forms-wrap">
+
+				<div class="month-choice form-item-group">
+
+					<div class="change-date-form">
+						<?php
+
+    $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+
+    $years = array();
+    $current_year_loop = intval(date('Y'));
+    for ($i = 2018; $i <= $current_year_loop; $i++) {
+        $years[] = $i;
+    }?>
+
+						<form class="change-date-form-inner" method="GET" action="#">
+
+							<h5>Sort by Month, Year</h5>
+
+							<div style="padding: 10px 0;">
+                <input type="hidden" name="page" value="agent-reports.php"/>
+								<div>
+									<select name="data_month">
+										<?php foreach ($months as $key => $month) {
+        $month_val = ($key + 1);
+        if ($month_val === intval($current_month)) {
+            $selected = 'selected="true"';
+        } else {
+            $selected = '';
+        }
+        ?>
+											<option <?php echo $selected; ?> value="<?php echo $month_val; ?>"><?php echo $month; ?></option>
+										<?php }?>
+									</select>
+								</div>
+								<div style="margin-top: 5px;">
+									<select name="data_year">
+										<?php foreach ($years as $year) {
+        if (intval($year) === intval($current_year)) {
+            $selected = 'selected="true"';
+        } else {
+            $selected = '';
+        }
+        ?>
+											<option <?php echo $selected; ?> value="<?php echo $year; ?>"><?php echo $year; ?></option>
+										<?php }?>
+									</select>
+								</div>
+							</div>
+
+							<div>
+								<button type="submit" class="button button-primary">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+      </div>
+
+
+
+			<div class="completed-orders-wrap">
+        <br />
+        <h2>Agent Data for <?php echo $display_date; ?></h2>
+      	<table style="margin-top: 15px;" class="widefat fixed" cellspacing="0">
+								<thead>
+									<tr class="alternate">
+										<th>Agent Name</th>
+										<th>Agent Email</th>
+										<th>Agent ID</th>
+										<th>Total Payment</th>
+									</tr>
+								</thead>
+								<tbody>
+
+        <?php
+
+
+        $args = array(
+          'role' => 'um_agent',
+        );
+
+
+
+        $agent_query = new WP_User_Query($args);
+        $agents = $agent_query->get_results();
+        $alternate_row = false;
+        foreach($agents as $agent) {
+
+					$current_user_id = 'user_' . $agent->ID;
+					$category_payment_values = get_field('agent_percent', $current_user_id);
+					$cat_percent_array = array();
+
+          if($category_payment_values) {
+            foreach( $category_payment_values as $item ) {
+              $cat_percent_array[$item['category']] = intval($item['percent']);
+            }
+          }
+
+						$args = array(
+							'post_type' => 'orders',
+							'posts_per_page' => -1,
+							'date_query' => array(
+								array(
+									'year'  => $current_year,
+									'month' => $current_month,
+								),
+							),
+							'meta_query' => array(
+								array(
+									'key' => 'agent_id',
+									'value' => $agent->ID,
+								),
+								array(
+									'key' => 'paid',
+									'value' => 'Completed'
+								)
+							),
+						);
+
+						$order_query = new WP_Query($args);
+
+						$total_payment = 0;
+						if ( $order_query->have_posts() ) {
+							while( $order_query->have_posts() ) {
+
+								$order_query->the_post();
+								$date = get_the_date();
+								$purchaser_id = get_field('user_id');
+								$company = get_field('company', 'user_' . $purchaser_id);
+								$userdata = get_userdata($purchaser_id);
+								$first = $userdata->user_firstname;
+                $last = $userdata->user_lastname;
+
+                $entries = get_field('product_entries');
+
+                foreach( $entries as $entry ) {
+                  $product_name = $entry['product_name'];
+                  $product_id = $entry['product_id'];
+                  $product_color = $entry['product_color'];
+                  $product_quantity = $entry['product_quantity'];
+                  $unit_cost = $entry['unit_cost'];
+                  $cost_total = $entry['cost_total'];
+                  $cost_actual = intval(str_replace(array('$',','), '', $cost_total));
+                  $category_array = get_the_category($product_id);
+                  $cat_name = $category_array[0]->name;
+                  $cat_id = $category_array[0]->term_id;
+                  if ( isset($cat_percent_array[$cat_id]) ) {
+                    if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
+                      $payment_percent = 0;
+                    }
+                  } else {
+                    $payment_percent = 0;
+                  }
+                  $payment = ( $cost_actual * ( $payment_percent / 100 ) );
+                  $total_payment = ( $total_payment + $payment );
+
+                  }
+                }
+              }
+
+          $user_data = get_userdata($agent->ID);
+          if($alternate_row) {
+            $alternate_row = false;
+            $alt_style="alternate";
+          } else {
+            $alternate_row = true;
+            $alt_style="";
+          }
+          ?>
+          	<tr class="<?php echo $alt_style; ?>">
+              <td><?php echo $user_data->display_name; ?></td>
+              <td><?php echo $agent->user_email; ?></td>
+              <td><?php echo $agent->ID; ?></td>
+              <td><?php echo '$' . number_format($total_payment, 2); ?></td>
+            </tr>
+
+          <?php } ?>
+				  </tbody>
+        </table>
+
+</div>
+
+</div>
+
+</div>
+<?php
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Credit Admin Page

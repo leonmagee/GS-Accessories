@@ -153,7 +153,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 
         <?php } ?>
 
-        <?php 
+        <?php
         $credit_used = 0;
         $original_cost = $total_cost;
         $show_paypal_button = true;
@@ -170,16 +170,16 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
             }
             if ( $total_cost >= $current_credit ) {
               $credit_used = $current_credit;
-              $after_coupon_cost = percent_price($total_cost, $coupon_percent); 
-              $final_final_cost = $after_coupon_cost - $current_credit; 
+              $after_coupon_cost = percent_price($total_cost, $coupon_percent);
+              $final_final_cost = $after_coupon_cost - $current_credit;
               //$minus_credit_cost = ( $total_cost - $current_credit );
             } else {
               $show_paypal_button = false;
               $credit_used = $total_cost;
-              $after_coupon_cost = percent_price($total_cost, $coupon_percent); 
+              $after_coupon_cost = percent_price($total_cost, $coupon_percent);
               $current_credit = $after_coupon_cost;
               $final_final_cost = 0;
-              $final_final_cost = $after_coupon_cost - $current_credit; 
+              $final_final_cost = $after_coupon_cost - $current_credit;
             }
 
 
@@ -188,22 +188,22 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
             <div class="cart-total">
               Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($after_coupon_cost, 2); ?></span> - (<span class="credit">$<?php echo number_format($current_credit, 2); ?></span> credit) = <span>$<?php echo number_format($final_final_cost, 2); ?></span>
             </div>
-            <?php 
+            <?php
 
 
           } else {
 
-            $after_coupon_cost = percent_price($total_cost, $coupon_percent); 
+            $after_coupon_cost = percent_price($total_cost, $coupon_percent);
             $final_final_cost = $after_coupon_cost;
             ?>
             <div class="cart-total">
               Total Cost: <span><strike>$<?php echo number_format($total_cost, 2); ?></strike></span> <span>$<?php echo number_format($final_final_cost, 2); ?></span>
             </div>
-            <?php 
+            <?php
 
           }
 
-        } else { 
+        } else {
 
           if ( ( $current_credit ) && ( $current_credit >= 0 ) ) {
 
@@ -260,9 +260,9 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
           }
           ?>
 
-          <?php 
+          <?php
           if ( $min_amount ) {
-            echo $require_text; ?> $<?php echo number_format($min_amount, 2); 
+            echo $require_text; ?> $<?php echo number_format($min_amount, 2);
           }
           ?>
 
@@ -315,10 +315,14 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 
                 <div class="button-wrap">
                   <button id="paypal_checkout_button" class="paypal-button" type="submit">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout-larger.png"/>
                   </button>
                 </div>
               <?php } ?>
+
+              <!-- <div class="button-wrap">
+                <button id="behalf_button_id" class="behalf-button" type="submit"><img src="<?php //..echo get_template_directory_uri(); ?>/assets/img/behalf-checkout.png"/></button>
+              </div> -->
 
             </form>
 
@@ -344,7 +348,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 
               <form method="POST" id="coupon_name_form" action="#">
                 <input type="hidden" name="coupon-apply-submit" />
-                <input type="text" name="coupon" placeholder="Coupon Code" /> 
+                <input type="text" name="coupon" placeholder="Coupon Code" />
                 <button type="submit" class="gs-button">Apply Coupon</button>
               </form>
             </div>
@@ -388,7 +392,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
 
         <input type="hidden" name="upload" value="1">
 
-        <?php 
+        <?php
         $discount_string = '';
         if ( isset( $_GET['misc'])) {
 
@@ -424,7 +428,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
           ?>
           <input type="hidden" name="item_name_<?php echo ($counter + 1); ?>" value="<?php echo $product_name; ?>">
           <input type="hidden" name="amount_<?php echo ($counter + 1); ?>" value="<?php echo $value; ?>">
-          <?php 
+          <?php
           $counter++;
         }
 
@@ -434,7 +438,7 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
         <input type="hidden" name="currency_code" value="USD">
 
         <button id="paypal_button_id" discount_amount_cart
-        =333 class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout.png"/></button>
+        =333 class="paypal-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/paypal-checkout-with-ccs.png"/></button>
 
       </form>
 
