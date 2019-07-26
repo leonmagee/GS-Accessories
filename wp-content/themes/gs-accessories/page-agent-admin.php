@@ -18,10 +18,130 @@ if ( isset($_GET['data_month'])) {
 	$display_date = date('F Y');
 }
 
+$current_user_id = 'user_' . get_current_user_id();
+$category_payment_values = get_field('agent_percent', $current_user_id);
+$cat_percent_array = array();
+
+if($category_payment_values) {
+  foreach( $category_payment_values as $item ) {
+    $cat_percent_array[$item['category']] = intval($item['percent']);
+  }
+}
+
+$args = array(
+    'post_type' => 'orders',
+    'posts_per_page' => -1,
+    'date_query' => array(
+      array(
+        'year'  => $current_year,
+        'month' => $current_month,
+      ),
+    ),
+    'meta_query' => array(
+      array(
+        'key' => 'agent_id',
+        'value' => LV_LOGGED_IN_ID,
+      ),
+      array(
+        'key' => 'paid',
+        'value' => 'Completed'
+      )
+    ),
+  );
+
+  $order_query = new WP_Query($args);
+
+  $total_payment = 0;
+  $total_payment_csv = 0;
+
+  $csv_data_array = [];
+
+  if ( $order_query->have_posts() ) {
+    while( $order_query->have_posts() ) {
+
+
+      $order_query->the_post();
+      $date = get_the_date();
+      $purchaser_id = get_field('user_id');
+      $company = get_field('company', 'user_' . $purchaser_id);
+      $userdata = get_userdata($purchaser_id);
+      $first = $userdata->user_firstname;
+      $last = $userdata->user_lastname;
+      $order_id = $post->ID;
+
+      $csv_data_array[] = ['Order ID', 'Retailer Name', 'Company', 'Date'];
+      $csv_data_array[] = [$order_id, $first . ' ' . $last, $company, $date];
+      $csv_data_array[] = [' '];
+      $csv_data_array[] = ['Product', 'Color', 'Quantity', 'Total Cost', 'Your Percent', 'Payment'];
+
+      $entries = get_field('product_entries');
+
+      foreach( $entries as $entry ) {
+        //var_dump($entry);
+        $product_name = $entry['product_name'];
+        $product_id = $entry['product_id'];
+        $product_color = $entry['product_color'];
+        $product_quantity = $entry['product_quantity'];
+        $unit_cost = $entry['unit_cost'];
+        $cost_total = $entry['cost_total'];
+        $cost_actual = intval(str_replace(array('$',','), '', $cost_total));
+        $category_array = get_the_category($product_id);
+        $cat_name = $category_array[0]->name;
+        $cat_id = $category_array[0]->term_id;
+        if ( isset($cat_percent_array[$cat_id]) ) {
+          if ( ! ( $payment_percent = $cat_percent_array[$cat_id]) ) {
+            $payment_percent = 0;
+          }
+        } else {
+          $payment_percent = 0;
+        }
+        $payment = ( $cost_actual * ( $payment_percent / 100 ) );
+        $total_payment_csv = ( $total_payment_csv + $payment );
+
+        $csv_data_array[] = [$product_name, $product_color, $product_quantity, $cost_total, $payment_percent, '$' . number_format( $payment, 2)];
+
+       }
+       $csv_data_array[] = [' '];
+  }
+  $csv_data_array[] = ['Total Payment for ' . $display_date,'$' .  number_format($total_payment_csv, 2)];
+}
+
+
+/**
+ * Download CSV of all data
+ */
+$file_name = 'commission-' . $current_month . '-' . $current_year . '.csv';
+
+function download_csv_results($results, $name = NULL)
+{
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename='. $name);
+    header('Pragma: no-cache');
+    header("Expires: 0");
+
+    $outstream = fopen("php://output", "wb");
+
+    foreach($results as $result)
+    {
+        fputcsv($outstream, $result);
+    }
+
+    fclose($outstream);
+    exit;
+}
+
+if (isset($_POST['csv_download'])) {
+  download_csv_results($csv_data_array, $file_name);
+}
+
 get_header(); ?>
 
 <div id="primary" class="content-area">
 
+  <form method="POST">
+    <input type="hidden" name="csv_download" />
+    <button type="submit" class="button">Download CSV</button>
+  </form>
 
 	<div class="max-width-wrap">
 
@@ -83,43 +203,14 @@ get_header(); ?>
 
 					<?php
 
-					$current_user_id = 'user_' . get_current_user_id();
-					$category_payment_values = get_field('agent_percent', $current_user_id);
-					$cat_percent_array = array();
 
-          if($category_payment_values) {
-            foreach( $category_payment_values as $item ) {
-              $cat_percent_array[$item['category']] = intval($item['percent']);
-            }
-          } ?>
+
+          ?>
 
 					<div class="completed-orders-wrap">
 						<?php
 
-						$args = array(
-							'post_type' => 'orders',
-							'posts_per_page' => -1,
-							'date_query' => array(
-								array(
-									'year'  => $current_year,
-									'month' => $current_month,
-								),
-							),
-							'meta_query' => array(
-								array(
-									'key' => 'agent_id',
-									'value' => LV_LOGGED_IN_ID,
-								),
-								array(
-									'key' => 'paid',
-									'value' => 'Completed'
-								)
-							),
-						);
 
-						$order_query = new WP_Query($args);
-
-						$total_payment = 0;
 						if ( $order_query->have_posts() ) {
 							while( $order_query->have_posts() ) {
 
@@ -171,6 +262,7 @@ get_header(); ?>
 												<?php $entries = get_field('product_entries');
 
 												foreach( $entries as $entry ) {
+                          //var_dump($entry);
 													$product_name = $entry['product_name'];
 													$product_id = $entry['product_id'];
 													$product_color = $entry['product_color'];
