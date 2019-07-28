@@ -509,6 +509,25 @@ if ( isset($_POST['place-cart-order'])) {
 		} else {
 			wp_redirect('/cart?paypal=show' . $credit_param);
 		}
+	}  elseif ( $payment_type == 'Behalf' ) {
+		//wp_redirect('/cart?paypal=show&paypal_names=' . $product_names . '&paypal_values=' . $product_values);
+
+		if ( $credit_used ) {
+		  // @todo make salts constants
+		  $salt_1 = 'sldkfj29374297%%!!sldfj';
+          $salt_2 = 'xxxx2937429347&sdklhfsl';
+          $salted_string = $salt_1 . $credit_used . $salt_2;
+          $encrypted_string = urlencode(base64_encode($salted_string));
+          $credit_param = '&misc=' . $encrypted_string;
+    }
+
+    $cost_param = '&total=' . $final_final_total_cost;
+
+		if ( $coupon_code ) {
+			wp_redirect('/cart?behalf=show&coupon=' . $coupon_code . $credit_param . $cost_param);
+		} else {
+			wp_redirect('/cart?behalf=show' . $credit_param . $cost_param);
+		}
 	}
 	exit;
 }

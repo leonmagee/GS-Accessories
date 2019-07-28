@@ -219,7 +219,9 @@ jQuery(function($) {
 
     const username = $('.registration-input-wrap input.username').val();
     const password = $('.registration-input-wrap input.password').val();
-    const email_address = $('.registration-input-wrap input.email_address').val();
+    const email_address = $(
+      '.registration-input-wrap input.email_address'
+    ).val();
     const first_name = $('.registration-input-wrap input.first_name').val();
     const last_name = $('.registration-input-wrap input.last_name').val();
     const phone_number = $('.registration-input-wrap input.phone_number').val();
@@ -412,7 +414,9 @@ jQuery(function($) {
     $('.mp-required-fields').hide();
     $('.uploads-spinner').css({ display: 'flex' });
 
-    const email_address = $('.registration-input-wrap input.email_address').val();
+    const email_address = $(
+      '.registration-input-wrap input.email_address'
+    ).val();
     const first_name = $('.registration-input-wrap input.first_name').val();
     const last_name = $('.registration-input-wrap input.last_name').val();
     const phone_number = $('.registration-input-wrap input.phone_number').val();
@@ -769,4 +773,18 @@ jQuery(function($) {
       .toggleClass('fa-plus-circle')
       .toggleClass('fa-minus-circle');
   });
+
+  if ($('#behalf-payment-element').length) {
+    window.behalfPaymentReady = function() {
+      const config = {
+        clientToken: 'oXMnEFJu',
+        showPromo: true,
+        callToAction: {
+          workflow: 'redirect',
+        },
+      };
+      BehalfPayment.init(config);
+      BehalfPayment.load('#behalf-payment-element');
+    };
+  }
 });

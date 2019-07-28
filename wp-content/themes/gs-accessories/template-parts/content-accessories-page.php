@@ -7,10 +7,11 @@
  * @package GS_Accessories
  */
 
-if ($current_url = $_SESSION['shopping_page']) {
+ $continue_url = '/products';
+if(isset($_SESSION['shopping_page'])) {
+  if ($current_url = $_SESSION['shopping_page']) {
     $continue_url = '/products/' . $current_url;
-} else {
-    $continue_url = '/products';
+  }
 }
 
 if (isset($_GET['added-to-cart'])) {

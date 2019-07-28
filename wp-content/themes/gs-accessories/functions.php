@@ -383,6 +383,10 @@ function gs_accessories_scripts()
 {
     wp_enqueue_style('gs-accessories-style', get_stylesheet_uri());
 
+    // behalf script
+    //<script src="https://sdk.behalf.com/sdk/v4/behalf_payment_sdk.js" async></script>
+    wp_enqueue_script('behalf', 'https://sdk.behalf.com/sdk/v4/behalf_payment_sdk.js', [], '20190727', true);
+
     wp_enqueue_script('gs-accessories-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true);
 
     wp_enqueue_script('gs-accessories-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true);
@@ -399,7 +403,7 @@ function gs_accessories_scripts()
 
     wp_enqueue_style('foundation-css');
 
-    wp_register_script('custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), '1.2.29', true);
+    wp_register_script('custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'behalf'), '1.2.29', true);
 
     wp_enqueue_script('custom-js');
 

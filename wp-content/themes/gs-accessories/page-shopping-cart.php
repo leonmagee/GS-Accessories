@@ -7,6 +7,7 @@
  * @package GS_Accessories
  */
 
+
 restricted_page();
 
 get_header();
@@ -32,8 +33,10 @@ if (isset($_GET['paypal']) && $paypal = $_GET['paypal']) {
   $paypal_mode = false;
 }
 
+$behalf_total = 0;
 if (isset($_GET['behalf']) && $paypal = $_GET['behalf']) {
   $behalf_mode = true;
+  $behalf_total = $_GET['total'];
 } else {
   $behalf_mode = false;
 }
@@ -307,7 +310,9 @@ if (isset($_GET['behalf']) && $paypal = $_GET['behalf']) {
               if ( $show_paypal_button ) { ?>
 
               <div class="button-wrap">
-                <button id="behalf_button_id" class="behalf-button" type="submit"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/behalf-checkout.png"/></button>
+                <button id="behalf_button_id" class="behalf-button" type="submit">
+                  <img src="<?php echo get_template_directory_uri(); ?>/assets/img/behalf-checkout.png"/>
+                </button>
               </div>
 
               <?php } ?>
@@ -385,7 +390,7 @@ if (isset($_GET['behalf']) && $paypal = $_GET['behalf']) {
 
     </div>
 
-  <?php } else { // else if paypal? I need to update this to work with behalf
+  <?php } else if ($paypal_mode) { // else if paypal? I need to update this to work with behalf
 
    $product_details_array = unserialize($_SESSION['product_names']);
    $product_cost_array = unserialize($_SESSION['product_values']);
@@ -460,11 +465,20 @@ if (isset($_GET['behalf']) && $paypal = $_GET['behalf']) {
 
     </div>
 
-
-  <?php } ?>
-
-</div>
-
+  <?php } else if ($behalf_mode) { ?>
+    <div class="paypal-wrap-outer">
+      <h1 class="entry-title">Behalf Checkout</h1>
+       <p><strong>Thank you</strong> for submitting your order with GS Wireless. We highly appreciate your business and the great opportunity you are giving us to serve you. Your order will be processed and shipped within 24 hours after receiving the full payment. A tracking number and shipping carrier information will be emailed to you when it becomes available.</p>
+       <p>Please pay the following amount through Behalf: <h2>$<?php echo $behalf_total; ?></h2></p>
+      <div class="paypal-wrap">
+        <div class="behalf-wrap">
+          <div id="behalf-payment-element"></div>
+        </div>
+      </div>
+    </div>
+    <?php }
+    ?>
+  </div>
 
 </main><!-- #main -->
 
