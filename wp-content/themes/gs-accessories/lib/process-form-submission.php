@@ -381,7 +381,9 @@ if ( isset($_POST['place-cart-order'])) {
 	wp_mail( $to, $subject, $body_final_admin, $headers );
 
 	if ( $payment_type == 'PayPal' ) {
-		$payment_instructions = get_field('paypal_instructions', 'option');
+    $payment_instructions = get_field('paypal_instructions', 'option');
+  } elseif ( $payment_type == 'Behalf' ) {
+    $payment_instructions = get_field('behalf_instructions', 'option');
 	} elseif ( $payment_type == 'Venmo - Cash App' ) {
 		$payment_instructions = get_field('venmo_cash_app_instructions', 'option');
 	} elseif ( $payment_type == 'Wire Transfer - Direct Deposit' ) {
