@@ -72,7 +72,7 @@
 
     .retailer-name {
       a.company-name {
-        font-size: 1.2em;
+        font-size: 1em;
         font-weight: bold;
         //color: $brand-primary-hover;
         color: #111;
@@ -97,6 +97,7 @@
 
       &.show-details {
         .agent-details {
+          padding-top: 7px;
           display: block;
         }
       }
