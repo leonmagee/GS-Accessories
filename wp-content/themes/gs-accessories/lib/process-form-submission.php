@@ -163,9 +163,10 @@ if ( isset($_POST['place-cart-order'])) {
 	// get admin email address
 	$admin_email = get_option('admin_email');
 	$user_id = $user->data->ID;
-	$first_name = get_user_meta($user_id, 'first_name', true);
+  $first_name = get_user_meta($user_id, 'first_name', true);
 	$last_name = get_user_meta($user_id, 'last_name', true);
 	$company_name = get_user_meta($user_id, 'company', true);
+	$phone_number = get_user_meta($user_id, 'phone_number', true);
 	$address = get_user_meta($user_id, 'address', true);
 	$city = get_user_meta($user_id, 'city', true);
 	$state = get_user_meta($user_id, 'state', true);
@@ -362,7 +363,7 @@ if ( isset($_POST['place-cart-order'])) {
 	}
 
 	// send email to admin
-	$admin_intro = '<div><span style="color: #32b79d">Order placed by</span> <strong>' . $user_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $user_email . '</strong><br /><span style="color: #32b79d">Order Type:</span> <strong>' . $payment_type . '</strong></div><br />';
+	$admin_intro = '<div><span style="color: #32b79d">Order placed by</span> <strong>' . $user_name . '</strong><br /><span style="color: #32b79d">Company:</span> <strong>' . $company_name . '</strong><br /><span style="color: #32b79d">Address:</span> <strong>' . $address . '</strong><br /><strong>' . $city . ', ' . $state . ' ' . $zip . '</strong><br /><span style="color: #32b79d">Email:</span> <strong>' . $user_email . '</strong><br /><span style="color: #32b79d">Phone Number:</span> <strong>' . $phone_number . '</strong><br /><span style="color: #32b79d">Order Type:</span> <strong>' . $payment_type . '</strong></div><br />';
 	if ( $ref_agent_email ) {
 		$to = array($admin_email, 'leonmagee33@gmail.com', $ref_agent_email);
 	} else {
