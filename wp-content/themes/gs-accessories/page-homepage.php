@@ -6,7 +6,7 @@
  *
  * @package GS_Accessories
  */
-get_header(); ?>
+get_header();?>
 
 <div class="homepage-outer-outer-wrap">
 
@@ -22,7 +22,7 @@ get_header(); ?>
 
             <?php $slides = get_field('homepage_slides', 'option');
 
-            foreach( $slides as $slide ) { ?>
+foreach ($slides as $slide) {?>
 
               <li class="orbit-slide">
                 <figure class="orbit-figure">
@@ -41,41 +41,6 @@ get_header(); ?>
       </div>
 
     </div>
-
-    <div class="homepage-logo-wrap">
-      <div class="grid-x grid-margin-x">
-        <div class="cell medium-4">
-          <a href="<?php echo site_url(); ?>/products/samsung-unlocked-gsm-cellphones">
-            <div class="cta-logo-item">
-              <div class="item-text">Shop For</div>
-              <img src="<?php echo site_url(); ?>/wp-content/uploads/banner-logos-samsung-grey.png" />
-              <div class="item-text">Galaxy</div>
-            </div>
-          </a>
-        </div>
-        <div class="cell medium-4">
-          <a href="<?php echo site_url(); ?>/products/iphone-unlocked-gsm-cellphones">
-            <div class="cta-logo-item">
-              <div class="item-text">Shop For</div>
-              <img src="<?php echo site_url(); ?>/wp-content/uploads/banner-logos-apple-grey.png" />
-              <div class="item-text">iPhone</div>
-            </div>
-          </a>
-        </div>
-        <div class="cell medium-4">
-          <a href="<?php echo site_url(); ?>/products/lg-unlocked-gsm-cellphones">
-            <div class="cta-logo-item">
-              <div class="item-text">Shop For</div>
-              <img src="<?php echo site_url(); ?>/wp-content/uploads/banner-logos-lg-grey.png" />
-              <div class="item-text">G Phone</div>
-            </div>
-          </a>
-        </div>
-      </div>
-<!--   <a href="https://www.amazon.com/s?marketplaceID=ATVPDKIKX0DER&me=A1AC06F3GET8FM&merchant=A1AC06F3GET8FM&redirect=true" target="_blank">
-  <img src="<?php //echo site_url(); ?>/wp-content/uploads/amazon_buy_link_new.png" />
-</a>
--->
 </div>
 
 <div class="gs-homepage-content">
@@ -83,14 +48,14 @@ get_header(); ?>
   <div class="max-width-wrap">
 
     <?php
-    while ( have_posts() ) : the_post();
+while (have_posts()): the_post();
 
-      the_content();
+    the_content();
 
-    endwhile;
-    ?>
+endwhile;
+?>
 
-  </div> 
+  </div>
 
 </div>
 
@@ -106,10 +71,3 @@ get_header(); ?>
 
 <?php
 get_footer();
-
-
-
-
-
-
-
